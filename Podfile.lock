@@ -1,3 +1,28 @@
-PODFILE CHECKSUM: 44ec4a6d49885e909c313f4717675d55fb279565
+PODS:
+  - Alamofire (5.8.0)
+  - KeychainSwift (20.0.0)
+  - MBProgressHUD (1.2.0)
+  - SwiftyJSON (4.3.0)
+
+DEPENDENCIES:
+  - Alamofire (= 5.8.0)
+  - KeychainSwift
+  - MBProgressHUD (~> 1.2.0)
+  - SwiftyJSON (~> 4.0)
+
+SPEC REPOS:
+  trunk:
+    - Alamofire
+    - KeychainSwift
+    - MBProgressHUD
+    - SwiftyJSON
+
+SPEC CHECKSUMS:
+  Alamofire: 0e92e751b3e9e66d7982db43919d01f313b8eb91
+  KeychainSwift: 0ce6a4d13f7228054d1a71bb1b500448fb2ab837
+  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
+  SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
+
+PODFILE CHECKSUM: 160f8d8522785120ae3b3bc10de351d620d98a7a
 
 COCOAPODS: 1.12.1

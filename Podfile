@@ -7,6 +7,10 @@ target 'IUDI' do
 
   # Pods for IUDI
   pod 'Alamofire', '5.8.0'
+  pod 'MBProgressHUD', '~> 1.2.0'
+  pod 'KeychainSwift'
+  pod 'SwiftyJSON', '~> 4.0'
+
 
 
   target 'IUDITests' do
