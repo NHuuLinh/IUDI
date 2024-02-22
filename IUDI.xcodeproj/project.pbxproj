@@ -1,0 +1,743 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 56;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		6B5541A228065D7AE7CAE4FD /* Pods_IUDITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A85C6EA8E23A90E04CE3A56 /* Pods_IUDITests.framework */; };
+		99793040C9AE4F5AD0955E7C /* Pods_IUDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 888718E28E8066911DF3A882 /* Pods_IUDI.framework */; };
+		A4A517022B86E52100AD4CE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A517012B86E52100AD4CE3 /* AppDelegate.swift */; };
+		A4A517042B86E52100AD4CE3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A517032B86E52100AD4CE3 /* SceneDelegate.swift */; };
+		A4A517062B86E52100AD4CE3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A517052B86E52100AD4CE3 /* ViewController.swift */; };
+		A4A517092B86E52100AD4CE3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4A517072B86E52100AD4CE3 /* Main.storyboard */; };
+		A4A5170C2B86E52100AD4CE3 /* IUDI.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A4A5170A2B86E52100AD4CE3 /* IUDI.xcdatamodeld */; };
+		A4A5170E2B86E52500AD4CE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4A5170D2B86E52500AD4CE3 /* Assets.xcassets */; };
+		A4A517112B86E52500AD4CE3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4A5170F2B86E52500AD4CE3 /* LaunchScreen.storyboard */; };
+		A4A5171C2B86E52600AD4CE3 /* IUDITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A5171B2B86E52600AD4CE3 /* IUDITests.swift */; };
+		A4A517262B86E52600AD4CE3 /* IUDIUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A517252B86E52600AD4CE3 /* IUDIUITests.swift */; };
+		A4A517282B86E52600AD4CE3 /* IUDIUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A517272B86E52600AD4CE3 /* IUDIUITestsLaunchTests.swift */; };
+		C89CCF82DA23C51534F616BC /* Pods_IUDI_IUDIUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F73342BEDD74C4D8573FB45 /* Pods_IUDI_IUDIUITests.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		A4A517182B86E52600AD4CE3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A4A516F62B86E52100AD4CE3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A4A516FD2B86E52100AD4CE3;
+			remoteInfo = IUDI;
+		};
+		A4A517222B86E52600AD4CE3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A4A516F62B86E52100AD4CE3 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A4A516FD2B86E52100AD4CE3;
+			remoteInfo = IUDI;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		08FDA6F46F4FCD165193BF25 /* Pods-IUDI-IUDIUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IUDI-IUDIUITests.debug.xcconfig"; path = "Target Support Files/Pods-IUDI-IUDIUITests/Pods-IUDI-IUDIUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		1F73342BEDD74C4D8573FB45 /* Pods_IUDI_IUDIUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IUDI_IUDIUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1FE7B9788E723F2941C05BE6 /* Pods-IUDI.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IUDI.release.xcconfig"; path = "Target Support Files/Pods-IUDI/Pods-IUDI.release.xcconfig"; sourceTree = "<group>"; };
+		5C71A79A806A06D2326D1737 /* Pods-IUDI-IUDIUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IUDI-IUDIUITests.release.xcconfig"; path = "Target Support Files/Pods-IUDI-IUDIUITests/Pods-IUDI-IUDIUITests.release.xcconfig"; sourceTree = "<group>"; };
+		6A85C6EA8E23A90E04CE3A56 /* Pods_IUDITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IUDITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		888718E28E8066911DF3A882 /* Pods_IUDI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IUDI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		8BCB4CCFEEEC9F19F61889A5 /* Pods-IUDI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IUDI.debug.xcconfig"; path = "Target Support Files/Pods-IUDI/Pods-IUDI.debug.xcconfig"; sourceTree = "<group>"; };
+		95D978491C763FD1F3B95D6A /* Pods-IUDITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IUDITests.debug.xcconfig"; path = "Target Support Files/Pods-IUDITests/Pods-IUDITests.debug.xcconfig"; sourceTree = "<group>"; };
+		A4A516FE2B86E52100AD4CE3 /* IUDI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IUDI.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A4A517012B86E52100AD4CE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		A4A517032B86E52100AD4CE3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		A4A517052B86E52100AD4CE3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		A4A517082B86E52100AD4CE3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		A4A5170B2B86E52100AD4CE3 /* IUDI.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = IUDI.xcdatamodel; sourceTree = "<group>"; };
+		A4A5170D2B86E52500AD4CE3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		A4A517102B86E52500AD4CE3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		A4A517122B86E52500AD4CE3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A4A517172B86E52600AD4CE3 /* IUDITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IUDITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A4A5171B2B86E52600AD4CE3 /* IUDITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IUDITests.swift; sourceTree = "<group>"; };
+		A4A517212B86E52600AD4CE3 /* IUDIUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = IUDIUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A4A517252B86E52600AD4CE3 /* IUDIUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IUDIUITests.swift; sourceTree = "<group>"; };
+		A4A517272B86E52600AD4CE3 /* IUDIUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IUDIUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		A5830D6B4C599F9307429DDF /* Pods-IUDITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IUDITests.release.xcconfig"; path = "Target Support Files/Pods-IUDITests/Pods-IUDITests.release.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A4A516FB2B86E52100AD4CE3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				99793040C9AE4F5AD0955E7C /* Pods_IUDI.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A4A517142B86E52600AD4CE3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6B5541A228065D7AE7CAE4FD /* Pods_IUDITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A4A5171E2B86E52600AD4CE3 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C89CCF82DA23C51534F616BC /* Pods_IUDI_IUDIUITests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		606A29D788D2861F3676923A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				8BCB4CCFEEEC9F19F61889A5 /* Pods-IUDI.debug.xcconfig */,
+				1FE7B9788E723F2941C05BE6 /* Pods-IUDI.release.xcconfig */,
+				08FDA6F46F4FCD165193BF25 /* Pods-IUDI-IUDIUITests.debug.xcconfig */,
+				5C71A79A806A06D2326D1737 /* Pods-IUDI-IUDIUITests.release.xcconfig */,
+				95D978491C763FD1F3B95D6A /* Pods-IUDITests.debug.xcconfig */,
+				A5830D6B4C599F9307429DDF /* Pods-IUDITests.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		A3BC729FB42E2AA43CFD15E8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				888718E28E8066911DF3A882 /* Pods_IUDI.framework */,
+				1F73342BEDD74C4D8573FB45 /* Pods_IUDI_IUDIUITests.framework */,
+				6A85C6EA8E23A90E04CE3A56 /* Pods_IUDITests.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A4A516F52B86E52000AD4CE3 = {
+			isa = PBXGroup;
+			children = (
+				A4A517002B86E52100AD4CE3 /* IUDI */,
+				A4A5171A2B86E52600AD4CE3 /* IUDITests */,
+				A4A517242B86E52600AD4CE3 /* IUDIUITests */,
+				A4A516FF2B86E52100AD4CE3 /* Products */,
+				606A29D788D2861F3676923A /* Pods */,
+				A3BC729FB42E2AA43CFD15E8 /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		A4A516FF2B86E52100AD4CE3 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A4A516FE2B86E52100AD4CE3 /* IUDI.app */,
+				A4A517172B86E52600AD4CE3 /* IUDITests.xctest */,
+				A4A517212B86E52600AD4CE3 /* IUDIUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A4A517002B86E52100AD4CE3 /* IUDI */ = {
+			isa = PBXGroup;
+			children = (
+				A4A517012B86E52100AD4CE3 /* AppDelegate.swift */,
+				A4A517032B86E52100AD4CE3 /* SceneDelegate.swift */,
+				A4A517052B86E52100AD4CE3 /* ViewController.swift */,
+				A4A517072B86E52100AD4CE3 /* Main.storyboard */,
+				A4A5170D2B86E52500AD4CE3 /* Assets.xcassets */,
+				A4A5170F2B86E52500AD4CE3 /* LaunchScreen.storyboard */,
+				A4A517122B86E52500AD4CE3 /* Info.plist */,
+				A4A5170A2B86E52100AD4CE3 /* IUDI.xcdatamodeld */,
+			);
+			path = IUDI;
+			sourceTree = "<group>";
+		};
+		A4A5171A2B86E52600AD4CE3 /* IUDITests */ = {
+			isa = PBXGroup;
+			children = (
+				A4A5171B2B86E52600AD4CE3 /* IUDITests.swift */,
+			);
+			path = IUDITests;
+			sourceTree = "<group>";
+		};
+		A4A517242B86E52600AD4CE3 /* IUDIUITests */ = {
+			isa = PBXGroup;
+			children = (
+				A4A517252B86E52600AD4CE3 /* IUDIUITests.swift */,
+				A4A517272B86E52600AD4CE3 /* IUDIUITestsLaunchTests.swift */,
+			);
+			path = IUDIUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		A4A516FD2B86E52100AD4CE3 /* IUDI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A4A5172B2B86E52600AD4CE3 /* Build configuration list for PBXNativeTarget "IUDI" */;
+			buildPhases = (
+				48745800430E49D103FB7CAD /* [CP] Check Pods Manifest.lock */,
+				A4A516FA2B86E52100AD4CE3 /* Sources */,
+				A4A516FB2B86E52100AD4CE3 /* Frameworks */,
+				A4A516FC2B86E52100AD4CE3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = IUDI;
+			productName = IUDI;
+			productReference = A4A516FE2B86E52100AD4CE3 /* IUDI.app */;
+			productType = "com.apple.product-type.application";
+		};
+		A4A517162B86E52600AD4CE3 /* IUDITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A4A5172E2B86E52600AD4CE3 /* Build configuration list for PBXNativeTarget "IUDITests" */;
+			buildPhases = (
+				B2B427DDBB9C7935FD25BEAF /* [CP] Check Pods Manifest.lock */,
+				A4A517132B86E52600AD4CE3 /* Sources */,
+				A4A517142B86E52600AD4CE3 /* Frameworks */,
+				A4A517152B86E52600AD4CE3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A4A517192B86E52600AD4CE3 /* PBXTargetDependency */,
+			);
+			name = IUDITests;
+			productName = IUDITests;
+			productReference = A4A517172B86E52600AD4CE3 /* IUDITests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		A4A517202B86E52600AD4CE3 /* IUDIUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A4A517312B86E52600AD4CE3 /* Build configuration list for PBXNativeTarget "IUDIUITests" */;
+			buildPhases = (
+				A10505C61F1CC2A130D9567B /* [CP] Check Pods Manifest.lock */,
+				A4A5171D2B86E52600AD4CE3 /* Sources */,
+				A4A5171E2B86E52600AD4CE3 /* Frameworks */,
+				A4A5171F2B86E52600AD4CE3 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A4A517232B86E52600AD4CE3 /* PBXTargetDependency */,
+			);
+			name = IUDIUITests;
+			productName = IUDIUITests;
+			productReference = A4A517212B86E52600AD4CE3 /* IUDIUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A4A516F62B86E52100AD4CE3 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1430;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					A4A516FD2B86E52100AD4CE3 = {
+						CreatedOnToolsVersion = 14.3.1;
+					};
+					A4A517162B86E52600AD4CE3 = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = A4A516FD2B86E52100AD4CE3;
+					};
+					A4A517202B86E52600AD4CE3 = {
+						CreatedOnToolsVersion = 14.3.1;
+						TestTargetID = A4A516FD2B86E52100AD4CE3;
+					};
+				};
+			};
+			buildConfigurationList = A4A516F92B86E52100AD4CE3 /* Build configuration list for PBXProject "IUDI" */;
+			compatibilityVersion = "Xcode 14.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = A4A516F52B86E52000AD4CE3;
+			productRefGroup = A4A516FF2B86E52100AD4CE3 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A4A516FD2B86E52100AD4CE3 /* IUDI */,
+				A4A517162B86E52600AD4CE3 /* IUDITests */,
+				A4A517202B86E52600AD4CE3 /* IUDIUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A4A516FC2B86E52100AD4CE3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A4A517112B86E52500AD4CE3 /* LaunchScreen.storyboard in Resources */,
+				A4A5170E2B86E52500AD4CE3 /* Assets.xcassets in Resources */,
+				A4A517092B86E52100AD4CE3 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A4A517152B86E52600AD4CE3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A4A5171F2B86E52600AD4CE3 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		48745800430E49D103FB7CAD /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-IUDI-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		A10505C61F1CC2A130D9567B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-IUDI-IUDIUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		B2B427DDBB9C7935FD25BEAF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-IUDITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A4A516FA2B86E52100AD4CE3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A4A5170C2B86E52100AD4CE3 /* IUDI.xcdatamodeld in Sources */,
+				A4A517062B86E52100AD4CE3 /* ViewController.swift in Sources */,
+				A4A517022B86E52100AD4CE3 /* AppDelegate.swift in Sources */,
+				A4A517042B86E52100AD4CE3 /* SceneDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A4A517132B86E52600AD4CE3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A4A5171C2B86E52600AD4CE3 /* IUDITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A4A5171D2B86E52600AD4CE3 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A4A517262B86E52600AD4CE3 /* IUDIUITests.swift in Sources */,
+				A4A517282B86E52600AD4CE3 /* IUDIUITestsLaunchTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		A4A517192B86E52600AD4CE3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A4A516FD2B86E52100AD4CE3 /* IUDI */;
+			targetProxy = A4A517182B86E52600AD4CE3 /* PBXContainerItemProxy */;
+		};
+		A4A517232B86E52600AD4CE3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A4A516FD2B86E52100AD4CE3 /* IUDI */;
+			targetProxy = A4A517222B86E52600AD4CE3 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		A4A517072B86E52100AD4CE3 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A4A517082B86E52100AD4CE3 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		A4A5170F2B86E52500AD4CE3 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				A4A517102B86E52500AD4CE3 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		A4A517292B86E52600AD4CE3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		A4A5172A2B86E52600AD4CE3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		A4A5172C2B86E52600AD4CE3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 8BCB4CCFEEEC9F19F61889A5 /* Pods-IUDI.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FGS26H53AZ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = IUDI/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Nguyen-Huu-Linh.IUDI";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A4A5172D2B86E52600AD4CE3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1FE7B9788E723F2941C05BE6 /* Pods-IUDI.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FGS26H53AZ;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = IUDI/Info.plist;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
+				INFOPLIST_KEY_UIMainStoryboardFile = Main;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Nguyen-Huu-Linh.IUDI";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A4A5172F2B86E52600AD4CE3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 95D978491C763FD1F3B95D6A /* Pods-IUDITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FGS26H53AZ;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Nguyen-Huu-Linh.IUDITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IUDI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/IUDI";
+			};
+			name = Debug;
+		};
+		A4A517302B86E52600AD4CE3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = A5830D6B4C599F9307429DDF /* Pods-IUDITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FGS26H53AZ;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.4;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Nguyen-Huu-Linh.IUDITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/IUDI.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/IUDI";
+			};
+			name = Release;
+		};
+		A4A517322B86E52600AD4CE3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 08FDA6F46F4FCD165193BF25 /* Pods-IUDI-IUDIUITests.debug.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FGS26H53AZ;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Nguyen-Huu-Linh.IUDIUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = IUDI;
+			};
+			name = Debug;
+		};
+		A4A517332B86E52600AD4CE3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5C71A79A806A06D2326D1737 /* Pods-IUDI-IUDIUITests.release.xcconfig */;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = FGS26H53AZ;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "Nguyen-Huu-Linh.IUDIUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = IUDI;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A4A516F92B86E52100AD4CE3 /* Build configuration list for PBXProject "IUDI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A4A517292B86E52600AD4CE3 /* Debug */,
+				A4A5172A2B86E52600AD4CE3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A4A5172B2B86E52600AD4CE3 /* Build configuration list for PBXNativeTarget "IUDI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A4A5172C2B86E52600AD4CE3 /* Debug */,
+				A4A5172D2B86E52600AD4CE3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A4A5172E2B86E52600AD4CE3 /* Build configuration list for PBXNativeTarget "IUDITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A4A5172F2B86E52600AD4CE3 /* Debug */,
+				A4A517302B86E52600AD4CE3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A4A517312B86E52600AD4CE3 /* Build configuration list for PBXNativeTarget "IUDIUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A4A517322B86E52600AD4CE3 /* Debug */,
+				A4A517332B86E52600AD4CE3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		A4A5170A2B86E52100AD4CE3 /* IUDI.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				A4A5170B2B86E52100AD4CE3 /* IUDI.xcdatamodel */,
+			);
+			currentVersion = A4A5170B2B86E52100AD4CE3 /* IUDI.xcdatamodel */;
+			path = IUDI.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = A4A516F62B86E52100AD4CE3 /* Project object */;
+}
