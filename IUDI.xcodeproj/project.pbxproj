@@ -9,9 +9,9 @@
 /* Begin PBXBuildFile section */
 		6B5541A228065D7AE7CAE4FD /* Pods_IUDITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A85C6EA8E23A90E04CE3A56 /* Pods_IUDITests.framework */; };
 		99793040C9AE4F5AD0955E7C /* Pods_IUDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 888718E28E8066911DF3A882 /* Pods_IUDI.framework */; };
+		A44C5CDF2B8745A000037024 /* ShowLoading and Aleart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44C5CDE2B8745A000037024 /* ShowLoading and Aleart.swift */; };
 		A4A517022B86E52100AD4CE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A517012B86E52100AD4CE3 /* AppDelegate.swift */; };
 		A4A517042B86E52100AD4CE3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A517032B86E52100AD4CE3 /* SceneDelegate.swift */; };
-		A4A517062B86E52100AD4CE3 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A517052B86E52100AD4CE3 /* ViewController.swift */; };
 		A4A517092B86E52100AD4CE3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4A517072B86E52100AD4CE3 /* Main.storyboard */; };
 		A4A5170C2B86E52100AD4CE3 /* IUDI.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A4A5170A2B86E52100AD4CE3 /* IUDI.xcdatamodeld */; };
 		A4A5170E2B86E52500AD4CE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4A5170D2B86E52500AD4CE3 /* Assets.xcassets */; };
@@ -36,6 +36,7 @@
 		A4A517522B86FD3A00AD4CE3 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A517512B86FD3A00AD4CE3 /* LoginViewController.swift */; };
 		A4A517552B8708B200AD4CE3 /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A517542B8708B200AD4CE3 /* Constant.swift */; };
 		A4A5175A2B871EA500AD4CE3 /* UserData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A517592B871EA500AD4CE3 /* UserData.swift */; };
+		A4A5175D2B873D9000AD4CE3 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A5175C2B873D9000AD4CE3 /* RegisterViewController.swift */; };
 		C89CCF82DA23C51534F616BC /* Pods_IUDI_IUDIUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F73342BEDD74C4D8573FB45 /* Pods_IUDI_IUDIUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -65,10 +66,10 @@
 		888718E28E8066911DF3A882 /* Pods_IUDI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IUDI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BCB4CCFEEEC9F19F61889A5 /* Pods-IUDI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IUDI.debug.xcconfig"; path = "Target Support Files/Pods-IUDI/Pods-IUDI.debug.xcconfig"; sourceTree = "<group>"; };
 		95D978491C763FD1F3B95D6A /* Pods-IUDITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IUDITests.debug.xcconfig"; path = "Target Support Files/Pods-IUDITests/Pods-IUDITests.debug.xcconfig"; sourceTree = "<group>"; };
+		A44C5CDE2B8745A000037024 /* ShowLoading and Aleart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShowLoading and Aleart.swift"; sourceTree = "<group>"; };
 		A4A516FE2B86E52100AD4CE3 /* IUDI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IUDI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4A517012B86E52100AD4CE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A4A517032B86E52100AD4CE3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		A4A517052B86E52100AD4CE3 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A4A517082B86E52100AD4CE3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A4A5170B2B86E52100AD4CE3 /* IUDI.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = IUDI.xcdatamodel; sourceTree = "<group>"; };
 		A4A5170D2B86E52500AD4CE3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -96,6 +97,7 @@
 		A4A517512B86FD3A00AD4CE3 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A4A517542B8708B200AD4CE3 /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
 		A4A517592B871EA500AD4CE3 /* UserData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserData.swift; sourceTree = "<group>"; };
+		A4A5175C2B873D9000AD4CE3 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		A5830D6B4C599F9307429DDF /* Pods-IUDITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IUDITests.release.xcconfig"; path = "Target Support Files/Pods-IUDITests/Pods-IUDITests.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -150,6 +152,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		A44C5CDD2B87457D00037024 /* Extension */ = {
+			isa = PBXGroup;
+			children = (
+				A4A5174F2B86FB3200AD4CE3 /* UIView+Extension.swift */,
+				A44C5CDE2B8745A000037024 /* ShowLoading and Aleart.swift */,
+			);
+			path = Extension;
+			sourceTree = "<group>";
+		};
 		A4A516F52B86E52000AD4CE3 = {
 			isa = PBXGroup;
 			children = (
@@ -177,8 +188,7 @@
 			children = (
 				A4A517012B86E52100AD4CE3 /* AppDelegate.swift */,
 				A4A517032B86E52100AD4CE3 /* SceneDelegate.swift */,
-				A4A517052B86E52100AD4CE3 /* ViewController.swift */,
-				A4A5174F2B86FB3200AD4CE3 /* UIView+Extension.swift */,
+				A44C5CDD2B87457D00037024 /* Extension */,
 				A4A517072B86E52100AD4CE3 /* Main.storyboard */,
 				A4A517532B86FD5100AD4CE3 /* LoginScreen */,
 				A4A517342B86F5F100AD4CE3 /* Roboto Font */,
@@ -233,6 +243,7 @@
 				A4A517512B86FD3A00AD4CE3 /* LoginViewController.swift */,
 				A4A517542B8708B200AD4CE3 /* Constant.swift */,
 				A4A517592B871EA500AD4CE3 /* UserData.swift */,
+				A4A5175C2B873D9000AD4CE3 /* RegisterViewController.swift */,
 			);
 			path = LoginScreen;
 			sourceTree = "<group>";
@@ -489,11 +500,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A4A5175D2B873D9000AD4CE3 /* RegisterViewController.swift in Sources */,
 				A4A517552B8708B200AD4CE3 /* Constant.swift in Sources */,
+				A44C5CDF2B8745A000037024 /* ShowLoading and Aleart.swift in Sources */,
 				A4A517522B86FD3A00AD4CE3 /* LoginViewController.swift in Sources */,
 				A4A5175A2B871EA500AD4CE3 /* UserData.swift in Sources */,
 				A4A5170C2B86E52100AD4CE3 /* IUDI.xcdatamodeld in Sources */,
-				A4A517062B86E52100AD4CE3 /* ViewController.swift in Sources */,
 				A4A517022B86E52100AD4CE3 /* AppDelegate.swift in Sources */,
 				A4A517502B86FB3200AD4CE3 /* UIView+Extension.swift in Sources */,
 				A4A517042B86E52100AD4CE3 /* SceneDelegate.swift in Sources */,
@@ -677,6 +689,9 @@
 				DEVELOPMENT_TEAM = FGS26H53AZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IUDI/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Please allow to use location data";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Please allow use location";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow to use location data";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -706,6 +721,9 @@
 				DEVELOPMENT_TEAM = FGS26H53AZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IUDI/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Please allow to use location data";
+				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Please allow use location";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow to use location data";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;

@@ -7,8 +7,18 @@
 
 import Foundation
 
+import Foundation
+
+// MARK: - Welcome
 struct UserData: Codable {
-    let users: [User]?
+    let jwt, message: String?
+    let status: Int?
+    let user: User?
+}
+
+// MARK: - User
+struct User: Codable {
+    let users: [UserElement]?
     let status: Int?
 
     enum CodingKeys: String, CodingKey {
@@ -17,8 +27,8 @@ struct UserData: Codable {
     }
 }
 
-// MARK: - User
-struct User: Codable {
+// MARK: - UserElement
+struct UserElement: Codable {
     let birthDate, birthTime: String?
     let email, fullName: String?
     let gender: String?

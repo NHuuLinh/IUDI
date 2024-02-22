@@ -4,7 +4,7 @@ import Foundation
 import UIKit
 
 extension UIView {
-   // thêm bo góc ở storyboard
+    // thêm bo góc ở storyboard
     @IBInspectable var cornerRadius : CGFloat {
         get {
             return self.cornerRadius
@@ -13,6 +13,35 @@ extension UIView {
             self.layer.cornerRadius = newValue
         }
     }
+}
+
+class CheckBox: UIButton {
+    // Images
+    let checkedImage = UIImage(named: "App Icone")! as UIImage
+    let uncheckedImage = UIImage(named: "Rectangle 8")! as UIImage
+    
+    // Bool property
+    var isChecked: Bool = false {
+        didSet {
+            if isChecked == true {
+                self.setImage(checkedImage, for: UIControl.State.normal)
+            } else {
+                self.setImage(uncheckedImage, for: UIControl.State.normal)
+            }
+        }
+    }
+        
+    override func awakeFromNib() {
+        self.addTarget(self, action:#selector(buttonClicked(sender:)), for: UIControl.Event.touchUpInside)
+        self.isChecked = false
+    }
+        
+    @objc func buttonClicked(sender: UIButton) {
+        if sender == self {
+            isChecked = !isChecked
+        }
+    }
+}
    // thêm màu của viền ở storyboard
 //   @IBInspectable var borderColor: UIColor {
 //       get {
@@ -64,7 +93,6 @@ extension UIView {
 //        bottomBorder.backgroundColor = color.cgColor
 //        self.layer.addSublayer(bottomBorder)
 //    }
-}
 
 
 
