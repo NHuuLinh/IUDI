@@ -20,15 +20,15 @@ class LoginViewController: UIViewController {
     let keychain = KeychainSwift()
     var isRememberPassword = false
     let locationManager = CLLocationManager()
-    var longitude : Int?
-    var latitude : Int?
-    
+    var longitude : String?
+    var latitude : String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         checkInput()
         userPasswordTF.text = keychain.get("password")
         checkLocationAuthorizationStatus()
+        
     }
     override func viewWillAppear(_ animated: Bool) {
         requestLocation()
@@ -90,16 +90,22 @@ class LoginViewController: UIViewController {
     }
     
     func loginHandle(){
-        let userName = userNameTF.text
-        let userPassword = userPasswordTF.text
+        guard let userName = userNameTF.text, let userPassword = userPasswordTF.text else {
+            return
+        }
         let url = Constant.baseUrl + "login"
         let parameters: [String: Any] = [
             "Username": userName,
             //            "Email" : "pxlphap@gmail.com",
             "Password": userPassword,
-            "Latitude": "27",
-            "Longitude": "40"
+            "Latitude": latitude,
+            "Longitude": longitude
         ]
+        print("userName: \(userName)")
+        print("userPassword: \(userPassword)")
+        print("latitude: \(latitude)")
+        print("Longitude: \(longitude)")
+
         AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
             .validate(statusCode: 200...299)
             .responseDecodable(of: UserData.self) { data in
@@ -117,6 +123,25 @@ class LoginViewController: UIViewController {
 }
 // MARK: - Các hàm liên quan vị trí
 extension LoginViewController: CLLocationManagerDelegate {
+    func getLocationByAPI(){
+        struct Location: Codable {
+            let lat, lon: Double
+            let city: String
+        }
+        let url = "http://ip-api.com/json"
+        AF.request(url).validate().responseDecodable(of: Location.self) { response in
+            switch response.result {
+            case .success(let location):
+                let currentLongitude = location.lon
+                let currentLatitude = location.lat
+                self.longitude = String(Int(currentLongitude))
+                self.latitude = String(Int(currentLatitude))
+            case .failure(let error):
+                print("Error: \(error)")
+            }
+        }
+
+    }
     func fetchCurrentLocation() {
         //        showLoading(isShow: true)
         // check xem có đia điểm hiện tại không,nếu không thì không làm gì cả
@@ -133,11 +158,8 @@ extension LoginViewController: CLLocationManagerDelegate {
             }
             let currentLongitude = currentLocation.coordinate.longitude
             let currentLatitude = currentLocation.coordinate.latitude
-            self?.longitude = Int(currentLongitude)
-            self?.latitude = Int(currentLatitude)
-            print("currentLongitude: \(self?.longitude)")
-            print("currentLatitude: \(self?.latitude)")
-            
+            self?.longitude = String(Int(currentLongitude))
+            self?.latitude = String(Int(currentLatitude))
         }
     }
     
@@ -163,7 +185,7 @@ extension LoginViewController: CLLocationManagerDelegate {
             // Yêu cầu quyền sử dụng vị trí khi ứng dụng đang được sử dụng
             locationManager.requestWhenInUseAuthorization()
         case .restricted, .denied:
-            showAlert(title: "Ok", message: "Please allow to use location")
+            getLocationByAPI()
             break
         case .authorizedWhenInUse, .authorizedAlways:
             // Bắt đầu cập nhật vị trí và gọi api nếu được cấp quyền
