@@ -7,8 +7,6 @@
 
 import Foundation
 
-import Foundation
-
 // MARK: - Welcome
 struct UserData: Codable {
     let jwt, message: String?

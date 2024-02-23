@@ -3,7 +3,6 @@
 //  IUDI
 //
 //  Created by LinhMAC on 22/02/2024.
-//
 
 import UIKit
 import Alamofire
@@ -22,13 +21,13 @@ class LoginViewController: UIViewController {
     let locationManager = CLLocationManager()
     var longitude : String?
     var latitude : String?
+    var userData : UserData?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         checkInput()
         userPasswordTF.text = keychain.get("password")
         checkLocationAuthorizationStatus()
-        
     }
     override func viewWillAppear(_ animated: Bool) {
         requestLocation()
@@ -67,6 +66,7 @@ class LoginViewController: UIViewController {
             print("password không được lưu")
         }
     }
+    
     func checkBoxHandle(){
         let checkImage = UIImage(named: "App Icone")
         let uncheckImage = UIImage(named: "Rectangle 8")
@@ -76,6 +76,7 @@ class LoginViewController: UIViewController {
         rememberPasswordBtn.isSelected = !rememberPasswordBtn.isSelected
         print("remenber pw")
     }
+    
     func checkInput() {
         if (userNameTF.text?.count == 0) || (userPasswordTF.text?.count == 0) {
             loginBtn.isEnabled = false
@@ -88,38 +89,54 @@ class LoginViewController: UIViewController {
             
         }
     }
-    
     func loginHandle(){
+        showLoading(isShow: true)
         guard let userName = userNameTF.text, let userPassword = userPasswordTF.text else {
             return
+            showLoading(isShow: false)
         }
         let url = Constant.baseUrl + "login"
         let parameters: [String: Any] = [
             "Username": userName,
-            //            "Email" : "pxlphap@gmail.com",
             "Password": userPassword,
             "Latitude": latitude,
             "Longitude": longitude
         ]
-        print("userName: \(userName)")
-        print("userPassword: \(userPassword)")
-        print("latitude: \(latitude)")
-        print("Longitude: \(longitude)")
-
+        
         AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
             .validate(statusCode: 200...299)
-            .responseDecodable(of: UserData.self) { data in
-                switch data.result {
+            .responseDecodable(of: UserData.self) { response in
+                switch response.result {
                     // Xử lý dữ liệu nhận được từ phản hồi (response)
                 case .success(let data):
-                    print("data: \(data.user?.users?.first?.userID)")
+                    self.userData = data
+                    print("data: \(self.userData?.user?.users?.first?.userID)")
                     self.savePassword()
+                    self.showLoading(isShow: false)
+                    UserDefaults.standard.didLogin = true
+                    AppDelegate.scene?.goToHome()
                     // Xử lý thông tin người dùng đã đăng ký thành công tại đây (nếu cần)
                 case .failure(let error):
-                    print("\(error)")
+                    if let data = response.data {
+                        do {
+                            let json = try JSON(data: data)
+                            let errorMessage = json["message"].stringValue
+                            print(errorMessage)
+                            self.showAlert(title: "Lỗi", message: errorMessage)
+                        } catch {
+                            print("Error parsing JSON: \(error.localizedDescription)")
+                            self.showAlert(title: "Lỗi", message: "Đã xảy ra lỗi, vui lòng thử lại sau.")
+                        }
+                    } else {
+                        print("Không có dữ liệu từ server")
+                        self.showAlert(title: "Lỗi", message: "Đã xảy ra lỗi, vui lòng thử lại sau.")
+                    }
+                    self.showLoading(isShow: false)
                 }
             }
     }
+    
+    
 }
 // MARK: - Các hàm liên quan vị trí
 extension LoginViewController: CLLocationManagerDelegate {
@@ -128,6 +145,7 @@ extension LoginViewController: CLLocationManagerDelegate {
             let lat, lon: Double
             let city: String
         }
+        showLoading(isShow: true)
         let url = "http://ip-api.com/json"
         AF.request(url).validate().responseDecodable(of: Location.self) { response in
             switch response.result {
@@ -136,14 +154,18 @@ extension LoginViewController: CLLocationManagerDelegate {
                 let currentLatitude = location.lat
                 self.longitude = String(Int(currentLongitude))
                 self.latitude = String(Int(currentLatitude))
+                self.showLoading(isShow: false)
+                
             case .failure(let error):
-                print("Error: \(error)")
+                print("Error: \(error.localizedDescription)")
+                self.showLoading(isShow: false)
+                self.showAlert(title: "Lỗi", message: error.localizedDescription)
             }
         }
-
     }
+    
     func fetchCurrentLocation() {
-        //        showLoading(isShow: true)
+        showLoading(isShow: true)
         // check xem có đia điểm hiện tại không,nếu không thì không làm gì cả
         guard let currentLocation = locationManager.location else {
             print("Current location not available.")
@@ -160,12 +182,12 @@ extension LoginViewController: CLLocationManagerDelegate {
             let currentLatitude = currentLocation.coordinate.latitude
             self?.longitude = String(Int(currentLongitude))
             self?.latitude = String(Int(currentLatitude))
+            self?.showLoading(isShow: false)
         }
     }
     
     func requestLocation() {
         print("requestLocation")
-        
         // đưa nó vào một luồng khác để tránh làm màn hình người dùng đơ
         DispatchQueue.global().async {
             if CLLocationManager.locationServicesEnabled() {
