@@ -115,7 +115,11 @@ class RegisterViewController: UIViewController, checkValid {
                 case .success(let data):
                     DispatchQueue.main.async {
                         self.userData = data
-                        print("data: \(self.userData?.user?.users?.first?.userID)")
+                        guard let userID = self.userData?.user?.users?.first?.userID else {
+                            return
+                        }
+                        UserDefaults.standard.set(userID, forKey: "UserID")
+                        print("data: \(userID)")
                     }
                     self.saveUserInfo()
                     UserDefaults.standard.didLogin = true
