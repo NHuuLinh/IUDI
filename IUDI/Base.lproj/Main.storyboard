@@ -32,21 +32,21 @@
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Ellipse 275" translatesAutoresizingMaskIntoConstraints="NO" id="78B-cJ-0ud">
-                                        <rect key="frame" x="-222" y="-195" width="518" height="518"/>
+                                        <rect key="frame" x="-195" y="-204.66666666666666" width="518" height="518"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="78B-cJ-0ud" secondAttribute="height" multiplier="1:1" id="KyQ-67-8Mc"/>
                                             <constraint firstAttribute="width" constant="518" id="Lqf-zd-9EN"/>
                                         </constraints>
                                     </imageView>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Ellipse 276" translatesAutoresizingMaskIntoConstraints="NO" id="xOD-e7-WQJ">
-                                        <rect key="frame" x="192" y="-30" width="254" height="254"/>
+                                        <rect key="frame" x="219" y="-39.666666666666657" width="254" height="254"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="254" id="Acz-M8-oTN"/>
                                             <constraint firstAttribute="width" secondItem="xOD-e7-WQJ" secondAttribute="height" multiplier="1:1" id="F21-JS-YsB"/>
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dNA-LN-SxY">
-                                        <rect key="frame" x="16" y="304" width="361" height="199"/>
+                                        <rect key="frame" x="16" y="323.33333333333331" width="361" height="198.99999999999994"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gNx-gP-jRM">
                                                 <rect key="frame" x="0.0" y="0.0" width="361" height="116"/>
@@ -68,11 +68,6 @@
                                                                         <color key="textColor" name="FontColor"/>
                                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                                                         <textInputTraits key="textInputTraits"/>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                                <real key="value" value="10"/>
-                                                                            </userDefinedRuntimeAttribute>
-                                                                        </userDefinedRuntimeAttributes>
                                                                         <connections>
                                                                             <action selector="UserInputDidChanged:" destination="3Pm-YO-Eaz" eventType="editingChanged" id="h88-1d-pLf"/>
                                                                         </connections>
@@ -135,11 +130,6 @@
                                                                         <color key="textColor" name="FontColor"/>
                                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                                                         <textInputTraits key="textInputTraits"/>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                                <real key="value" value="10"/>
-                                                                            </userDefinedRuntimeAttribute>
-                                                                        </userDefinedRuntimeAttributes>
                                                                         <connections>
                                                                             <action selector="UserInputDidChanged:" destination="3Pm-YO-Eaz" eventType="editingChanged" id="m89-lv-TT6"/>
                                                                         </connections>
@@ -187,7 +177,7 @@
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ghi nhớ mật khẩu " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9um-yX-uW9">
-                                                        <rect key="frame" x="21" y="3.3333333333333135" width="65" height="9.6666666666666643"/>
+                                                        <rect key="frame" x="21" y="3.3333333333333703" width="65" height="9.6666666666666643"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="8"/>
                                                         <color key="textColor" name="FontColor"/>
                                                         <nil key="highlightedColor"/>
@@ -216,11 +206,6 @@
                                                 <state key="normal" title="Đăng nhập">
                                                     <color key="titleColor" name="FontColor"/>
                                                 </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="10"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="handleBtn:" destination="3Pm-YO-Eaz" eventType="touchUpInside" id="oiS-mK-5rr"/>
                                                 </connections>
@@ -291,7 +276,7 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kết nối yêu thương " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ibn-lE-UEU">
                                                 <rect key="frame" x="0.0" y="110" width="154" height="21.333333333333343"/>
                                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="18"/>
-                                                <color key="textColor" name="FontColor"/>
+                                                <color key="textColor" name="Background Color"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -312,14 +297,14 @@
                                 <color key="backgroundColor" name="Background Color"/>
                                 <constraints>
                                     <constraint firstItem="dNA-LN-SxY" firstAttribute="leading" secondItem="oxy-AS-q2J" secondAttribute="leading" constant="16" id="GL0-N3-N8p"/>
-                                    <constraint firstItem="dNA-LN-SxY" firstAttribute="top" secondItem="oxy-AS-q2J" secondAttribute="top" constant="304" id="MgA-vH-ivj"/>
+                                    <constraint firstItem="78B-cJ-0ud" firstAttribute="trailing" secondItem="zuz-tD-lBO" secondAttribute="trailing" constant="105" id="Ia5-uE-hTk"/>
                                     <constraint firstItem="xOD-e7-WQJ" firstAttribute="leading" secondItem="78B-cJ-0ud" secondAttribute="trailing" constant="-104" id="Mnb-rv-xA5"/>
                                     <constraint firstAttribute="trailing" secondItem="dNA-LN-SxY" secondAttribute="trailing" constant="16" id="WTb-Fv-UD5"/>
-                                    <constraint firstItem="78B-cJ-0ud" firstAttribute="top" secondItem="oxy-AS-q2J" secondAttribute="top" constant="-195" id="XAL-vU-J83"/>
                                     <constraint firstAttribute="bottom" secondItem="7pt-Ay-hr4" secondAttribute="bottom" constant="52" id="bOL-pb-ECH"/>
                                     <constraint firstItem="zuz-tD-lBO" firstAttribute="leading" secondItem="oxy-AS-q2J" secondAttribute="leading" constant="34" id="cJQ-fr-Iop"/>
                                     <constraint firstItem="zuz-tD-lBO" firstAttribute="top" secondItem="oxy-AS-q2J" secondAttribute="top" constant="97" id="kRL-6d-8hr"/>
-                                    <constraint firstItem="78B-cJ-0ud" firstAttribute="leading" secondItem="oxy-AS-q2J" secondAttribute="leading" constant="-222" id="l5o-hY-GfO"/>
+                                    <constraint firstItem="dNA-LN-SxY" firstAttribute="top" secondItem="zuz-tD-lBO" secondAttribute="bottom" constant="90" id="pA4-zo-d2T"/>
+                                    <constraint firstItem="78B-cJ-0ud" firstAttribute="bottom" secondItem="zuz-tD-lBO" secondAttribute="bottom" constant="80" id="rzI-QP-rOo"/>
                                     <constraint firstItem="7pt-Ay-hr4" firstAttribute="centerX" secondItem="oxy-AS-q2J" secondAttribute="centerX" id="xn2-zq-OyA"/>
                                     <constraint firstItem="xOD-e7-WQJ" firstAttribute="bottom" secondItem="78B-cJ-0ud" secondAttribute="bottom" constant="-99" id="zwQ-Rk-2IT"/>
                                 </constraints>
@@ -359,21 +344,21 @@
                                 <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Ellipse 275" translatesAutoresizingMaskIntoConstraints="NO" id="bWj-9b-kTq">
-                                        <rect key="frame" x="-222" y="-195" width="518" height="518"/>
+                                        <rect key="frame" x="-195" y="-219.66666666666666" width="518" height="518"/>
                                         <constraints>
                                             <constraint firstAttribute="width" secondItem="bWj-9b-kTq" secondAttribute="height" multiplier="1:1" id="DqG-Jm-MM1"/>
                                             <constraint firstAttribute="width" constant="518" id="J6D-24-4f3"/>
                                         </constraints>
                                     </imageView>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Ellipse 276" translatesAutoresizingMaskIntoConstraints="NO" id="dA0-JS-Hk1">
-                                        <rect key="frame" x="192" y="-30" width="254" height="254"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" alpha="0.84999999999999998" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Ellipse 276" translatesAutoresizingMaskIntoConstraints="NO" id="dA0-JS-Hk1">
+                                        <rect key="frame" x="219" y="-54.666666666666657" width="254" height="254"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="254" id="RHD-3q-Zts"/>
                                             <constraint firstAttribute="width" secondItem="dA0-JS-Hk1" secondAttribute="height" multiplier="1:1" id="jsr-N2-PZl"/>
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ihu-By-TIL">
-                                        <rect key="frame" x="16" y="304" width="361" height="262"/>
+                                        <rect key="frame" x="16" y="308.33333333333331" width="361" height="261.99999999999994"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dKG-4G-7KN">
                                                 <rect key="frame" x="0.0" y="0.0" width="361" height="179"/>
@@ -390,16 +375,14 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dkI-Y4-QAT">
                                                                 <rect key="frame" x="0.0" y="21.666666666666686" width="361" height="32"/>
                                                                 <subviews>
-                                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="admin" borderStyle="roundedRect" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Ugd-f1-xlN">
+                                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="linh" borderStyle="roundedRect" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="Ugd-f1-xlN">
                                                                         <rect key="frame" x="0.0" y="0.0" width="361" height="32"/>
                                                                         <color key="textColor" name="FontColor"/>
                                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                                                         <textInputTraits key="textInputTraits"/>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                                <real key="value" value="10"/>
-                                                                            </userDefinedRuntimeAttribute>
-                                                                        </userDefinedRuntimeAttributes>
+                                                                        <connections>
+                                                                            <action selector="UserInputDidChanged:" destination="u5L-Si-Twx" eventType="editingChanged" id="F9m-vm-1f0"/>
+                                                                        </connections>
                                                                     </textField>
                                                                     <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1di-2m-FiW">
                                                                         <rect key="frame" x="329" y="0.0" width="32" height="32"/>
@@ -454,16 +437,14 @@
                                                                         </constraints>
                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     </button>
-                                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="pxl^@123" borderStyle="roundedRect" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="DCO-Em-b1t">
+                                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="linh@gmail.com" borderStyle="roundedRect" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="DCO-Em-b1t">
                                                                         <rect key="frame" x="0.0" y="0.0" width="361" height="32"/>
                                                                         <color key="textColor" name="FontColor"/>
                                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
-                                                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                                <real key="value" value="10"/>
-                                                                            </userDefinedRuntimeAttribute>
-                                                                        </userDefinedRuntimeAttributes>
+                                                                        <textInputTraits key="textInputTraits"/>
+                                                                        <connections>
+                                                                            <action selector="UserInputDidChanged:" destination="u5L-Si-Twx" eventType="editingChanged" id="cse-3M-W8n"/>
+                                                                        </connections>
                                                                     </textField>
                                                                 </subviews>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -510,16 +491,14 @@
                                                                         </constraints>
                                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                                     </button>
-                                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="pxl^@123" borderStyle="roundedRect" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="10z-pQ-pDf">
+                                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="linhlinh" borderStyle="roundedRect" textAlignment="natural" clearsOnBeginEditing="YES" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="10z-pQ-pDf">
                                                                         <rect key="frame" x="0.0" y="0.0" width="361" height="32"/>
                                                                         <color key="textColor" name="FontColor"/>
                                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
-                                                                        <textInputTraits key="textInputTraits"/>
-                                                                        <userDefinedRuntimeAttributes>
-                                                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                                                <real key="value" value="10"/>
-                                                                            </userDefinedRuntimeAttribute>
-                                                                        </userDefinedRuntimeAttributes>
+                                                                        <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
+                                                                        <connections>
+                                                                            <action selector="UserInputDidChanged:" destination="u5L-Si-Twx" eventType="editingChanged" id="IcB-Bs-hdZ"/>
+                                                                        </connections>
                                                                     </textField>
                                                                 </subviews>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -559,9 +538,12 @@
                                                         <color key="tintColor" name="FontColor"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" image="Rectangle 8"/>
+                                                        <connections>
+                                                            <action selector="handleBtn:" destination="u5L-Si-Twx" eventType="touchUpInside" id="b7K-Wl-eMD"/>
+                                                        </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Đồng ký điều khoản và điều kiện " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s5S-Fe-0ov">
-                                                        <rect key="frame" x="21.000000000000007" y="3.3333333333333135" width="117.66666666666669" height="9.6666666666666643"/>
+                                                        <rect key="frame" x="21.000000000000007" y="3.3333333333333703" width="117.66666666666669" height="9.6666666666666643"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="8"/>
                                                         <color key="textColor" name="FontColor"/>
                                                         <nil key="highlightedColor"/>
@@ -579,7 +561,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TEU-iq-hAr">
-                                                <rect key="frame" x="0.0" y="232" width="361" height="30"/>
+                                                <rect key="frame" x="0.0" y="232.00000000000006" width="361" height="30"/>
                                                 <color key="backgroundColor" name="MainColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="l4t-Kq-pEA"/>
@@ -595,6 +577,9 @@
                                                         <real key="value" value="10"/>
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
+                                                <connections>
+                                                    <action selector="handleBtn:" destination="u5L-Si-Twx" eventType="touchUpInside" id="mrK-Z0-Sbo"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -605,9 +590,9 @@
                                             <constraint firstItem="dKG-4G-7KN" firstAttribute="leading" secondItem="ihu-By-TIL" secondAttribute="leading" id="UnM-n6-ORM"/>
                                             <constraint firstItem="TEU-iq-hAr" firstAttribute="leading" secondItem="ihu-By-TIL" secondAttribute="leading" id="Yym-cb-aDq"/>
                                             <constraint firstItem="pCt-3p-8N1" firstAttribute="leading" secondItem="ihu-By-TIL" secondAttribute="leading" id="bR0-J8-QQN"/>
-                                            <constraint firstItem="dKG-4G-7KN" firstAttribute="top" secondItem="ihu-By-TIL" secondAttribute="top" id="bmW-Ua-4nM"/>
                                             <constraint firstItem="pCt-3p-8N1" firstAttribute="top" secondItem="dKG-4G-7KN" secondAttribute="bottom" constant="7" id="ccK-nY-vIB"/>
                                             <constraint firstAttribute="trailing" secondItem="TEU-iq-hAr" secondAttribute="trailing" id="g3X-X4-loy"/>
+                                            <constraint firstItem="dKG-4G-7KN" firstAttribute="top" secondItem="ihu-By-TIL" secondAttribute="top" id="lx1-1m-wKf"/>
                                             <constraint firstAttribute="trailing" secondItem="dKG-4G-7KN" secondAttribute="trailing" id="tUV-4t-sVy"/>
                                         </constraints>
                                     </view>
@@ -626,6 +611,9 @@
                                                 <state key="normal" title="Đăng nhập">
                                                     <color key="titleColor" name="MainColor"/>
                                                 </state>
+                                                <connections>
+                                                    <action selector="handleBtn:" destination="u5L-Si-Twx" eventType="touchUpInside" id="WbX-qA-wbi"/>
+                                                </connections>
                                             </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -640,7 +628,7 @@
                                         </constraints>
                                     </view>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="W0i-pw-HRF">
-                                        <rect key="frame" x="34" y="97.000000000000014" width="184" height="136.33333333333337"/>
+                                        <rect key="frame" x="34" y="97" width="184" height="121.33333333333331"/>
                                         <subviews>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="App Icone" translatesAutoresizingMaskIntoConstraints="NO" id="T7H-Fo-mM8">
                                                 <rect key="frame" x="0.0" y="36.666666666666657" width="32" height="32"/>
@@ -649,7 +637,7 @@
                                                     <constraint firstAttribute="width" constant="32" id="SgR-DF-1Cr"/>
                                                 </constraints>
                                             </imageView>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="App Name" translatesAutoresizingMaskIntoConstraints="NO" id="NzR-ut-MS3">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="App Name" translatesAutoresizingMaskIntoConstraints="NO" id="NzR-ut-MS3">
                                                 <rect key="frame" x="44" y="0.0" width="140" height="105"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="105" id="JHJ-gE-brp"/>
@@ -657,9 +645,9 @@
                                                 </constraints>
                                             </imageView>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Kết nối yêu thương " textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fqg-z3-wxP">
-                                                <rect key="frame" x="0.0" y="110" width="154" height="21.333333333333343"/>
+                                                <rect key="frame" x="0.0" y="95" width="154" height="21.333333333333329"/>
                                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="18"/>
-                                                <color key="textColor" name="FontColor"/>
+                                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
@@ -669,7 +657,7 @@
                                             <constraint firstItem="NzR-ut-MS3" firstAttribute="leading" secondItem="T7H-Fo-mM8" secondAttribute="trailing" constant="12" id="Fuu-Ef-09Y"/>
                                             <constraint firstItem="Fqg-z3-wxP" firstAttribute="leading" secondItem="W0i-pw-HRF" secondAttribute="leading" id="Hsc-36-hd0"/>
                                             <constraint firstItem="T7H-Fo-mM8" firstAttribute="centerY" secondItem="NzR-ut-MS3" secondAttribute="centerY" id="Xrt-Hb-Yzy"/>
-                                            <constraint firstItem="Fqg-z3-wxP" firstAttribute="top" secondItem="NzR-ut-MS3" secondAttribute="bottom" constant="5" id="ajW-8N-UaD"/>
+                                            <constraint firstItem="Fqg-z3-wxP" firstAttribute="top" secondItem="NzR-ut-MS3" secondAttribute="bottom" constant="-10" id="ajW-8N-UaD"/>
                                             <constraint firstAttribute="trailing" secondItem="NzR-ut-MS3" secondAttribute="trailing" id="eIc-lg-up1"/>
                                             <constraint firstItem="Fqg-z3-wxP" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="NzR-ut-MS3" secondAttribute="trailing" id="rtK-Wo-Ojc"/>
                                             <constraint firstItem="T7H-Fo-mM8" firstAttribute="leading" secondItem="W0i-pw-HRF" secondAttribute="leading" id="uQb-qv-Cg0"/>
@@ -679,15 +667,15 @@
                                 </subviews>
                                 <color key="backgroundColor" name="Background Color"/>
                                 <constraints>
+                                    <constraint firstItem="bWj-9b-kTq" firstAttribute="trailing" secondItem="W0i-pw-HRF" secondAttribute="trailing" constant="105" id="9mf-8Q-Lnk"/>
+                                    <constraint firstItem="bWj-9b-kTq" firstAttribute="bottom" secondItem="W0i-pw-HRF" secondAttribute="bottom" constant="80" id="HKH-Br-3KW"/>
                                     <constraint firstAttribute="trailing" secondItem="ihu-By-TIL" secondAttribute="trailing" constant="16" id="Npg-iQ-9kY"/>
-                                    <constraint firstItem="bWj-9b-kTq" firstAttribute="top" secondItem="14R-WX-eT7" secondAttribute="top" constant="-195" id="bqH-Y5-7TR"/>
+                                    <constraint firstItem="ihu-By-TIL" firstAttribute="top" secondItem="W0i-pw-HRF" secondAttribute="bottom" constant="90" id="XHp-Na-LoK"/>
                                     <constraint firstItem="W0i-pw-HRF" firstAttribute="top" secondItem="14R-WX-eT7" secondAttribute="top" constant="97" id="g9Y-Kg-sYg"/>
                                     <constraint firstItem="d6a-WV-i57" firstAttribute="centerX" secondItem="14R-WX-eT7" secondAttribute="centerX" id="juU-XS-nBo"/>
                                     <constraint firstItem="dA0-JS-Hk1" firstAttribute="leading" secondItem="bWj-9b-kTq" secondAttribute="trailing" constant="-104" id="m1d-yY-WNb"/>
                                     <constraint firstAttribute="bottom" secondItem="d6a-WV-i57" secondAttribute="bottom" constant="52" id="p8I-42-ooH"/>
                                     <constraint firstItem="ihu-By-TIL" firstAttribute="leading" secondItem="14R-WX-eT7" secondAttribute="leading" constant="16" id="sWB-2G-W5c"/>
-                                    <constraint firstItem="ihu-By-TIL" firstAttribute="top" secondItem="14R-WX-eT7" secondAttribute="top" constant="304" id="vAW-98-x13"/>
-                                    <constraint firstItem="bWj-9b-kTq" firstAttribute="leading" secondItem="14R-WX-eT7" secondAttribute="leading" constant="-222" id="vQg-20-SGK"/>
                                     <constraint firstItem="W0i-pw-HRF" firstAttribute="leading" secondItem="14R-WX-eT7" secondAttribute="leading" constant="34" id="wXG-yz-CRM"/>
                                     <constraint firstItem="dA0-JS-Hk1" firstAttribute="bottom" secondItem="bWj-9b-kTq" secondAttribute="bottom" constant="-99" id="zC9-Hq-5A0"/>
                                 </constraints>
@@ -702,6 +690,14 @@
                             <constraint firstAttribute="bottom" secondItem="14R-WX-eT7" secondAttribute="bottom" id="s11-xv-bE9"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="agreeTermBtn" destination="det-73-fAm" id="iWD-b9-pyM"/>
+                        <outlet property="loginBtn" destination="6e5-lE-QT9" id="uRq-Q9-RD3"/>
+                        <outlet property="registerBtn" destination="TEU-iq-hAr" id="kD7-K5-feM"/>
+                        <outlet property="userEmailTF" destination="DCO-Em-b1t" id="EWZ-mh-AYy"/>
+                        <outlet property="userNameTF" destination="Ugd-f1-xlN" id="18X-NJ-EoJ"/>
+                        <outlet property="userPasswordTF" destination="10z-pQ-pDf" id="W7Z-O4-HFn"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oPG-pS-fh5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -774,8 +770,8 @@
     <resources>
         <image name="App Icone" width="36" height="36"/>
         <image name="App Name" width="140" height="105"/>
-        <image name="Ellipse 275" width="323" height="296"/>
-        <image name="Ellipse 276" width="156" height="224"/>
+        <image name="Ellipse 275" width="518" height="518"/>
+        <image name="Ellipse 276" width="254" height="254"/>
         <image name="Rectangle 8" width="9" height="10"/>
         <namedColor name="Background Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

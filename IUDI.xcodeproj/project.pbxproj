@@ -13,6 +13,9 @@
 		A483D0392B88377000DD6B15 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A483D0382B88376F00DD6B15 /* HomeViewController.swift */; };
 		A483D03D2B88390600DD6B15 /* Theme Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A483D03C2B88390600DD6B15 /* Theme Extension.swift */; };
 		A483D03F2B88393700DD6B15 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = A483D03E2B88393700DD6B15 /* UserDefault.swift */; };
+		A483D0442B88413000DD6B15 /* test.swift in Sources */ = {isa = PBXBuildFile; fileRef = A483D0432B88413000DD6B15 /* test.swift */; };
+		A483D0462B885BC700DD6B15 /* CheckValid.swift in Sources */ = {isa = PBXBuildFile; fileRef = A483D0452B885BC700DD6B15 /* CheckValid.swift */; };
+		A483D0482B88711C00DD6B15 /* UserNetWorkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A483D0472B88711C00DD6B15 /* UserNetWorkManager.swift */; };
 		A4A517022B86E52100AD4CE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A517012B86E52100AD4CE3 /* AppDelegate.swift */; };
 		A4A517042B86E52100AD4CE3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A517032B86E52100AD4CE3 /* SceneDelegate.swift */; };
 		A4A517092B86E52100AD4CE3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4A517072B86E52100AD4CE3 /* Main.storyboard */; };
@@ -73,6 +76,9 @@
 		A483D0382B88376F00DD6B15 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		A483D03C2B88390600DD6B15 /* Theme Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Theme Extension.swift"; sourceTree = "<group>"; };
 		A483D03E2B88393700DD6B15 /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
+		A483D0432B88413000DD6B15 /* test.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = test.swift; sourceTree = "<group>"; };
+		A483D0452B885BC700DD6B15 /* CheckValid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckValid.swift; sourceTree = "<group>"; };
+		A483D0472B88711C00DD6B15 /* UserNetWorkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetWorkManager.swift; sourceTree = "<group>"; };
 		A4A516FE2B86E52100AD4CE3 /* IUDI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IUDI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4A517012B86E52100AD4CE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A4A517032B86E52100AD4CE3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -162,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				A4A5174F2B86FB3200AD4CE3 /* UIView+Extension.swift */,
+				A483D0452B885BC700DD6B15 /* CheckValid.swift */,
 				A44C5CDE2B8745A000037024 /* ShowLoading and Aleart.swift */,
 				A483D03C2B88390600DD6B15 /* Theme Extension.swift */,
 				A483D03E2B88393700DD6B15 /* UserDefault.swift */,
@@ -181,6 +188,7 @@
 			isa = PBXGroup;
 			children = (
 				A4A517542B8708B200AD4CE3 /* Constant.swift */,
+				A483D0472B88711C00DD6B15 /* UserNetWorkManager.swift */,
 			);
 			path = NetWork;
 			sourceTree = "<group>";
@@ -275,6 +283,7 @@
 			isa = PBXGroup;
 			children = (
 				A4A517512B86FD3A00AD4CE3 /* LoginViewController.swift */,
+				A483D0432B88413000DD6B15 /* test.swift */,
 				A4A517592B871EA500AD4CE3 /* UserData.swift */,
 				A4A5175C2B873D9000AD4CE3 /* RegisterViewController.swift */,
 			);
@@ -536,7 +545,9 @@
 				A4A5175D2B873D9000AD4CE3 /* RegisterViewController.swift in Sources */,
 				A483D03D2B88390600DD6B15 /* Theme Extension.swift in Sources */,
 				A4A517552B8708B200AD4CE3 /* Constant.swift in Sources */,
+				A483D0442B88413000DD6B15 /* test.swift in Sources */,
 				A44C5CDF2B8745A000037024 /* ShowLoading and Aleart.swift in Sources */,
+				A483D0482B88711C00DD6B15 /* UserNetWorkManager.swift in Sources */,
 				A4A517522B86FD3A00AD4CE3 /* LoginViewController.swift in Sources */,
 				A4A5175A2B871EA500AD4CE3 /* UserData.swift in Sources */,
 				A483D0392B88377000DD6B15 /* HomeViewController.swift in Sources */,
@@ -545,6 +556,7 @@
 				A4A517022B86E52100AD4CE3 /* AppDelegate.swift in Sources */,
 				A4A517502B86FB3200AD4CE3 /* UIView+Extension.swift in Sources */,
 				A4A517042B86E52100AD4CE3 /* SceneDelegate.swift in Sources */,
+				A483D0462B885BC700DD6B15 /* CheckValid.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
