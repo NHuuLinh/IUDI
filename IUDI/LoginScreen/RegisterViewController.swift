@@ -62,9 +62,9 @@ class RegisterViewController: UIViewController, checkValid {
     
     func saveUserInfo(){
         guard let userName = userNameTF.text, let password = userPasswordTF.text else {
-                return
-            }
-            keychain.set(password, forKey: "password")
+            return
+        }
+        keychain.set(password, forKey: "password")
         keychain.set(userName, forKey: "username")
     }
     

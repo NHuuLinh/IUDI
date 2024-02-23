@@ -5,20 +5,24 @@ import UIKit
 
 extension UIView {
     // thêm bo góc ở storyboard
-    @IBInspectable var cornerRadius : CGFloat {
-        get {
-            return self.cornerRadius
-        }
-        set {
-            self.layer.cornerRadius = newValue
-        }
-    }
+//    @IBInspectable var cornerRadius : CGFloat {
+//        get {
+//            return self.cornerRadius
+//        }
+//        set {
+//            self.layer.cornerRadius = newValue
+//        }
+//    }
 }
 extension UIViewController {
     func standardBorder(textField: UITextField) {
         textField.layer.cornerRadius = Constant.cornerRadius
         textField.layer.borderWidth = Constant.borderWidth
         textField.layer.borderColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.00).cgColor
+    }
+    func buttonCornerRadius(button: UIButton) {
+        button.layer.cornerRadius = 10  // Thay đổi số này để điều chỉnh độ bo của góc
+        button.clipsToBounds = true
     }
 }
 

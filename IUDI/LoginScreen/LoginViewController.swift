@@ -10,7 +10,7 @@ import SwiftyJSON
 import KeychainSwift
 import CoreLocation
 
-class LoginViewController: UIViewController {
+class LoginViewController: UIViewController, checkValid {
     @IBOutlet weak var userNameTF: UITextField!
     @IBOutlet weak var userPasswordTF: UITextField!
     @IBOutlet weak var rememberPasswordBtn: UIButton!
@@ -25,13 +25,12 @@ class LoginViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupView()
         checkInput()
-        userPasswordTF.text = keychain.get("password")
         checkLocationAuthorizationStatus()
     }
     override func viewWillAppear(_ animated: Bool) {
         requestLocation()
-        
     }
     @IBAction func UserInputDidChanged(_ sender: UITextField) {
         checkInput()
@@ -55,40 +54,59 @@ class LoginViewController: UIViewController {
             self.navigationController?.pushViewController(viewController, animated: true)
         }
     }
+    func setupView(){
+        userNameTF.text = keychain.get("username")
+        userPasswordTF.text = keychain.get("password")
+        rememberPasswordBtn.isSelected = true
+        // Đặt hình ảnh ban đầu cho nút
+        let checkImage = UIImage(systemName: "checkmark.square")
+        rememberPasswordBtn.setBackgroundImage(checkImage, for: .normal)
+        standardBorder(textField: userNameTF)
+        standardBorder(textField: userPasswordTF)
+        loginBtn.layer.cornerRadius = 10  // Thay đổi số này để điều chỉnh độ bo của góc
+        loginBtn.clipsToBounds = true
+    }
     
-    func savePassword(){
+    func saveUserInfo(){
+        guard let userName = userNameTF.text, let password = userPasswordTF.text else {
+            return
+        }
         if rememberPasswordBtn.isSelected {
-            guard let password = userPasswordTF.text else {
-                return
-            }
             keychain.set(password, forKey: "password")
         } else {
+            keychain.delete("password")
             print("password không được lưu")
         }
+        keychain.set(userName, forKey: "username")
     }
     
     func checkBoxHandle(){
-        let checkImage = UIImage(named: "App Icone")
+        let checkImage = UIImage(systemName: "checkmark.square")
         let uncheckImage = UIImage(named: "Rectangle 8")
         let buttonImage = rememberPasswordBtn.isSelected ? uncheckImage : checkImage
         rememberPasswordBtn.setBackgroundImage(buttonImage, for: .normal)
         print("\(rememberPasswordBtn.isSelected)")
         rememberPasswordBtn.isSelected = !rememberPasswordBtn.isSelected
-        print("remenber pw")
     }
     
     func checkInput() {
-        if (userNameTF.text?.count == 0) || (userPasswordTF.text?.count == 0) {
+        guard let userName = userNameTF.text, let userPassword = userPasswordTF.text else {
             loginBtn.isEnabled = false
             loginBtn.layer.opacity = 0.5
             print("fail")
-        } else {
+            return
+        }
+        if checkUserNameValid(userName: userName) && passwordValidator(password: userPassword){
             loginBtn.isEnabled = true
             loginBtn.layer.opacity = 1
             print("true")
-            
+        }else {
+            loginBtn.isEnabled = false
+            loginBtn.layer.opacity = 0.5
+            print("fail")
         }
     }
+    
     func loginHandle(){
         showLoading(isShow: true)
         guard let userName = userNameTF.text, let userPassword = userPasswordTF.text else {
@@ -109,13 +127,18 @@ class LoginViewController: UIViewController {
                 switch response.result {
                     // Xử lý dữ liệu nhận được từ phản hồi (response)
                 case .success(let data):
-                    self.userData = data
-                    print("data: \(self.userData?.user?.users?.first?.userID)")
-                    self.savePassword()
-                    self.showLoading(isShow: false)
+                    DispatchQueue.main.async {
+                        self.userData = data
+                        guard let userID = self.userData?.user?.users?.first?.userID else {
+                            return
+                        }
+                        UserDefaults.standard.set(userID, forKey: "UserID")
+                        print("data: \(userID)")
+                    }
+                    self.saveUserInfo()
                     UserDefaults.standard.didLogin = true
+                    self.showLoading(isShow: false)
                     AppDelegate.scene?.goToHome()
-                    // Xử lý thông tin người dùng đã đăng ký thành công tại đây (nếu cần)
                 case .failure(let error):
                     if let data = response.data {
                         do {
