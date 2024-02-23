@@ -572,11 +572,6 @@
                                                 <state key="normal" title="Đăng ký">
                                                     <color key="titleColor" name="FontColor"/>
                                                 </state>
-                                                <userDefinedRuntimeAttributes>
-                                                    <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
-                                                        <real key="value" value="10"/>
-                                                    </userDefinedRuntimeAttribute>
-                                                </userDefinedRuntimeAttributes>
                                                 <connections>
                                                     <action selector="handleBtn:" destination="u5L-Si-Twx" eventType="touchUpInside" id="mrK-Z0-Sbo"/>
                                                 </connections>
