@@ -14,6 +14,13 @@ extension UIView {
         }
     }
 }
+extension UIViewController {
+    func standardBorder(textField: UITextField) {
+        textField.layer.cornerRadius = Constant.cornerRadius
+        textField.layer.borderWidth = Constant.borderWidth
+        textField.layer.borderColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.00).cgColor
+    }
+}
 
 class CheckBox: UIButton {
     // Images

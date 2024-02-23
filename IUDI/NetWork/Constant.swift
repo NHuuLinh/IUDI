@@ -8,4 +8,6 @@
 import Foundation
 class Constant{
     static let baseUrl = "https://api.iudi.xyz/"
+    static let cornerRadius = 10.0
+    static let borderWidth = 1.5
 }
