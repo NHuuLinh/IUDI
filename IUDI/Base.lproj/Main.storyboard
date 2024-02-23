@@ -707,6 +707,51 @@
             </objects>
             <point key="canvasLocation" x="2315.2671755725191" y="-27.464788732394368"/>
         </scene>
+        <!--Home View Controller-->
+        <scene sceneID="9D9-JI-nyE">
+            <objects>
+                <viewController restorationIdentifier="HomeViewController" storyboardIdentifier="HomeViewController" id="3Tr-x4-LDK" customClass="HomeViewController" customModule="IUDI" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="A8d-e1-icv">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="8vf-RX-mdt">
+                                <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Đây là màn hình home" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="maj-Ua-1CC">
+                                        <rect key="frame" x="112" y="129" width="169" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kXo-l4-PTF">
+                                        <rect key="frame" x="159" y="449" width="75" height="35"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <state key="normal" title="Button"/>
+                                        <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                        <connections>
+                                            <action selector="logoutBtn:" destination="3Tr-x4-LDK" eventType="touchUpInside" id="J6X-KI-wb1"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="Nab-Tp-1VN"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="8vf-RX-mdt" firstAttribute="top" secondItem="A8d-e1-icv" secondAttribute="top" id="ANJ-LG-HOd"/>
+                            <constraint firstItem="8vf-RX-mdt" firstAttribute="leading" secondItem="Nab-Tp-1VN" secondAttribute="leading" id="C3B-vJ-xTB"/>
+                            <constraint firstAttribute="bottom" secondItem="8vf-RX-mdt" secondAttribute="bottom" id="mDf-ea-CbO"/>
+                            <constraint firstItem="Nab-Tp-1VN" firstAttribute="trailing" secondItem="8vf-RX-mdt" secondAttribute="trailing" id="xM7-O2-m86"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2Y3-2t-r1F" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3074" y="-37"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="NaI-Jw-Rcc">
             <objects>
@@ -723,7 +768,7 @@
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oiz-dc-tEZ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="638.93129770992368" y="-27.464788732394368"/>
+            <point key="canvasLocation" x="523" y="-27"/>
         </scene>
     </scenes>
     <resources>

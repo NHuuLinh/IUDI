@@ -10,13 +10,50 @@ import UIKit
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    static let shared = SceneDelegate()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
         // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        guard let windowScene = (scene as? UIWindowScene) else { return }
+        window = UIWindow(windowScene: windowScene)
+
+        // kiểm tra xem có người dùng đã chọn theme chưa, nếu chưa load theme theo hệ thống
+        if let selectedTheme = UserDefaults.standard.selectedTheme {
+            print("Selected Theme:", selectedTheme.rawValue)
+            ThemeManager.shared.applyTheme(selectedTheme, to: window)
+        } else {
+            print("No theme saved. Using default theme.")
+            ThemeManager.shared.applyTheme(.system, to: window)
+        }
+        
+        /// Vứt cho appDelegate nó giữ để sau mình lấy ra cho dễ
+        (UIApplication.shared.delegate as? AppDelegate)?.window = window
+            // có mạng
+                if UserDefaults.standard.didLogin {
+                    goToHome()
+                    print("goToMain")
+                } else {
+                    goToLogin()
+                    print("goToLogin")
+                }
+        }
+    
+    func goToHome() {
+        print("Đã login rồi. Cho vào Home")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let mainVC = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
+        let mainNavigation = UINavigationController(rootViewController: mainVC)
+        window!.rootViewController = mainNavigation
+        window!.makeKeyAndVisible()
+    }
+    func goToLogin() {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let loginVC = storyboard.instantiateViewController(withIdentifier: "LoginViewController")
+        let loginNavigation = UINavigationController(rootViewController: loginVC)
+        window!.rootViewController = loginNavigation
+        window!.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

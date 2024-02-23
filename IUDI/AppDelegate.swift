@@ -10,11 +10,16 @@ import CoreData
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-
-
+    
+    static var shared: AppDelegate?
+    var window: UIWindow?
+    static let scene = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
+        // lấy url của folder
+        let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
+//        print("url của file là: \(urls)")
         return true
     }
 
