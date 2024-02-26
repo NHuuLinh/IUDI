@@ -6,28 +6,30 @@
 //
 
 import UIKit
+import CardSlider
+
+struct Item: CardSliderItem {
+    var rating: Int?
+    var title: String
+    var subtitle: String?
+    var description: String?
+    var image: UIImage
+}
 
 class HomeViewController: UIViewController {
+    var data = [Item]()
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
+        
     }
+        
     
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
 
     @IBAction func logoutBtn(_ sender: Any) {
         UserDefaults.standard.didLogin = false
         AppDelegate.scene?.goToLogin()
     }
 }
+    
+

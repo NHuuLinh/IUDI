@@ -10,7 +10,9 @@ target 'IUDI' do
   pod 'MBProgressHUD', '~> 1.2.0'
   pod 'KeychainSwift'
   pod 'SwiftyJSON', '~> 4.0'
-
+  pod 'CardSlider'
+  pod 'CollectionViewPagingLayout'
+  pod 'iOSDropDown'
 
 
   target 'IUDITests' do

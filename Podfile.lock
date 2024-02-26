@@ -1,11 +1,17 @@
 PODS:
   - Alamofire (5.8.0)
+  - CardSlider (0.1.0)
+  - CollectionViewPagingLayout (1.1.0)
+  - iOSDropDown (0.4.0)
   - KeychainSwift (20.0.0)
   - MBProgressHUD (1.2.0)
   - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
   - Alamofire (= 5.8.0)
+  - CardSlider
+  - CollectionViewPagingLayout
+  - iOSDropDown
   - KeychainSwift
   - MBProgressHUD (~> 1.2.0)
   - SwiftyJSON (~> 4.0)
@@ -13,16 +19,22 @@ DEPENDENCIES:
 SPEC REPOS:
   trunk:
     - Alamofire
+    - CardSlider
+    - CollectionViewPagingLayout
+    - iOSDropDown
     - KeychainSwift
     - MBProgressHUD
     - SwiftyJSON
 
 SPEC CHECKSUMS:
   Alamofire: 0e92e751b3e9e66d7982db43919d01f313b8eb91
+  CardSlider: 0a8f5f17f5a76701771794b07fdaeddc512358c8
+  CollectionViewPagingLayout: 2f8d50683bae57ca88f47fa4ab0195c9079582cf
+  iOSDropDown: ce9daa584eaa5567cafc1b633e3cc7eb6d9cea42
   KeychainSwift: 0ce6a4d13f7228054d1a71bb1b500448fb2ab837
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 160f8d8522785120ae3b3bc10de351d620d98a7a
+PODFILE CHECKSUM: fb1d27d964a47e348234bd83de8522877f1fd00e
 
 COCOAPODS: 1.12.1

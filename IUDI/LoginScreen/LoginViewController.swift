@@ -34,6 +34,7 @@ class LoginViewController: UIViewController, checkValid {
     }
     @IBAction func UserInputDidChanged(_ sender: UITextField) {
         checkInput()
+        setupView()
     }
     @IBAction func handleBtn(_ sender: UIButton) {
         switch sender {
@@ -55,16 +56,15 @@ class LoginViewController: UIViewController, checkValid {
         }
     }
     func setupView(){
-        userNameTF.text = keychain.get("username")
-        userPasswordTF.text = keychain.get("password")
+//        userNameTF.text = keychain.get("username")
+//        userPasswordTF.text = keychain.get("password")
         rememberPasswordBtn.isSelected = true
         // Đặt hình ảnh ban đầu cho nút
         let checkImage = UIImage(systemName: "checkmark.square")
         rememberPasswordBtn.setBackgroundImage(checkImage, for: .normal)
         standardBorder(textField: userNameTF)
         standardBorder(textField: userPasswordTF)
-        loginBtn.layer.cornerRadius = 10  // Thay đổi số này để điều chỉnh độ bo của góc
-        loginBtn.clipsToBounds = true
+        standardBtnCornerRadius(button: loginBtn)
     }
     
     func saveUserInfo(){

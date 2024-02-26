@@ -18,11 +18,18 @@ extension UIViewController {
     func standardBorder(textField: UITextField) {
         textField.layer.cornerRadius = Constant.cornerRadius
         textField.layer.borderWidth = Constant.borderWidth
-        textField.layer.borderColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.00).cgColor
+        textField.layer.borderColor = Constant.mainColor
+        //UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.00).cgColor
     }
-    func buttonCornerRadius(button: UIButton) {
+    func standardBtnCornerRadius(button: UIButton) {
         button.layer.cornerRadius = 10  // Thay đổi số này để điều chỉnh độ bo của góc
         button.clipsToBounds = true
+    }
+    func standardViewCornerRadius(uiView: UIView) {
+        uiView.layer.cornerRadius =  Constant.cornerRadius
+        uiView.layer.borderWidth = Constant.borderWidth
+        uiView.clipsToBounds = true
+        uiView.layer.borderColor = Constant.mainColor
     }
 }
 
@@ -53,57 +60,7 @@ class CheckBox: UIButton {
         }
     }
 }
-   // thêm màu của viền ở storyboard
-//   @IBInspectable var borderColor: UIColor {
-//       get {
-//           if let color = layer.borderColor {
-//               return UIColor(cgColor: color)
-//           } else {
-//               return UIColor.clear
-//           }
-//       }
-//       set {
-//           layer.borderColor = newValue.cgColor
-//       }
-//   }
-//   // thêm chiều dày của viền ở storyboard
-//   @IBInspectable var borderWidth: CGFloat {
-//       get {
-//           return layer.borderWidth
-//       }
-//       set {
-//           layer.borderWidth = newValue
-//       }
-//   }
-//}
-//extension UIView {
-//
-//   // thêm màu của viền dưới ở storyboard
-//    @IBInspectable var bottomBorderColor: UIColor {
-//        set {
-//            addBottomBorderWithColor(color: newValue, width: bottomBorderWidth)
-//        }
-//        get {
-//            return UIColor.clear
-//        }
-//    }
-//
-//   // thêm chiều dày của viền dưới ở storyboard
-//    @IBInspectable var bottomBorderWidth: CGFloat {
-//        set {
-//            addBottomBorderWithColor(color: bottomBorderColor, width: newValue)
-//        }
-//        get {
-//            return 0.0
-//        }
-//    }
-//
-//    private func addBottomBorderWithColor(color: UIColor, width: CGFloat) {
-//        let bottomBorder = CALayer()
-//        bottomBorder.frame = CGRect(x: 0, y: self.frame.size.height - width, width: self.frame.size.width, height: width)
-//        bottomBorder.backgroundColor = color.cgColor
-//        self.layer.addSublayer(bottomBorder)
-//    }
+
 
 
 
