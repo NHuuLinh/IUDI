@@ -20,9 +20,9 @@
 		A483D0442B88413000DD6B15 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A483D0432B88413000DD6B15 /* APIService.swift */; };
 		A483D0462B885BC700DD6B15 /* CheckValid.swift in Sources */ = {isa = PBXBuildFile; fileRef = A483D0452B885BC700DD6B15 /* CheckValid.swift */; };
 		A483D0482B88711C00DD6B15 /* UserNetWorkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A483D0472B88711C00DD6B15 /* UserNetWorkManager.swift */; };
+		A49845AA2B8DEBE400357ABE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A49845A92B8DEBE400357ABE /* Main.storyboard */; };
 		A4A517022B86E52100AD4CE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A517012B86E52100AD4CE3 /* AppDelegate.swift */; };
 		A4A517042B86E52100AD4CE3 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A517032B86E52100AD4CE3 /* SceneDelegate.swift */; };
-		A4A517092B86E52100AD4CE3 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4A517072B86E52100AD4CE3 /* Main.storyboard */; };
 		A4A5170C2B86E52100AD4CE3 /* IUDI.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = A4A5170A2B86E52100AD4CE3 /* IUDI.xcdatamodeld */; };
 		A4A5170E2B86E52500AD4CE3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A4A5170D2B86E52500AD4CE3 /* Assets.xcassets */; };
 		A4A517112B86E52500AD4CE3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4A5170F2B86E52500AD4CE3 /* LaunchScreen.storyboard */; };
@@ -90,10 +90,10 @@
 		A483D0432B88413000DD6B15 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		A483D0452B885BC700DD6B15 /* CheckValid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckValid.swift; sourceTree = "<group>"; };
 		A483D0472B88711C00DD6B15 /* UserNetWorkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetWorkManager.swift; sourceTree = "<group>"; };
+		A49845A92B8DEBE400357ABE /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		A4A516FE2B86E52100AD4CE3 /* IUDI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IUDI.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4A517012B86E52100AD4CE3 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A4A517032B86E52100AD4CE3 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		A4A517082B86E52100AD4CE3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		A4A5170B2B86E52100AD4CE3 /* IUDI.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = IUDI.xcdatamodel; sourceTree = "<group>"; };
 		A4A5170D2B86E52500AD4CE3 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A4A517102B86E52500AD4CE3 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -277,8 +277,8 @@
 				A4A517532B86FD5100AD4CE3 /* LoginScreen */,
 				A4A517342B86F5F100AD4CE3 /* Roboto Font */,
 				A4A5170D2B86E52500AD4CE3 /* Assets.xcassets */,
+				A49845A92B8DEBE400357ABE /* Main.storyboard */,
 				A4A5170F2B86E52500AD4CE3 /* LaunchScreen.storyboard */,
-				A4A517072B86E52100AD4CE3 /* Main.storyboard */,
 				A4A517122B86E52500AD4CE3 /* Info.plist */,
 				A4A5170A2B86E52100AD4CE3 /* IUDI.xcdatamodeld */,
 			);
@@ -448,6 +448,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A49845AA2B8DEBE400357ABE /* Main.storyboard in Resources */,
 				A4A5174C2B86F5F100AD4CE3 /* Roboto-Bold.ttf in Resources */,
 				A4A5174A2B86F5F100AD4CE3 /* LICENSE.txt in Resources */,
 				A4B4AB9B2B8C2F7A00822DDB /* Roboto-Regular.ttf in Resources */,
@@ -464,7 +465,6 @@
 				A4A517452B86F5F100AD4CE3 /* Roboto-MediumItalic.ttf in Resources */,
 				A4A5170E2B86E52500AD4CE3 /* Assets.xcassets in Resources */,
 				A4A517492B86F5F100AD4CE3 /* Roboto-Italic.ttf in Resources */,
-				A4A517092B86E52100AD4CE3 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -650,14 +650,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		A4A517072B86E52100AD4CE3 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				A4A517082B86E52100AD4CE3 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		A4A5170F2B86E52500AD4CE3 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
