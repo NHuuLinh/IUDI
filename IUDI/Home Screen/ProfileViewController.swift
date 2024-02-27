@@ -191,17 +191,27 @@ class ProfileViewController: UIViewController {
         let subUrl = "profile/change_profile/" + "\(userID)"
         print("subUrl: \(subUrl)")
         
-        let parameters : [String:Any] = [
-            
-            "BirthDate": dateOfBirthTF.text ?? "",
-            "BirthTime": dateOfBirthTF.text ?? "",
-            "Email": userEmailTF.text ?? "",
-            "FullName": userNameTF.text ?? "",
-            "Gender": genderTF.text ?? "",
-            "Phone": phoneNumber.text ?? "",
-            "Username": userName,
-            "ProvinceID": "24"
+//        let parameters : [String:Any] = [
+//            "BirthDate": dateOfBirthTF.text ?? "",
+//            "BirthTime": dateOfBirthTF.text ?? "",
+//            "Email": userEmailTF.text ?? "",
+//            "FullName": userNameTF.text ?? "",
+//            "Gender": genderTF.text ?? "",
+//            "Phone": phoneNumber.text ?? "",
+//            "Username": userName,
+//            "ProvinceID": "24"
+//        ]
+        let parameters : [String: Any] = [
+            "BirthDate": "2001-05-13",
+            "BirthTime": "00:00:00",
+            "Email": "nguyenvanlinh1234@gmail.com",
+            "FullName": "Linh Nguyen",
+            "Gender": "Nam",
+            "Phone": "03967712345",
+            "Username": "linhli",
+            "ProvinceID":"1"
         ]
+        
         print("parameters: \(parameters)")
 
         APIService.share.apiHandle(method: .put ,subUrl: subUrl, parameters: parameters, data: User.self) { result in
