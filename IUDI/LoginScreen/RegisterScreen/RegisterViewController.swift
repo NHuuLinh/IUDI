@@ -119,19 +119,8 @@ class RegisterViewController: UIViewController, CheckValid {
                 self.showLoading(isShow: false)
                 switch result {
                 case .success(let data):
-                    DispatchQueue.main.async {
-                        self.userData = data
-                        guard let userID = self.userData?.registerData?.first?.userID else {
-                            print("user nil kiểm tra user response")
-                            return
-                        }
-                        UserDefaults.standard.set(userID, forKey: "UserID")
-                        print("data: \(userID)")
-                        self.saveUserInfo()
-                        UserDefaults.standard.didLogin = true
+                    print("data: \(data)")
                         self.showLoading(isShow: false)
-                        AppDelegate.scene?.goToHome()
-                    }
                 case .failure(let error):
                     switch error {
                     case .server(let message), .network(let message):

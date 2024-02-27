@@ -21,7 +21,7 @@ class LoginViewController: UIViewController, CheckValid {
     let locationManager = CLLocationManager()
     var longitude : String?
     var latitude : String?
-    var userData : UserDataLogin?
+    var userData : UserData?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,9 +40,11 @@ class LoginViewController: UIViewController, CheckValid {
         switch sender {
         case loginBtn :
             loginHandle()
+            print("loginhandle")
         case rememberPasswordBtn :
             checkBoxHandle()
         case registerBtn:
+//            loginHandle()
             goToRegisterVC()
         default:
             break
@@ -123,35 +125,35 @@ class LoginViewController: UIViewController, CheckValid {
             "Latitude": latitude,
             "Longitude": longitude
         ]
-        APIService.share.apiHandle(subUrl: "login", parameters: parameters, data: UserDataLogin.self) { result in
-            DispatchQueue.main.async {
+        APIService.share.apiHandle(method:.post ,subUrl: "login", parameters: parameters, data: UserData.self) { result in
                 self.showLoading(isShow: false)
                 switch result {
                 case .success(let data):
+                    print("data: \(data)")
                     DispatchQueue.main.async {
                         self.userData = data
-                        guard let userID = self.userData?.loginData?.users?.first?.userID else {
+                        guard let userID = self.userData?.user?.users?.first?.userID else {
+                            print("user nil kiểm tra user response")
                             return
                         }
                         UserDefaults.standard.set(userID, forKey: "UserID")
                         print("data: \(userID)")
+                        self.saveUserInfo()
+                        UserDefaults.standard.didLogin = true
+                        self.showLoading(isShow: false)
+                        AppDelegate.scene?.goToHome()
                     }
-                    self.saveUserInfo()
-                    UserDefaults.standard.didLogin = true
-                    self.showLoading(isShow: false)
-                    AppDelegate.scene?.goToHome()
-                    // Xử lý dữ liệu nhận được từ phản hồi (response)
                 case .failure(let error):
+                    print(error.localizedDescription)
                     switch error {
                     case .server(let message):
-                        self.showAlert(title: "lỗi", message: message)
+                        self.showAlert(title: "lỗi1", message: message)
                     case .network(let message):
                         self.showAlert(title: "lỗi", message: message)
                     }
                 }
             }
         }
-    }
 }
 // MARK: - Các hàm liên quan vị trí
 extension LoginViewController: CLLocationManagerDelegate {

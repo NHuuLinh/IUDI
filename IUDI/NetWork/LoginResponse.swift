@@ -1,15 +1,15 @@
 import Foundation
 
-// MARK: - Welcome
-struct UserDataLogin: Codable {
+// MARK: - UserData
+struct UserData: Codable {
     let jwt, message: String?
     let status: Int?
-    let loginData: LoginData?
+    let user: User?
 }
 
 // MARK: - User
-struct LoginData: Codable {
-    let users: [UserElement]?
+struct User: Codable {
+    let users: [Users]?
     let status: Int?
 
     enum CodingKeys: String, CodingKey {
@@ -19,14 +19,12 @@ struct LoginData: Codable {
 }
 
 // MARK: - UserElement
-struct UserElement: Codable {
-    let birthDate, birthTime: String?
-    let email, fullName: String?
+struct Users: Codable {
+    let birthDate, birthTime, email, fullName: String?
     let gender: String?
     let isLoggedIn: Bool?
-    let lastActivityTime: String?
-    let lastLoginIP, password: String?
-    let phone, provinceID: String?
+    let lastActivityTime, lastLoginIP, password, phone: String?
+    let provinceID: Int?
     let registrationIP: String?
     let role: Bool?
     let userID: Int?
@@ -50,3 +48,36 @@ struct UserElement: Codable {
         case username = "Username"
     }
 }
+
+
+// MARK: - UserElement
+struct UserElements: Codable {
+    let birthDate, birthTime, email, fullName: String?
+    let gender: String?
+    let isLoggedIn: Bool?
+    let lastActivityTime, lastLoginIP, password, phone: String?
+    let provinceID: Int?
+    let registrationIP: String?
+    let role: Bool?
+    let userID: Int?
+    let username: String?
+
+    enum CodingKeys: String, CodingKey {
+        case birthDate = "BirthDate"
+        case birthTime = "BirthTime"
+        case email = "Email"
+        case fullName = "FullName"
+        case gender = "Gender"
+        case isLoggedIn = "IsLoggedIn"
+        case lastActivityTime = "LastActivityTime"
+        case lastLoginIP = "LastLoginIP"
+        case password = "Password"
+        case phone = "Phone"
+        case provinceID = "ProvinceID"
+        case registrationIP = "RegistrationIP"
+        case role = "Role"
+        case userID = "UserID"
+        case username = "Username"
+    }
+}
+
