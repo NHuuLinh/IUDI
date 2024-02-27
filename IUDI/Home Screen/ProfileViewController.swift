@@ -169,10 +169,6 @@ class ProfileViewController: UIViewController {
             }
     }
     func loadDataToView(user: Users){
-//        guard let user = user.users?.first else {
-//            print("user nil")
-//            return
-//        }
         userNameLb.text = user.fullName
         userNameTF.text = user.fullName
         userEmailTF.text = user.email
@@ -188,18 +184,25 @@ class ProfileViewController: UIViewController {
             print("không có userName")
             return
         }
+        guard let userID = userID else {
+            return
+        }
         
         let subUrl = "profile/change_profile/" + "\(userID)"
+        print("subUrl: \(subUrl)")
+        
         let parameters : [String:Any] = [
+            
             "BirthDate": dateOfBirthTF.text ?? "",
             "BirthTime": dateOfBirthTF.text ?? "",
             "Email": userEmailTF.text ?? "",
             "FullName": userNameTF.text ?? "",
             "Gender": genderTF.text ?? "",
-            "Phone": phoneNumber.text,
+            "Phone": phoneNumber.text ?? "",
             "Username": userName,
-            "ProvinceID": "1"
+            "ProvinceID": "24"
         ]
+        print("parameters: \(parameters)")
 
         APIService.share.apiHandle(method: .put ,subUrl: subUrl, parameters: parameters, data: User.self) { result in
             DispatchQueue.main.async {
@@ -209,6 +212,7 @@ class ProfileViewController: UIViewController {
                     self.showAlert(title: "Thông báo", message: "Đã cập nhật dữ liệu thành công")
                     self.showLoading(isShow: false)
                 case .failure(let error):
+                    print("\(error.localizedDescription)")
                     switch error {
                     case .server(let message), .network(let message):
                         self.showAlert(title: "Lỗi", message: message)
