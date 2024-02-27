@@ -32,9 +32,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         (UIApplication.shared.delegate as? AppDelegate)?.window = window
             // có mạng
                 if UserDefaults.standard.didLogin {
-                    goToLogin()
+//                    goToLogin()
 
-//                    goToHome()
+                    goToHome()
                     print("goToMain")
                 } else {
                     goToLogin()

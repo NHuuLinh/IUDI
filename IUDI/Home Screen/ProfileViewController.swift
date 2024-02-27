@@ -34,85 +34,18 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var birthAddressBoxView: UIView!
     @IBOutlet weak var currentAddressBoxView: UIView!
     
-    let gender: [String] = ["Nam", "Nữ", "Đồng tính nam", "Đồng tính nữ"]
-    let provinces: [String] = [
-        "Hà Nội",
-        "Hồ Chí Minh",
-        "Hải Phòng",
-        "Đà Nẵng",
-        "Cần Thơ",
-        "Hải Dương",
-        "Hà Nam",
-        "Hà Tĩnh",
-        "Hòa Bình",
-        "Hưng Yên",
-        "Thanh Hóa",
-        "Nghệ An",
-        "Hà Tây",
-        "Thái Bình",
-        "Thái Nguyên",
-        "Lai Châu",
-        "Lào Cai",
-        "Lạng Sơn",
-        "Nam Định",
-        "Ninh Bình",
-        "Sơn La",
-        "Tây Ninh",
-        "Đồng Tháp",
-        "Bắc Giang",
-        "Bắc Kạn",
-        "Bạc Liêu",
-        "Bắc Ninh",
-        "Bến Tre",
-        "Bình Định",
-        "Bình Dương",
-        "Bình Phước",
-        "Bình Thuận",
-        "Cà Mau",
-        "Đắk Lắk",
-        "Đắk Nông",
-        "Điện Biên",
-        "Đồng Nai",
-        "Đồng Nai",
-        "Gia Lai",
-        "Hà Giang",
-        "Hà Giang",
-        "Hà Nam",
-        "Hà Tĩnh",
-        "Hải Dương",
-        "Hậu Giang",
-        "Hoà Bình",
-        "Hưng Yên",
-        "Khánh Hòa",
-        "Kiên Giang",
-        "Kon Tum",
-        "Lai Châu",
-        "Lâm Đồng",
-        "Lạng Sơn",
-        "Lào Cai",
-        "Long An",
-        "Nam Định",
-        "Nghệ An",
-        "Ninh Bình",
-        "Ninh Thuận",
-        "Phú Thọ",
-        "Phú Yên",
-        "Quảng Bình",
-        "Quảng Nam",
-        "Quảng Ngãi"
-    ]
     let keychain = KeychainSwift()
     var userProfile : User?
     var userID: Int?
+    var imagePicker = UIImagePickerController()
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         createDatePicker()
-        dropDownHandle(texfield: genderTF, inputArray: gender)
-        dropDownHandle(texfield: birthAddressTF, inputArray: provinces)
-        dropDownHandle(texfield: currentAddressTF, inputArray: provinces)
+        dropDownHandle(texfield: genderTF, inputArray: Constant.gender)
+        dropDownHandle(texfield: birthAddressTF, inputArray: Constant.provinces)
+        dropDownHandle(texfield: currentAddressTF, inputArray: Constant.provinces)
         getUserProfile()
     }
     func setupView(){
@@ -177,7 +110,6 @@ class ProfileViewController: UIViewController {
         phoneNumber.text = user.phone
         self.userID = user.userID
         print("self.userID : \(self.userID)")
-
     }
     func saveDataToServer() {
         guard let userName = keychain.get("username") else {
@@ -191,25 +123,15 @@ class ProfileViewController: UIViewController {
         let subUrl = "profile/change_profile/" + "\(userID)"
         print("subUrl: \(subUrl)")
         
-//        let parameters : [String:Any] = [
-//            "BirthDate": dateOfBirthTF.text ?? "",
-//            "BirthTime": dateOfBirthTF.text ?? "",
-//            "Email": userEmailTF.text ?? "",
-//            "FullName": userNameTF.text ?? "",
-//            "Gender": genderTF.text ?? "",
-//            "Phone": phoneNumber.text ?? "",
-//            "Username": userName,
-//            "ProvinceID": "24"
-//        ]
-        let parameters : [String: Any] = [
-            "BirthDate": "2001-05-13",
+        let parameters : [String:Any] = [
+            "BirthDate": dateOfBirthTF.text ?? "",
             "BirthTime": "00:00:00",
-            "Email": "nguyenvanlinh1234@gmail.com",
-            "FullName": "Linh Nguyen",
-            "Gender": "Nam",
-            "Phone": "03967712345",
-            "Username": "linhli",
-            "ProvinceID":"1"
+            "Email": userEmailTF.text ?? "",
+            "FullName": userNameTF.text ?? "",
+            "Gender": genderTF.text ?? "",
+            "Phone": phoneNumber.text ?? "",
+            "Username": userName,
+            "ProvinceID": "24"
         ]
         
         print("parameters: \(parameters)")
@@ -222,7 +144,7 @@ class ProfileViewController: UIViewController {
                     self.showAlert(title: "Thông báo", message: "Đã cập nhật dữ liệu thành công")
                     self.showLoading(isShow: false)
                 case .failure(let error):
-                    print("\(error.localizedDescription)")
+                    print("error: \(error.localizedDescription)")
                     switch error {
                     case .server(let message), .network(let message):
                         self.showAlert(title: "Lỗi", message: message)
@@ -246,6 +168,7 @@ class ProfileViewController: UIViewController {
         case pickDateBtn :
             dateOfBirthTF.becomeFirstResponder()
         case saveBtn:
+            editProfileState
             saveDataToServer()
             print("saved")
         default :
@@ -284,6 +207,81 @@ extension ProfileViewController {
     }
     @objc func cancelBtn() {
         self.view.endEditing(true)
+    }
+}
+// MARK: - Load image slectecd
+extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        guard let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
+            return
+        }
+        // Update the UI with the picked image
+        
+        userAvatar.image = pickedImage
+        
+        picker.dismiss(animated: true, completion: nil)
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    func pickImage() {
+        let titleAlert = NSLocalizedString("Choose Image", comment: "")
+        let messageAlert = NSLocalizedString("Choose your option", comment: ""
+        )
+        let alertViewController = UIAlertController(title: titleAlert,
+                                                    message: messageAlert,
+                                                    preferredStyle: .actionSheet)
+        let camera = UIAlertAction(title: "Camera",
+                                   style: .default) { (_) in
+            self.openCamera()
+        }
+        let galleryText = NSLocalizedString("Gallery", comment: "")
+        let gallery = UIAlertAction(title: galleryText,
+                                    style: .default) { (_) in
+            self.openGallary()
+        }
+        let cancelText = NSLocalizedString("Cancel", comment: "")
+        let cancel = UIAlertAction(title: cancelText, style: .cancel) { (_) in
+        }
+        alertViewController.addAction(camera)
+        alertViewController.addAction(gallery)
+        alertViewController.addAction(cancel)
+        present(alertViewController, animated: true, completion: nil)
+    }
+}
+// MARK: - Alert Choose image
+extension ProfileViewController {
+    fileprivate func openCamera() {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            imagePicker.delegate = self
+            imagePicker.sourceType = UIImagePickerController.SourceType.camera
+            /// Cho phép edit ảnh hay là không
+            imagePicker.allowsEditing = true
+            present(imagePicker, animated: true, completion: nil)
+        } else {
+            let errorText = NSLocalizedString("Error", comment: "")
+            let errorMessage = NSLocalizedString("Divice not have camera", comment: "")
+            
+            let alertWarning = UIAlertController(title: errorText,
+                                                 message: errorMessage,
+                                                 preferredStyle: .alert)
+            let cancelText = NSLocalizedString("Cancel", comment: "")
+            let cancel = UIAlertAction(title: cancelText,
+                                       style: .cancel) { (_) in
+                print("Cancel")
+            }
+            alertWarning.addAction(cancel)
+            self.present(alertWarning, animated: true, completion: nil)
+        }
+    }
+    fileprivate func openGallary() {
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            imagePicker.delegate = self as UIImagePickerControllerDelegate & UINavigationControllerDelegate
+            imagePicker.sourceType = .photoLibrary
+            /// Cho phép edit ảnh hay là không
+            imagePicker.allowsEditing = true
+            present(imagePicker, animated: true)
+        }
     }
 }
 
