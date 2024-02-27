@@ -102,7 +102,7 @@ class ProfileViewController: UIViewController {
         "Quảng Ngãi"
     ]
     let keychain = KeychainSwift()
-    var userProfile : UserProfiles?
+    var userProfile : User?
     var userID: Int?
 
     
@@ -134,27 +134,28 @@ class ProfileViewController: UIViewController {
             return
         }
         let url = Constant.baseUrl + "profile/" + userName
+        print("\(url)")
         AF.request(url, method: .get)
             .validate(statusCode: 200...299)
-            .responseDecodable(of: UserProfiles.self) { response in
+            .responseDecodable(of: User.self) { response in
                 switch response.result {
                     // Xử lý dữ liệu nhận được từ phản hồi (response)
                 case .success(let data):
-                    DispatchQueue.main.async {
                         self.userProfile = data
-                        guard let user = self.userProfile else {
+                    guard let user = self.userProfile?.users?.first else {
+                            print("dữ liệu nil")
                             return
                         }
-                        self.loadDataToView(user: user)
-                    }
+                    self.loadDataToView(user: user)
                     self.showLoading(isShow: false)
                 case .failure(let error):
+                    print("\(error.localizedDescription)")
                     if let data = response.data {
                         do {
                             let json = try JSON(data: data)
                             let errorMessage = json["message"].stringValue
                             print(errorMessage)
-                            self.showAlert(title: "Lỗi", message: errorMessage)
+                            self.showAlert(title: "Lỗi", message: errorMessage + "1")
                         } catch {
                             print("Error parsing JSON: \(error.localizedDescription)")
                             self.showAlert(title: "Lỗi", message: "Đã xảy ra lỗi, vui lòng thử lại sau.")
@@ -167,11 +168,11 @@ class ProfileViewController: UIViewController {
                 }
             }
     }
-    func loadDataToView(user: UserProfiles){
-        guard let user = user.userProfiles?.first else {
-            print("user nil")
-            return
-        }
+    func loadDataToView(user: Users){
+//        guard let user = user.users?.first else {
+//            print("user nil")
+//            return
+//        }
         userNameLb.text = user.fullName
         userNameTF.text = user.fullName
         userEmailTF.text = user.email
@@ -179,55 +180,15 @@ class ProfileViewController: UIViewController {
         dateOfBirthTF.text = user.birthDate
         phoneNumber.text = user.phone
         self.userID = user.userID
-    }
-    func getUserProfile1() {
-        showLoading(isShow: true)
-        guard userID == self.userID else {
-            return
-        }
-        guard let userName = keychain.get("username") else {
-            print("không có userName")
-            return
-        }
-        let subUrl = "profile/change_profile/" + "\(userID)"
-        let parameters : [String:Any] = [
-            "BirthDate": dateOfBirthTF.text ?? "",
-            "BirthTime": dateOfBirthTF.text ?? "",
-            "Email": userEmailTF.text ?? "",
-            "FullName": userNameTF.text ?? "",
-            "Gender": genderTF.text ?? "",
-            "Phone": phoneNumber.text,
-            "Username": userName,
-            "ProvinceID":"1"
-        ]
-        APIService.share.apiHandle(subUrl: subUrl, parameters: parameters, data: UserProfile.self) { result in
-            DispatchQueue.main.async {
-                self.showLoading(isShow: false)
-                switch result {
-                case .success(let data):
-                    self.showAlert(title: "Thông báo", message: "Đã cập nhật dữ liệu thành công")
-                    self.showLoading(isShow: false)
-                case .failure(let error):
-                    switch error {
-                    case .server(let message):
-                        self.showAlert(title: "lỗi", message: message)
-                    case .network(let message):
-                        self.showAlert(title: "lỗi", message: message)
-                    }
-                }
-            }
-        }
-    }
+        print("self.userID : \(self.userID)")
 
-
+    }
     func saveDataToServer() {
-        guard userID == self.userID else {
-            return
-        }
         guard let userName = keychain.get("username") else {
             print("không có userName")
             return
         }
+        
         let subUrl = "profile/change_profile/" + "\(userID)"
         let parameters : [String:Any] = [
             "BirthDate": dateOfBirthTF.text ?? "",
@@ -237,10 +198,10 @@ class ProfileViewController: UIViewController {
             "Gender": genderTF.text ?? "",
             "Phone": phoneNumber.text,
             "Username": userName,
-            "ProvinceID":"1"
+            "ProvinceID": "1"
         ]
 
-        APIService.share.apiHandle(method: .put ,subUrl: subUrl, parameters: parameters, data: UserProfile.self) { result in
+        APIService.share.apiHandle(method: .put ,subUrl: subUrl, parameters: parameters, data: User.self) { result in
             DispatchQueue.main.async {
                 self.showLoading(isShow: false)
                 switch result {
