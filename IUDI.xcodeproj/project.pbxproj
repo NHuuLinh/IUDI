@@ -49,6 +49,8 @@
 		A4B4AB9B2B8C2F7A00822DDB /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4A517372B86F5F100AD4CE3 /* Roboto-Regular.ttf */; };
 		A4B4AB9E2B8C324100822DDB /* MyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B4AB9C2B8C324100822DDB /* MyCell.swift */; };
 		A4B4AB9F2B8C324100822DDB /* MyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4B4AB9D2B8C324100822DDB /* MyCell.xib */; };
+		AB07000E2B8DD04100BB820C /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07000D2B8DD04100BB820C /* AboutViewController.swift */; };
+		AB07FFCE2B8DC43E00BB820C /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07FFCD2B8DC43E00BB820C /* SettingViewController.swift */; };
 		C89CCF82DA23C51534F616BC /* Pods_IUDI_IUDIUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F73342BEDD74C4D8573FB45 /* Pods_IUDI_IUDIUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -123,6 +125,8 @@
 		A4B4AB9C2B8C324100822DDB /* MyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCell.swift; sourceTree = "<group>"; };
 		A4B4AB9D2B8C324100822DDB /* MyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyCell.xib; sourceTree = "<group>"; };
 		A5830D6B4C599F9307429DDF /* Pods-IUDITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IUDITests.release.xcconfig"; path = "Target Support Files/Pods-IUDITests/Pods-IUDITests.release.xcconfig"; sourceTree = "<group>"; };
+		AB07000D2B8DD04100BB820C /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		AB07FFCD2B8DC43E00BB820C /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -261,6 +265,7 @@
 		A4A517002B86E52100AD4CE3 /* IUDI */ = {
 			isa = PBXGroup;
 			children = (
+				AB07FFCC2B8DC42C00BB820C /* Setting */,
 				A4A517012B86E52100AD4CE3 /* AppDelegate.swift */,
 				A4A517032B86E52100AD4CE3 /* SceneDelegate.swift */,
 				A44C5CDD2B87457D00037024 /* Extension */,
@@ -323,6 +328,15 @@
 				A4A517512B86FD3A00AD4CE3 /* LoginViewController.swift */,
 			);
 			path = LoginScreen;
+			sourceTree = "<group>";
+		};
+		AB07FFCC2B8DC42C00BB820C /* Setting */ = {
+			isa = PBXGroup;
+			children = (
+				AB07FFCD2B8DC43E00BB820C /* SettingViewController.swift */,
+				AB07000D2B8DD04100BB820C /* AboutViewController.swift */,
+			);
+			path = Setting;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -580,9 +594,11 @@
 			files = (
 				A4A5175D2B873D9000AD4CE3 /* RegisterViewController.swift in Sources */,
 				A483D03D2B88390600DD6B15 /* Theme Extension.swift in Sources */,
+				AB07000E2B8DD04100BB820C /* AboutViewController.swift in Sources */,
 				A4A517552B8708B200AD4CE3 /* Constant.swift in Sources */,
 				A4B4AB9E2B8C324100822DDB /* MyCell.swift in Sources */,
 				A483D0442B88413000DD6B15 /* APIService.swift in Sources */,
+				AB07FFCE2B8DC43E00BB820C /* SettingViewController.swift in Sources */,
 				A44C5CDF2B8745A000037024 /* ShowLoading and Aleart.swift in Sources */,
 				A45348DD2B8C624F006D72E4 /* ProfileViewController.swift in Sources */,
 				A4A9B9792B8D06350044861C /* RegisterResponse.swift in Sources */,
