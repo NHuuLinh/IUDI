@@ -11,29 +11,34 @@ import SwiftyJSON
 
 class UserNetWorkManager {
     static let share = UserNetWorkManager()
+    private init(){}
     
-    func fetchWeatherData(url: String, parameters: [String:Any], completion: @escaping (UserData?) -> Void) {
-        let mainUrl = Constant.baseUrl + url
+    func login( username: String, password: String, latitude: String, longitude: String, completion: @escaping (Result<UserDataLogin, APIError>) -> Void) {
+        let url = Constant.baseUrl + "login"
+        let parameters: [String: Any] = [
+            "Username": username,
+            "Password": password,
+            "Latitude": latitude,
+            "Longitude": longitude
+        ]
         
-        AF.request(mainUrl, method: .post, parameters: parameters, encoding: JSONEncoding.default)
+        AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
             .validate(statusCode: 200...299)
-            .responseDecodable(of: UserData.self) { response in
+            .responseDecodable(of: UserDataLogin.self) { response in
                 switch response.result {
-                    // Xử lý dữ liệu nhận được từ phản hồi (response)
                 case .success(let data):
-                    let userData = data.self
-                    print("success")
-                    completion(userData)
+                    completion(.success(data))
                 case .failure(let error):
-                    completion(nil)
                     if let data = response.data {
                         do {
                             let json = try JSON(data: data)
                             let errorMessage = json["message"].stringValue
-                            print(errorMessage)
+                            completion(.failure(.server(message: errorMessage)))
                         } catch {
-                            print("Error parsing JSON: \(error.localizedDescription)")
+                            completion(.failure(.server(message: "Unknown error occurred")))
                         }
+                    } else {
+                        completion(.failure(.network(message: error.localizedDescription)))
                     }
                 }
             }

@@ -10,7 +10,7 @@ import SwiftyJSON
 import KeychainSwift
 import CoreLocation
 
-class LoginViewController: UIViewController, checkValid {
+class LoginViewController: UIViewController, CheckValid {
     @IBOutlet weak var userNameTF: UITextField!
     @IBOutlet weak var userPasswordTF: UITextField!
     @IBOutlet weak var rememberPasswordBtn: UIButton!
@@ -21,7 +21,7 @@ class LoginViewController: UIViewController, checkValid {
     let locationManager = CLLocationManager()
     var longitude : String?
     var latitude : String?
-    var userData : UserData?
+    var userData : UserDataLogin?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,30 +106,31 @@ class LoginViewController: UIViewController, checkValid {
             print("fail")
         }
     }
-    
-    func loginHandle(){
+    func loginHandle() {
         showLoading(isShow: true)
-        guard let userName = userNameTF.text, let userPassword = userPasswordTF.text else {
-            return
+        guard let username = userNameTF.text,
+              let password = userPasswordTF.text,
+              let longitude = longitude,
+              let latitude = latitude else {
+            print("user nil")
             showLoading(isShow: false)
+            showAlert(title: "Lỗi", message: "Vui lòng thử lại sau")
+            return
         }
-        let url = Constant.baseUrl + "login"
         let parameters: [String: Any] = [
-            "Username": userName,
-            "Password": userPassword,
+            "Username": username,
+            "Password": password,
             "Latitude": latitude,
             "Longitude": longitude
         ]
-        
-        AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
-            .validate(statusCode: 200...299)
-            .responseDecodable(of: UserData.self) { response in
-                switch response.result {
-                    // Xử lý dữ liệu nhận được từ phản hồi (response)
+        APIService.share.apiHandle(subUrl: "login", parameters: parameters, data: UserDataLogin.self) { result in
+            DispatchQueue.main.async {
+                self.showLoading(isShow: false)
+                switch result {
                 case .success(let data):
                     DispatchQueue.main.async {
                         self.userData = data
-                        guard let userID = self.userData?.user?.users?.first?.userID else {
+                        guard let userID = self.userData?.loginData?.users?.first?.userID else {
                             return
                         }
                         UserDefaults.standard.set(userID, forKey: "UserID")
@@ -139,27 +140,18 @@ class LoginViewController: UIViewController, checkValid {
                     UserDefaults.standard.didLogin = true
                     self.showLoading(isShow: false)
                     AppDelegate.scene?.goToHome()
+                    // Xử lý dữ liệu nhận được từ phản hồi (response)
                 case .failure(let error):
-                    if let data = response.data {
-                        do {
-                            let json = try JSON(data: data)
-                            let errorMessage = json["message"].stringValue
-                            print(errorMessage)
-                            self.showAlert(title: "Lỗi", message: errorMessage)
-                        } catch {
-                            print("Error parsing JSON: \(error.localizedDescription)")
-                            self.showAlert(title: "Lỗi", message: "Đã xảy ra lỗi, vui lòng thử lại sau.")
-                        }
-                    } else {
-                        print("Không có dữ liệu từ server")
-                        self.showAlert(title: "Lỗi", message: "Đã xảy ra lỗi, vui lòng thử lại sau.")
+                    switch error {
+                    case .server(let message):
+                        self.showAlert(title: "lỗi", message: message)
+                    case .network(let message):
+                        self.showAlert(title: "lỗi", message: message)
                     }
-                    self.showLoading(isShow: false)
                 }
             }
+        }
     }
-    
-    
 }
 // MARK: - Các hàm liên quan vị trí
 extension LoginViewController: CLLocationManagerDelegate {

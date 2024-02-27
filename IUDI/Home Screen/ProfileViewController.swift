@@ -125,6 +125,8 @@ class ProfileViewController: UIViewController {
         standardViewCornerRadius(uiView: currentAddressBoxView)
         standardBtnCornerRadius(button: saveBtn)
     }
+
+
     func getUserProfile(){
         showLoading(isShow: true)
         guard let userName = keychain.get("username") else {
@@ -178,26 +180,83 @@ class ProfileViewController: UIViewController {
         phoneNumber.text = user.phone
         self.userID = user.userID
     }
-//    func saveDataToServer(){
-//        guard userID == self.userID else {
-//            return
-//        }
-//        guard let userName = keychain.get("username") else {
-//            print("không có userName")
-//            return
-//        }
-//        let url = Constant.baseUrl + "profile/change_profile/" + "\(userID)"
-//        let param : [String:Any] = [
-//            "BirthDate": dateOfBirthTF.text ?? "",
-//            "BirthTime": dateOfBirthTF.text ?? "",
-//            "Email": userEmailTF.text ?? "",
-//            "FullName": userNameTF.text ?? "",
-//            "Gender": genderTF.text ?? "",
-//            "Phone": phoneNumber.text,
-//            "Username": userName,
-//            "ProvinceID":"1"
-//        ]
-//    }
+    func getUserProfile1() {
+        showLoading(isShow: true)
+        guard userID == self.userID else {
+            return
+        }
+        guard let userName = keychain.get("username") else {
+            print("không có userName")
+            return
+        }
+        let subUrl = "profile/change_profile/" + "\(userID)"
+        let parameters : [String:Any] = [
+            "BirthDate": dateOfBirthTF.text ?? "",
+            "BirthTime": dateOfBirthTF.text ?? "",
+            "Email": userEmailTF.text ?? "",
+            "FullName": userNameTF.text ?? "",
+            "Gender": genderTF.text ?? "",
+            "Phone": phoneNumber.text,
+            "Username": userName,
+            "ProvinceID":"1"
+        ]
+        APIService.share.apiHandle(subUrl: subUrl, parameters: parameters, data: UserProfile.self) { result in
+            DispatchQueue.main.async {
+                self.showLoading(isShow: false)
+                switch result {
+                case .success(let data):
+                    self.showAlert(title: "Thông báo", message: "Đã cập nhật dữ liệu thành công")
+                    self.showLoading(isShow: false)
+                case .failure(let error):
+                    switch error {
+                    case .server(let message):
+                        self.showAlert(title: "lỗi", message: message)
+                    case .network(let message):
+                        self.showAlert(title: "lỗi", message: message)
+                    }
+                }
+            }
+        }
+    }
+
+
+    func saveDataToServer() {
+        guard userID == self.userID else {
+            return
+        }
+        guard let userName = keychain.get("username") else {
+            print("không có userName")
+            return
+        }
+        let subUrl = "profile/change_profile/" + "\(userID)"
+        let parameters : [String:Any] = [
+            "BirthDate": dateOfBirthTF.text ?? "",
+            "BirthTime": dateOfBirthTF.text ?? "",
+            "Email": userEmailTF.text ?? "",
+            "FullName": userNameTF.text ?? "",
+            "Gender": genderTF.text ?? "",
+            "Phone": phoneNumber.text,
+            "Username": userName,
+            "ProvinceID":"1"
+        ]
+
+        APIService.share.apiHandle(method: .put ,subUrl: subUrl, parameters: parameters, data: UserProfile.self) { result in
+            DispatchQueue.main.async {
+                self.showLoading(isShow: false)
+                switch result {
+                case .success(let data):
+                    self.showAlert(title: "Thông báo", message: "Đã cập nhật dữ liệu thành công")
+                    self.showLoading(isShow: false)
+                case .failure(let error):
+                    switch error {
+                    case .server(let message), .network(let message):
+                        self.showAlert(title: "Lỗi", message: message)
+                        print("\(message)")
+                    }
+                }
+            }
+        }
+    }
 
     
     func dropDownHandle(texfield: DropDown, inputArray: [String]){
@@ -212,6 +271,7 @@ class ProfileViewController: UIViewController {
         case pickDateBtn :
             dateOfBirthTF.becomeFirstResponder()
         case saveBtn:
+            saveDataToServer()
             print("saved")
         default :
             break

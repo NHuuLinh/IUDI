@@ -7,12 +7,12 @@
 
 import Foundation
 
-protocol checkValid {
+protocol CheckValid {
     func checkUserNameValid(userName: String) -> Bool
     func passwordValidator(password: String) -> Bool
     func emailValidator(email: String) -> Bool
 }
-extension checkValid {
+extension CheckValid {
     // hàm check valid userName
     func checkUserNameValid(userName: String) -> Bool {
         if isValidUserName(userName) {

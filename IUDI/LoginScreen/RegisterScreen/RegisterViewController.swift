@@ -11,7 +11,7 @@ import SwiftyJSON
 import KeychainSwift
 import CoreLocation
 
-class RegisterViewController: UIViewController, checkValid {
+class RegisterViewController: UIViewController, CheckValid {
     
     
     @IBOutlet weak var userNameTF: UITextField!
@@ -25,7 +25,7 @@ class RegisterViewController: UIViewController, checkValid {
     let locationManager = CLLocationManager()
     var longitude : String?
     var latitude : String?
-    var userData : UserData?
+    var userData : UserDataRegister?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -92,61 +92,56 @@ class RegisterViewController: UIViewController, checkValid {
             registerBtn.layer.opacity = 0.5
         }
     }
-    func registerHandle(){
+    
+    func registerHandle() {
         showLoading(isShow: true)
-        guard let userName = userNameTF.text, let userPassword = userPasswordTF.text else {
+        guard let username = userNameTF.text,
+              let userpassword = userPasswordTF.text,
+              let userEmail = userEmailTF.text,
+              let longitude = longitude,
+              let latitude = latitude else {
+            print("user nil")
             showLoading(isShow: false)
+            showAlert(title: "Lỗi", message: "Vui lòng thử lại sau")
             return
         }
-        let url = Constant.baseUrl + "register"
         let parameters: [String: Any] = [
-            "Username": userName,
-            "FullName": userName,
-            "Password": userPassword,
-            "Latitude": latitude,
-            "Longitude": longitude
+            "Username": username,
+            "FullName": username,
+            "Email": userEmail,
+            "Password": userpassword,
+            "Latitude": longitude,
+            "Longitude": latitude
         ]
         
-        AF.request(url, method: .post, parameters: parameters, encoding: JSONEncoding.default)
-            .validate(statusCode: 200...299)
-            .responseDecodable(of: UserData.self) { response in
-                switch response.result {
-                    // Xử lý dữ liệu nhận được từ phản hồi (response)
+        APIService.share.apiHandle(method: .post ,subUrl: "register", parameters: parameters, data: UserDataRegister.self) { result in
+            DispatchQueue.main.async {
+                self.showLoading(isShow: false)
+                switch result {
                 case .success(let data):
                     DispatchQueue.main.async {
                         self.userData = data
-                        guard let userID = self.userData?.user?.users?.first?.userID else {
+                        guard let userID = self.userData?.registerData?.first?.userID else {
+                            print("user nil kiểm tra user response")
                             return
                         }
                         UserDefaults.standard.set(userID, forKey: "UserID")
                         print("data: \(userID)")
+                        self.saveUserInfo()
+                        UserDefaults.standard.didLogin = true
+                        self.showLoading(isShow: false)
+                        AppDelegate.scene?.goToHome()
                     }
-                    self.saveUserInfo()
-                    UserDefaults.standard.didLogin = true
-                    self.showLoading(isShow: false)
-                    AppDelegate.scene?.goToHome()
-                    // Xử lý thông tin người dùng đã đăng ký thành công tại đây (nếu cần)
                 case .failure(let error):
-                    if let data = response.data {
-                        do {
-                            let json = try JSON(data: data)
-                            let errorMessage = json["message"].stringValue
-                            print(errorMessage)
-                            self.showAlert(title: "Lỗi", message: errorMessage)
-                        } catch {
-                            print("Error parsing JSON: \(error.localizedDescription)")
-                            self.showAlert(title: "Lỗi", message: "Đã xảy ra lỗi, vui lòng thử lại sau.")
-                        }
-                    } else {
-                        print("Không có dữ liệu từ server")
-                        self.showAlert(title: "Lỗi", message: "Đã xảy ra lỗi, vui lòng thử lại sau.")
+                    switch error {
+                    case .server(let message), .network(let message):
+                        self.showAlert(title: "Lỗi", message: message)
+                        print("\(message)")
                     }
-                    self.showLoading(isShow: false)
                 }
             }
+        }
     }
-    
-    
 }
 // MARK: - Các hàm liên quan vị trí
 extension RegisterViewController: CLLocationManagerDelegate {

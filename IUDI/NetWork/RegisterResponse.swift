@@ -1,38 +1,25 @@
-//
-//  UserData.swift
-//  IUDI
-//
-//  Created by LinhMAC on 22/02/2024.
-//
-
 import Foundation
 
 // MARK: - Welcome
-struct UserData: Codable {
-    let jwt, message: String?
-    let status: Int?
-    let user: User?
-}
-
-// MARK: - User
-struct User: Codable {
-    let users: [UserElement]?
+struct UserDataRegister: Codable {
+    let registerData: [RegisterData]?
     let status: Int?
 
     enum CodingKeys: String, CodingKey {
-        case users = "Users"
+        case registerData = "Users"
         case status
     }
 }
 
-// MARK: - UserElement
-struct UserElement: Codable {
+// MARK: - User
+struct RegisterData: Codable {
     let birthDate, birthTime: String?
     let email, fullName: String?
     let gender: String?
     let isLoggedIn: Bool?
     let lastActivityTime: String?
-    let lastLoginIP, password: String?
+    let lastLoginIP: String?
+    let password: String?
     let phone, provinceID: String?
     let registrationIP: String?
     let role: Bool?
