@@ -17,7 +17,6 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var userNameLb: UILabel!
     @IBOutlet weak var userNameTF: UITextField!
     @IBOutlet weak var userEmailTF: UITextField!
-    let datePicker = UIDatePicker()
     @IBOutlet weak var genderTF: DropDown!
     @IBOutlet weak var dateOfBirthTF: UITextField!
     @IBOutlet weak var pickDateBtn: UIButton!
@@ -26,6 +25,10 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var phoneNumber: UITextField!
     
     @IBOutlet weak var saveBtn: UIButton!
+    @IBOutlet weak var genderBtn: UIButton!
+    @IBOutlet weak var birthAddressBtn: UIButton!
+    @IBOutlet weak var currentAddressBtn: UIButton!
+    @IBOutlet weak var backBtn: UIButton!
     
     @IBOutlet weak var userNameBoxView: UIView!
     @IBOutlet weak var userEmailBoxView: UIView!
@@ -33,11 +36,16 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var dateOfBirthBoxView: UIView!
     @IBOutlet weak var birthAddressBoxView: UIView!
     @IBOutlet weak var currentAddressBoxView: UIView!
+    @IBOutlet weak var phoneNumberBoxView: UIView!
+    @IBOutlet weak var scrollView: UIScrollView!
     
+    let datePicker = UIDatePicker()
     let keychain = KeychainSwift()
     var userProfile : User?
     var userID: Int?
     var imagePicker = UIImagePickerController()
+    var hi:ImgModel = ImgModel()
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -47,6 +55,74 @@ class ProfileViewController: UIViewController {
         dropDownHandle(texfield: birthAddressTF, inputArray: Constant.provinces)
         dropDownHandle(texfield: currentAddressTF, inputArray: Constant.provinces)
         getUserProfile()
+        avatarImageTap()
+        setupScrollView()
+
+    }
+    func dropDownHandle(texfield: DropDown, inputArray: [String]){
+//        texfield.showList()
+        texfield.arrowColor = UIColor .red
+        texfield.selectedRowColor = UIColor .red
+        texfield.optionArray = inputArray
+//        texfield.didSelect{(selectedText , index ,id) in
+//        }
+        
+    }
+    func avatarImageTap(){
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        userAvatar.isUserInteractionEnabled = true
+        userAvatar.addGestureRecognizer(tapGestureRecognizer)
+    }
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+//        let tappedImage = tapGestureRecognizer.view as! UIImageView
+        pickImage()
+        print("pickImage")
+    }
+    func convertImageToBase64String (img: UIImage) -> String {
+        return img.jpegData(compressionQuality: 1)?.base64EncodedString() ?? ""
+    }
+    func uploadImageToServer(){
+        let userImage:UIImage = userAvatar.image!
+        let imageData:NSData = userImage.pngData()! as NSData
+        let dataImage = imageData.base64EncodedString(options: .lineLength64Characters)
+        let sonaParam = ["image":dataImage]
+        APIServiceImage.shared.PostImageServer(param: imageData as Data){data, error in
+            if let data = data{
+                self.hi = data
+                print("display_url : \(self.hi.display_url)")
+                print("description : \(self.hi.description)")
+                print("id : \(self.hi.id)")
+                print("link : \(self.hi.link)")
+                print("time : \(self.hi.time)")
+                print("title : \(self.hi.title)")
+                print("url : \(self.hi.url)")
+                print("url_viewer : \(self.hi.url_viewer)")
+                self.uploadImageToServer1(imageUrl: self.hi.display_url)
+            }
+        }
+    }
+    
+    func uploadImageToServer1(imageUrl: String) {
+        let parameters: [String: Any] = [
+            "PhotoURL": imageUrl,
+            "SetAsAvatar":false
+        ]
+        APIService.share.apiHandle(method:.post ,subUrl: "profile/add_image/37", parameters: parameters, data: UserData.self) { result in
+                self.showLoading(isShow: false)
+                switch result {
+                case .success(let data):
+                    print("data: \(data)")
+                case .failure(let error):
+                    print(error.localizedDescription)
+                    switch error {
+                    case .server(let message):
+                        self.showAlert(title: "lỗi1", message: message)
+                    case .network(let message):
+                        self.showAlert(title: "lỗi", message: message)
+                    }
+                }
+            }
     }
     func setupView(){
         standardViewCornerRadius(uiView: userNameBoxView)
@@ -57,6 +133,7 @@ class ProfileViewController: UIViewController {
         standardViewCornerRadius(uiView: birthAddressBoxView)
         standardViewCornerRadius(uiView: currentAddressBoxView)
         standardBtnCornerRadius(button: saveBtn)
+        standardViewCornerRadius(uiView: phoneNumberBoxView)
     }
 
 
@@ -141,6 +218,8 @@ class ProfileViewController: UIViewController {
                 self.showLoading(isShow: false)
                 switch result {
                 case .success(let data):
+//                    self.uploadImageToServer()
+                    self.uploadImageToServer()
                     self.showAlert(title: "Thông báo", message: "Đã cập nhật dữ liệu thành công")
                     self.showLoading(isShow: false)
                 case .failure(let error):
@@ -154,23 +233,22 @@ class ProfileViewController: UIViewController {
             }
         }
     }
-
     
-    func dropDownHandle(texfield: DropDown, inputArray: [String]){
-        texfield.optionArray = inputArray
-        texfield.didSelect{(selectedText , index ,id) in
-        }
-    }
-
-
     @IBAction func buttonHandle(_ sender: UIButton) {
         switch sender {
         case pickDateBtn :
             dateOfBirthTF.becomeFirstResponder()
         case saveBtn:
-            editProfileState
             saveDataToServer()
+        case genderBtn:
+            genderTF.showList()
+        case birthAddressBtn:
+            birthAddressTF.showList()
+        case currentAddressBtn:
+            currentAddressTF.showList()
             print("saved")
+        case backBtn:
+            navigationController?.popToRootViewController(animated: true)
         default :
             break
         }
@@ -240,13 +318,49 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
                                     style: .default) { (_) in
             self.openGallary()
         }
+        let selectImageText = NSLocalizedString("Select Image", comment: "")
+        let selectImage = UIAlertAction(title: selectImageText,
+                                    style: .default) { (_) in
+            self.gotoSelectImage()
+        }
         let cancelText = NSLocalizedString("Cancel", comment: "")
         let cancel = UIAlertAction(title: cancelText, style: .cancel) { (_) in
         }
         alertViewController.addAction(camera)
         alertViewController.addAction(gallery)
+        alertViewController.addAction(selectImage)
         alertViewController.addAction(cancel)
         present(alertViewController, animated: true, completion: nil)
+    }
+    
+    func gotoSelectImage(){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let viewController = storyboard.instantiateViewController(identifier: "SelectImageViewController") as? SelectImageViewController {
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
+    }
+
+}
+// MARK: - ScrollView khi chọn lịch
+extension ProfileViewController {
+    func setupScrollView(){
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name:UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    @objc func keyboardWillShow(notification:NSNotification) {
+
+        guard let userInfo = notification.userInfo else { return }
+        var keyboardFrame:CGRect = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
+        keyboardFrame = self.view.convert(keyboardFrame, from: nil)
+
+        var contentInset:UIEdgeInsets = self.scrollView.contentInset
+        contentInset.bottom = keyboardFrame.size.height + 50
+        scrollView.contentInset = contentInset
+    }
+
+    @objc func keyboardWillHide(notification:NSNotification) {
+        let contentInset:UIEdgeInsets = UIEdgeInsets.zero
+        scrollView.contentInset = contentInset
     }
 }
 // MARK: - Alert Choose image

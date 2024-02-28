@@ -23,9 +23,6 @@ class HomeViewController: UIViewController {
         super.viewDidLoad()
         
     }
-        
-    
-
     @IBAction func logoutBtn(_ sender: Any) {
         UserDefaults.standard.didLogin = false
         AppDelegate.scene?.goToLogin()

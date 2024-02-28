@@ -125,6 +125,9 @@ class LoginViewController: UIViewController, CheckValid {
             "Latitude": latitude,
             "Longitude": longitude
         ]
+        
+        print("parameters: \(parameters)")
+
         APIService.share.apiHandle(method:.post ,subUrl: "login", parameters: parameters, data: UserData.self) { result in
                 self.showLoading(isShow: false)
                 switch result {

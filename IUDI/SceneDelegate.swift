@@ -33,7 +33,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             // có mạng
                 if UserDefaults.standard.didLogin {
 //                    goToLogin()
-
                     goToHome()
                     print("goToMain")
                 } else {
@@ -45,7 +44,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func goToHome() {
         print("Đã login rồi. Cho vào Home")
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let mainVC = storyboard.instantiateViewController(withIdentifier: "ProfileViewController")
+        let mainVC = storyboard.instantiateViewController(withIdentifier: "SelectImageViewController")
         let mainNavigation = UINavigationController(rootViewController: mainVC)
         window!.rootViewController = mainNavigation
         window!.makeKeyAndVisible()

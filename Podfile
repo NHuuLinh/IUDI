@@ -13,6 +13,8 @@ target 'IUDI' do
   pod 'CardSlider'
   pod 'CollectionViewPagingLayout'
   pod 'iOSDropDown'
+  pod 'Kingfisher'
+
 
 
   target 'IUDITests' do

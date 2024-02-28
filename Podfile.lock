@@ -4,6 +4,7 @@ PODS:
   - CollectionViewPagingLayout (1.1.0)
   - iOSDropDown (0.4.0)
   - KeychainSwift (20.0.0)
+  - Kingfisher (7.9.1)
   - MBProgressHUD (1.2.0)
   - SwiftyJSON (4.3.0)
 
@@ -13,6 +14,7 @@ DEPENDENCIES:
   - CollectionViewPagingLayout
   - iOSDropDown
   - KeychainSwift
+  - Kingfisher
   - MBProgressHUD (~> 1.2.0)
   - SwiftyJSON (~> 4.0)
 
@@ -23,6 +25,7 @@ SPEC REPOS:
     - CollectionViewPagingLayout
     - iOSDropDown
     - KeychainSwift
+    - Kingfisher
     - MBProgressHUD
     - SwiftyJSON
 
@@ -32,9 +35,10 @@ SPEC CHECKSUMS:
   CollectionViewPagingLayout: 2f8d50683bae57ca88f47fa4ab0195c9079582cf
   iOSDropDown: ce9daa584eaa5567cafc1b633e3cc7eb6d9cea42
   KeychainSwift: 0ce6a4d13f7228054d1a71bb1b500448fb2ab837
+  Kingfisher: 1d14e9f59cbe19389f591c929000332bf70efd32
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: fb1d27d964a47e348234bd83de8522877f1fd00e
+PODFILE CHECKSUM: f7c5d28df347e2420e333303002e91920cf27408
 
 COCOAPODS: 1.12.1
