@@ -55,8 +55,21 @@
 		A4B4AB9B2B8C2F7A00822DDB /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4A517372B86F5F100AD4CE3 /* Roboto-Regular.ttf */; };
 		A4B4AB9E2B8C324100822DDB /* MyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B4AB9C2B8C324100822DDB /* MyCell.swift */; };
 		A4B4AB9F2B8C324100822DDB /* MyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4B4AB9D2B8C324100822DDB /* MyCell.xib */; };
-		AB07000E2B8DD04100BB820C /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07000D2B8DD04100BB820C /* AboutViewController.swift */; };
-		AB07FFCE2B8DC43E00BB820C /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB07FFCD2B8DC43E00BB820C /* SettingViewController.swift */; };
+		AB24B17D2B8DEDED007665D8 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24B17B2B8DEDED007665D8 /* SettingViewController.swift */; };
+		AB24B17E2B8DEDED007665D8 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB24B17C2B8DEDED007665D8 /* SettingViewController.xib */; };
+		AB8A68152B8DF1A7001F686F /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8A68132B8DF1A7001F686F /* AboutViewController.swift */; };
+		AB8A68162B8DF1A7001F686F /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB8A68142B8DF1A7001F686F /* AboutViewController.xib */; };
+		AB8A681B2B8ED7B4001F686F /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8A68192B8ED7B4001F686F /* GroupViewController.swift */; };
+		AB8A681C2B8ED7B4001F686F /* GroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB8A681A2B8ED7B4001F686F /* GroupViewController.xib */; };
+		AB8A681F2B8ED887001F686F /* CollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8A681D2B8ED887001F686F /* CollectionViewCell.swift */; };
+		AB8A68202B8ED887001F686F /* CollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB8A681E2B8ED887001F686F /* CollectionViewCell.xib */; };
+		AB8A68252B8EE039001F686F /* Datas.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8A68242B8EE039001F686F /* Datas.swift */; };
+		AB8A682D2B8F16BA001F686F /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8A682B2B8F16BA001F686F /* PrivacyViewController.swift */; };
+		AB8A682E2B8F16BA001F686F /* PrivacyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB8A682C2B8F16BA001F686F /* PrivacyViewController.xib */; };
+		AB8A68322B8F178B001F686F /* NotificationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8A68302B8F178B001F686F /* NotificationViewController.swift */; };
+		AB8A68332B8F178B001F686F /* NotificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB8A68312B8F178B001F686F /* NotificationViewController.xib */; };
+		AB8A683B2B8F4364001F686F /* PostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8A68392B8F4364001F686F /* PostsViewController.swift */; };
+		AB8A683C2B8F4364001F686F /* PostsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB8A683A2B8F4364001F686F /* PostsViewController.xib */; };
 		C89CCF82DA23C51534F616BC /* Pods_IUDI_IUDIUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F73342BEDD74C4D8573FB45 /* Pods_IUDI_IUDIUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -137,8 +150,21 @@
 		A4B4AB9C2B8C324100822DDB /* MyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCell.swift; sourceTree = "<group>"; };
 		A4B4AB9D2B8C324100822DDB /* MyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyCell.xib; sourceTree = "<group>"; };
 		A5830D6B4C599F9307429DDF /* Pods-IUDITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IUDITests.release.xcconfig"; path = "Target Support Files/Pods-IUDITests/Pods-IUDITests.release.xcconfig"; sourceTree = "<group>"; };
-		AB07000D2B8DD04100BB820C /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
-		AB07FFCD2B8DC43E00BB820C /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		AB24B17B2B8DEDED007665D8 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		AB24B17C2B8DEDED007665D8 /* SettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
+		AB8A68132B8DF1A7001F686F /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
+		AB8A68142B8DF1A7001F686F /* AboutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
+		AB8A68192B8ED7B4001F686F /* GroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
+		AB8A681A2B8ED7B4001F686F /* GroupViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GroupViewController.xib; sourceTree = "<group>"; };
+		AB8A681D2B8ED887001F686F /* CollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCell.swift; sourceTree = "<group>"; };
+		AB8A681E2B8ED887001F686F /* CollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CollectionViewCell.xib; sourceTree = "<group>"; };
+		AB8A68242B8EE039001F686F /* Datas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Datas.swift; sourceTree = "<group>"; };
+		AB8A682B2B8F16BA001F686F /* PrivacyViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
+		AB8A682C2B8F16BA001F686F /* PrivacyViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrivacyViewController.xib; sourceTree = "<group>"; };
+		AB8A68302B8F178B001F686F /* NotificationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewController.swift; sourceTree = "<group>"; };
+		AB8A68312B8F178B001F686F /* NotificationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationViewController.xib; sourceTree = "<group>"; };
+		AB8A68392B8F4364001F686F /* PostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsViewController.swift; sourceTree = "<group>"; };
+		AB8A683A2B8F4364001F686F /* PostsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostsViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -290,7 +316,7 @@
 		A4A517002B86E52100AD4CE3 /* IUDI */ = {
 			isa = PBXGroup;
 			children = (
-				AB07FFCC2B8DC42C00BB820C /* Setting */,
+				AB24B1762B8DED8E007665D8 /* Setting */,
 				A4A517012B86E52100AD4CE3 /* AppDelegate.swift */,
 				A4A517032B86E52100AD4CE3 /* SceneDelegate.swift */,
 				A44C5CDD2B87457D00037024 /* Extension */,
@@ -356,13 +382,74 @@
 			path = LoginScreen;
 			sourceTree = "<group>";
 		};
-		AB07FFCC2B8DC42C00BB820C /* Setting */ = {
+		AB24B1762B8DED8E007665D8 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
-				AB07FFCD2B8DC43E00BB820C /* SettingViewController.swift */,
-				AB07000D2B8DD04100BB820C /* AboutViewController.swift */,
+				AB8A682F2B8F176B001F686F /* Notification */,
+				AB8A682A2B8F1692001F686F /* Privacy */,
+				AB8A68182B8ED7A1001F686F /* Group */,
+				AB24B17B2B8DEDED007665D8 /* SettingViewController.swift */,
+				AB24B17C2B8DEDED007665D8 /* SettingViewController.xib */,
+				AB8A68132B8DF1A7001F686F /* AboutViewController.swift */,
+				AB8A68142B8DF1A7001F686F /* AboutViewController.xib */,
 			);
 			path = Setting;
+			sourceTree = "<group>";
+		};
+		AB8A68182B8ED7A1001F686F /* Group */ = {
+			isa = PBXGroup;
+			children = (
+				AB8A68382B8F433D001F686F /* Group Posts */,
+				AB8A68282B8EF3E6001F686F /* Cell Group */,
+				AB8A68232B8EE022001F686F /* Dummy Datas */,
+				AB8A68192B8ED7B4001F686F /* GroupViewController.swift */,
+				AB8A681A2B8ED7B4001F686F /* GroupViewController.xib */,
+			);
+			path = Group;
+			sourceTree = "<group>";
+		};
+		AB8A68232B8EE022001F686F /* Dummy Datas */ = {
+			isa = PBXGroup;
+			children = (
+				AB8A68242B8EE039001F686F /* Datas.swift */,
+			);
+			path = "Dummy Datas";
+			sourceTree = "<group>";
+		};
+		AB8A68282B8EF3E6001F686F /* Cell Group */ = {
+			isa = PBXGroup;
+			children = (
+				AB8A681D2B8ED887001F686F /* CollectionViewCell.swift */,
+				AB8A681E2B8ED887001F686F /* CollectionViewCell.xib */,
+			);
+			path = "Cell Group";
+			sourceTree = "<group>";
+		};
+		AB8A682A2B8F1692001F686F /* Privacy */ = {
+			isa = PBXGroup;
+			children = (
+				AB8A682B2B8F16BA001F686F /* PrivacyViewController.swift */,
+				AB8A682C2B8F16BA001F686F /* PrivacyViewController.xib */,
+			);
+			path = Privacy;
+			sourceTree = "<group>";
+		};
+		AB8A682F2B8F176B001F686F /* Notification */ = {
+			isa = PBXGroup;
+			children = (
+				AB8A68302B8F178B001F686F /* NotificationViewController.swift */,
+				AB8A68312B8F178B001F686F /* NotificationViewController.xib */,
+			);
+			path = Notification;
+			sourceTree = "<group>";
+		};
+		AB8A68382B8F433D001F686F /* Group Posts */ = {
+			isa = PBXGroup;
+			children = (
+				AB8A68392B8F4364001F686F /* PostsViewController.swift */,
+				AB8A683A2B8F4364001F686F /* PostsViewController.xib */,
+			);
+			path = "Group Posts";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -475,19 +562,26 @@
 			buildActionMask = 2147483647;
 			files = (
 				A49845AA2B8DEBE400357ABE /* Main.storyboard in Resources */,
+				AB24B17E2B8DEDED007665D8 /* SettingViewController.xib in Resources */,
 				A4A5174C2B86F5F100AD4CE3 /* Roboto-Bold.ttf in Resources */,
 				A4A5174A2B86F5F100AD4CE3 /* LICENSE.txt in Resources */,
-				A46D0E822B8F13E800E5CD4F /* Roboto-Medium.ttf in Resources */,
+				AB8A681C2B8ED7B4001F686F /* GroupViewController.xib in Resources */,
 				A4B4AB9B2B8C2F7A00822DDB /* Roboto-Regular.ttf in Resources */,
+				AB8A68332B8F178B001F686F /* NotificationViewController.xib in Resources */,
+				A43CAE672B8C408A00F1645E /* Roboto-Medium.ttf in Resources */,
+				AB8A683C2B8F4364001F686F /* PostsViewController.xib in Resources */,
 				A4A517472B86F5F100AD4CE3 /* Roboto-BoldItalic.ttf in Resources */,
+				AB8A68202B8ED887001F686F /* CollectionViewCell.xib in Resources */,
 				A46D0E8B2B8F3B0500E5CD4F /* SelectImageCollectionViewCell.xib in Resources */,
 				A4A517482B86F5F100AD4CE3 /* Roboto-LightItalic.ttf in Resources */,
 				A4B4AB9F2B8C324100822DDB /* MyCell.xib in Resources */,
 				A4A517112B86E52500AD4CE3 /* LaunchScreen.storyboard in Resources */,
 				A4A5174B2B86F5F100AD4CE3 /* Roboto-BlackItalic.ttf in Resources */,
+				AB8A68162B8DF1A7001F686F /* AboutViewController.xib in Resources */,
 				A4A5174D2B86F5F100AD4CE3 /* Roboto-Thin.ttf in Resources */,
 				A4A517432B86F5F100AD4CE3 /* Roboto-Light.ttf in Resources */,
 				A4A517462B86F5F100AD4CE3 /* Roboto-ThinItalic.ttf in Resources */,
+				AB8A682E2B8F16BA001F686F /* PrivacyViewController.xib in Resources */,
 				A4A5174E2B86F5F100AD4CE3 /* Roboto-Black.ttf in Resources */,
 				A4A517452B86F5F100AD4CE3 /* Roboto-MediumItalic.ttf in Resources */,
 				A4A5170E2B86E52500AD4CE3 /* Assets.xcassets in Resources */,
@@ -619,21 +713,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AB8A683B2B8F4364001F686F /* PostsViewController.swift in Sources */,
 				A4A5175D2B873D9000AD4CE3 /* RegisterViewController.swift in Sources */,
 				A46D0E8A2B8F3B0500E5CD4F /* SelectImageCollectionViewCell.swift in Sources */,
 				A483D03D2B88390600DD6B15 /* Theme Extension.swift in Sources */,
+				AB8A681F2B8ED887001F686F /* CollectionViewCell.swift in Sources */,
+				AB8A68152B8DF1A7001F686F /* AboutViewController.swift in Sources */,
 				A46D0E872B8F367600E5CD4F /* GetPhotos.swift in Sources */,
-				AB07000E2B8DD04100BB820C /* AboutViewController.swift in Sources */,
 				A4A517552B8708B200AD4CE3 /* Constant.swift in Sources */,
 				A4B4AB9E2B8C324100822DDB /* MyCell.swift in Sources */,
 				A483D0442B88413000DD6B15 /* APIService.swift in Sources */,
-				AB07FFCE2B8DC43E00BB820C /* SettingViewController.swift in Sources */,
+				AB8A68252B8EE039001F686F /* Datas.swift in Sources */,
+				AB8A681B2B8ED7B4001F686F /* GroupViewController.swift in Sources */,
+				AB24B17D2B8DEDED007665D8 /* SettingViewController.swift in Sources */,
 				A44C5CDF2B8745A000037024 /* ShowLoading and Aleart.swift in Sources */,
 				A45348DD2B8C624F006D72E4 /* ProfileViewController.swift in Sources */,
 				A4A9B9792B8D06350044861C /* RegisterResponse.swift in Sources */,
 				A483D0482B88711C00DD6B15 /* UserNetWorkManager.swift in Sources */,
 				A46D0E842B8F317800E5CD4F /* SelectImageViewController.swift in Sources */,
 				A4A517522B86FD3A00AD4CE3 /* LoginViewController.swift in Sources */,
+				AB8A682D2B8F16BA001F686F /* PrivacyViewController.swift in Sources */,
 				A46D0E7F2B8ECFEA00E5CD4F /* ImageModel.swift in Sources */,
 				A474937C2B8BAFC500354464 /* VerticalCardSliderViewController.swift in Sources */,
 				A46D0E812B8ED2CC00E5CD4F /* APIServiceImage.swift in Sources */,
@@ -643,6 +742,7 @@
 				A483D03F2B88393700DD6B15 /* UserDefault.swift in Sources */,
 				A45348DF2B8C9919006D72E4 /* UserProfile.swift in Sources */,
 				A4A517022B86E52100AD4CE3 /* AppDelegate.swift in Sources */,
+				AB8A68322B8F178B001F686F /* NotificationViewController.swift in Sources */,
 				A4A517502B86FB3200AD4CE3 /* UIView+Extension.swift in Sources */,
 				A4A517042B86E52100AD4CE3 /* SceneDelegate.swift in Sources */,
 				A483D0462B885BC700DD6B15 /* CheckValid.swift in Sources */,
