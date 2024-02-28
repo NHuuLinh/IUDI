@@ -8,6 +8,7 @@
 import UIKit
 
 class SettingViewController: UIViewController {
+
     @IBOutlet weak var privacyPolicyButton: UIButton!
     @IBOutlet weak var IntroduceAboutUsButton: UIButton!
     @IBOutlet weak var privacyTermsButton: UIButton!
@@ -49,28 +50,38 @@ class SettingViewController: UIViewController {
         button.contentHorizontalAlignment = .left
         
     }
+    
+    @IBAction func groupTapper(_ sender: Any) {
+        let vc = GroupViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @IBAction func Privacy(_ sender: Any) {
+        let vc = PrivacyViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @IBAction func Notification(_ sender: Any) {
+        let vc = NotificationViewController()
+        navigationController?.pushViewController(vc, animated: true)
+    }
     @IBAction func privacyTermsTapper(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let viewController = storyboard.instantiateViewController(identifier: "AboutViewController") as? AboutViewController {
-            self.navigationController?.pushViewController(viewController, animated: true)
-            viewController.title = "Điều khoản bảo mật"
-        }
+        let vc = AboutViewController()
+            navigationController?.pushViewController(vc, animated: true)
+            vc.title = "Điều khoản bảo mật"
+        
     }
     
     @IBAction func privacyPolicyTapper(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let viewController = storyboard.instantiateViewController(identifier: "AboutViewController") as? AboutViewController {
-            self.navigationController?.pushViewController(viewController, animated: true)
-            viewController.title = "Chính sách bảo mật"
-        }
+        let vc = AboutViewController()
+            navigationController?.pushViewController(vc, animated: true)
+            vc.title = "Chính sách bảo mật"
         
     }
     
     @IBAction func introduceAboutUsTapper(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        if let viewController = storyboard.instantiateViewController(identifier: "AboutViewController") as? AboutViewController {
-            self.navigationController?.pushViewController(viewController, animated: true)
-            viewController.title = "Giới thiệu về chúng tôi"
-        }
+        let vc = AboutViewController()
+            navigationController?.pushViewController(vc, animated: true)
+            vc.title = "Giới thiệu về chúng tôi"
     }
 }

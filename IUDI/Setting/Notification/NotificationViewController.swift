@@ -1,17 +1,18 @@
 //
-//  AboutViewController.swift
+//  NotificationViewController.swift
 //  IUDI
 //
-//  Created by Quoc on 27/02/2024.
+//  Created by Quoc on 28/02/2024.
 //
 
 import UIKit
 
-class AboutViewController: UIViewController {
+class NotificationViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        title = "Thông báo"
         // Do any additional setup after loading the view.
     }
 
