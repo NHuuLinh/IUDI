@@ -31,6 +31,7 @@ extension UIViewController {
         uiView.layer.borderColor = Constant.mainBorderColor.cgColor //UIColor.red.cgColor
         uiView.clipsToBounds = true
     }
+    
 }
 
 class CheckBox: UIButton {

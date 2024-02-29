@@ -18,8 +18,10 @@
 		A46D0E872B8F367600E5CD4F /* GetPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46D0E862B8F367500E5CD4F /* GetPhotos.swift */; };
 		A46D0E8A2B8F3B0500E5CD4F /* SelectImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46D0E882B8F3B0500E5CD4F /* SelectImageCollectionViewCell.swift */; };
 		A46D0E8B2B8F3B0500E5CD4F /* SelectImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A46D0E892B8F3B0500E5CD4F /* SelectImageCollectionViewCell.xib */; };
-		A474937C2B8BAFC500354464 /* VerticalCardSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A474937B2B8BAFC500354464 /* VerticalCardSliderViewController.swift */; };
-		A483D0392B88377000DD6B15 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A483D0382B88376F00DD6B15 /* HomeViewController.swift */; };
+		A4712DA62B906CBE004903AA /* Add+Shadow+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4712DA52B906CBE004903AA /* Add+Shadow+UIView.swift */; };
+		A4712DA72B908546004903AA /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4A517352B86F5F100AD4CE3 /* Roboto-Medium.ttf */; };
+		A4712DA92B908F6F004903AA /* UserDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4712DA82B908F6F004903AA /* UserDistance.swift */; };
+		A474937C2B8BAFC500354464 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A474937B2B8BAFC500354464 /* HomeViewController.swift */; };
 		A483D03D2B88390600DD6B15 /* Theme Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A483D03C2B88390600DD6B15 /* Theme Extension.swift */; };
 		A483D03F2B88393700DD6B15 /* UserDefault.swift in Sources */ = {isa = PBXBuildFile; fileRef = A483D03E2B88393700DD6B15 /* UserDefault.swift */; };
 		A483D0442B88413000DD6B15 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A483D0432B88413000DD6B15 /* APIService.swift */; };
@@ -52,8 +54,8 @@
 		A4A5175D2B873D9000AD4CE3 /* RegisterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A5175C2B873D9000AD4CE3 /* RegisterViewController.swift */; };
 		A4A9B9792B8D06350044861C /* RegisterResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A9B9782B8D06340044861C /* RegisterResponse.swift */; };
 		A4B4AB9B2B8C2F7A00822DDB /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4A517372B86F5F100AD4CE3 /* Roboto-Regular.ttf */; };
-		A4B4AB9E2B8C324100822DDB /* MyCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B4AB9C2B8C324100822DDB /* MyCell.swift */; };
-		A4B4AB9F2B8C324100822DDB /* MyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4B4AB9D2B8C324100822DDB /* MyCell.xib */; };
+		A4B4AB9E2B8C324100822DDB /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B4AB9C2B8C324100822DDB /* HomeCollectionViewCell.swift */; };
+		A4B4AB9F2B8C324100822DDB /* HomeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4B4AB9D2B8C324100822DDB /* HomeCollectionViewCell.xib */; };
 		AB24B17D2B8DEDED007665D8 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24B17B2B8DEDED007665D8 /* SettingViewController.swift */; };
 		AB24B17E2B8DEDED007665D8 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB24B17C2B8DEDED007665D8 /* SettingViewController.xib */; };
 		AB8A68152B8DF1A7001F686F /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8A68132B8DF1A7001F686F /* AboutViewController.swift */; };
@@ -105,8 +107,9 @@
 		A46D0E862B8F367500E5CD4F /* GetPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPhotos.swift; sourceTree = "<group>"; };
 		A46D0E882B8F3B0500E5CD4F /* SelectImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		A46D0E892B8F3B0500E5CD4F /* SelectImageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectImageCollectionViewCell.xib; sourceTree = "<group>"; };
-		A474937B2B8BAFC500354464 /* VerticalCardSliderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCardSliderViewController.swift; sourceTree = "<group>"; };
-		A483D0382B88376F00DD6B15 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
+		A4712DA52B906CBE004903AA /* Add+Shadow+UIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Add+Shadow+UIView.swift"; sourceTree = "<group>"; };
+		A4712DA82B908F6F004903AA /* UserDistance.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDistance.swift; sourceTree = "<group>"; };
+		A474937B2B8BAFC500354464 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		A483D03C2B88390600DD6B15 /* Theme Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Theme Extension.swift"; sourceTree = "<group>"; };
 		A483D03E2B88393700DD6B15 /* UserDefault.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserDefault.swift; sourceTree = "<group>"; };
 		A483D0432B88413000DD6B15 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
@@ -144,8 +147,8 @@
 		A4A517592B871EA500AD4CE3 /* LoginResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginResponse.swift; sourceTree = "<group>"; };
 		A4A5175C2B873D9000AD4CE3 /* RegisterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterViewController.swift; sourceTree = "<group>"; };
 		A4A9B9782B8D06340044861C /* RegisterResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegisterResponse.swift; sourceTree = "<group>"; };
-		A4B4AB9C2B8C324100822DDB /* MyCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCell.swift; sourceTree = "<group>"; };
-		A4B4AB9D2B8C324100822DDB /* MyCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyCell.xib; sourceTree = "<group>"; };
+		A4B4AB9C2B8C324100822DDB /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
+		A4B4AB9D2B8C324100822DDB /* HomeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeCollectionViewCell.xib; sourceTree = "<group>"; };
 		A5830D6B4C599F9307429DDF /* Pods-IUDITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IUDITests.release.xcconfig"; path = "Target Support Files/Pods-IUDITests/Pods-IUDITests.release.xcconfig"; sourceTree = "<group>"; };
 		AB24B17B2B8DEDED007665D8 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		AB24B17C2B8DEDED007665D8 /* SettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
@@ -217,6 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				A4A5174F2B86FB3200AD4CE3 /* UIView+Extension.swift */,
+				A4712DA52B906CBE004903AA /* Add+Shadow+UIView.swift */,
 				A483D0452B885BC700DD6B15 /* CheckValid.swift */,
 				A44C5CDE2B8745A000037024 /* ShowLoading and Aleart.swift */,
 				A483D03C2B88390600DD6B15 /* Theme Extension.swift */,
@@ -256,10 +260,9 @@
 		A483D03A2B88377900DD6B15 /* Home Screen */ = {
 			isa = PBXGroup;
 			children = (
-				A483D0382B88376F00DD6B15 /* HomeViewController.swift */,
-				A474937B2B8BAFC500354464 /* VerticalCardSliderViewController.swift */,
-				A4B4AB9C2B8C324100822DDB /* MyCell.swift */,
-				A4B4AB9D2B8C324100822DDB /* MyCell.xib */,
+				A474937B2B8BAFC500354464 /* HomeViewController.swift */,
+				A4B4AB9C2B8C324100822DDB /* HomeCollectionViewCell.swift */,
+				A4B4AB9D2B8C324100822DDB /* HomeCollectionViewCell.xib */,
 			);
 			path = "Home Screen";
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 				A4A9B9782B8D06340044861C /* RegisterResponse.swift */,
 				A45348DE2B8C9919006D72E4 /* UserProfile.swift */,
 				A46D0E862B8F367500E5CD4F /* GetPhotos.swift */,
+				A4712DA82B908F6F004903AA /* UserDistance.swift */,
 			);
 			path = NetWork;
 			sourceTree = "<group>";
@@ -554,10 +558,11 @@
 				A4B4AB9B2B8C2F7A00822DDB /* Roboto-Regular.ttf in Resources */,
 				AB8A68332B8F178B001F686F /* NotificationViewController.xib in Resources */,
 				A4A517472B86F5F100AD4CE3 /* Roboto-BoldItalic.ttf in Resources */,
+				A4712DA72B908546004903AA /* Roboto-Medium.ttf in Resources */,
 				AB8A68202B8ED887001F686F /* CollectionViewCell.xib in Resources */,
 				A46D0E8B2B8F3B0500E5CD4F /* SelectImageCollectionViewCell.xib in Resources */,
 				A4A517482B86F5F100AD4CE3 /* Roboto-LightItalic.ttf in Resources */,
-				A4B4AB9F2B8C324100822DDB /* MyCell.xib in Resources */,
+				A4B4AB9F2B8C324100822DDB /* HomeCollectionViewCell.xib in Resources */,
 				A4A517112B86E52500AD4CE3 /* LaunchScreen.storyboard in Resources */,
 				A4A5174B2B86F5F100AD4CE3 /* Roboto-BlackItalic.ttf in Resources */,
 				AB8A68162B8DF1A7001F686F /* AboutViewController.xib in Resources */,
@@ -703,7 +708,7 @@
 				AB8A68152B8DF1A7001F686F /* AboutViewController.swift in Sources */,
 				A46D0E872B8F367600E5CD4F /* GetPhotos.swift in Sources */,
 				A4A517552B8708B200AD4CE3 /* Constant.swift in Sources */,
-				A4B4AB9E2B8C324100822DDB /* MyCell.swift in Sources */,
+				A4B4AB9E2B8C324100822DDB /* HomeCollectionViewCell.swift in Sources */,
 				A483D0442B88413000DD6B15 /* APIService.swift in Sources */,
 				AB8A68252B8EE039001F686F /* Datas.swift in Sources */,
 				AB8A681B2B8ED7B4001F686F /* GroupViewController.swift in Sources */,
@@ -712,14 +717,15 @@
 				A45348DD2B8C624F006D72E4 /* ProfileViewController.swift in Sources */,
 				A4A9B9792B8D06350044861C /* RegisterResponse.swift in Sources */,
 				A483D0482B88711C00DD6B15 /* UserNetWorkManager.swift in Sources */,
+				A4712DA62B906CBE004903AA /* Add+Shadow+UIView.swift in Sources */,
 				A46D0E842B8F317800E5CD4F /* SelectImageViewController.swift in Sources */,
 				A4A517522B86FD3A00AD4CE3 /* LoginViewController.swift in Sources */,
 				AB8A682D2B8F16BA001F686F /* PrivacyViewController.swift in Sources */,
 				A46D0E7F2B8ECFEA00E5CD4F /* ImageModel.swift in Sources */,
-				A474937C2B8BAFC500354464 /* VerticalCardSliderViewController.swift in Sources */,
+				A4712DA92B908F6F004903AA /* UserDistance.swift in Sources */,
+				A474937C2B8BAFC500354464 /* HomeViewController.swift in Sources */,
 				A46D0E812B8ED2CC00E5CD4F /* APIServiceImage.swift in Sources */,
 				A4A5175A2B871EA500AD4CE3 /* LoginResponse.swift in Sources */,
-				A483D0392B88377000DD6B15 /* HomeViewController.swift in Sources */,
 				A4A5170C2B86E52100AD4CE3 /* IUDI.xcdatamodeld in Sources */,
 				A483D03F2B88393700DD6B15 /* UserDefault.swift in Sources */,
 				A45348DF2B8C9919006D72E4 /* UserProfile.swift in Sources */,

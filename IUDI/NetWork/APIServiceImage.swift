@@ -247,7 +247,7 @@ class APIServiceImage:NSObject {
     }
     
     func PostImageServer( param:Data, closure: @escaping (_ response: ImgModel?, _ error: Error?) -> Void) {
-        requestSON("https://api.imgbb.com/1/upload?expiration=600&key=2d2e8117df677dffe0644a0ca32dd45d", param: param, method: .POST, loading: true) { (data, error) in
+        requestSON("https://api.imgbb.com/1/upload?expiration=600&key=afd9d389529e66d093419345fd223962", param: param, method: .POST, loading: true) { (data, error) in
             if let data = data as? [String:Any]{
                 if let data2 = data["data"] as? [String:Any]{
                     var  returnData:ImgModel = ImgModel()
