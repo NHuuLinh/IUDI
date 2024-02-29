@@ -6,7 +6,6 @@ struct UserData: Codable {
     let status: Int?
     let user: User?
 }
-
 // MARK: - User
 struct User: Codable {
     let users: [Users]?
