@@ -48,6 +48,18 @@ class GroupViewController: UIViewController, UICollectionViewDelegate, UICollect
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
         let data = groupData[indexPath.row]
         
+        cell.groupName = data.groupName
+        
+        // Thiết lập closure cho mỗi cell để xử lý việc push
+        cell.didSelectItem = {
+            // Thực hiện việc push sang màn hình đích tương ứng
+            // Ví dụ:
+            let destinationVC = PostsViewController()
+            self.navigationController?.pushViewController(destinationVC, animated: true)
+            destinationVC.title = cell.groupName ?? ""
+
+        }
+        
         // Cập nhật ô với dữ liệu
         cell.nameGroup.text = data.groupName ?? ""
         cell.numberOfMembers.text = "\(data.userNumber ?? 0) Thành viên"
@@ -59,6 +71,7 @@ class GroupViewController: UIViewController, UICollectionViewDelegate, UICollect
         return cell
     }
     
+    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let width = collectionView.bounds.width // Use the width of the collection view
         let height: CGFloat = 65 // Fixed height for the cells
@@ -66,4 +79,5 @@ class GroupViewController: UIViewController, UICollectionViewDelegate, UICollect
     }
     
 }
+
 

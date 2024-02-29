@@ -51,6 +51,8 @@
 		A4B4AB9F2B8C324100822DDB /* MyCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4B4AB9D2B8C324100822DDB /* MyCell.xib */; };
 		AB24B17D2B8DEDED007665D8 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24B17B2B8DEDED007665D8 /* SettingViewController.swift */; };
 		AB24B17E2B8DEDED007665D8 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB24B17C2B8DEDED007665D8 /* SettingViewController.xib */; };
+		AB88472A2B908C8A0000688B /* PostsCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8847282B908C8A0000688B /* PostsCollectionViewCell.swift */; };
+		AB88472B2B908C8A0000688B /* PostsCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB8847292B908C8A0000688B /* PostsCollectionViewCell.xib */; };
 		AB8A68152B8DF1A7001F686F /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8A68132B8DF1A7001F686F /* AboutViewController.swift */; };
 		AB8A68162B8DF1A7001F686F /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB8A68142B8DF1A7001F686F /* AboutViewController.xib */; };
 		AB8A681B2B8ED7B4001F686F /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8A68192B8ED7B4001F686F /* GroupViewController.swift */; };
@@ -64,6 +66,8 @@
 		AB8A68332B8F178B001F686F /* NotificationViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB8A68312B8F178B001F686F /* NotificationViewController.xib */; };
 		AB8A683B2B8F4364001F686F /* PostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8A68392B8F4364001F686F /* PostsViewController.swift */; };
 		AB8A683C2B8F4364001F686F /* PostsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB8A683A2B8F4364001F686F /* PostsViewController.xib */; };
+		AB8A68482B906EFA001F686F /* HowAreYouPostsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8A68462B906EFA001F686F /* HowAreYouPostsViewController.swift */; };
+		AB8A68492B906EFA001F686F /* HowAreYouPostsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB8A68472B906EFA001F686F /* HowAreYouPostsViewController.xib */; };
 		C89CCF82DA23C51534F616BC /* Pods_IUDI_IUDIUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F73342BEDD74C4D8573FB45 /* Pods_IUDI_IUDIUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -140,6 +144,8 @@
 		A5830D6B4C599F9307429DDF /* Pods-IUDITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IUDITests.release.xcconfig"; path = "Target Support Files/Pods-IUDITests/Pods-IUDITests.release.xcconfig"; sourceTree = "<group>"; };
 		AB24B17B2B8DEDED007665D8 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		AB24B17C2B8DEDED007665D8 /* SettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
+		AB8847282B908C8A0000688B /* PostsCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsCollectionViewCell.swift; sourceTree = "<group>"; };
+		AB8847292B908C8A0000688B /* PostsCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostsCollectionViewCell.xib; sourceTree = "<group>"; };
 		AB8A68132B8DF1A7001F686F /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		AB8A68142B8DF1A7001F686F /* AboutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
 		AB8A68192B8ED7B4001F686F /* GroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
@@ -153,6 +159,8 @@
 		AB8A68312B8F178B001F686F /* NotificationViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = NotificationViewController.xib; sourceTree = "<group>"; };
 		AB8A68392B8F4364001F686F /* PostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostsViewController.swift; sourceTree = "<group>"; };
 		AB8A683A2B8F4364001F686F /* PostsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PostsViewController.xib; sourceTree = "<group>"; };
+		AB8A68462B906EFA001F686F /* HowAreYouPostsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HowAreYouPostsViewController.swift; sourceTree = "<group>"; };
+		AB8A68472B906EFA001F686F /* HowAreYouPostsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HowAreYouPostsViewController.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -370,6 +378,15 @@
 			path = Setting;
 			sourceTree = "<group>";
 		};
+		AB8847272B908C630000688B /* Cell Posts */ = {
+			isa = PBXGroup;
+			children = (
+				AB8847282B908C8A0000688B /* PostsCollectionViewCell.swift */,
+				AB8847292B908C8A0000688B /* PostsCollectionViewCell.xib */,
+			);
+			path = "Cell Posts";
+			sourceTree = "<group>";
+		};
 		AB8A68182B8ED7A1001F686F /* Group */ = {
 			isa = PBXGroup;
 			children = (
@@ -420,10 +437,21 @@
 		AB8A68382B8F433D001F686F /* Group Posts */ = {
 			isa = PBXGroup;
 			children = (
+				AB8847272B908C630000688B /* Cell Posts */,
+				AB8A68412B906DFA001F686F /* HowAreYou */,
 				AB8A68392B8F4364001F686F /* PostsViewController.swift */,
 				AB8A683A2B8F4364001F686F /* PostsViewController.xib */,
 			);
 			path = "Group Posts";
+			sourceTree = "<group>";
+		};
+		AB8A68412B906DFA001F686F /* HowAreYou */ = {
+			isa = PBXGroup;
+			children = (
+				AB8A68462B906EFA001F686F /* HowAreYouPostsViewController.swift */,
+				AB8A68472B906EFA001F686F /* HowAreYouPostsViewController.xib */,
+			);
+			path = HowAreYou;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -541,6 +569,7 @@
 				A4A5174A2B86F5F100AD4CE3 /* LICENSE.txt in Resources */,
 				AB8A681C2B8ED7B4001F686F /* GroupViewController.xib in Resources */,
 				A4B4AB9B2B8C2F7A00822DDB /* Roboto-Regular.ttf in Resources */,
+				AB88472B2B908C8A0000688B /* PostsCollectionViewCell.xib in Resources */,
 				AB8A68332B8F178B001F686F /* NotificationViewController.xib in Resources */,
 				A43CAE672B8C408A00F1645E /* Roboto-Medium.ttf in Resources */,
 				AB8A683C2B8F4364001F686F /* PostsViewController.xib in Resources */,
@@ -559,6 +588,7 @@
 				A4A517452B86F5F100AD4CE3 /* Roboto-MediumItalic.ttf in Resources */,
 				A4A5170E2B86E52500AD4CE3 /* Assets.xcassets in Resources */,
 				A4A517492B86F5F100AD4CE3 /* Roboto-Italic.ttf in Resources */,
+				AB8A68492B906EFA001F686F /* HowAreYouPostsViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -691,8 +721,10 @@
 				A483D03D2B88390600DD6B15 /* Theme Extension.swift in Sources */,
 				AB8A681F2B8ED887001F686F /* CollectionViewCell.swift in Sources */,
 				AB8A68152B8DF1A7001F686F /* AboutViewController.swift in Sources */,
+				AB8A68482B906EFA001F686F /* HowAreYouPostsViewController.swift in Sources */,
 				A4A517552B8708B200AD4CE3 /* Constant.swift in Sources */,
 				A4B4AB9E2B8C324100822DDB /* MyCell.swift in Sources */,
+				AB88472A2B908C8A0000688B /* PostsCollectionViewCell.swift in Sources */,
 				A483D0442B88413000DD6B15 /* APIService.swift in Sources */,
 				AB8A68252B8EE039001F686F /* Datas.swift in Sources */,
 				AB8A681B2B8ED7B4001F686F /* GroupViewController.swift in Sources */,
