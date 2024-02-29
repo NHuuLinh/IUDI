@@ -15,10 +15,32 @@ class SelectImageCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-    func blinData(userImageUrl: String ,width: CGFloat){
-        imageWidth.constant = width
-//        userImage.kf.setImage(with: userImageUrl)
-    }
-    
+    func blinData(data: Photo ,width: CGFloat){
+        
+        imageWidth.constant = CGFloat(Int(width))
+//        if let newsImageString = data.photoURL {
+//            let newsImageUrl = URL(string: newsImageString)
+//            userImage.kf.setImage(with: newsImageUrl)
+//        } else {
+//            userImage.image = UIImage(systemName: "person")
+//        }
+        guard let url = data.photoURL else {
+            return
+        }
+        let imageUrl = URL(string: url)
+        userImage.kf.setImage(with: imageUrl, placeholder: UIImage(named: "person"), options: nil, completionHandler: { result in
+            switch result {
+            case .success(_):
+                self.imageWidth.constant = CGFloat(Int(width))
 
+                // Ảnh đã tải thành công
+                break
+            case .failure(let error):
+                // Xảy ra lỗi khi tải ảnh
+                self.userImage.image = UIImage(systemName: "person")
+//                print("Lỗi khi tải ảnh: \(error.localizedDescription)")
+            }
+        })
+        
+    }
 }

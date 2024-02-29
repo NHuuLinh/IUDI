@@ -30,25 +30,25 @@
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstAttribute="bottom" secondItem="5RH-E3-DWy" secondAttribute="bottom" id="MO2-hL-b84"/>
-                            <constraint firstAttribute="trailing" secondItem="5RH-E3-DWy" secondAttribute="trailing" id="VJo-CD-285"/>
-                            <constraint firstItem="5RH-E3-DWy" firstAttribute="leading" secondItem="bBa-Xa-RK6" secondAttribute="leading" id="Wlw-tS-H7V"/>
-                            <constraint firstItem="5RH-E3-DWy" firstAttribute="top" secondItem="bBa-Xa-RK6" secondAttribute="top" id="ueL-0R-OHX"/>
+                            <constraint firstAttribute="trailing" secondItem="5RH-E3-DWy" secondAttribute="trailing" id="7Cu-SY-V6d"/>
+                            <constraint firstItem="5RH-E3-DWy" firstAttribute="leading" secondItem="bBa-Xa-RK6" secondAttribute="leading" id="DCQ-Cu-rZH"/>
+                            <constraint firstAttribute="bottom" secondItem="5RH-E3-DWy" secondAttribute="bottom" id="ESZ-jY-Yym"/>
+                            <constraint firstItem="5RH-E3-DWy" firstAttribute="top" secondItem="bBa-Xa-RK6" secondAttribute="top" id="VVZ-DR-OV9"/>
                         </constraints>
                     </view>
                 </subviews>
             </view>
             <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
             <constraints>
-                <constraint firstItem="bBa-Xa-RK6" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="0v1-KV-chV"/>
-                <constraint firstAttribute="bottom" secondItem="bBa-Xa-RK6" secondAttribute="bottom" id="SVj-Ci-xEa"/>
-                <constraint firstItem="bBa-Xa-RK6" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="Y2K-3y-Wuy"/>
-                <constraint firstAttribute="trailing" secondItem="bBa-Xa-RK6" secondAttribute="trailing" id="zij-JC-cCg"/>
+                <constraint firstAttribute="trailing" secondItem="bBa-Xa-RK6" secondAttribute="trailing" id="WCb-cn-bWQ"/>
+                <constraint firstAttribute="bottom" secondItem="bBa-Xa-RK6" secondAttribute="bottom" id="fNc-nl-Rz6"/>
+                <constraint firstItem="bBa-Xa-RK6" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="g69-bT-bgu"/>
+                <constraint firstItem="bBa-Xa-RK6" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="imH-FF-rXl"/>
             </constraints>
             <size key="customSize" width="262" height="228"/>
             <connections>
                 <outlet property="imageWidth" destination="YEW-Wi-SXu" id="Imf-GX-Klz"/>
-                <outlet property="userImage" destination="5RH-E3-DWy" id="AB6-Bp-xb3"/>
+                <outlet property="userImage" destination="5RH-E3-DWy" id="XTg-FL-wpd"/>
             </connections>
             <point key="canvasLocation" x="163.35877862595419" y="51.408450704225352"/>
         </collectionViewCell>
