@@ -9,10 +9,16 @@
 /* Begin PBXBuildFile section */
 		6B5541A228065D7AE7CAE4FD /* Pods_IUDITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A85C6EA8E23A90E04CE3A56 /* Pods_IUDITests.framework */; };
 		99793040C9AE4F5AD0955E7C /* Pods_IUDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 888718E28E8066911DF3A882 /* Pods_IUDI.framework */; };
-		A43CAE672B8C408A00F1645E /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4A517352B86F5F100AD4CE3 /* Roboto-Medium.ttf */; };
 		A44C5CDF2B8745A000037024 /* ShowLoading and Aleart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44C5CDE2B8745A000037024 /* ShowLoading and Aleart.swift */; };
 		A45348DD2B8C624F006D72E4 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45348DC2B8C624F006D72E4 /* ProfileViewController.swift */; };
 		A45348DF2B8C9919006D72E4 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45348DE2B8C9919006D72E4 /* UserProfile.swift */; };
+		A46D0E7F2B8ECFEA00E5CD4F /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46D0E7E2B8ECFEA00E5CD4F /* ImageModel.swift */; };
+		A46D0E812B8ED2CC00E5CD4F /* APIServiceImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46D0E802B8ED2CC00E5CD4F /* APIServiceImage.swift */; };
+		A46D0E822B8F13E800E5CD4F /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4A517352B86F5F100AD4CE3 /* Roboto-Medium.ttf */; };
+		A46D0E842B8F317800E5CD4F /* SelectImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46D0E832B8F317800E5CD4F /* SelectImageViewController.swift */; };
+		A46D0E872B8F367600E5CD4F /* GetPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46D0E862B8F367500E5CD4F /* GetPhotos.swift */; };
+		A46D0E8A2B8F3B0500E5CD4F /* SelectImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46D0E882B8F3B0500E5CD4F /* SelectImageCollectionViewCell.swift */; };
+		A46D0E8B2B8F3B0500E5CD4F /* SelectImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A46D0E892B8F3B0500E5CD4F /* SelectImageCollectionViewCell.xib */; };
 		A474937C2B8BAFC500354464 /* VerticalCardSliderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A474937B2B8BAFC500354464 /* VerticalCardSliderViewController.swift */; };
 		A483D0392B88377000DD6B15 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A483D0382B88376F00DD6B15 /* HomeViewController.swift */; };
 		A483D03D2B88390600DD6B15 /* Theme Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A483D03C2B88390600DD6B15 /* Theme Extension.swift */; };
@@ -100,6 +106,12 @@
 		A44C5CDE2B8745A000037024 /* ShowLoading and Aleart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShowLoading and Aleart.swift"; sourceTree = "<group>"; };
 		A45348DC2B8C624F006D72E4 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		A45348DE2B8C9919006D72E4 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		A46D0E7E2B8ECFEA00E5CD4F /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
+		A46D0E802B8ED2CC00E5CD4F /* APIServiceImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServiceImage.swift; sourceTree = "<group>"; };
+		A46D0E832B8F317800E5CD4F /* SelectImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageViewController.swift; sourceTree = "<group>"; };
+		A46D0E862B8F367500E5CD4F /* GetPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPhotos.swift; sourceTree = "<group>"; };
+		A46D0E882B8F3B0500E5CD4F /* SelectImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageCollectionViewCell.swift; sourceTree = "<group>"; };
+		A46D0E892B8F3B0500E5CD4F /* SelectImageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectImageCollectionViewCell.xib; sourceTree = "<group>"; };
 		A474937B2B8BAFC500354464 /* VerticalCardSliderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalCardSliderViewController.swift; sourceTree = "<group>"; };
 		A483D0382B88376F00DD6B15 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		A483D03C2B88390600DD6B15 /* Theme Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Theme Extension.swift"; sourceTree = "<group>"; };
@@ -243,6 +255,17 @@
 			path = Constant;
 			sourceTree = "<group>";
 		};
+		A46D0E852B8F31E900E5CD4F /* Profile Screen */ = {
+			isa = PBXGroup;
+			children = (
+				A45348DC2B8C624F006D72E4 /* ProfileViewController.swift */,
+				A46D0E832B8F317800E5CD4F /* SelectImageViewController.swift */,
+				A46D0E882B8F3B0500E5CD4F /* SelectImageCollectionViewCell.swift */,
+				A46D0E892B8F3B0500E5CD4F /* SelectImageCollectionViewCell.xib */,
+			);
+			path = "Profile Screen";
+			sourceTree = "<group>";
+		};
 		A483D03A2B88377900DD6B15 /* Home Screen */ = {
 			isa = PBXGroup;
 			children = (
@@ -250,7 +273,6 @@
 				A474937B2B8BAFC500354464 /* VerticalCardSliderViewController.swift */,
 				A4B4AB9C2B8C324100822DDB /* MyCell.swift */,
 				A4B4AB9D2B8C324100822DDB /* MyCell.xib */,
-				A45348DC2B8C624F006D72E4 /* ProfileViewController.swift */,
 			);
 			path = "Home Screen";
 			sourceTree = "<group>";
@@ -258,11 +280,14 @@
 		A483D03B2B88379C00DD6B15 /* NetWork */ = {
 			isa = PBXGroup;
 			children = (
+				A46D0E7E2B8ECFEA00E5CD4F /* ImageModel.swift */,
+				A46D0E802B8ED2CC00E5CD4F /* APIServiceImage.swift */,
 				A483D0472B88711C00DD6B15 /* UserNetWorkManager.swift */,
 				A483D0432B88413000DD6B15 /* APIService.swift */,
 				A4A517592B871EA500AD4CE3 /* LoginResponse.swift */,
 				A4A9B9782B8D06340044861C /* RegisterResponse.swift */,
 				A45348DE2B8C9919006D72E4 /* UserProfile.swift */,
+				A46D0E862B8F367500E5CD4F /* GetPhotos.swift */,
 			);
 			path = NetWork;
 			sourceTree = "<group>";
@@ -306,6 +331,7 @@
 				A453BBC32B88A1A100614034 /* Constant */,
 				A483D03B2B88379C00DD6B15 /* NetWork */,
 				A483D0402B883BDC00DD6B15 /* Onboarding Screen */,
+				A46D0E852B8F31E900E5CD4F /* Profile Screen */,
 				A483D03A2B88377900DD6B15 /* Home Screen */,
 				A453BBC22B88A16300614034 /* RegisterScreen */,
 				A4A517532B86FD5100AD4CE3 /* LoginScreen */,
@@ -575,6 +601,7 @@
 				AB8A683C2B8F4364001F686F /* PostsViewController.xib in Resources */,
 				A4A517472B86F5F100AD4CE3 /* Roboto-BoldItalic.ttf in Resources */,
 				AB8A68202B8ED887001F686F /* CollectionViewCell.xib in Resources */,
+				A46D0E8B2B8F3B0500E5CD4F /* SelectImageCollectionViewCell.xib in Resources */,
 				A4A517482B86F5F100AD4CE3 /* Roboto-LightItalic.ttf in Resources */,
 				A4B4AB9F2B8C324100822DDB /* MyCell.xib in Resources */,
 				A4A517112B86E52500AD4CE3 /* LaunchScreen.storyboard in Resources */,
@@ -718,10 +745,15 @@
 			files = (
 				AB8A683B2B8F4364001F686F /* PostsViewController.swift in Sources */,
 				A4A5175D2B873D9000AD4CE3 /* RegisterViewController.swift in Sources */,
+				A46D0E8A2B8F3B0500E5CD4F /* SelectImageCollectionViewCell.swift in Sources */,
 				A483D03D2B88390600DD6B15 /* Theme Extension.swift in Sources */,
 				AB8A681F2B8ED887001F686F /* CollectionViewCell.swift in Sources */,
 				AB8A68152B8DF1A7001F686F /* AboutViewController.swift in Sources */,
+<<<<<<< HEAD
 				AB8A68482B906EFA001F686F /* HowAreYouPostsViewController.swift in Sources */,
+=======
+				A46D0E872B8F367600E5CD4F /* GetPhotos.swift in Sources */,
+>>>>>>> 6b9ccacf091328f444530bcb9c32bf00db4a27b4
 				A4A517552B8708B200AD4CE3 /* Constant.swift in Sources */,
 				A4B4AB9E2B8C324100822DDB /* MyCell.swift in Sources */,
 				AB88472A2B908C8A0000688B /* PostsCollectionViewCell.swift in Sources */,
@@ -733,9 +765,12 @@
 				A45348DD2B8C624F006D72E4 /* ProfileViewController.swift in Sources */,
 				A4A9B9792B8D06350044861C /* RegisterResponse.swift in Sources */,
 				A483D0482B88711C00DD6B15 /* UserNetWorkManager.swift in Sources */,
+				A46D0E842B8F317800E5CD4F /* SelectImageViewController.swift in Sources */,
 				A4A517522B86FD3A00AD4CE3 /* LoginViewController.swift in Sources */,
 				AB8A682D2B8F16BA001F686F /* PrivacyViewController.swift in Sources */,
+				A46D0E7F2B8ECFEA00E5CD4F /* ImageModel.swift in Sources */,
 				A474937C2B8BAFC500354464 /* VerticalCardSliderViewController.swift in Sources */,
+				A46D0E812B8ED2CC00E5CD4F /* APIServiceImage.swift in Sources */,
 				A4A5175A2B871EA500AD4CE3 /* LoginResponse.swift in Sources */,
 				A483D0392B88377000DD6B15 /* HomeViewController.swift in Sources */,
 				A4A5170C2B86E52100AD4CE3 /* IUDI.xcdatamodeld in Sources */,

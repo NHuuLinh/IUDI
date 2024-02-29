@@ -18,7 +18,7 @@ extension UIViewController {
     func standardBorder(textField: UITextField) {
         textField.layer.cornerRadius = Constant.cornerRadius
         textField.layer.borderWidth = Constant.borderWidth
-        textField.layer.borderColor = Constant.mainColor
+        textField.layer.borderColor = Constant.mainColor.cgColor
         //UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.00).cgColor
     }
     func standardBtnCornerRadius(button: UIButton) {
@@ -28,8 +28,8 @@ extension UIViewController {
     func standardViewCornerRadius(uiView: UIView) {
         uiView.layer.cornerRadius =  Constant.cornerRadius
         uiView.layer.borderWidth = Constant.borderWidth
+        uiView.layer.borderColor = Constant.mainBorderColor.cgColor //UIColor.red.cgColor
         uiView.clipsToBounds = true
-        uiView.layer.borderColor = Constant.mainColor
     }
 }
 
