@@ -2,6 +2,7 @@ import UIKit
 import SwiftyJSON
 import CollectionViewPagingLayout
 import Alamofire
+import ReadMoreTextView
 
 class HomeViewController: UIViewController{
     @IBOutlet weak var userCollectionView: UICollectionView!
@@ -10,17 +11,11 @@ class HomeViewController: UIViewController{
     var userDistance : UserDistances?
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //        collectionView.layer.cornerRadius = 100
-//        setupView()
-        userCollectionView.layer.cornerRadius = 32
-        userCollectionView.clipsToBounds = true
-        userCollectionView.layer.masksToBounds = true
-        userCollectionView.layer.shadowColor = UIColor.black.cgColor
-        userCollectionView.layer.shadowOpacity = 1
-        userCollectionView.layer.shadowOffset = CGSize(width: 0, height: 2)
-        userCollectionView.layer.shadowRadius = 4
+        setupView()
         setupCollectionView()
+    }
+    override func viewDidAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
     }
     
     private func setupCollectionView() {
@@ -34,17 +29,20 @@ class HomeViewController: UIViewController{
         userCollectionView.register(UINib(nibName: "HomeCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "HomeCollectionViewCell")
     }
     func setupView(){
-        userCollectionView.backgroundColor = UIColor.yellow
-        userCollectionView.backgroundView?.layer.cornerRadius = 32
         userCollectionView.layer.cornerRadius = 32
         userCollectionView.clipsToBounds = true
-
-        userCollectionView.layer.shadowColor = UIColor.red.cgColor
-        userCollectionView.layer.shadowOpacity = 10
-        userCollectionView.layer.shadowOffset = CGSize.zero
-        userCollectionView.layer.shadowRadius = 5
+        userCollectionView.layer.masksToBounds = true
+        userCollectionView.layer.shadowColor = UIColor.black.cgColor
+        userCollectionView.layer.shadowOpacity = 1
+        userCollectionView.layer.shadowOffset = CGSize(width: 0, height: 2)
+        userCollectionView.layer.shadowRadius = 4
     }
 
+    @IBAction func profileBtn(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
 }
 extension HomeViewController:UICollectionViewDataSource, UICollectionViewDelegate {
     
@@ -58,6 +56,11 @@ extension HomeViewController:UICollectionViewDataSource, UICollectionViewDelegat
         cell.blindata(name: imageName)
         return cell
         
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "UserIntroduceViewController") as! UserIntroduceViewController
+        self.navigationController?.pushViewController(vc, animated: true)
     }
     
 }

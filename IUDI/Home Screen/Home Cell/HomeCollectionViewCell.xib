@@ -74,6 +74,9 @@
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="starBtn"/>
+                                        <connections>
+                                            <action selector="btnHandle:" destination="gTV-IL-0wX" eventType="touchUpInside" id="caO-6M-DiS"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gNW-Fm-7qe">
                                         <rect key="frame" x="164" y="2" width="52" height="52"/>
@@ -83,6 +86,9 @@
                                         </constraints>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="heartBtn"/>
+                                        <connections>
+                                            <action selector="btnHandle:" destination="gTV-IL-0wX" eventType="touchUpInside" id="6JW-Wh-3ay"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0o7-m3-ihL">
                                         <rect key="frame" x="0.0" y="2" width="52" height="52"/>
@@ -93,6 +99,9 @@
                                         <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                         <state key="normal" image="xBtn"/>
+                                        <connections>
+                                            <action selector="btnHandle:" destination="gTV-IL-0wX" eventType="touchUpInside" id="9bM-tV-w0N"/>
+                                        </connections>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -189,8 +198,12 @@
             <size key="customSize" width="1215" height="616"/>
             <connections>
                 <outlet property="cellUiView" destination="tDG-QO-79b" id="mwq-en-cPD"/>
+                <outlet property="likeBtn" destination="xjh-Ko-Xsp" id="PoF-SW-yTS"/>
+                <outlet property="loveBtn" destination="gNW-Fm-7qe" id="4ig-Tq-EZf"/>
+                <outlet property="removeBtn" destination="0o7-m3-ihL" id="xMr-1e-4bV"/>
                 <outlet property="userAgeLb" destination="Qcy-iL-gca" id="1U7-9c-KLo"/>
                 <outlet property="userDistanceLb" destination="sBH-0c-xmq" id="FKZ-C2-qgE"/>
+                <outlet property="userDistanceView" destination="Aju-hs-dGT" id="fh6-Jv-FIZ"/>
                 <outlet property="userImage" destination="FqS-CA-gpM" id="4As-XW-wBj"/>
                 <outlet property="userLocationLb" destination="5WF-Xp-G9B" id="Muw-ik-4Ne"/>
                 <outlet property="userNameLb" destination="BGO-fY-i5V" id="RL7-gH-ybM"/>

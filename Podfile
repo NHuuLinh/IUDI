@@ -14,6 +14,7 @@ target 'IUDI' do
   pod 'CollectionViewPagingLayout'
   pod 'iOSDropDown'
   pod 'Kingfisher'
+  pod 'ReadMoreTextView'
 
 
 

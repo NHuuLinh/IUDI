@@ -1,9 +1,3 @@
-//
-//  MyCell.swift
-//  IUDI
-//
-//  Created by LinhMAC on 26/02/2024.
-//
 
 import UIKit
 import CollectionViewPagingLayout
@@ -12,12 +6,14 @@ class HomeCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var cellUiView: UIView!
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var userDistanceLb: UILabel!
+    @IBOutlet weak var userDistanceView: UIView!
     @IBOutlet weak var userNameLb: UILabel!
     @IBOutlet weak var userAgeLb: UILabel!
     @IBOutlet weak var userLocationLb: UILabel!
+    @IBOutlet weak var removeBtn: UIButton!
+    @IBOutlet weak var likeBtn: UIButton!
+    @IBOutlet weak var loveBtn: UIButton!
     
-    
-    var card: UIView!
     override func awakeFromNib() {
         super.awakeFromNib()
         setupView()
@@ -33,8 +29,23 @@ class HomeCollectionViewCell: UICollectionViewCell {
         userImage.clipsToBounds = true
         cellUiView.layer.cornerRadius = 32
         cellUiView.clipsToBounds = true
+        userDistanceView.layer.cornerRadius = userDistanceView.frame.height/2
+        userDistanceView.layer.borderWidth = Constant.borderWidth
+        userDistanceView.layer.borderColor = UIColor.white.cgColor //UIColor.red.cgColor
+        userDistanceView.clipsToBounds = true
     }
-
+    @IBAction func btnHandle(_ sender: UIButton) {
+        switch sender {
+        case removeBtn:
+            print("removeBtn")
+        case likeBtn:
+            print("likeBtn")
+        case loveBtn:
+            print("loveBtn")
+        default:
+            break
+        }
+    }
 }
     
 extension HomeCollectionViewCell: StackTransformView {
