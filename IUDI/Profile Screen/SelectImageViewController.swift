@@ -103,8 +103,14 @@ extension SelectImageViewController : UICollectionViewDataSource, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SelectImageCollectionViewCell", for: indexPath) as! SelectImageCollectionViewCell
         // trả về kích thước ảnh quyết định màn hình sẽ load bao nhiêu ảnh theo chiều ngang
-        let imageSize = ((UIScreen.main.bounds.width - itemNumber * minimumLineSpacing)/itemNumber)
         let data = userPhotos[indexPath.item]
+        var imageSize:CGFloat
+        let photoNumber = Double(userPhotos.count)
+        if photoNumber < 3 {
+            imageSize = ((UIScreen.main.bounds.width - itemNumber * minimumLineSpacing)/photoNumber)
+        } else {
+            imageSize = ((UIScreen.main.bounds.width - itemNumber * minimumLineSpacing)/itemNumber)
+        }
         cell.blinData(data: data, width: imageSize)
         return cell
     }

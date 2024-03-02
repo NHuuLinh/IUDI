@@ -15,8 +15,7 @@ class SelectImageCollectionViewCell: UICollectionViewCell {
     override func awakeFromNib() {
         super.awakeFromNib()
     }
-    func blinData(data: Photo ,width: CGFloat){
-        
+    func blinData(data: Photo ,width: CGFloat){        
         imageWidth.constant = CGFloat(Int(width))
 //        if let newsImageString = data.photoURL {
 //            let newsImageUrl = URL(string: newsImageString)

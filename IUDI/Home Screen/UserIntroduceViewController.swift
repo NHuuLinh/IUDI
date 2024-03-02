@@ -9,8 +9,10 @@ import UIKit
 import Alamofire
 import ReadMoreTextView
 import SwiftyJSON
+import Kingfisher
 
 class UserIntroduceViewController: UIViewController {
+    
     @IBOutlet weak var userAvatar: UIImageView!
     @IBOutlet weak var userNameLb: UILabel!
     @IBOutlet weak var userLocationLb: UILabel!
@@ -22,14 +24,12 @@ class UserIntroduceViewController: UIViewController {
     
     var data : UserDistances?
     var userPhotos = [Photo]()
-
-    var userID : String?
+    
     let itemNumber = 4.0
     let minimumLineSpacing = 5.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getAllImage()
         setupUserIntroduct()
         setupCollectionView()
         registerCollectionView()
@@ -65,17 +65,31 @@ class UserIntroduceViewController: UIViewController {
         let readMoreText = NSAttributedString(string: "... Xem thêm", attributes: [NSAttributedString.Key.foregroundColor: Constant.mainBorderColor])
         userIntroduct.attributedReadMoreText = readMoreText
     }
-    func getAllImage(){
+    func blindata(data: Distance){
+        let imageUrl = URL(string: data.avatarLink ?? "")
+        userAvatar.kf.setImage(with: imageUrl, placeholder: UIImage(named: "person"), options: nil, completionHandler: { result in
+            switch result {
+            case .success(_):
+                // Ảnh đã tải thành công
+                break
+            case .failure(let error):
+                // Xảy ra lỗi khi tải ảnh
+                self.userAvatar.image = UIImage(systemName: "person")
+                print("Lỗi khi tải ảnh: \(error.localizedDescription)")
+            }
+        })
+        userNameLb.text = data.fullName
+//        let yearOfBirth = convertDate(date: data.birthDate ?? "", inputFormat: "yyyy-MM-dd", outputFormat: "**yyyy**")
+//        let userAge = Int(Constant.currentYear) - (Int(yearOfBirth) ?? 0)
+//        userAgeLb.text = String(userAge)
+//        userLocationLb.text = data.provinceID
+        
+    }
+
+    func getAllImage(userID: String){
         showLoading(isShow: true)
-//        guard let userid = UserDefaults.standard.string(forKey: "UserID") else {
-//            showLoading(isShow: false)
-//            print("không có userName")
-//            return
-//        }
-//            print("UserID: \(userid)")
-        let url = "https://api.iudi.xyz/api/profile/viewAllImage/37"
-//        let url = Constant.baseUrl + "profile/viewAllImage/" + userid
-//        print("\(url)")
+        print("UserID: \(userID)")
+        let url = Constant.baseUrl + "profile/viewAllImage/" + userID
         AF.request(url, method: .get)
             .validate(statusCode: 200...299)
             .responseDecodable(of: GetPhotos.self) { response in
@@ -86,6 +100,7 @@ class UserIntroduceViewController: UIViewController {
                         print("userdata: \(userdata.count)")
                         self.userPhotos = userdata
                         DispatchQueue.main.async {
+//                            self.userNameLb = userPhotos.
                             self.userImageCollectionView.reloadData()
                         }
                     } else {
@@ -112,8 +127,8 @@ class UserIntroduceViewController: UIViewController {
                 }
             }
     }
-
-
+    
+    
 }
 extension UserIntroduceViewController : UICollectionViewDataSource, UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -124,8 +139,14 @@ extension UserIntroduceViewController : UICollectionViewDataSource, UICollection
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SelectImageCollectionViewCell", for: indexPath) as! SelectImageCollectionViewCell
         // trả về kích thước ảnh quyết định màn hình sẽ load bao nhiêu ảnh theo chiều ngang
-        let imageSize = ((userImageCollectionView.bounds.width - itemNumber * minimumLineSpacing)/itemNumber)
         let data = userPhotos[indexPath.item]
+        var imageSize:CGFloat
+        let photoNumber = Double(userPhotos.count)
+        if photoNumber < 3 {
+            imageSize = ((UIScreen.main.bounds.width - itemNumber * minimumLineSpacing)/photoNumber)
+        } else {
+            imageSize = ((UIScreen.main.bounds.width - itemNumber * minimumLineSpacing)/itemNumber)
+        }
         cell.blinData(data: data, width: imageSize)
         return cell
     }

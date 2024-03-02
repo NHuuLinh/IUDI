@@ -26,3 +26,11 @@ class ShadeView: UIView {
         layer.shadowOffset = CGSize(width: 10, height: 10)
     }
 }
+//extension UICollectionViewFlowLayout {
+//    open override var flipsVertical : Bool {
+//        return true  //RETURN true if collection view needs to enable RTL
+//    }
+//    open override var flipsHorizontallyInOppositeLayoutDirection: Bool {
+//        return true  //RETURN true if collection view needs to enable RTL
+//    }
+//}

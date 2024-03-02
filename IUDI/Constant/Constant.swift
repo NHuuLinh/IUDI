@@ -9,6 +9,9 @@ import Foundation
 import UIKit
 
 class Constant{
+    let currentDate = Date()
+    static let currentYear = Calendar.current.component(.year, from: Date())
+
     static let baseUrl = "https://api.iudi.xyz/api/"
     static let cornerRadius = 10.0
     static let borderWidth = 1.5
