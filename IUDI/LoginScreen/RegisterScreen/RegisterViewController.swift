@@ -23,8 +23,9 @@ class RegisterViewController: UIViewController, CheckValid {
     let keychain = KeychainSwift()
     var isRememberPassword = false
     let locationManager = CLLocationManager()
-    var longitude : String?
-    var latitude : String?
+    var userLongitude : String?
+    var userLatitude : String?
+    var userIpAdress : String?
     var userData : UserDataRegister?
     
     override func viewDidLoad() {
@@ -98,8 +99,9 @@ class RegisterViewController: UIViewController, CheckValid {
         guard let username = userNameTF.text,
               let userpassword = userPasswordTF.text,
               let userEmail = userEmailTF.text,
-              let longitude = longitude,
-              let latitude = latitude else {
+              let longitude = userLongitude,
+              let latitude = userLatitude,
+              let ipAdress = userIpAdress else {
             print("user nil")
             showLoading(isShow: false)
             showAlert(title: "Lỗi", message: "Vui lòng thử lại sau")
@@ -111,10 +113,12 @@ class RegisterViewController: UIViewController, CheckValid {
             "Email": userEmail,
             "Password": userpassword,
             "Latitude": longitude,
-            "Longitude": latitude
+            "Longitude": latitude,
+            "LastLoginIP": ipAdress
         ]
         
-        APIService.share.apiHandle(method: .post ,subUrl: "register", parameters: parameters, data: UserDataRegister.self) { result in
+        APIService.share.apiHandle(method: .post ,subUrl: "register", parameters: parameters, data: UserDataRegister.self) { [weak self] result in
+            guard let self = self else { return }
             DispatchQueue.main.async {
                 self.showLoading(isShow: false)
                 switch result {
@@ -146,8 +150,8 @@ extension RegisterViewController: CLLocationManagerDelegate {
             case .success(let location):
                 let currentLongitude = location.lon
                 let currentLatitude = location.lat
-                self.longitude = String(Int(currentLongitude))
-                self.latitude = String(Int(currentLatitude))
+                self.userLongitude = String(Int(currentLongitude))
+                self.userLatitude = String(Int(currentLatitude))
                 self.showLoading(isShow: false)
                 
             case .failure(let error):
@@ -163,7 +167,14 @@ extension RegisterViewController: CLLocationManagerDelegate {
         // check xem có đia điểm hiện tại không,nếu không thì không làm gì cả
         guard let currentLocation = locationManager.location else {
             print("Current location not available.")
+            showLoading(isShow: false)
             return
+        }
+        APIService.share.getLocationByAPI { [weak self] (longtitude, latitude, ipAdress) in
+            guard let self = self else {
+                return
+            }
+            self.userIpAdress = ipAdress
         }
         let geocoder = CLGeocoder()
         // lấy placemark
@@ -174,8 +185,8 @@ extension RegisterViewController: CLLocationManagerDelegate {
             }
             let currentLongitude = currentLocation.coordinate.longitude
             let currentLatitude = currentLocation.coordinate.latitude
-            self?.longitude = String(Int(currentLongitude))
-            self?.latitude = String(Int(currentLatitude))
+            self?.userLongitude = String(Int(currentLongitude))
+            self?.userLatitude = String(Int(currentLatitude))
             self?.showLoading(isShow: false)
         }
     }
@@ -201,7 +212,14 @@ extension RegisterViewController: CLLocationManagerDelegate {
             // Yêu cầu quyền sử dụng vị trí khi ứng dụng đang được sử dụng
             locationManager.requestWhenInUseAuthorization()
         case .restricted, .denied:
-            getLocationByAPI()
+            APIService.share.getLocationByAPI { [weak self] (longtitude, latitude, ipAdress) in
+                guard let self = self else {
+                    return
+                }
+                self.userLongitude = longtitude
+                self.userLatitude = latitude
+                self.userIpAdress = ipAdress
+            }
             break
         case .authorizedWhenInUse, .authorizedAlways:
             // Bắt đầu cập nhật vị trí và gọi api nếu được cấp quyền

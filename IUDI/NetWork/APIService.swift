@@ -76,5 +76,22 @@ class APIService {
                 }
             }
     }
+    func getLocationByAPI(completion : @escaping (String, String, String)-> Void){
+        let url = "http://ip-api.com/json"
+        AF.request(url).validate().responseDecodable(of: UserLocation.self) { response in
+            switch response.result {
+            case .success(let location):
+                guard let longitude = location.lon, let latitude = location.lat, let ipAdress = location.query else {
+                    print("không lấy được địa điểm")
+                    return
+                }
+                completion(String(longitude),String(latitude),ipAdress)
+            case .failure(let error):
+                print("Error: \(error.localizedDescription)")
+                completion("","","")
+            }
+        }
+    }
+
     
 }

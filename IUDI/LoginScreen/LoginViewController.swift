@@ -19,8 +19,9 @@ class LoginViewController: UIViewController, CheckValid {
     let keychain = KeychainSwift()
     var isRememberPassword = false
     let locationManager = CLLocationManager()
-    var longitude : String?
-    var latitude : String?
+    var userLongitude : String?
+    var userLatitude : String?
+    var userIpAdress : String?
     var userData : UserData?
     
     override func viewDidLoad() {
@@ -44,7 +45,7 @@ class LoginViewController: UIViewController, CheckValid {
         case rememberPasswordBtn :
             checkBoxHandle()
         case registerBtn:
-//            loginHandle()
+            //            loginHandle()
             goToRegisterVC()
         default:
             break
@@ -58,8 +59,8 @@ class LoginViewController: UIViewController, CheckValid {
         }
     }
     func setupView(){
-//        userNameTF.text = keychain.get("username")
-//        userPasswordTF.text = keychain.get("password")
+        //        userNameTF.text = keychain.get("username")
+        //        userPasswordTF.text = keychain.get("password")
         rememberPasswordBtn.isSelected = true
         // Đặt hình ảnh ban đầu cho nút
         let checkImage = UIImage(systemName: "checkmark.square")
@@ -112,8 +113,9 @@ class LoginViewController: UIViewController, CheckValid {
         showLoading(isShow: true)
         guard let username = userNameTF.text,
               let password = userPasswordTF.text,
-              let longitude = longitude,
-              let latitude = latitude else {
+              let longitude = userLongitude,
+              let latitude = userLatitude,
+              let ipAdress = userIpAdress else {
             print("user nil")
             showLoading(isShow: false)
             showAlert(title: "Lỗi", message: "Vui lòng thử lại sau")
@@ -123,73 +125,58 @@ class LoginViewController: UIViewController, CheckValid {
             "Username": username,
             "Password": password,
             "Latitude": latitude,
-            "Longitude": longitude
+            "Longitude": longitude,
+            "LastLoginIP": ipAdress
         ]
-        
         print("parameters: \(parameters)")
-
-        APIService.share.apiHandle(method:.post ,subUrl: "login", parameters: parameters, data: UserData.self) { result in
-                self.showLoading(isShow: false)
-                switch result {
-                case .success(let data):
-                    print("data: \(data)")
-                    DispatchQueue.main.async {
-                        self.userData = data
-                        guard let userID = self.userData?.user?.users?.first?.userID else {
-                            print("user nil kiểm tra user response")
-                            return
-                        }
-                        UserDefaults.standard.set(userID, forKey: "UserID")
-                        print("data: \(userID)")
-                        self.saveUserInfo()
-                        UserDefaults.standard.didLogin = true
-                        self.showLoading(isShow: false)
-                        AppDelegate.scene?.goToHome()
+        
+        APIService.share.apiHandle(method:.post ,subUrl: "login", parameters: parameters, data: UserData.self) { [weak self] result in
+            guard let self = self else { return }
+            self.showLoading(isShow: false)
+            switch result {
+            case .success(let data):
+                print("data: \(data)")
+                DispatchQueue.main.async {
+                    self.userData = data
+                    guard let userID = self.userData?.user?.users?.first?.userID else {
+                        print("user nil kiểm tra user response")
+                        return
                     }
-                case .failure(let error):
-                    print(error.localizedDescription)
-                    switch error {
-                    case .server(let message):
-                        self.showAlert(title: "lỗi1", message: message)
-                    case .network(let message):
-                        self.showAlert(title: "lỗi", message: message)
-                    }
+                    UserDefaults.standard.set(userID, forKey: "UserID")
+                    print("data: \(userID)")
+                    self.saveUserInfo()
+                    UserDefaults.standard.didLogin = true
+                    self.showLoading(isShow: false)
+                    AppDelegate.scene?.goToHome()
+                }
+            case .failure(let error):
+                print(error.localizedDescription)
+                switch error {
+                case .server(let message):
+                    self.showAlert(title: "lỗi1", message: message)
+                case .network(let message):
+                    self.showAlert(title: "lỗi", message: message)
                 }
             }
         }
+    }
 }
 // MARK: - Các hàm liên quan vị trí
 extension LoginViewController: CLLocationManagerDelegate {
-    func getLocationByAPI(){
-        struct Location: Codable {
-            let lat, lon: Double
-            let city: String
-        }
-        showLoading(isShow: true)
-        let url = "http://ip-api.com/json"
-        AF.request(url).validate().responseDecodable(of: Location.self) { response in
-            switch response.result {
-            case .success(let location):
-                let currentLongitude = location.lon
-                let currentLatitude = location.lat
-                self.longitude = String(Int(currentLongitude))
-                self.latitude = String(Int(currentLatitude))
-                self.showLoading(isShow: false)
-                
-            case .failure(let error):
-                print("Error: \(error.localizedDescription)")
-                self.showLoading(isShow: false)
-                self.showAlert(title: "Lỗi", message: error.localizedDescription)
-            }
-        }
-    }
     
     func fetchCurrentLocation() {
         showLoading(isShow: true)
         // check xem có đia điểm hiện tại không,nếu không thì không làm gì cả
         guard let currentLocation = locationManager.location else {
             print("Current location not available.")
+            showLoading(isShow: false)
             return
+        }
+        APIService.share.getLocationByAPI { [weak self] (longtitude, latitude, ipAdress) in
+            guard let self = self else {
+                return
+            }
+            self.userIpAdress = ipAdress
         }
         let geocoder = CLGeocoder()
         // lấy placemark
@@ -200,8 +187,8 @@ extension LoginViewController: CLLocationManagerDelegate {
             }
             let currentLongitude = currentLocation.coordinate.longitude
             let currentLatitude = currentLocation.coordinate.latitude
-            self?.longitude = String(Int(currentLongitude))
-            self?.latitude = String(Int(currentLatitude))
+            self?.userLongitude = String(Int(currentLongitude))
+            self?.userLatitude = String(Int(currentLatitude))
             self?.showLoading(isShow: false)
         }
     }
@@ -227,7 +214,14 @@ extension LoginViewController: CLLocationManagerDelegate {
             // Yêu cầu quyền sử dụng vị trí khi ứng dụng đang được sử dụng
             locationManager.requestWhenInUseAuthorization()
         case .restricted, .denied:
-            getLocationByAPI()
+            APIService.share.getLocationByAPI { [weak self] (longtitude, latitude, ipAdress) in
+                guard let self = self else {
+                    return
+                }
+                self.userLongitude = longtitude
+                self.userLatitude = latitude
+                self.userIpAdress = ipAdress
+            }
             break
         case .authorizedWhenInUse, .authorizedAlways:
             // Bắt đầu cập nhật vị trí và gọi api nếu được cấp quyền

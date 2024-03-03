@@ -84,19 +84,19 @@ extension HomeViewController:UICollectionViewDataSource, UICollectionViewDelegat
         
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let vc = storyboard.instantiateViewController(withIdentifier: "UserIntroduceViewController") as! UserIntroduceViewController
-//        guard let data = userDistance?.distances?[indexPath.row] else {
-//            print("user nil")
-//            return
-//        }
-//        print("indexPath.row: \(indexPath.row)")
-//        let userID : Int = data.userID ?? 0
-//        let test = String(userID)
-//        print("userID: \(test)")
-//        vc.getAllImage(userID: String(userID))
-//        vc.blindata(data: data)
-//        navigationController?.pushViewController(vc, animated: true)
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "UserIntroduceViewController") as! UserIntroduceViewController
+        guard let data = userDistance?.distances?[indexPath.row] else {
+            print("user nil")
+            return
+        }
+        print("indexPath.row: \(indexPath.row)")
+        let userID : Int = data.userID ?? 0
+        let test = String(userID)
+        print("userID: \(test)")
+        vc.getAllImage(userID: String(userID))
+        vc.blindata(data: data)
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 }
