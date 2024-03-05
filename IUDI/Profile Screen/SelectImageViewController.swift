@@ -28,10 +28,13 @@ class SelectImageViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        getAllImage()
         registerCollectionView()
         setupCollectionView()
         pullToRefesh()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        getAllImage()
+
     }
     private func setupCollectionView() {
         if let flowLayout = imageCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -68,11 +71,12 @@ class SelectImageViewController: UIViewController {
                         self.userPhotos = userdata
                         DispatchQueue.main.async {
                             self.imageCollectionView.reloadData()
+                            self.showLoading(isShow: false)
+
                         }
                     } else {
                         print("data nill")
                     }
-                    self.showLoading(isShow: false)
                 case .failure(let error):
                     self.showLoading(isShow: false)
                     print("\(error.localizedDescription)")
@@ -118,11 +122,13 @@ extension SelectImageViewController : UICollectionViewDataSource, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         
         let photoURL = userPhotos[indexPath.item].photoURL
+        let photoID = userPhotos[indexPath.item].photoID
         print("user chọn ảnh có photoURL là : \(photoURL) ")
+        print("user chọn ảnh có photoID là : \(photoID) ")
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
-        delegate?.sendDataBack(data: "The quick brown fox jumps over the lazy dog")
         delegate?.loadAvatarImage(url: photoURL)
+        UserDefaults.standard.set(photoID, forKey: "photoID")
         navigationController?.popViewController(animated: true)
     }
     

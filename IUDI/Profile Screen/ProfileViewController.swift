@@ -13,7 +13,6 @@ import SwiftyJSON
 import Kingfisher
 
 protocol DataDelegate: AnyObject {
-    func sendDataBack(data: String)
     func loadAvatarImage(url:String?)
 }
 
@@ -208,6 +207,45 @@ class ProfileViewController: UIViewController,DataDelegate {
         let url = user.avatarLink
         loadAvatarImage(url: url)
     }
+    func changeAvatar(){
+        struct SetAvatar: Codable {
+            let photoID: String?
+            let setAsAvatar: Bool?
+            let userID: String?
+
+            enum CodingKeys: String, CodingKey {
+                case photoID = "PhotoID"
+                case setAsAvatar = "SetAsAvatar"
+                case userID = "UserID"
+            }
+        }
+        guard let photoID = UserDefaults.standard.string(forKey: "photoID"), let userID = UserDefaults.standard.string(forKey: "UserID")  else {
+            print("user image không có ID")
+            return
+        }
+        let subUrl = "profile/setAvatar/" + "\(userID)"
+        print("subUrl: \(subUrl)")
+        
+        let parameters : [String:Any] = [
+                "PhotoID":photoID,
+                "SetAsAvatar":true
+        ]
+        print("parameters: \(parameters)")
+
+        APIService.share.apiHandle(method: .patch ,subUrl: subUrl, parameters: parameters, data: SetAvatar.self) { result in
+                switch result {
+                case .success(let data):
+                    print("success")
+                case .failure(let error):
+                    print("error: \(error.localizedDescription)")
+                    switch error {
+                    case .server(let message), .network(let message):
+                        self.showAlert(title: "Lỗi", message: message)
+                        print("\(message)")
+                    }
+                }
+            }
+        }
     func saveDataToServer() {
         guard let userName = keychain.get("username") else {
             print("không có userName")
@@ -241,7 +279,11 @@ class ProfileViewController: UIViewController,DataDelegate {
                 switch result {
                 case .success(let data):
 //                    self.uploadImageToServer()
-                    self.uploadImageToServer()
+                    if UserDefaults.standard.willUploadImage {
+                        self.uploadImageToServer()
+                    } else {
+                        self.changeAvatar()
+                    }
                     self.showAlert(title: "Thông báo", message: "Đã cập nhật dữ liệu thành công")
                     self.showLoading(isShow: false)
                 case .failure(let error):
@@ -333,16 +375,19 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
                                                     preferredStyle: .actionSheet)
         let camera = UIAlertAction(title: "Camera",
                                    style: .default) { (_) in
+            UserDefaults.standard.willUploadImage = true
             self.openCamera()
         }
         let galleryText = NSLocalizedString("Gallery", comment: "")
         let gallery = UIAlertAction(title: galleryText,
                                     style: .default) { (_) in
+            UserDefaults.standard.willUploadImage = true
             self.openGallary()
         }
         let selectImageText = NSLocalizedString("Select Image", comment: "")
         let selectImage = UIAlertAction(title: selectImageText,
                                     style: .default) { (_) in
+            UserDefaults.standard.willUploadImage = false
             self.gotoSelectImage()
         }
         let cancelText = NSLocalizedString("Cancel", comment: "")
@@ -359,7 +404,6 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
     }
     func gotoSelectImage(){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        
         if let viewController = storyboard.instantiateViewController(identifier: "SelectImageViewController") as? SelectImageViewController {
             viewController.delegate = self
             self.navigationController?.pushViewController(viewController, animated: true)

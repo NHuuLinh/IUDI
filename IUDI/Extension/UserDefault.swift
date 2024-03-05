@@ -14,6 +14,7 @@ extension UserDefaults {
         case didLogin
         case didOnMain
         case hasLogout
+        case willUploadImage
     }
     var hasOnboarded : Bool {
         get {
@@ -37,6 +38,14 @@ extension UserDefaults {
         }
         set {
             setValue(newValue, forKey: UserDefaultsKeys.didLogin.rawValue)
+        }
+    }
+    var willUploadImage: Bool {
+        get {
+            bool(forKey: UserDefaultsKeys.willUploadImage.rawValue)
+        }
+        set {
+            setValue(newValue, forKey: UserDefaultsKeys.willUploadImage.rawValue)
         }
     }
     

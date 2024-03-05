@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FilterViewController" customModule="IUDI" customModuleProvider="target">
+            <connections>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UFb-ax-P3f">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                </view>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fnG-wp-o2x">
+                    <rect key="frame" x="0.0" y="59" width="393" height="48"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JrW-Th-l1A">
+                            <rect key="frame" x="0.0" y="8" width="32" height="32"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="32" id="9A8-6z-gd5"/>
+                                <constraint firstAttribute="width" secondItem="JrW-Th-l1A" secondAttribute="height" multiplier="1:1" id="Itd-FO-als"/>
+                            </constraints>
+                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                            <state key="normal" image="Arrow"/>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Album ảnh" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wqs-VJ-fwJ">
+                            <rect key="frame" x="156" y="13.666666666666671" width="81.333333333333314" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="Wqs-VJ-fwJ" firstAttribute="centerX" secondItem="fnG-wp-o2x" secondAttribute="centerX" id="3Cl-dM-hEG"/>
+                        <constraint firstItem="JrW-Th-l1A" firstAttribute="centerY" secondItem="fnG-wp-o2x" secondAttribute="centerY" id="JAo-ge-KLb"/>
+                        <constraint firstAttribute="height" constant="48" id="Uby-SH-hfg"/>
+                        <constraint firstItem="JrW-Th-l1A" firstAttribute="leading" secondItem="fnG-wp-o2x" secondAttribute="leading" id="VJa-Mf-tB5"/>
+                        <constraint firstItem="Wqs-VJ-fwJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="JrW-Th-l1A" secondAttribute="trailing" id="Wxp-aX-do7"/>
+                        <constraint firstItem="Wqs-VJ-fwJ" firstAttribute="centerY" secondItem="fnG-wp-o2x" secondAttribute="centerY" id="bEG-tg-qWd"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="UFb-ax-P3f" secondAttribute="bottom" id="A60-fw-YcY"/>
+                <constraint firstItem="fnG-wp-o2x" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="B42-0t-mQR"/>
+                <constraint firstItem="fnG-wp-o2x" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="D8E-h0-b0Y"/>
+                <constraint firstItem="fnG-wp-o2x" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="S5d-Ge-Uun"/>
+                <constraint firstItem="UFb-ax-P3f" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="bc5-bu-ceQ"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="UFb-ax-P3f" secondAttribute="trailing" id="cYy-nj-8jC"/>
+                <constraint firstItem="UFb-ax-P3f" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="eNw-XP-DBe"/>
+            </constraints>
+            <point key="canvasLocation" x="132" y="-11"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="Arrow" width="32" height="32"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

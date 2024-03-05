@@ -31,7 +31,6 @@ class SelectImageCollectionViewCell: UICollectionViewCell {
             switch result {
             case .success(_):
                 self.imageWidth.constant = CGFloat(Int(width))
-
                 // Ảnh đã tải thành công
                 break
             case .failure(let error):

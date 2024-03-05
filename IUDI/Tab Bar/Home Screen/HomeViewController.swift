@@ -11,9 +11,12 @@ class HomeViewController: UIViewController{
     var userDistance : UserDistances?
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupView()
         setupCollectionView()
         getNearUser()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+//        setupView()
+
     }
     override func viewDidAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true

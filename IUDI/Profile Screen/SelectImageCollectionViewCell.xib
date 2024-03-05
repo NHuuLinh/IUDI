@@ -30,7 +30,7 @@
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D22-Y8-5uf">
                                 <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain"/>
+                                <buttonConfiguration key="configuration" style="plain" image="err"/>
                                 <connections>
                                     <action selector="btnHandle:" destination="gTV-IL-0wX" eventType="touchUpInside" id="iSl-No-38N"/>
                                 </connections>
@@ -67,6 +67,7 @@
     </objects>
     <resources>
         <image name="anh2" width="600" height="425"/>
+        <image name="err" width="128" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
