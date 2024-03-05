@@ -129,7 +129,6 @@ class LoginViewController: UIViewController, CheckValid {
             "LastLoginIP": ipAdress
         ]
         print("parameters: \(parameters)")
-        
         APIService.share.apiHandle(method:.post ,subUrl: "login", parameters: parameters, data: UserData.self) { [weak self] result in
             guard let self = self else { return }
             self.showLoading(isShow: false)

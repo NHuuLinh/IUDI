@@ -21,7 +21,8 @@ struct UserDistances: Codable {
 
 // MARK: - Distance
 struct Distance: Codable {
-    let birthDate, birthTime: String?
+    let bio, birthDate, birthPlace, birthTime: String?
+    let currentAdd: String?
     let distance: Double?
     let email, fullName: String?
     let gender: String?
@@ -31,8 +32,11 @@ struct Distance: Codable {
     let avatarLink: String?
 
     enum CodingKeys: String, CodingKey {
+        case bio = "Bio"
         case birthDate = "BirthDate"
+        case birthPlace = "BirthPlace"
         case birthTime = "BirthTime"
+        case currentAdd = "CurrentAdd"
         case distance = "Distance"
         case email = "Email"
         case fullName = "FullName"

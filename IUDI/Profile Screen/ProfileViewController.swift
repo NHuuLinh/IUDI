@@ -10,9 +10,16 @@ import Alamofire
 import iOSDropDown
 import KeychainSwift
 import SwiftyJSON
+import Kingfisher
 
-class ProfileViewController: UIViewController {
+protocol DataDelegate: AnyObject {
+    func sendDataBack(data: String)
+    func loadAvatarImage(url:String?)
+}
 
+class ProfileViewController: UIViewController,DataDelegate {
+    
+    
     @IBOutlet weak var userAvatar: UIImageView!
     @IBOutlet weak var userNameLb: UILabel!
     @IBOutlet weak var userNameTF: UITextField!
@@ -46,7 +53,6 @@ class ProfileViewController: UIViewController {
     var imagePicker = UIImagePickerController()
     var hi:ImgModel = ImgModel()
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
@@ -57,16 +63,11 @@ class ProfileViewController: UIViewController {
         getUserProfile()
         avatarImageTap()
         setupScrollView()
-
     }
     func dropDownHandle(texfield: DropDown, inputArray: [String]){
-//        texfield.showList()
         texfield.arrowColor = UIColor .red
         texfield.selectedRowColor = UIColor .red
         texfield.optionArray = inputArray
-//        texfield.didSelect{(selectedText , index ,id) in
-//        }
-        
     }
     func avatarImageTap(){
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
@@ -75,7 +76,6 @@ class ProfileViewController: UIViewController {
     }
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
     {
-//        let tappedImage = tapGestureRecognizer.view as! UIImageView
         pickImage()
         print("pickImage")
     }
@@ -106,23 +106,23 @@ class ProfileViewController: UIViewController {
     func uploadImageToServer1(imageUrl: String) {
         let parameters: [String: Any] = [
             "PhotoURL": imageUrl,
-            "SetAsAvatar":false
+            "SetAsAvatar":true
         ]
         APIService.share.apiHandle(method:.post ,subUrl: "profile/add_image/37", parameters: parameters, data: UserData.self) { result in
-                self.showLoading(isShow: false)
-                switch result {
-                case .success(let data):
-                    print("data: \(data)")
-                case .failure(let error):
-                    print(error.localizedDescription)
-                    switch error {
-                    case .server(let message):
-                        self.showAlert(title: "lỗi1", message: message)
-                    case .network(let message):
-                        self.showAlert(title: "lỗi", message: message)
-                    }
+            self.showLoading(isShow: false)
+            switch result {
+            case .success(let data):
+                print("data: \(data)")
+            case .failure(let error):
+                print(error.localizedDescription)
+                switch error {
+                case .server(let message):
+                    self.showAlert(title: "lỗi1", message: message)
+                case .network(let message):
+                    self.showAlert(title: "lỗi", message: message)
                 }
             }
+        }
     }
     func setupView(){
         standardViewCornerRadius(uiView: userNameBoxView)
@@ -135,8 +135,8 @@ class ProfileViewController: UIViewController {
         standardBtnCornerRadius(button: saveBtn)
         standardViewCornerRadius(uiView: phoneNumberBoxView)
     }
-
-
+    
+    
     func getUserProfile(){
         showLoading(isShow: true)
         guard let userName = keychain.get("username") else {
@@ -151,11 +151,11 @@ class ProfileViewController: UIViewController {
                 switch response.result {
                     // Xử lý dữ liệu nhận được từ phản hồi (response)
                 case .success(let data):
-                        self.userProfile = data
+                    self.userProfile = data
                     guard let user = self.userProfile?.users?.first else {
-                            print("dữ liệu nil")
-                            return
-                        }
+                        print("dữ liệu nil")
+                        return
+                    }
                     self.loadDataToView(user: user)
                     self.showLoading(isShow: false)
                 case .failure(let error):
@@ -178,6 +178,23 @@ class ProfileViewController: UIViewController {
                 }
             }
     }
+    func loadAvatarImage(url:String?) {
+        print("loadAvatarImage1: \(url)")
+        guard let urlString = url, let imageUrl = URL(string: urlString) else {
+            return
+        }
+        userAvatar.kf.setImage(with: imageUrl, placeholder: UIImage(systemName: "person"), options: nil, completionHandler: { result in
+            switch result {
+            case .success(_):
+                // Ảnh đã tải thành công
+                break
+            case .failure(let error):
+                // Xảy ra lỗi khi tải ảnh
+                self.userAvatar?.image = UIImage(systemName: "person")
+            }
+        })
+    }
+
     func loadDataToView(user: Users){
         userNameLb.text = user.fullName
         userNameTF.text = user.fullName
@@ -185,8 +202,11 @@ class ProfileViewController: UIViewController {
         genderTF.text = user.gender
         dateOfBirthTF.text = user.birthDate
         phoneNumber.text = user.phone
+        currentAddressTF.text = user.currentAdd
+        birthAddressTF.text = user.birthPlace
         self.userID = user.userID
-        print("self.userID : \(self.userID)")
+        let url = user.avatarLink
+        loadAvatarImage(url: url)
     }
     func saveDataToServer() {
         guard let userName = keychain.get("username") else {
@@ -207,6 +227,8 @@ class ProfileViewController: UIViewController {
             "FullName": userNameTF.text ?? "",
             "Gender": genderTF.text ?? "",
             "Phone": phoneNumber.text ?? "",
+            "BirthPlace": birthAddressTF.text ?? "",
+            "CurrentAdd": currentAddressTF.text ?? "",
             "Username": userName,
             "ProvinceID": "24"
         ]
@@ -332,10 +354,14 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         alertViewController.addAction(cancel)
         present(alertViewController, animated: true, completion: nil)
     }
-    
+    func sendDataBack(data: String) {
+        print("Data received:  \(data)")
+    }
     func gotoSelectImage(){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        
         if let viewController = storyboard.instantiateViewController(identifier: "SelectImageViewController") as? SelectImageViewController {
+            viewController.delegate = self
             self.navigationController?.pushViewController(viewController, animated: true)
         }
     }

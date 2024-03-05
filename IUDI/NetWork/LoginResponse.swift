@@ -19,19 +19,28 @@ struct User: Codable {
 
 // MARK: - UserElement
 struct Users: Codable {
-    let birthDate, birthTime, email, fullName: String?
-    let gender: String?
+    let bio: String?
+    let birthDate: String?
+    let birthPlace: String?
+    let birthTime: String?
+    let currentAdd: String?
+    let email, fullName, gender: String?
     let isLoggedIn: Bool?
     let lastActivityTime, lastLoginIP, password, phone: String?
+    let photoURL: [String]?
     let provinceID: Int?
     let registrationIP: String?
     let role: Bool?
     let userID: Int?
     let username: String?
+    let avatarLink: String?
 
     enum CodingKeys: String, CodingKey {
+        case bio = "Bio"
         case birthDate = "BirthDate"
+        case birthPlace = "BirthPlace"
         case birthTime = "BirthTime"
+        case currentAdd = "CurrentAdd"
         case email = "Email"
         case fullName = "FullName"
         case gender = "Gender"
@@ -40,11 +49,13 @@ struct Users: Codable {
         case lastLoginIP = "LastLoginIP"
         case password = "Password"
         case phone = "Phone"
+        case photoURL = "PhotoURL"
         case provinceID = "ProvinceID"
         case registrationIP = "RegistrationIP"
         case role = "Role"
         case userID = "UserID"
         case username = "Username"
+        case avatarLink
     }
 }
 

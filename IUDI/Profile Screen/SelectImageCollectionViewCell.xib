@@ -27,13 +27,25 @@
                                     <constraint firstAttribute="width" secondItem="5RH-E3-DWy" secondAttribute="height" multiplier="1:1" id="zrt-f8-FHA"/>
                                 </constraints>
                             </imageView>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="D22-Y8-5uf">
+                                <rect key="frame" x="0.0" y="0.0" width="200" height="200"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain"/>
+                                <connections>
+                                    <action selector="btnHandle:" destination="gTV-IL-0wX" eventType="touchUpInside" id="iSl-No-38N"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstAttribute="trailing" secondItem="D22-Y8-5uf" secondAttribute="trailing" id="1Qp-wt-GyG"/>
                             <constraint firstAttribute="trailing" secondItem="5RH-E3-DWy" secondAttribute="trailing" id="7Cu-SY-V6d"/>
+                            <constraint firstItem="D22-Y8-5uf" firstAttribute="leading" secondItem="bBa-Xa-RK6" secondAttribute="leading" id="D5j-gq-Mpd"/>
                             <constraint firstItem="5RH-E3-DWy" firstAttribute="leading" secondItem="bBa-Xa-RK6" secondAttribute="leading" id="DCQ-Cu-rZH"/>
                             <constraint firstAttribute="bottom" secondItem="5RH-E3-DWy" secondAttribute="bottom" id="ESZ-jY-Yym"/>
+                            <constraint firstAttribute="bottom" secondItem="D22-Y8-5uf" secondAttribute="bottom" id="MBB-oH-aEy"/>
                             <constraint firstItem="5RH-E3-DWy" firstAttribute="top" secondItem="bBa-Xa-RK6" secondAttribute="top" id="VVZ-DR-OV9"/>
+                            <constraint firstItem="D22-Y8-5uf" firstAttribute="top" secondItem="bBa-Xa-RK6" secondAttribute="top" id="WOQ-wd-ANo"/>
                         </constraints>
                     </view>
                 </subviews>

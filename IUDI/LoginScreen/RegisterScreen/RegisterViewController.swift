@@ -10,6 +10,8 @@ import Alamofire
 import SwiftyJSON
 import KeychainSwift
 import CoreLocation
+import iOSDropDown
+
 
 class RegisterViewController: UIViewController, CheckValid {
     
@@ -17,9 +19,13 @@ class RegisterViewController: UIViewController, CheckValid {
     @IBOutlet weak var userNameTF: UITextField!
     @IBOutlet weak var userEmailTF: UITextField!
     @IBOutlet weak var userPasswordTF: UITextField!
+    @IBOutlet weak var genderTF: DropDown!
+    
     @IBOutlet weak var agreeTermBtn: UIButton!
     @IBOutlet weak var registerBtn: UIButton!
     @IBOutlet weak var loginBtn: UIButton!
+    @IBOutlet weak var genderBtn: UIButton!
+    
     let keychain = KeychainSwift()
     var isRememberPassword = false
     let locationManager = CLLocationManager()
@@ -34,6 +40,7 @@ class RegisterViewController: UIViewController, CheckValid {
         checkInput()
         userPasswordTF.text = keychain.get("password")
         checkLocationAuthorizationStatus()
+        dropDownHandle(texfield: genderTF, inputArray: Constant.gender)
     }
     override func viewWillAppear(_ animated: Bool) {
         requestLocation()
@@ -44,16 +51,23 @@ class RegisterViewController: UIViewController, CheckValid {
     }
     @IBAction func handleBtn(_ sender: UIButton) {
         switch sender {
-        case registerBtn :
-            registerHandle()
         case agreeTermBtn :
             checkBoxHandle()
             checkInput()
+        case genderBtn :
+            genderTF.showList()
+        case registerBtn :
+            registerHandle()
         case loginBtn:
             navigationController?.popToRootViewController(animated: true)
         default:
             break
         }
+    }
+    func dropDownHandle(texfield: DropDown, inputArray: [String]){
+        texfield.arrowColor = UIColor .red
+        texfield.selectedRowColor = UIColor .red
+        texfield.optionArray = inputArray
     }
     func setupView(){
         standardBorder(textField: userNameTF)

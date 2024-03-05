@@ -75,8 +75,6 @@ extension HomeViewController:UICollectionViewDataSource, UICollectionViewDelegat
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeCollectionViewCell", for: indexPath) as! HomeCollectionViewCell
-//        collectionView.transform = CGAffineTransform(scaleX:-1,y: 1);
-//        cell.transform = CGAffineTransform(scaleX:-1,y: 1);
         if let data = userDistance?.distances?[indexPath.item] {
             cell.blindata(data: data)
         }

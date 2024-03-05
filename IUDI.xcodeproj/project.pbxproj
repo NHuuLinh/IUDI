@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6B5541A228065D7AE7CAE4FD /* Pods_IUDITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A85C6EA8E23A90E04CE3A56 /* Pods_IUDITests.framework */; };
 		99793040C9AE4F5AD0955E7C /* Pods_IUDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 888718E28E8066911DF3A882 /* Pods_IUDI.framework */; };
+		A420FDA62B9614BA00C33C57 /* CellSize+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A420FDA52B9614BA00C33C57 /* CellSize+Extension.swift */; };
 		A44C5CDF2B8745A000037024 /* ShowLoading and Aleart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44C5CDE2B8745A000037024 /* ShowLoading and Aleart.swift */; };
 		A45348DD2B8C624F006D72E4 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45348DC2B8C624F006D72E4 /* ProfileViewController.swift */; };
 		A45348DF2B8C9919006D72E4 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45348DE2B8C9919006D72E4 /* UserProfile.swift */; };
@@ -101,6 +102,7 @@
 		888718E28E8066911DF3A882 /* Pods_IUDI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IUDI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BCB4CCFEEEC9F19F61889A5 /* Pods-IUDI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IUDI.debug.xcconfig"; path = "Target Support Files/Pods-IUDI/Pods-IUDI.debug.xcconfig"; sourceTree = "<group>"; };
 		95D978491C763FD1F3B95D6A /* Pods-IUDITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IUDITests.debug.xcconfig"; path = "Target Support Files/Pods-IUDITests/Pods-IUDITests.debug.xcconfig"; sourceTree = "<group>"; };
+		A420FDA52B9614BA00C33C57 /* CellSize+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CellSize+Extension.swift"; sourceTree = "<group>"; };
 		A44C5CDE2B8745A000037024 /* ShowLoading and Aleart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShowLoading and Aleart.swift"; sourceTree = "<group>"; };
 		A45348DC2B8C624F006D72E4 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		A45348DE2B8C9919006D72E4 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
@@ -232,6 +234,7 @@
 				A483D03C2B88390600DD6B15 /* Theme Extension.swift */,
 				A483D03E2B88393700DD6B15 /* UserDefault.swift */,
 				A4738CA92B92D2F4006BB7D7 /* DateConvert.swift */,
+				A420FDA52B9614BA00C33C57 /* CellSize+Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -743,6 +746,7 @@
 				AB8A682D2B8F16BA001F686F /* PrivacyViewController.swift in Sources */,
 				A46D0E7F2B8ECFEA00E5CD4F /* ImageModel.swift in Sources */,
 				A4712DA92B908F6F004903AA /* UserDistance.swift in Sources */,
+				A420FDA62B9614BA00C33C57 /* CellSize+Extension.swift in Sources */,
 				A474937C2B8BAFC500354464 /* HomeViewController.swift in Sources */,
 				A46D0E812B8ED2CC00E5CD4F /* APIServiceImage.swift in Sources */,
 				A4A5175A2B871EA500AD4CE3 /* LoginResponse.swift in Sources */,

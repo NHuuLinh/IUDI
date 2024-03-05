@@ -43,8 +43,7 @@ class HomeCollectionViewCell: UICollectionViewCell,DateConvertFormat {
         let yearOfBirth = convertDate(date: data.birthDate ?? "", inputFormat: "yyyy-MM-dd", outputFormat: "**yyyy**")
         let userAge = Int(Constant.currentYear) - (Int(yearOfBirth) ?? 0)
         userAgeLb.text = String(userAge)
-//        userLocationLb.text = data.provinceID
-        
+        userLocationLb.text = data.currentAdd
     }
     func setupView(){
         userImage.layer.cornerRadius = 32

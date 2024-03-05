@@ -27,7 +27,7 @@ class SelectImageCollectionViewCell: UICollectionViewCell {
             return
         }
         let imageUrl = URL(string: url)
-        userImage.kf.setImage(with: imageUrl, placeholder: UIImage(named: "person"), options: nil, completionHandler: { result in
+        userImage.kf.setImage(with: imageUrl, placeholder: UIImage(systemName: "person"), options: nil, completionHandler: { result in
             switch result {
             case .success(_):
                 self.imageWidth.constant = CGFloat(Int(width))
@@ -41,5 +41,11 @@ class SelectImageCollectionViewCell: UICollectionViewCell {
             }
         })
         
+    }
+    func transData(image: UIImage){
+        let image = userImage.image
+    }
+    @IBAction func btnHandle(_ sender: Any) {
+        print("???")
     }
 }

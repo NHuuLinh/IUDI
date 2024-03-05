@@ -79,13 +79,10 @@ class UserIntroduceViewController: UIViewController {
             }
         })
         userNameLb.text = data.fullName
-//        let yearOfBirth = convertDate(date: data.birthDate ?? "", inputFormat: "yyyy-MM-dd", outputFormat: "**yyyy**")
-//        let userAge = Int(Constant.currentYear) - (Int(yearOfBirth) ?? 0)
-//        userAgeLb.text = String(userAge)
-//        userLocationLb.text = data.provinceID
-        
+        userLocationLb.text = data.currentAdd
+        userIntroduct.text = data.bio
     }
-
+    
     func getAllImage(userID: String){
         showLoading(isShow: true)
         print("UserID: \(userID)")
@@ -100,7 +97,6 @@ class UserIntroduceViewController: UIViewController {
                         print("userdata: \(userdata.count)")
                         self.userPhotos = userdata
                         DispatchQueue.main.async {
-//                            self.userNameLb = userPhotos.
                             self.userImageCollectionView.reloadData()
                         }
                     } else {
@@ -130,7 +126,7 @@ class UserIntroduceViewController: UIViewController {
     
     
 }
-extension UserIntroduceViewController : UICollectionViewDataSource, UICollectionViewDelegate {
+extension UserIntroduceViewController : UICollectionViewDataSource, UICollectionViewDelegate,CellSizeCaculate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         print("userPhotos.count: \(userPhotos.count)")
         return userPhotos.count
@@ -140,13 +136,9 @@ extension UserIntroduceViewController : UICollectionViewDataSource, UICollection
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SelectImageCollectionViewCell", for: indexPath) as! SelectImageCollectionViewCell
         // trả về kích thước ảnh quyết định màn hình sẽ load bao nhiêu ảnh theo chiều ngang
         let data = userPhotos[indexPath.item]
-        var imageSize:CGFloat
-        let photoNumber = Double(userPhotos.count)
-        if photoNumber < 3 {
-            imageSize = ((UIScreen.main.bounds.width - itemNumber * minimumLineSpacing)/photoNumber)
-        } else {
-            imageSize = ((UIScreen.main.bounds.width - itemNumber * minimumLineSpacing)/itemNumber)
-        }
+        let indexNumber = Double(userPhotos.count)
+        let frameSize = userImageCollectionView.frame.width
+        let imageSize = caculateSize(indexNumber: indexNumber, frameSize: frameSize, defaultNumberItemOneRow: 4, minimumLineSpacing: minimumLineSpacing)
         cell.blinData(data: data, width: imageSize)
         return cell
     }

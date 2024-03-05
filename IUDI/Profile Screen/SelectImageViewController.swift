@@ -11,23 +11,27 @@ import iOSDropDown
 import KeychainSwift
 import SwiftyJSON
 
-class SelectImageViewController: UIViewController {
+protocol SelectImageVCDelegate: AnyObject {
+    func loadAvatarImage(url: String?)
+}
 
+class SelectImageViewController: UIViewController {
+    
     @IBOutlet weak var imageCollectionView: UICollectionView!
     let keychain = KeychainSwift()
     var userPhotos = [Photo]()
-    let itemNumber = 3.0
+    let itemNumber = 4.0
     let minimumLineSpacing = 10.0
     private var refeshControl = UIRefreshControl()
+    weak var delegate: DataDelegate?
 
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         getAllImage()
         registerCollectionView()
         setupCollectionView()
         pullToRefesh()
-
     }
     private func setupCollectionView() {
         if let flowLayout = imageCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -50,7 +54,7 @@ class SelectImageViewController: UIViewController {
             print("không có userName")
             return
         }
-            print("UserID: \(userid)")
+        print("UserID: \(userid)")
         let url = Constant.baseUrl + "profile/viewAllImage/" + userid
         print("\(url)")
         AF.request(url, method: .get)
@@ -89,12 +93,12 @@ class SelectImageViewController: UIViewController {
                 }
             }
     }
-
+    
     @IBAction func backBtn(_ sender: Any) {
-        navigationController?.popToRootViewController(animated: true)
+        navigationController?.popViewController(animated: true)
     }
 }
-extension SelectImageViewController : UICollectionViewDataSource, UICollectionViewDelegate {
+extension SelectImageViewController : UICollectionViewDataSource, UICollectionViewDelegate,CellSizeCaculate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         print("userPhotos.count: \(userPhotos.count)")
         return userPhotos.count
@@ -104,20 +108,22 @@ extension SelectImageViewController : UICollectionViewDataSource, UICollectionVi
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SelectImageCollectionViewCell", for: indexPath) as! SelectImageCollectionViewCell
         // trả về kích thước ảnh quyết định màn hình sẽ load bao nhiêu ảnh theo chiều ngang
         let data = userPhotos[indexPath.item]
-        var imageSize:CGFloat
-        let photoNumber = Double(userPhotos.count)
-        if photoNumber < 3 {
-            imageSize = ((UIScreen.main.bounds.width - itemNumber * minimumLineSpacing)/photoNumber)
-        } else {
-            imageSize = ((UIScreen.main.bounds.width - itemNumber * minimumLineSpacing)/itemNumber)
-        }
+        let indexNumber = Double(userPhotos.count)
+        let frameSize = UIScreen.main.bounds.width
+        let imageSize = caculateSize(indexNumber: indexNumber, frameSize: frameSize, defaultNumberItemOneRow: 4, minimumLineSpacing: minimumLineSpacing)
         cell.blinData(data: data, width: imageSize)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let photoID = userPhotos[indexPath.item].photoID
-        print("user chọn ảnh có id là : \(photoID) ")
+        
+        let photoURL = userPhotos[indexPath.item].photoURL
+        print("user chọn ảnh có photoURL là : \(photoURL) ")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+        delegate?.sendDataBack(data: "The quick brown fox jumps over the lazy dog")
+        delegate?.loadAvatarImage(url: photoURL)
+        navigationController?.popViewController(animated: true)
     }
     
 }
