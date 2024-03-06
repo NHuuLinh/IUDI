@@ -15,8 +15,7 @@ target 'IUDI' do
   pod 'iOSDropDown'
   pod 'Kingfisher'
   pod 'ReadMoreTextView'
-  pod 'RangeSlider'
-
+  pod 'SwiftRangeSlider'
 
 
   target 'IUDITests' do

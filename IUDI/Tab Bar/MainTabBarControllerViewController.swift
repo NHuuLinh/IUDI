@@ -11,15 +11,47 @@ class MainTabBarControllerViewController: UITabBarController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        setupTabBar()
 
-//        let homeVC = HomeViewController()
-//        homeVC.tabBarItem = UITabBarItem(tabBarSystemItem: .favorites, tag: 1)
-//
-//        let filterVC = FilterViewController()
-//        filterVC.tabBarItem = UITabBarItem(tabBarSystemItem: .more, tag: 0)
-//
-//        let tabBarList = [homeVC, filterVC]
-//
-//        viewControllers = tabBarList.map { UINavigationController(rootViewController: $0) }
+
     }
+    func setupTabBar() {
+        let tabBarVC = UITabBarController()
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let homeVC = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController else {
+            print("Failed to instantiate HomeViewController from storyboard")
+            return
+        }
+        homeVC.title = "Home"
+        let homeNavVC = UINavigationController(rootViewController: homeVC)
+        homeNavVC.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), selectedImage: UIImage(systemName: "house.fill"))
+        
+        let filterVC = FilterViewController()
+        filterVC.title = "Filter"
+        let filterNavVC = UINavigationController(rootViewController: filterVC)
+        filterNavVC.tabBarItem = UITabBarItem(title: "Filter", image: UIImage(systemName: "bell"), selectedImage: UIImage(systemName: "bell.fill"))
+        
+        tabBarVC.viewControllers = [homeNavVC, filterNavVC]
+        tabBarVC.modalPresentationStyle = .fullScreen
+        present(tabBarVC, animated: true)
+    }
+    func setupTabBar1() {
+        let tabBarVC = UITabBarController()
+        
+        let homeVC = HomeViewController()
+        homeVC.title = "Home"
+        let homeNavVC = UINavigationController(rootViewController: homeVC)
+        homeNavVC.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "Home-Selected"), selectedImage: UIImage(named: "Home-Selected"))
+        
+        let filterVC = FilterViewController()
+        filterVC.title = "Filter"
+        let filterNavVC = UINavigationController(rootViewController: filterVC)
+        filterNavVC.tabBarItem = UITabBarItem(title: "Filter", image: UIImage(named: "Location-Selected"), selectedImage: UIImage(named: "Location-UnSelect"))
+        
+        tabBarVC.viewControllers = [homeNavVC, filterNavVC]
+        
+        present(tabBarVC, animated: true)
+    }
+
 }

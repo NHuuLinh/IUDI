@@ -1,15 +1,13 @@
-//
-//  FilterViewController.swift
-//  IUDI
-//
-//  Created by LinhMAC on 05/03/2024.
-//
 
 import UIKit
 
 class FilterViewController: UIViewController {
 
     @IBOutlet weak var filterCollectionView: UICollectionView!
+    @IBOutlet weak var subView: UIView!
+    @IBOutlet weak var filterBtn: UIButton!
+    @IBOutlet weak var subviewLocation: NSLayoutConstraint!
+    
     let itemNumber = 4.0
     let minimumLineSpacing = 10.0
     var userDistance : UserDistances?
@@ -20,9 +18,32 @@ class FilterViewController: UIViewController {
         setupCollectionView()
         registerCollectionView()
         getNearUser()
+        subviewHandle()
+    }
+    @IBAction func btnHandle(_ sender: UIButton) {
+        switch sender {
+        case filterBtn:
+            checkBoxHandle()
+        default :
+            break
+        }
+    }
+    
+    func checkBoxHandle(){
+        filterBtn.isSelected = !filterBtn.isSelected
+        UIView.animate(withDuration: 1, animations: {
+            self.subviewLocation.constant = self.filterBtn.isSelected ? 0 : -550
+            self.view.layoutIfNeeded()
+        })
+    }
 
-
-        // Do any additional setup after loading the view.
+    func subviewHandle(){
+        let childVC = FilterSettingUIViewController()
+        addChild(childVC)
+        subView.addSubview(childVC.view)
+        childVC.view.frame = subView.bounds
+        childVC.didMove(toParent: self)
+        subviewLocation.constant = -550
     }
     private func setupCollectionView() {
         if let flowLayout = filterCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {

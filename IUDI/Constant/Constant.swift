@@ -16,6 +16,7 @@ class Constant{
     static let cornerRadius = 10.0
     static let borderWidth = 1.5
     static let mainColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.00)
+    
     static let mainBorderColor = UIColor(red: 0.08, green: 0.57, blue: 0.34, alpha: 1.00)
     static let gender: [String] = ["Nam", "Nữ", "Đồng tính nam", "Đồng tính nữ"]
     static let provinces: [String] = [

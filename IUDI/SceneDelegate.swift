@@ -37,18 +37,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     print("goToLogin")
                 }
         }
-    func goToHome() {
+    func goToHome1() {
         print("Đã login rồi. Cho vào Home")
-        let mainVC = FilterSettingUIViewController(nibName: "FilterSettingUIViewController", bundle: nil)
+        let mainVC = FilterViewController(nibName: "FilterViewController", bundle: nil)
         let mainNavigation = UINavigationController(rootViewController: mainVC)
         window!.rootViewController = mainNavigation
         window!.makeKeyAndVisible()
     }
 
-    func goToHome1() {
+    func goToHome() {
         print("Đã login rồi. Cho vào Home")
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let mainVC = storyboard.instantiateViewController(withIdentifier: "FilterViewController")
+        let mainVC = storyboard.instantiateViewController(withIdentifier: "MainTabBarControllerViewController")
         let mainNavigation = UINavigationController(rootViewController: mainVC)
         window!.rootViewController = mainNavigation
         window!.makeKeyAndVisible()

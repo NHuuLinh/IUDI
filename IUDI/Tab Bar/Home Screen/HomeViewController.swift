@@ -10,11 +10,11 @@ class HomeViewController: UIViewController{
     var userDistance : UserDistances?
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         setupCollectionView()
         getNearUser()
     }
     override func viewWillAppear(_ animated: Bool) {
-//        setupView()
 
     }
     override func viewDidAppear(_ animated: Bool) {

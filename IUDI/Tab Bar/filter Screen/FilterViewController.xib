@@ -15,7 +15,10 @@
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FilterViewController" customModule="IUDI" customModuleProvider="target">
             <connections>
+                <outlet property="filterBtn" destination="Xxs-5N-ldZ" id="cl5-lr-XCv"/>
                 <outlet property="filterCollectionView" destination="RNo-hU-Eoo" id="GVv-DR-BS2"/>
+                <outlet property="subView" destination="jKi-K4-OFC" id="mea-qj-LSu"/>
+                <outlet property="subviewLocation" destination="1WU-7h-dyW" id="wea-HS-pqH"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -55,6 +58,9 @@
                                     </constraints>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" image="filter"/>
+                                    <connections>
+                                        <action selector="btnHandle:" destination="-1" eventType="touchUpInside" id="Rb7-EW-JMz"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -80,13 +86,23 @@
                                 <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                             </collectionViewFlowLayout>
                         </collectionView>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jKi-K4-OFC">
+                            <rect key="frame" x="0.0" y="302" width="393" height="550"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <constraints>
+                                <constraint firstAttribute="height" constant="550" id="L8L-8T-P4S"/>
+                            </constraints>
+                        </view>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
                         <constraint firstItem="RNo-hU-Eoo" firstAttribute="top" secondItem="fnG-wp-o2x" secondAttribute="bottom" constant="38" id="0lo-EU-HnB"/>
+                        <constraint firstAttribute="bottom" secondItem="jKi-K4-OFC" secondAttribute="bottom" id="1WU-7h-dyW"/>
                         <constraint firstItem="RNo-hU-Eoo" firstAttribute="leading" secondItem="UFb-ax-P3f" secondAttribute="leading" constant="16" id="4gN-66-opV"/>
                         <constraint firstAttribute="trailing" secondItem="RNo-hU-Eoo" secondAttribute="trailing" constant="16" id="8TY-AM-ibU"/>
+                        <constraint firstAttribute="trailing" secondItem="jKi-K4-OFC" secondAttribute="trailing" id="EGy-SW-Y21"/>
                         <constraint firstAttribute="bottom" secondItem="RNo-hU-Eoo" secondAttribute="bottom" id="GwK-UH-CeZ"/>
+                        <constraint firstItem="jKi-K4-OFC" firstAttribute="leading" secondItem="UFb-ax-P3f" secondAttribute="leading" id="RRB-sg-yRj"/>
                         <constraint firstItem="fnG-wp-o2x" firstAttribute="leading" secondItem="UFb-ax-P3f" secondAttribute="leading" id="Y2X-aT-SQA"/>
                         <constraint firstAttribute="trailing" secondItem="fnG-wp-o2x" secondAttribute="trailing" id="jq9-e6-KR8"/>
                     </constraints>
