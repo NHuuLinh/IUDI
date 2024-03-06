@@ -9,21 +9,79 @@ import UIKit
 
 class FilterViewController: UIViewController {
 
+    @IBOutlet weak var filterCollectionView: UICollectionView!
+    let itemNumber = 4.0
+    let minimumLineSpacing = 10.0
+    var userDistance : UserDistances?
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("ádasdasda")
+        setupCollectionView()
+        registerCollectionView()
+        getNearUser()
+
 
         // Do any additional setup after loading the view.
     }
-
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+    private func setupCollectionView() {
+        if let flowLayout = filterCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            flowLayout.scrollDirection = .vertical
+            flowLayout.minimumLineSpacing = minimumLineSpacing
+            flowLayout.minimumInteritemSpacing = minimumLineSpacing
+            flowLayout.itemSize.width = filterCollectionView.frame.size.width
+        }
     }
-    */
+    
+    func registerCollectionView(){
+        filterCollectionView.dataSource = self
+        filterCollectionView.delegate = self
+        let cell = UINib(nibName: "FilterCell", bundle: nil)
+        filterCollectionView.register(cell, forCellWithReuseIdentifier: "FilterCell")
+    }
+    func getNearUser(){
+        let apiService = APIService.share
+        let url = "location/37/30000"
+        print("url:\(url)")
+        apiService.apiHandleGetRequest(subUrl: url,data: UserDistances.self) { result in
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    self.userDistance = data
+                    self.filterCollectionView.reloadData()
+                }
+            case .failure(let error):
+                print("error: \(error.localizedDescription)")
+                switch error{
+                case .server(let message):
+                    self.showAlert(title: "lỗi", message: message)
+                case .network(let message):
+                    self.showAlert(title: "lỗi", message: message)
+                }
+            }
+        }
+    }
+
+
+}
+
+extension FilterViewController : UICollectionViewDataSource, UICollectionViewDelegate,CellSizeCaculate {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+//        return userDistance?.distances?.count ?? 4
+        return 4
+
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FilterCell", for: indexPath) as! FilterCell
+        if let data = userDistance?.distances?[indexPath.item] {
+            cell.blindata(data: data)
+        }
+        return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("user select :\(indexPath.row)")
+
+    }
 
 }

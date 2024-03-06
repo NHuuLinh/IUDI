@@ -13,9 +13,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     static let shared = SceneDelegate()
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
 
@@ -40,11 +37,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
                     print("goToLogin")
                 }
         }
-    
     func goToHome() {
         print("Đã login rồi. Cho vào Home")
+        let mainVC = FilterSettingUIViewController(nibName: "FilterSettingUIViewController", bundle: nil)
+        let mainNavigation = UINavigationController(rootViewController: mainVC)
+        window!.rootViewController = mainNavigation
+        window!.makeKeyAndVisible()
+    }
+
+    func goToHome1() {
+        print("Đã login rồi. Cho vào Home")
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let mainVC = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
+        let mainVC = storyboard.instantiateViewController(withIdentifier: "FilterViewController")
         let mainNavigation = UINavigationController(rootViewController: mainVC)
         window!.rootViewController = mainNavigation
         window!.makeKeyAndVisible()

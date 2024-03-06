@@ -11,6 +11,7 @@ import iOSDropDown
 import KeychainSwift
 import SwiftyJSON
 import Kingfisher
+import ReadMoreTextView
 
 protocol DataDelegate: AnyObject {
     func loadAvatarImage(url:String?)
@@ -29,6 +30,8 @@ class ProfileViewController: UIViewController,DataDelegate {
     @IBOutlet weak var birthAddressTF: DropDown!
     @IBOutlet weak var currentAddressTF: DropDown!
     @IBOutlet weak var phoneNumber: UITextField!
+    @IBOutlet weak var userIntroduct: ReadMoreTextView!
+    
     
     @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var genderBtn: UIButton!
@@ -44,6 +47,8 @@ class ProfileViewController: UIViewController,DataDelegate {
     @IBOutlet weak var currentAddressBoxView: UIView!
     @IBOutlet weak var phoneNumberBoxView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var userIntroductBoxView: UIView!
+
     
     let datePicker = UIDatePicker()
     let keychain = KeychainSwift()
@@ -55,13 +60,21 @@ class ProfileViewController: UIViewController,DataDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
+        setupScrollView()
         createDatePicker()
         dropDownHandle(texfield: genderTF, inputArray: Constant.gender)
         dropDownHandle(texfield: birthAddressTF, inputArray: Constant.provinces)
         dropDownHandle(texfield: currentAddressTF, inputArray: Constant.provinces)
         getUserProfile()
         avatarImageTap()
-        setupScrollView()
+    }
+    func setupUserIntroduct(){
+        userIntroduct.shouldTrim = true
+        userIntroduct.maximumNumberOfLines = 2
+        let readLessText = NSAttributedString(string: "...Ẩn bớt", attributes: [NSAttributedString.Key.foregroundColor: Constant.mainBorderColor])
+        userIntroduct.attributedReadLessText = readLessText
+        let readMoreText = NSAttributedString(string: "... Xem thêm", attributes: [NSAttributedString.Key.foregroundColor: Constant.mainBorderColor])
+        userIntroduct.attributedReadMoreText = readMoreText
     }
     func dropDownHandle(texfield: DropDown, inputArray: [String]){
         texfield.arrowColor = UIColor .red
@@ -133,6 +146,7 @@ class ProfileViewController: UIViewController,DataDelegate {
         standardViewCornerRadius(uiView: currentAddressBoxView)
         standardBtnCornerRadius(button: saveBtn)
         standardViewCornerRadius(uiView: phoneNumberBoxView)
+        standardViewCornerRadius(uiView: userIntroductBoxView)
     }
     
     
@@ -156,6 +170,8 @@ class ProfileViewController: UIViewController,DataDelegate {
                         return
                     }
                     self.loadDataToView(user: user)
+                    self.setupUserIntroduct()
+
                     self.showLoading(isShow: false)
                 case .failure(let error):
                     print("\(error.localizedDescription)")
@@ -203,6 +219,7 @@ class ProfileViewController: UIViewController,DataDelegate {
         phoneNumber.text = user.phone
         currentAddressTF.text = user.currentAdd
         birthAddressTF.text = user.birthPlace
+        userIntroduct.text = user.bio
         self.userID = user.userID
         let url = user.avatarLink
         loadAvatarImage(url: url)
@@ -265,6 +282,7 @@ class ProfileViewController: UIViewController,DataDelegate {
             "FullName": userNameTF.text ?? "",
             "Gender": genderTF.text ?? "",
             "Phone": phoneNumber.text ?? "",
+            "Bio": userIntroduct.text ?? "",
             "BirthPlace": birthAddressTF.text ?? "",
             "CurrentAdd": currentAddressTF.text ?? "",
             "Username": userName,
@@ -280,8 +298,11 @@ class ProfileViewController: UIViewController,DataDelegate {
                 case .success(let data):
 //                    self.uploadImageToServer()
                     if UserDefaults.standard.willUploadImage {
+                        print("uploadImageToServer")
                         self.uploadImageToServer()
                     } else {
+                        print("changeAvatar")
+
                         self.changeAvatar()
                     }
                     self.showAlert(title: "Thông báo", message: "Đã cập nhật dữ liệu thành công")

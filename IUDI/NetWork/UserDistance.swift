@@ -25,9 +25,8 @@ struct Distance: Codable {
     let currentAdd: String?
     let distance: Double?
     let email, fullName: String?
-    let gender: String?
-    let lastActivityTime: String?
-    let provinceID: String?
+    let gender, lastActivityTime: String?
+    let provinceID: Int?
     let userID: Int?
     let avatarLink: String?
 

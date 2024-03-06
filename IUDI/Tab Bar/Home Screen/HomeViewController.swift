@@ -7,7 +7,6 @@ import ReadMoreTextView
 class HomeViewController: UIViewController{
     @IBOutlet weak var userCollectionView: UICollectionView!
     
-    let dataImage = ["anh1","anh2","anh3","anh4","anh5"]
     var userDistance : UserDistances?
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,7 +42,7 @@ class HomeViewController: UIViewController{
     }
     func getNearUser(){
         let apiService = APIService.share
-        let url = "location/37/5000"
+        let url = "location/37/3000"
         print("url:\(url)")
         apiService.apiHandleGetRequest(subUrl: url,data: UserDistances.self) { result in
             switch result {
@@ -73,7 +72,7 @@ class HomeViewController: UIViewController{
 extension HomeViewController:UICollectionViewDataSource, UICollectionViewDelegate,UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        dataImage.count
+        return userDistance?.distances?.count ?? 4
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {

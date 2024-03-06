@@ -13,9 +13,14 @@
 		A426D77A2B96D82900A5050B /* MainTabBarControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A426D7792B96D82900A5050B /* MainTabBarControllerViewController.swift */; };
 		A426D77E2B96D94D00A5050B /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A426D77C2B96D94D00A5050B /* FilterViewController.swift */; };
 		A426D77F2B96D94D00A5050B /* FilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A426D77D2B96D94D00A5050B /* FilterViewController.xib */; };
+		A426D7812B971F6000A5050B /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4A517352B86F5F100AD4CE3 /* Roboto-Medium.ttf */; };
+		A42838712B982A8F0073BD7F /* FilterSettingUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A428386F2B982A8F0073BD7F /* FilterSettingUIViewController.swift */; };
+		A42838722B982A8F0073BD7F /* FilterSettingUIViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A42838702B982A8F0073BD7F /* FilterSettingUIViewController.xib */; };
 		A44C5CDF2B8745A000037024 /* ShowLoading and Aleart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44C5CDE2B8745A000037024 /* ShowLoading and Aleart.swift */; };
 		A45348DD2B8C624F006D72E4 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45348DC2B8C624F006D72E4 /* ProfileViewController.swift */; };
 		A45348DF2B8C9919006D72E4 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45348DE2B8C9919006D72E4 /* UserProfile.swift */; };
+		A45ABCF62B9811CF0039B985 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45ABCF42B9811CF0039B985 /* FilterCell.swift */; };
+		A45ABCF72B9811CF0039B985 /* FilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A45ABCF52B9811CF0039B985 /* FilterCell.xib */; };
 		A46D0E7F2B8ECFEA00E5CD4F /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46D0E7E2B8ECFEA00E5CD4F /* ImageModel.swift */; };
 		A46D0E812B8ED2CC00E5CD4F /* APIServiceImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46D0E802B8ED2CC00E5CD4F /* APIServiceImage.swift */; };
 		A46D0E842B8F317800E5CD4F /* SelectImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46D0E832B8F317800E5CD4F /* SelectImageViewController.swift */; };
@@ -23,7 +28,6 @@
 		A46D0E8A2B8F3B0500E5CD4F /* SelectImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46D0E882B8F3B0500E5CD4F /* SelectImageCollectionViewCell.swift */; };
 		A46D0E8B2B8F3B0500E5CD4F /* SelectImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A46D0E892B8F3B0500E5CD4F /* SelectImageCollectionViewCell.xib */; };
 		A4712DA62B906CBE004903AA /* Add+Shadow+UIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4712DA52B906CBE004903AA /* Add+Shadow+UIView.swift */; };
-		A4712DA72B908546004903AA /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4A517352B86F5F100AD4CE3 /* Roboto-Medium.ttf */; };
 		A4712DA92B908F6F004903AA /* UserDistance.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4712DA82B908F6F004903AA /* UserDistance.swift */; };
 		A4738CAA2B92D2F4006BB7D7 /* DateConvert.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4738CA92B92D2F4006BB7D7 /* DateConvert.swift */; };
 		A474937C2B8BAFC500354464 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A474937B2B8BAFC500354464 /* HomeViewController.swift */; };
@@ -109,9 +113,13 @@
 		A426D7792B96D82900A5050B /* MainTabBarControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarControllerViewController.swift; sourceTree = "<group>"; };
 		A426D77C2B96D94D00A5050B /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		A426D77D2B96D94D00A5050B /* FilterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterViewController.xib; sourceTree = "<group>"; };
+		A428386F2B982A8F0073BD7F /* FilterSettingUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSettingUIViewController.swift; sourceTree = "<group>"; };
+		A42838702B982A8F0073BD7F /* FilterSettingUIViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterSettingUIViewController.xib; sourceTree = "<group>"; };
 		A44C5CDE2B8745A000037024 /* ShowLoading and Aleart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShowLoading and Aleart.swift"; sourceTree = "<group>"; };
 		A45348DC2B8C624F006D72E4 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		A45348DE2B8C9919006D72E4 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		A45ABCF42B9811CF0039B985 /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
+		A45ABCF52B9811CF0039B985 /* FilterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterCell.xib; sourceTree = "<group>"; };
 		A46D0E7E2B8ECFEA00E5CD4F /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
 		A46D0E802B8ED2CC00E5CD4F /* APIServiceImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServiceImage.swift; sourceTree = "<group>"; };
 		A46D0E832B8F317800E5CD4F /* SelectImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageViewController.swift; sourceTree = "<group>"; };
@@ -245,8 +253,28 @@
 			children = (
 				A426D77C2B96D94D00A5050B /* FilterViewController.swift */,
 				A426D77D2B96D94D00A5050B /* FilterViewController.xib */,
+				A42838732B982AA00073BD7F /* Filter Setting */,
+				A428386E2B982A3E0073BD7F /* Cell */,
 			);
 			path = "filter Screen";
+			sourceTree = "<group>";
+		};
+		A428386E2B982A3E0073BD7F /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				A45ABCF42B9811CF0039B985 /* FilterCell.swift */,
+				A45ABCF52B9811CF0039B985 /* FilterCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		A42838732B982AA00073BD7F /* Filter Setting */ = {
+			isa = PBXGroup;
+			children = (
+				A428386F2B982A8F0073BD7F /* FilterSettingUIViewController.swift */,
+				A42838702B982A8F0073BD7F /* FilterSettingUIViewController.xib */,
+			);
+			path = "Filter Setting";
 			sourceTree = "<group>";
 		};
 		A44C5CDD2B87457D00037024 /* Extension */ = {
@@ -600,11 +628,12 @@
 				A4A5174C2B86F5F100AD4CE3 /* Roboto-Bold.ttf in Resources */,
 				A4A5174A2B86F5F100AD4CE3 /* LICENSE.txt in Resources */,
 				AB8A681C2B8ED7B4001F686F /* GroupViewController.xib in Resources */,
+				A426D7812B971F6000A5050B /* Roboto-Medium.ttf in Resources */,
 				A426D77F2B96D94D00A5050B /* FilterViewController.xib in Resources */,
 				A4B4AB9B2B8C2F7A00822DDB /* Roboto-Regular.ttf in Resources */,
 				AB8A68332B8F178B001F686F /* NotificationViewController.xib in Resources */,
+				A42838722B982A8F0073BD7F /* FilterSettingUIViewController.xib in Resources */,
 				A4A517472B86F5F100AD4CE3 /* Roboto-BoldItalic.ttf in Resources */,
-				A4712DA72B908546004903AA /* Roboto-Medium.ttf in Resources */,
 				AB8A68202B8ED887001F686F /* CollectionViewCell.xib in Resources */,
 				A46D0E8B2B8F3B0500E5CD4F /* SelectImageCollectionViewCell.xib in Resources */,
 				A4A517482B86F5F100AD4CE3 /* Roboto-LightItalic.ttf in Resources */,
@@ -618,6 +647,7 @@
 				AB8A682E2B8F16BA001F686F /* PrivacyViewController.xib in Resources */,
 				A4A5174E2B86F5F100AD4CE3 /* Roboto-Black.ttf in Resources */,
 				A4A517452B86F5F100AD4CE3 /* Roboto-MediumItalic.ttf in Resources */,
+				A45ABCF72B9811CF0039B985 /* FilterCell.xib in Resources */,
 				A4A5170E2B86E52500AD4CE3 /* Assets.xcassets in Resources */,
 				A4A517492B86F5F100AD4CE3 /* Roboto-Italic.ttf in Resources */,
 			);
@@ -756,6 +786,7 @@
 				A46D0E872B8F367600E5CD4F /* GetPhotos.swift in Sources */,
 				A4A517552B8708B200AD4CE3 /* Constant.swift in Sources */,
 				A4B4AB9E2B8C324100822DDB /* HomeCollectionViewCell.swift in Sources */,
+				A45ABCF62B9811CF0039B985 /* FilterCell.swift in Sources */,
 				A483D0442B88413000DD6B15 /* APIService.swift in Sources */,
 				AB8A68252B8EE039001F686F /* Datas.swift in Sources */,
 				AB8A681B2B8ED7B4001F686F /* GroupViewController.swift in Sources */,
@@ -764,6 +795,7 @@
 				A45348DD2B8C624F006D72E4 /* ProfileViewController.swift in Sources */,
 				A4A9B9792B8D06350044861C /* RegisterResponse.swift in Sources */,
 				A4E1C61A2B918954006E3211 /* UserIntroduceViewController.swift in Sources */,
+				A42838712B982A8F0073BD7F /* FilterSettingUIViewController.swift in Sources */,
 				A483D0482B88711C00DD6B15 /* UserNetWorkManager.swift in Sources */,
 				A4712DA62B906CBE004903AA /* Add+Shadow+UIView.swift in Sources */,
 				A46D0E842B8F317800E5CD4F /* SelectImageViewController.swift in Sources */,

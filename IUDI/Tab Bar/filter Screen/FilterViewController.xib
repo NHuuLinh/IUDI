@@ -7,9 +7,15 @@
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="Roboto-Bold.ttf">
+            <string>Roboto-Bold</string>
+        </array>
+    </customFonts>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FilterViewController" customModule="IUDI" customModuleProvider="target">
             <connections>
+                <outlet property="filterCollectionView" destination="RNo-hU-Eoo" id="GVv-DR-BS2"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -20,35 +26,69 @@
             <subviews>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="UFb-ax-P3f">
                     <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
-                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                </view>
-                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fnG-wp-o2x">
-                    <rect key="frame" x="0.0" y="59" width="393" height="48"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JrW-Th-l1A">
-                            <rect key="frame" x="0.0" y="8" width="32" height="32"/>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fnG-wp-o2x">
+                            <rect key="frame" x="0.0" y="59" width="393" height="48"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JrW-Th-l1A">
+                                    <rect key="frame" x="16" y="8" width="32" height="32"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="32" id="9A8-6z-gd5"/>
+                                        <constraint firstAttribute="width" secondItem="JrW-Th-l1A" secondAttribute="height" multiplier="1:1" id="Itd-FO-als"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="Arrow"/>
+                                </button>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Tìm quanh đây" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wqs-VJ-fwJ">
+                                    <rect key="frame" x="129.66666666666666" y="12" width="133.99999999999997" height="24"/>
+                                    <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="20"/>
+                                    <nil key="textColor"/>
+                                    <nil key="highlightedColor"/>
+                                </label>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xxs-5N-ldZ">
+                                    <rect key="frame" x="345" y="8" width="32" height="32"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="32" id="85p-Cj-ZUO"/>
+                                        <constraint firstAttribute="width" secondItem="Xxs-5N-ldZ" secondAttribute="height" multiplier="1:1" id="ASm-0c-it7"/>
+                                        <constraint firstAttribute="width" constant="32" id="XT7-PW-vwM"/>
+                                        <constraint firstAttribute="width" secondItem="Xxs-5N-ldZ" secondAttribute="height" multiplier="1:1" id="yM5-tI-bb3"/>
+                                    </constraints>
+                                    <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                    <state key="normal" image="filter"/>
+                                </button>
+                            </subviews>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <constraints>
-                                <constraint firstAttribute="width" constant="32" id="9A8-6z-gd5"/>
-                                <constraint firstAttribute="width" secondItem="JrW-Th-l1A" secondAttribute="height" multiplier="1:1" id="Itd-FO-als"/>
+                                <constraint firstItem="Wqs-VJ-fwJ" firstAttribute="centerX" secondItem="fnG-wp-o2x" secondAttribute="centerX" id="3Cl-dM-hEG"/>
+                                <constraint firstItem="JrW-Th-l1A" firstAttribute="centerY" secondItem="fnG-wp-o2x" secondAttribute="centerY" id="JAo-ge-KLb"/>
+                                <constraint firstItem="Xxs-5N-ldZ" firstAttribute="width" secondItem="Xxs-5N-ldZ" secondAttribute="height" multiplier="1:1" id="JwD-1G-G4m"/>
+                                <constraint firstItem="Xxs-5N-ldZ" firstAttribute="centerY" secondItem="fnG-wp-o2x" secondAttribute="centerY" id="MgZ-ia-Run"/>
+                                <constraint firstAttribute="trailing" secondItem="Xxs-5N-ldZ" secondAttribute="trailing" constant="16" id="QCq-3t-Lh3"/>
+                                <constraint firstAttribute="height" constant="48" id="Uby-SH-hfg"/>
+                                <constraint firstItem="JrW-Th-l1A" firstAttribute="leading" secondItem="fnG-wp-o2x" secondAttribute="leading" constant="16" id="VJa-Mf-tB5"/>
+                                <constraint firstItem="Wqs-VJ-fwJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="JrW-Th-l1A" secondAttribute="trailing" id="Wxp-aX-do7"/>
+                                <constraint firstItem="Wqs-VJ-fwJ" firstAttribute="centerY" secondItem="fnG-wp-o2x" secondAttribute="centerY" id="bEG-tg-qWd"/>
                             </constraints>
-                            <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                            <state key="normal" image="Arrow"/>
-                        </button>
-                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Album ảnh" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wqs-VJ-fwJ">
-                            <rect key="frame" x="156" y="13.666666666666671" width="81.333333333333314" height="21"/>
-                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
-                            <nil key="highlightedColor"/>
-                        </label>
+                        </view>
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="RNo-hU-Eoo">
+                            <rect key="frame" x="16" y="145" width="361" height="707"/>
+                            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                            <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Jo2-Rw-tqG">
+                                <size key="itemSize" width="300" height="65"/>
+                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                            </collectionViewFlowLayout>
+                        </collectionView>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
-                        <constraint firstItem="Wqs-VJ-fwJ" firstAttribute="centerX" secondItem="fnG-wp-o2x" secondAttribute="centerX" id="3Cl-dM-hEG"/>
-                        <constraint firstItem="JrW-Th-l1A" firstAttribute="centerY" secondItem="fnG-wp-o2x" secondAttribute="centerY" id="JAo-ge-KLb"/>
-                        <constraint firstAttribute="height" constant="48" id="Uby-SH-hfg"/>
-                        <constraint firstItem="JrW-Th-l1A" firstAttribute="leading" secondItem="fnG-wp-o2x" secondAttribute="leading" id="VJa-Mf-tB5"/>
-                        <constraint firstItem="Wqs-VJ-fwJ" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="JrW-Th-l1A" secondAttribute="trailing" id="Wxp-aX-do7"/>
-                        <constraint firstItem="Wqs-VJ-fwJ" firstAttribute="centerY" secondItem="fnG-wp-o2x" secondAttribute="centerY" id="bEG-tg-qWd"/>
+                        <constraint firstItem="RNo-hU-Eoo" firstAttribute="top" secondItem="fnG-wp-o2x" secondAttribute="bottom" constant="38" id="0lo-EU-HnB"/>
+                        <constraint firstItem="RNo-hU-Eoo" firstAttribute="leading" secondItem="UFb-ax-P3f" secondAttribute="leading" constant="16" id="4gN-66-opV"/>
+                        <constraint firstAttribute="trailing" secondItem="RNo-hU-Eoo" secondAttribute="trailing" constant="16" id="8TY-AM-ibU"/>
+                        <constraint firstAttribute="bottom" secondItem="RNo-hU-Eoo" secondAttribute="bottom" id="GwK-UH-CeZ"/>
+                        <constraint firstItem="fnG-wp-o2x" firstAttribute="leading" secondItem="UFb-ax-P3f" secondAttribute="leading" id="Y2X-aT-SQA"/>
+                        <constraint firstAttribute="trailing" secondItem="fnG-wp-o2x" secondAttribute="trailing" id="jq9-e6-KR8"/>
                     </constraints>
                 </view>
             </subviews>
@@ -56,18 +96,17 @@
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="UFb-ax-P3f" secondAttribute="bottom" id="A60-fw-YcY"/>
-                <constraint firstItem="fnG-wp-o2x" firstAttribute="trailing" secondItem="fnl-2z-Ty3" secondAttribute="trailing" id="B42-0t-mQR"/>
-                <constraint firstItem="fnG-wp-o2x" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="D8E-h0-b0Y"/>
-                <constraint firstItem="fnG-wp-o2x" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="S5d-Ge-Uun"/>
                 <constraint firstItem="UFb-ax-P3f" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="bc5-bu-ceQ"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="UFb-ax-P3f" secondAttribute="trailing" id="cYy-nj-8jC"/>
                 <constraint firstItem="UFb-ax-P3f" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="eNw-XP-DBe"/>
+                <constraint firstItem="fnG-wp-o2x" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="sBX-vz-kha"/>
             </constraints>
-            <point key="canvasLocation" x="132" y="-11"/>
+            <point key="canvasLocation" x="130.53435114503816" y="-11.267605633802818"/>
         </view>
     </objects>
     <resources>
         <image name="Arrow" width="32" height="32"/>
+        <image name="filter" width="33" height="34"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
