@@ -290,7 +290,6 @@
 			children = (
 				A434D0CF2B9997360087A62B /* FilterUserEntity+CoreDataClass.swift */,
 				A434D0D02B9997360087A62B /* FilterUserEntity+CoreDataProperties.swift */,
-				A434D0C52B9979290087A62B /* FilterUserCoreData.swift */,
 			);
 			name = FilterUserEntity;
 			path = ..;
@@ -299,6 +298,7 @@
 		A434D0C42B99788A0087A62B /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				A434D0C52B9979290087A62B /* FilterUserCoreData.swift */,
 				A434D0C32B9978780087A62B /* FilterUserEntity */,
 			);
 			path = CoreData;

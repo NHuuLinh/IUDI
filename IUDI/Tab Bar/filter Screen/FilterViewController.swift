@@ -28,6 +28,7 @@ class FilterViewController: UIViewController,FilterSettingDelegate {
             displayMenu()
         case hideSubViewBtn:
             displayMenu()
+            print("display")
         default :
             break
         }
