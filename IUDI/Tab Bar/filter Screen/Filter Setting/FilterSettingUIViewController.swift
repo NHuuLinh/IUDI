@@ -8,6 +8,9 @@
 import UIKit
 import SwiftRangeSlider
 import iOSDropDown
+protocol FilterSettingDelegate:AnyObject{
+    func getNearUser()
+}
 
 class FilterSettingUIViewController: UIViewController {
     
@@ -18,13 +21,16 @@ class FilterSettingUIViewController: UIViewController {
     
     @IBOutlet weak var genderBtn: UIButton!
     @IBOutlet weak var currentAddressBtn: UIButton!
+    @IBOutlet weak var returnBtn: UIButton!
+    @IBOutlet weak var applyBtn: UIButton!
     
     @IBOutlet weak var genderBoxView: UIView!
     @IBOutlet weak var currentAddressBoxView: UIView!
+    weak var delegate : FilterSettingDelegate?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        loadDataFromCoreData()
     }
     override func viewWillAppear(_ animated: Bool) {
         setupSlider(slider: ageSlider, minimumValue: 18, maximumValue: 70)
@@ -33,6 +39,19 @@ class FilterSettingUIViewController: UIViewController {
         dropDownHandle(texfield: currentAddressTF, inputArray: Constant.provinces)
         standardViewCornerRadius(uiView: currentAddressBoxView)
         standardViewCornerRadius(uiView: genderBoxView)
+    }
+    func loadDataFromCoreData(){
+        let coreData = FilterUserCoreData.share
+        genderTF.text = coreData.getUserFilterValueFromCoreData(key: "gender") as? String
+        
+        ageSlider.lowerValue = Double(coreData.getUserFilterValueFromCoreData(key: "minAge") as! Int)
+        ageSlider.upperValue = Double(coreData.getUserFilterValueFromCoreData(key: "maxAge") as! Int)
+        
+        distanceSlider.upperValue = coreData.getUserFilterValueFromCoreData(key: "maxDistance") as! Double
+
+        distanceSlider.lowerValue = coreData.getUserFilterValueFromCoreData(key: "minDistance") as! Double
+
+        currentAddressTF.text = coreData.getUserFilterValueFromCoreData(key: "currentAddress") as? String
     }
     func dropDownHandle(texfield: DropDown, inputArray: [String]){
         texfield.arrowColor = UIColor .red
@@ -60,6 +79,15 @@ class FilterSettingUIViewController: UIViewController {
         // Thêm hành động cho sự kiện .valueChanged
         slider.addTarget(self, action: #selector(sliderValueChanged(_:)), for: .valueChanged)
     }
+    func saveDataToCoreData(){
+        let filterUserCoreData = FilterUserCoreData.share
+        let minDistance = distanceSlider.lowerValue
+        let maxDistance = distanceSlider.upperValue
+        let minAge = Int(ageSlider.lowerValue)
+        let maxAge = Int(ageSlider.upperValue)
+        let gender = genderTF.text ?? ""
+        filterUserCoreData.saveUserFilterValueToCoreData(currentAddress: currentAddressTF.text ?? "", minDistance: minDistance, maxDistance: maxDistance, minAge: minAge, maxAge: maxAge, gender: gender)
+    }
     @IBAction func buttonHandle(_ sender: UIButton) {
         switch sender {
         case genderBtn:
@@ -67,6 +95,12 @@ class FilterSettingUIViewController: UIViewController {
         case currentAddressBtn:
             currentAddressTF.showList()
             print("saved")
+        case applyBtn:
+            saveDataToCoreData()
+            delegate?.getNearUser()
+            print("save")
+        case returnBtn:
+            loadDataFromCoreData()
         default :
             break
         }

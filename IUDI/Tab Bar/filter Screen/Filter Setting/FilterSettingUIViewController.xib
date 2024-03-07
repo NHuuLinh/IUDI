@@ -20,6 +20,7 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="FilterSettingUIViewController" customModule="IUDI" customModuleProvider="target">
             <connections>
                 <outlet property="ageSlider" destination="QQt-Te-UwO" id="e2c-02-gEX"/>
+                <outlet property="applyBtn" destination="GES-Jh-BKq" id="TLb-d4-2qI"/>
                 <outlet property="currentAddressBoxView" destination="vqJ-6C-uEn" id="B1j-m7-qTb"/>
                 <outlet property="currentAddressBtn" destination="ZUN-UI-xMu" id="6gy-Vx-EjN"/>
                 <outlet property="currentAddressTF" destination="XrV-cD-g1x" id="qN4-kR-e8y"/>
@@ -27,6 +28,7 @@
                 <outlet property="genderBoxView" destination="D28-pA-Ack" id="x9k-j2-eXN"/>
                 <outlet property="genderBtn" destination="47p-Ut-69S" id="YPw-t6-lRL"/>
                 <outlet property="genderTF" destination="n4g-Cv-Fsi" id="vFv-5a-EoY"/>
+                <outlet property="returnBtn" destination="GRE-Hx-EvR" id="hSL-FK-85Z"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -292,6 +294,9 @@
                                     <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" title="Quay lại"/>
+                                    <connections>
+                                        <action selector="buttonHandle:" destination="-1" eventType="touchUpInside" id="Myy-5T-9VS"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GES-Jh-BKq">
                                     <rect key="frame" x="188.66666666666663" y="417" width="156.33333333333337" height="55"/>
@@ -302,6 +307,9 @@
                                     <state key="normal" title="Áp dụng">
                                         <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                     </state>
+                                    <connections>
+                                        <action selector="buttonHandle:" destination="-1" eventType="touchUpInside" id="xF4-rd-Cql"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>

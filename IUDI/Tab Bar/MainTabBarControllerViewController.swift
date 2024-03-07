@@ -13,7 +13,6 @@ class MainTabBarControllerViewController: UITabBarController {
         super.viewDidLoad()
         setupTabBar()
 
-
     }
     func setupTabBar() {
         let tabBarVC = UITabBarController()
@@ -23,17 +22,25 @@ class MainTabBarControllerViewController: UITabBarController {
             print("Failed to instantiate HomeViewController from storyboard")
             return
         }
-        homeVC.title = "Home"
+//        homeVC.title = "Home"
         let homeNavVC = UINavigationController(rootViewController: homeVC)
-        homeNavVC.tabBarItem = UITabBarItem(title: "Home", image: UIImage(systemName: "house"), selectedImage: UIImage(systemName: "house.fill"))
+        
+        
+        homeNavVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "Home-UnSelect"), selectedImage: UIImage(named: "Home-Selected"))
         
         let filterVC = FilterViewController()
-        filterVC.title = "Filter"
+//        filterVC.title = "Filter"
         let filterNavVC = UINavigationController(rootViewController: filterVC)
-        filterNavVC.tabBarItem = UITabBarItem(title: "Filter", image: UIImage(systemName: "bell"), selectedImage: UIImage(systemName: "bell.fill"))
+        filterNavVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "Location-UnSelect"), selectedImage: UIImage(named: "Location-Selected"))
         
-        tabBarVC.viewControllers = [homeNavVC, filterNavVC]
+        let settingVC = SettingViewController()
+//        filterVC.title = "Filter"
+        let settingNavVC = UINavigationController(rootViewController: settingVC)
+        settingNavVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "Setting-UnSelect"), selectedImage: UIImage(named: "Setting-Selected"))
+        
+        tabBarVC.viewControllers = [homeNavVC, filterNavVC,settingNavVC]
         tabBarVC.modalPresentationStyle = .fullScreen
+        tabBarVC.tabBar.tintColor = UIColor(named: "MainColor")
         present(tabBarVC, animated: true)
     }
     func setupTabBar1() {

@@ -17,6 +17,7 @@
             <connections>
                 <outlet property="filterBtn" destination="Xxs-5N-ldZ" id="cl5-lr-XCv"/>
                 <outlet property="filterCollectionView" destination="RNo-hU-Eoo" id="GVv-DR-BS2"/>
+                <outlet property="hideSubViewBtn" destination="j9N-ow-vyb" id="xDs-PZ-luD"/>
                 <outlet property="subView" destination="jKi-K4-OFC" id="mea-qj-LSu"/>
                 <outlet property="subviewLocation" destination="1WU-7h-dyW" id="wea-HS-pqH"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
@@ -33,7 +34,7 @@
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fnG-wp-o2x">
                             <rect key="frame" x="0.0" y="59" width="393" height="48"/>
                             <subviews>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JrW-Th-l1A">
+                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JrW-Th-l1A">
                                     <rect key="frame" x="16" y="8" width="32" height="32"/>
                                     <constraints>
                                         <constraint firstAttribute="width" constant="32" id="9A8-6z-gd5"/>
@@ -93,6 +94,15 @@
                                 <constraint firstAttribute="height" constant="550" id="L8L-8T-P4S"/>
                             </constraints>
                         </view>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j9N-ow-vyb">
+                            <rect key="frame" x="0.0" y="0.0" width="393" height="302"/>
+                            <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <state key="normal" title="Button"/>
+                            <buttonConfiguration key="configuration" style="plain"/>
+                            <connections>
+                                <action selector="btnHandle:" destination="-1" eventType="touchUpInside" id="PC1-g2-TmZ"/>
+                            </connections>
+                        </button>
                     </subviews>
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <constraints>
@@ -100,11 +110,15 @@
                         <constraint firstAttribute="bottom" secondItem="jKi-K4-OFC" secondAttribute="bottom" id="1WU-7h-dyW"/>
                         <constraint firstItem="RNo-hU-Eoo" firstAttribute="leading" secondItem="UFb-ax-P3f" secondAttribute="leading" constant="16" id="4gN-66-opV"/>
                         <constraint firstAttribute="trailing" secondItem="RNo-hU-Eoo" secondAttribute="trailing" constant="16" id="8TY-AM-ibU"/>
+                        <constraint firstItem="jKi-K4-OFC" firstAttribute="top" secondItem="j9N-ow-vyb" secondAttribute="bottom" id="CkK-dd-aeM"/>
                         <constraint firstAttribute="trailing" secondItem="jKi-K4-OFC" secondAttribute="trailing" id="EGy-SW-Y21"/>
                         <constraint firstAttribute="bottom" secondItem="RNo-hU-Eoo" secondAttribute="bottom" id="GwK-UH-CeZ"/>
+                        <constraint firstAttribute="trailing" secondItem="j9N-ow-vyb" secondAttribute="trailing" id="Htz-v7-8UM"/>
+                        <constraint firstItem="j9N-ow-vyb" firstAttribute="leading" secondItem="UFb-ax-P3f" secondAttribute="leading" id="QuS-cM-ISv"/>
                         <constraint firstItem="jKi-K4-OFC" firstAttribute="leading" secondItem="UFb-ax-P3f" secondAttribute="leading" id="RRB-sg-yRj"/>
                         <constraint firstItem="fnG-wp-o2x" firstAttribute="leading" secondItem="UFb-ax-P3f" secondAttribute="leading" id="Y2X-aT-SQA"/>
                         <constraint firstAttribute="trailing" secondItem="fnG-wp-o2x" secondAttribute="trailing" id="jq9-e6-KR8"/>
+                        <constraint firstItem="j9N-ow-vyb" firstAttribute="top" secondItem="UFb-ax-P3f" secondAttribute="top" id="kcf-Hf-iw4"/>
                     </constraints>
                 </view>
             </subviews>

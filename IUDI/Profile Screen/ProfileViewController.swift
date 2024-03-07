@@ -19,7 +19,6 @@ protocol DataDelegate: AnyObject {
 
 class ProfileViewController: UIViewController,DataDelegate {
     
-    
     @IBOutlet weak var userAvatar: UIImageView!
     @IBOutlet weak var userNameLb: UILabel!
     @IBOutlet weak var userNameTF: UITextField!
@@ -31,7 +30,6 @@ class ProfileViewController: UIViewController,DataDelegate {
     @IBOutlet weak var currentAddressTF: DropDown!
     @IBOutlet weak var phoneNumber: UITextField!
     @IBOutlet weak var userIntroduct: ReadMoreTextView!
-    
     
     @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var genderBtn: UIButton!
@@ -49,7 +47,6 @@ class ProfileViewController: UIViewController,DataDelegate {
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var userIntroductBoxView: UIView!
 
-    
     let datePicker = UIDatePicker()
     let keychain = KeychainSwift()
     var userProfile : User?
@@ -59,6 +56,7 @@ class ProfileViewController: UIViewController,DataDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tabBarController?.tabBar.isHidden = true
         setupView()
         setupScrollView()
         createDatePicker()
@@ -334,6 +332,7 @@ class ProfileViewController: UIViewController,DataDelegate {
             print("saved")
         case backBtn:
             navigationController?.popToRootViewController(animated: true)
+            self.tabBarController?.tabBar.isHidden = false
         default :
             break
         }

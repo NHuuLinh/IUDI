@@ -30,6 +30,11 @@ extension DateConvertFormat {
             return "date error"
         }
     }
+    func convertBirthDateToAge(birthDate: String) -> Int{
+        let yearOfBirth = convertDate(date: birthDate, inputFormat: "yyyy-MM-dd", outputFormat: "**yyyy**")
+        let userAge = Int(Constant.currentYear) - (Int(yearOfBirth) ?? 0)
+        return userAge
+    }
     
     func convertDate24h(date: String, inputFormat: String, outputFormat: String) -> String {
         let dateFormatter = DateFormatter()

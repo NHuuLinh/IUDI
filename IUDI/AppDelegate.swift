@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Override point for customization after application launch.
         // lấy url của folder
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
-//        print("url của file là: \(urls)")
+        print("url của file là: \(urls)")
         return true
     }
 
