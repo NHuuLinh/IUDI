@@ -374,13 +374,6 @@
 			path = NetWork;
 			sourceTree = "<group>";
 		};
-		A483D0402B883BDC00DD6B15 /* Onboarding Screen */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = "Onboarding Screen";
-			sourceTree = "<group>";
-		};
 		A4A516F52B86E52000AD4CE3 = {
 			isa = PBXGroup;
 			children = (
@@ -413,7 +406,6 @@
 				A44C5CDD2B87457D00037024 /* Extension */,
 				A453BBC32B88A1A100614034 /* Constant */,
 				A483D03B2B88379C00DD6B15 /* NetWork */,
-				A483D0402B883BDC00DD6B15 /* Onboarding Screen */,
 				A46D0E852B8F31E900E5CD4F /* Profile Screen */,
 				A426D77B2B96D83B00A5050B /* Tab Bar */,
 				A453BBC22B88A16300614034 /* RegisterScreen */,
