@@ -30,9 +30,9 @@ class UserIntroduceViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupUserIntroduct()
         setupCollectionView()
         registerCollectionView()
+//        setupUserIntroduct()
     }
     @IBAction func buttonHandle(_ sender: UIButton) {
         switch sender {
@@ -58,6 +58,7 @@ class UserIntroduceViewController: UIViewController {
         userImageCollectionView.register(cell, forCellWithReuseIdentifier: "SelectImageCollectionViewCell")
     }
     func setupUserIntroduct(){
+        userIntroduct.showsLargeContentViewer = true
         userIntroduct.shouldTrim = true
         userIntroduct.maximumNumberOfLines = 4
         let readLessText = NSAttributedString(string: "...Ẩn bớt", attributes: [NSAttributedString.Key.foregroundColor: Constant.mainBorderColor])
@@ -75,12 +76,23 @@ class UserIntroduceViewController: UIViewController {
             case .failure(let error):
                 // Xảy ra lỗi khi tải ảnh
                 self.userAvatar.image = UIImage(systemName: "person")
-                print("Lỗi khi tải ảnh: \(error.localizedDescription)")
             }
         })
         userNameLb.text = data.fullName
         userLocationLb.text = data.currentAdd
-        userIntroduct.text = data.bio
+        let mainText = NSAttributedString(string: data.bio ?? "", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
+
+//        userIntroduct.text = data.bio
+        DispatchQueue.main.async {
+            self.userIntroduct.text = data.bio
+
+//            self.userIntroduct.attributedText = mainText
+
+            self.setupUserIntroduct()
+
+        }
+
+
     }
     
     func getAllImage(userID: String){

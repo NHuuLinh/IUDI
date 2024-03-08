@@ -29,7 +29,8 @@ class ProfileViewController: UIViewController,DataDelegate {
     @IBOutlet weak var birthAddressTF: DropDown!
     @IBOutlet weak var currentAddressTF: DropDown!
     @IBOutlet weak var phoneNumber: UITextField!
-    @IBOutlet weak var userIntroduct: ReadMoreTextView!
+    @IBOutlet weak var userIntroduct: UITextView!
+    @IBOutlet weak var userIntroductLb: UILabel!
     
     @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var genderBtn: UIButton!
@@ -46,7 +47,7 @@ class ProfileViewController: UIViewController,DataDelegate {
     @IBOutlet weak var phoneNumberBoxView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
     @IBOutlet weak var userIntroductBoxView: UIView!
-
+    
     let datePicker = UIDatePicker()
     let keychain = KeychainSwift()
     var userProfile : User?
@@ -66,13 +67,22 @@ class ProfileViewController: UIViewController,DataDelegate {
         getUserProfile()
         avatarImageTap()
     }
-    func setupUserIntroduct(){
-        userIntroduct.shouldTrim = true
-        userIntroduct.maximumNumberOfLines = 2
-        let readLessText = NSAttributedString(string: "...Ẩn bớt", attributes: [NSAttributedString.Key.foregroundColor: Constant.mainBorderColor])
-        userIntroduct.attributedReadLessText = readLessText
+    override func viewWillAppear(_ animated: Bool) {
+        
+        if #available(iOS 16.0, *) {
+            let textView = UITextView(usingTextLayoutManager: true)
+        } else {
+            // Fallback on earlier versions
+        }
+
+    }
+    func setupUserIntroduct(textView: ReadMoreTextView){
+        textView.shouldTrim = true
+        textView.maximumNumberOfLines = 2
+        let readLessText = NSAttributedString(string: "Ẩn bớt", attributes: [NSAttributedString.Key.foregroundColor: Constant.mainBorderColor])
+        textView.attributedReadLessText = readLessText
         let readMoreText = NSAttributedString(string: "... Xem thêm", attributes: [NSAttributedString.Key.foregroundColor: Constant.mainBorderColor])
-        userIntroduct.attributedReadMoreText = readMoreText
+        textView.attributedReadMoreText = readMoreText
     }
     func dropDownHandle(texfield: DropDown, inputArray: [String]){
         texfield.arrowColor = UIColor .red
@@ -168,7 +178,6 @@ class ProfileViewController: UIViewController,DataDelegate {
                         return
                     }
                     self.loadDataToView(user: user)
-                    self.setupUserIntroduct()
 
                     self.showLoading(isShow: false)
                 case .failure(let error):
@@ -218,6 +227,7 @@ class ProfileViewController: UIViewController,DataDelegate {
         currentAddressTF.text = user.currentAdd
         birthAddressTF.text = user.birthPlace
         userIntroduct.text = user.bio
+        userIntroductLb.text = userIntroduct.text
         self.userID = user.userID
         let url = user.avatarLink
         loadAvatarImage(url: url)

@@ -13,10 +13,15 @@ class HomeCollectionViewCell: UICollectionViewCell,DateConvertFormat {
     @IBOutlet weak var removeBtn: UIButton!
     @IBOutlet weak var likeBtn: UIButton!
     @IBOutlet weak var loveBtn: UIButton!
+    var options = StackTransformViewOptions()
     
     override func awakeFromNib() {
         super.awakeFromNib()
         setupView()
+        
+//        let currentScaleFactor = options.
+
+        // Thay đổi giá trị của biến
     }
     
     func blindata(data: Distance){
@@ -79,12 +84,11 @@ extension HomeCollectionViewCell: StackTransformView {
     }
     var stackOptions: StackTransformViewOptions {
         .layout(.transparent)
-        
     }
 
-    var test: StackTransformViewOptions {
-        .init(reverse: false)
-    }
+//    var test: StackTransformViewOptions {
+//        .init(reverse: false)
+//    }
 //    var test: StackTransformViewOptions {
 //        StackTransformViewOptions(stackPosition: CGPoint(x: 1, y: -1))
 //    }

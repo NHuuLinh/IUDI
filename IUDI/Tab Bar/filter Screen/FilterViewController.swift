@@ -105,14 +105,14 @@ class FilterViewController: UIViewController,FilterSettingDelegate {
             }
             let distanceInMeters = distance.distance ?? 0.0
 
-            if filterGender.count < 1 && filterAddress.count > 1{
+            if filterGender.count < 2 && filterAddress.count > 2{
                 print("no gender")
                 return (filterMaxAge...filterMinAge).contains(birthYear) && currentAdd == filterAddress && (filterMinDistance...filterMaxDistance).contains(distanceInMeters)
-            } else if filterGender.count > 1 && filterAddress.count < 1 {
+            } else if filterGender.count > 2 && filterAddress.count < 2 {
                 print("no Address")
                 print("filterValue: \(filterGender.count),\(filterMinAge),\(filterMaxAge),\(filterMaxDistance),\(filterMinDistance),\(filterAddress.count)")
                 return gender == filterGender && (filterMaxAge...filterMinAge).contains(birthYear) && (filterMinDistance...filterMaxDistance).contains(distanceInMeters)
-            } else if gender.count < 1 && filterAddress.count < 1 {
+            } else if filterGender.count < 2 && filterAddress.count < 2 {
                 print("no gender, no Address")
                 return (filterMaxAge...filterMinAge).contains(birthYear) && (filterMinDistance...filterMaxDistance).contains(distanceInMeters)
             }else {
@@ -206,8 +206,16 @@ extension FilterViewController : UICollectionViewDataSource, UICollectionViewDel
         return cell
     }
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        print("user select :\(indexPath.row)")
-
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "UserIntroduceViewController") as! UserIntroduceViewController
+        let data = userDistance[indexPath.row]
+        print("indexPath.row: \(indexPath.row)")
+        let userID : Int = data.userID ?? 0
+        let test = String(userID)
+        print("userID: \(test)")
+        vc.getAllImage(userID: String(userID))
+        vc.blindata(data: data)
+        navigationController?.pushViewController(vc, animated: true)
     }
 
 }

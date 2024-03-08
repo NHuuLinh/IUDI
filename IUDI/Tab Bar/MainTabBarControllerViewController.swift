@@ -8,10 +8,10 @@
 import UIKit
 
 class MainTabBarControllerViewController: UITabBarController {
-
+    @IBOutlet weak var test: UITabBar!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        setupTabBar()
 
     }
     func setupTabBar() {
@@ -41,24 +41,11 @@ class MainTabBarControllerViewController: UITabBarController {
         tabBarVC.viewControllers = [homeNavVC, filterNavVC,settingNavVC]
         tabBarVC.modalPresentationStyle = .fullScreen
         tabBarVC.tabBar.tintColor = UIColor(named: "MainColor")
-        present(tabBarVC, animated: true)
-    }
-    func setupTabBar1() {
-        let tabBarVC = UITabBarController()
-        
-        let homeVC = HomeViewController()
-        homeVC.title = "Home"
-        let homeNavVC = UINavigationController(rootViewController: homeVC)
-        homeNavVC.tabBarItem = UITabBarItem(title: "Home", image: UIImage(named: "Home-Selected"), selectedImage: UIImage(named: "Home-Selected"))
-        
-        let filterVC = FilterViewController()
-        filterVC.title = "Filter"
-        let filterNavVC = UINavigationController(rootViewController: filterVC)
-        filterNavVC.tabBarItem = UITabBarItem(title: "Filter", image: UIImage(named: "Location-Selected"), selectedImage: UIImage(named: "Location-UnSelect"))
-        
-        tabBarVC.viewControllers = [homeNavVC, filterNavVC]
-        
+        tabBarVC.tabBar.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.1)
+        tabBarVC.tabBar.layer.opacity = 1
+        tabBarVC.tabBar.itemPositioning = .fill
         present(tabBarVC, animated: true)
     }
 
 }
+

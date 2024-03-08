@@ -30,7 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
             // có mạng
                 if UserDefaults.standard.didLogin {
 //                    goToLogin()
-                    goToHome()
+                    setupTabBar()
                     print("goToMain")
                 } else {
                     goToLogin()
@@ -44,11 +44,46 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window!.rootViewController = mainNavigation
         window!.makeKeyAndVisible()
     }
+    func setupTabBar() {
+        let tabBarVC = UITabBarController()
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        guard let homeVC = storyboard.instantiateViewController(withIdentifier: "HomeViewController") as? HomeViewController else {
+            print("Failed to instantiate HomeViewController from storyboard")
+            return
+        }
+//        homeVC.title = "Home"
+        let homeNavVC = UINavigationController(rootViewController: homeVC)
+        
+        
+        homeNavVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "Home-UnSelect"), selectedImage: UIImage(named: "Home-Selected"))
+        
+        let filterVC = FilterViewController()
+//        filterVC.title = "Filter"
+        let filterNavVC = UINavigationController(rootViewController: filterVC)
+        filterNavVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "Location-UnSelect"), selectedImage: UIImage(named: "Location-Selected"))
+        
+        let settingVC = SettingViewController()
+//        filterVC.title = "Filter"
+        let settingNavVC = UINavigationController(rootViewController: settingVC)
+        settingNavVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "Setting-UnSelect"), selectedImage: UIImage(named: "Setting-Selected"))
+        
+        tabBarVC.viewControllers = [homeNavVC, filterNavVC,settingNavVC]
+        tabBarVC.modalPresentationStyle = .fullScreen
+        tabBarVC.tabBar.tintColor = UIColor(named: "MainColor")
+        tabBarVC.tabBar.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.1)
+        tabBarVC.tabBar.layer.opacity = 1
+        tabBarVC.tabBar.itemPositioning = .fill
+        window!.rootViewController = tabBarVC
+        window!.makeKeyAndVisible()
+//        present(tabBarVC, animated: true)
+    }
+
 
     func goToHome() {
         print("Đã login rồi. Cho vào Home")
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let mainVC = storyboard.instantiateViewController(withIdentifier: "MainTabBarControllerViewController")
+        let mainVC = storyboard.instantiateViewController(withIdentifier: "HomeViewController")
         let mainNavigation = UINavigationController(rootViewController: mainVC)
         window!.rootViewController = mainNavigation
         window!.makeKeyAndVisible()
