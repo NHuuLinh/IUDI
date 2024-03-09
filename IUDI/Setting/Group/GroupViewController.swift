@@ -48,6 +48,8 @@ class GroupViewController: UIViewController, UICollectionViewDelegate, UICollect
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
         let data = groupData[indexPath.row]
         
+        cell.groupName = data.groupName
+        
         // Cập nhật ô với dữ liệu
         cell.nameGroup.text = data.groupName ?? ""
         cell.numberOfMembers.text = "\(data.userNumber ?? 0) Thành viên"
@@ -56,6 +58,15 @@ class GroupViewController: UIViewController, UICollectionViewDelegate, UICollect
             cell.setImage(fromURL: avatarLink)
         }
         
+        // Thiết lập closure cho mỗi cell
+        cell.didSelectItem = {
+            // Thực hiện việc push sang màn hình đích tương ứng
+            let destinationVC = InGroupViewController()
+            destinationVC.groupID = data.groupID // Truyền ID của nhóm sang InGroupViewController
+            destinationVC.title = cell.groupName // Cập nhật title của màn hình đích
+            self.navigationController?.pushViewController(destinationVC, animated: true)
+        }
+
         return cell
     }
     

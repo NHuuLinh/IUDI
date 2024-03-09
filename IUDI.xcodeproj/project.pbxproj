@@ -56,8 +56,16 @@
 		A4B4AB9B2B8C2F7A00822DDB /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4A517372B86F5F100AD4CE3 /* Roboto-Regular.ttf */; };
 		A4B4AB9E2B8C324100822DDB /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B4AB9C2B8C324100822DDB /* HomeCollectionViewCell.swift */; };
 		A4B4AB9F2B8C324100822DDB /* HomeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4B4AB9D2B8C324100822DDB /* HomeCollectionViewCell.xib */; };
+		AB1D7E882B9B0E6700ACEB3B /* subViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB1D7E862B9B0E6700ACEB3B /* subViewController.swift */; };
+		AB1D7E892B9B0E6700ACEB3B /* subViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB1D7E872B9B0E6700ACEB3B /* subViewController.xib */; };
 		AB24B17D2B8DEDED007665D8 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB24B17B2B8DEDED007665D8 /* SettingViewController.swift */; };
 		AB24B17E2B8DEDED007665D8 /* SettingViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB24B17C2B8DEDED007665D8 /* SettingViewController.xib */; };
+		AB8847332B90CED70000688B /* InGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8847312B90CED70000688B /* InGroupViewController.swift */; };
+		AB8847342B90CED70000688B /* InGroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB8847322B90CED70000688B /* InGroupViewController.xib */; };
+		AB88473D2B90E54C0000688B /* PostsGroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB88473B2B90E54C0000688B /* PostsGroupViewController.swift */; };
+		AB88473E2B90E54C0000688B /* PostsGroupViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB88473C2B90E54C0000688B /* PostsGroupViewController.xib */; };
+		AB8847412B91BE110000688B /* PostCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB88473F2B91BE110000688B /* PostCollectionViewCell.swift */; };
+		AB8847422B91BE110000688B /* PostCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB8847402B91BE110000688B /* PostCollectionViewCell.xib */; };
 		AB8A68152B8DF1A7001F686F /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8A68132B8DF1A7001F686F /* AboutViewController.swift */; };
 		AB8A68162B8DF1A7001F686F /* AboutViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB8A68142B8DF1A7001F686F /* AboutViewController.xib */; };
 		AB8A681B2B8ED7B4001F686F /* GroupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB8A68192B8ED7B4001F686F /* GroupViewController.swift */; };
@@ -150,8 +158,16 @@
 		A4B4AB9C2B8C324100822DDB /* HomeCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCollectionViewCell.swift; sourceTree = "<group>"; };
 		A4B4AB9D2B8C324100822DDB /* HomeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeCollectionViewCell.xib; sourceTree = "<group>"; };
 		A5830D6B4C599F9307429DDF /* Pods-IUDITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IUDITests.release.xcconfig"; path = "Target Support Files/Pods-IUDITests/Pods-IUDITests.release.xcconfig"; sourceTree = "<group>"; };
+		AB1D7E862B9B0E6700ACEB3B /* subViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = subViewController.swift; sourceTree = "<group>"; };
+		AB1D7E872B9B0E6700ACEB3B /* subViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = subViewController.xib; sourceTree = "<group>"; };
 		AB24B17B2B8DEDED007665D8 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		AB24B17C2B8DEDED007665D8 /* SettingViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SettingViewController.xib; sourceTree = "<group>"; };
+		AB8847312B90CED70000688B /* InGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = InGroupViewController.swift; path = ../../../../../Documents/InGroupViewController.swift; sourceTree = "<group>"; };
+		AB8847322B90CED70000688B /* InGroupViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = InGroupViewController.xib; path = ../../../../../Documents/InGroupViewController.xib; sourceTree = "<group>"; };
+		AB88473B2B90E54C0000688B /* PostsGroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PostsGroupViewController.swift; path = ../../../../../../Documents/PostsGroupViewController.swift; sourceTree = "<group>"; };
+		AB88473C2B90E54C0000688B /* PostsGroupViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PostsGroupViewController.xib; path = ../../../../../../Documents/PostsGroupViewController.xib; sourceTree = "<group>"; };
+		AB88473F2B91BE110000688B /* PostCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = PostCollectionViewCell.swift; path = ../../../../../../Documents/PostCollectionViewCell.swift; sourceTree = "<group>"; };
+		AB8847402B91BE110000688B /* PostCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = PostCollectionViewCell.xib; path = ../../../../../../Documents/PostCollectionViewCell.xib; sourceTree = "<group>"; };
 		AB8A68132B8DF1A7001F686F /* AboutViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		AB8A68142B8DF1A7001F686F /* AboutViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AboutViewController.xib; sourceTree = "<group>"; };
 		AB8A68192B8ED7B4001F686F /* GroupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupViewController.swift; sourceTree = "<group>"; };
@@ -381,6 +397,15 @@
 			path = LoginScreen;
 			sourceTree = "<group>";
 		};
+		AB1D7E852B9B0E4E00ACEB3B /* subView */ = {
+			isa = PBXGroup;
+			children = (
+				AB1D7E862B9B0E6700ACEB3B /* subViewController.swift */,
+				AB1D7E872B9B0E6700ACEB3B /* subViewController.xib */,
+			);
+			path = subView;
+			sourceTree = "<group>";
+		};
 		AB24B1762B8DED8E007665D8 /* Setting */ = {
 			isa = PBXGroup;
 			children = (
@@ -395,9 +420,40 @@
 			path = Setting;
 			sourceTree = "<group>";
 		};
+		AB88472C2B90CD490000688B /* InGroup */ = {
+			isa = PBXGroup;
+			children = (
+				AB88473A2B90E5130000688B /* PostGroup */,
+				AB8847352B90E4670000688B /* Cell */,
+				AB8847312B90CED70000688B /* InGroupViewController.swift */,
+				AB8847322B90CED70000688B /* InGroupViewController.xib */,
+			);
+			path = InGroup;
+			sourceTree = "<group>";
+		};
+		AB8847352B90E4670000688B /* Cell */ = {
+			isa = PBXGroup;
+			children = (
+				AB1D7E852B9B0E4E00ACEB3B /* subView */,
+				AB88473F2B91BE110000688B /* PostCollectionViewCell.swift */,
+				AB8847402B91BE110000688B /* PostCollectionViewCell.xib */,
+			);
+			path = Cell;
+			sourceTree = "<group>";
+		};
+		AB88473A2B90E5130000688B /* PostGroup */ = {
+			isa = PBXGroup;
+			children = (
+				AB88473B2B90E54C0000688B /* PostsGroupViewController.swift */,
+				AB88473C2B90E54C0000688B /* PostsGroupViewController.xib */,
+			);
+			path = PostGroup;
+			sourceTree = "<group>";
+		};
 		AB8A68182B8ED7A1001F686F /* Group */ = {
 			isa = PBXGroup;
 			children = (
+				AB88472C2B90CD490000688B /* InGroup */,
 				AB8A68282B8EF3E6001F686F /* Cell Group */,
 				AB8A68232B8EE022001F686F /* Dummy Datas */,
 				AB8A68192B8ED7B4001F686F /* GroupViewController.swift */,
@@ -555,10 +611,12 @@
 				A4A5174C2B86F5F100AD4CE3 /* Roboto-Bold.ttf in Resources */,
 				A4A5174A2B86F5F100AD4CE3 /* LICENSE.txt in Resources */,
 				AB8A681C2B8ED7B4001F686F /* GroupViewController.xib in Resources */,
+				AB8847422B91BE110000688B /* PostCollectionViewCell.xib in Resources */,
 				A4B4AB9B2B8C2F7A00822DDB /* Roboto-Regular.ttf in Resources */,
 				AB8A68332B8F178B001F686F /* NotificationViewController.xib in Resources */,
 				A4A517472B86F5F100AD4CE3 /* Roboto-BoldItalic.ttf in Resources */,
 				A4712DA72B908546004903AA /* Roboto-Medium.ttf in Resources */,
+				AB8847342B90CED70000688B /* InGroupViewController.xib in Resources */,
 				AB8A68202B8ED887001F686F /* CollectionViewCell.xib in Resources */,
 				A46D0E8B2B8F3B0500E5CD4F /* SelectImageCollectionViewCell.xib in Resources */,
 				A4A517482B86F5F100AD4CE3 /* Roboto-LightItalic.ttf in Resources */,
@@ -566,6 +624,8 @@
 				A4A517112B86E52500AD4CE3 /* LaunchScreen.storyboard in Resources */,
 				A4A5174B2B86F5F100AD4CE3 /* Roboto-BlackItalic.ttf in Resources */,
 				AB8A68162B8DF1A7001F686F /* AboutViewController.xib in Resources */,
+				AB88473E2B90E54C0000688B /* PostsGroupViewController.xib in Resources */,
+				AB1D7E892B9B0E6700ACEB3B /* subViewController.xib in Resources */,
 				A4A5174D2B86F5F100AD4CE3 /* Roboto-Thin.ttf in Resources */,
 				A4A517432B86F5F100AD4CE3 /* Roboto-Light.ttf in Resources */,
 				A4A517462B86F5F100AD4CE3 /* Roboto-ThinItalic.ttf in Resources */,
@@ -709,6 +769,7 @@
 				A46D0E872B8F367600E5CD4F /* GetPhotos.swift in Sources */,
 				A4A517552B8708B200AD4CE3 /* Constant.swift in Sources */,
 				A4B4AB9E2B8C324100822DDB /* HomeCollectionViewCell.swift in Sources */,
+				AB8847412B91BE110000688B /* PostCollectionViewCell.swift in Sources */,
 				A483D0442B88413000DD6B15 /* APIService.swift in Sources */,
 				AB8A68252B8EE039001F686F /* Datas.swift in Sources */,
 				AB8A681B2B8ED7B4001F686F /* GroupViewController.swift in Sources */,
@@ -716,8 +777,10 @@
 				A44C5CDF2B8745A000037024 /* ShowLoading and Aleart.swift in Sources */,
 				A45348DD2B8C624F006D72E4 /* ProfileViewController.swift in Sources */,
 				A4A9B9792B8D06350044861C /* RegisterResponse.swift in Sources */,
+				AB8847332B90CED70000688B /* InGroupViewController.swift in Sources */,
 				A483D0482B88711C00DD6B15 /* UserNetWorkManager.swift in Sources */,
 				A4712DA62B906CBE004903AA /* Add+Shadow+UIView.swift in Sources */,
+				AB1D7E882B9B0E6700ACEB3B /* subViewController.swift in Sources */,
 				A46D0E842B8F317800E5CD4F /* SelectImageViewController.swift in Sources */,
 				A4A517522B86FD3A00AD4CE3 /* LoginViewController.swift in Sources */,
 				AB8A682D2B8F16BA001F686F /* PrivacyViewController.swift in Sources */,
@@ -726,6 +789,7 @@
 				A474937C2B8BAFC500354464 /* HomeViewController.swift in Sources */,
 				A46D0E812B8ED2CC00E5CD4F /* APIServiceImage.swift in Sources */,
 				A4A5175A2B871EA500AD4CE3 /* LoginResponse.swift in Sources */,
+				AB88473D2B90E54C0000688B /* PostsGroupViewController.swift in Sources */,
 				A4A5170C2B86E52100AD4CE3 /* IUDI.xcdatamodeld in Sources */,
 				A483D03F2B88393700DD6B15 /* UserDefault.swift in Sources */,
 				A45348DF2B8C9919006D72E4 /* UserProfile.swift in Sources */,
