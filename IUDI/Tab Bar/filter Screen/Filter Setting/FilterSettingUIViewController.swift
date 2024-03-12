@@ -35,23 +35,22 @@ class FilterSettingUIViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         setupSlider(slider: ageSlider, minimumValue: 18, maximumValue: 70)
         setupSlider(slider: distanceSlider, minimumValue: 0, maximumValue: 60)
-        dropDownHandle(texfield: genderTF, inputArray: Constant.gender)
-        dropDownHandle(texfield: currentAddressTF, inputArray: Constant.provinces)
+        dropDownHandle(texfield: genderTF, inputArray: Constant.filterGender)
+        dropDownHandle(texfield: currentAddressTF, inputArray: Constant.filterProvinces)
         standardViewCornerRadius(uiView: currentAddressBoxView)
         standardViewCornerRadius(uiView: genderBoxView)
     }
     func loadDataFromCoreData(){
         let coreData = FilterUserCoreData.share
-        genderTF.text = coreData.getUserFilterValueFromCoreData(key: "gender") as? String
+        genderTF.text = coreData.getUserFilterValueFromCoreData(key: "gender") as? String ?? ""
+        ageSlider.lowerValue = Double(coreData.getUserFilterValueFromCoreData(key: "minAge") as? Int ?? 0)
+        ageSlider.upperValue = Double(coreData.getUserFilterValueFromCoreData(key: "maxAge") as? Int ?? 60)
         
-        ageSlider.lowerValue = Double(coreData.getUserFilterValueFromCoreData(key: "minAge") as! Int)
-        ageSlider.upperValue = Double(coreData.getUserFilterValueFromCoreData(key: "maxAge") as! Int)
-        
-        distanceSlider.upperValue = coreData.getUserFilterValueFromCoreData(key: "maxDistance") as! Double
+        distanceSlider.upperValue = coreData.getUserFilterValueFromCoreData(key: "maxDistance") as? Double ?? 70
 
-        distanceSlider.lowerValue = coreData.getUserFilterValueFromCoreData(key: "minDistance") as! Double
+        distanceSlider.lowerValue = coreData.getUserFilterValueFromCoreData(key: "minDistance") as? Double ?? 0
 
-        currentAddressTF.text = coreData.getUserFilterValueFromCoreData(key: "currentAddress") as? String
+        currentAddressTF.text = coreData.getUserFilterValueFromCoreData(key: "currentAddress") as? String ?? ""
     }
     func dropDownHandle(texfield: DropDown, inputArray: [String]){
         texfield.arrowColor = UIColor .red

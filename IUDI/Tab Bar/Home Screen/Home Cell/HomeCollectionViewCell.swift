@@ -18,11 +18,9 @@ class HomeCollectionViewCell: UICollectionViewCell,DateConvertFormat {
     override func awakeFromNib() {
         super.awakeFromNib()
         setupView()
-        
-//        let currentScaleFactor = options.
-
         // Thay đổi giá trị của biến
     }
+    
     
     func blindata(data: Distance){
         let imageUrl = URL(string: data.avatarLink ?? "")
@@ -34,7 +32,7 @@ class HomeCollectionViewCell: UICollectionViewCell,DateConvertFormat {
             case .failure(let error):
                 // Xảy ra lỗi khi tải ảnh
                 self.userImage.image = UIImage(systemName: "person")
-                print("Lỗi khi tải ảnh: \(error.localizedDescription)")
+//                print("Lỗi khi tải ảnh: \(error.localizedDescription)")
             }
         })
         let rawKilometers = (data.distance ?? 1.0) / 1000.0
@@ -59,7 +57,7 @@ class HomeCollectionViewCell: UICollectionViewCell,DateConvertFormat {
         cellUiView.clipsToBounds = true
         userDistanceView.layer.cornerRadius = userDistanceView.frame.height/2
         userDistanceView.layer.borderWidth = Constant.borderWidth
-        userDistanceView.layer.borderColor = UIColor.white.cgColor //UIColor.red.cgColor
+        userDistanceView.layer.borderColor = UIColor.white.cgColor
         userDistanceView.clipsToBounds = true
     }
     @IBAction func btnHandle(_ sender: UIButton) {
@@ -86,10 +84,4 @@ extension HomeCollectionViewCell: StackTransformView {
         .layout(.transparent)
     }
 
-//    var test: StackTransformViewOptions {
-//        .init(reverse: false)
-//    }
-//    var test: StackTransformViewOptions {
-//        StackTransformViewOptions(stackPosition: CGPoint(x: 1, y: -1))
-//    }
 }

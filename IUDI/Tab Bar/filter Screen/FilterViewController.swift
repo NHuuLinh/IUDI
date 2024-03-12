@@ -72,31 +72,29 @@ class FilterViewController: UIViewController,FilterSettingDelegate {
 
     func filterDistances(_ distances: [Distance]) -> [Distance] {
         let coreData = FilterUserCoreData.share
-        let filterGender = coreData.getUserFilterValueFromCoreData(key: "gender") as! String
+        let filterGender = coreData.getUserFilterValueFromCoreData(key: "gender") as? String ?? ""
         
-        let coreDataMinAge = coreData.getUserFilterValueFromCoreData(key: "minAge") as! Int
+        let coreDataMinAge = coreData.getUserFilterValueFromCoreData(key: "minAge") as? Int ?? 18
         let filterMinAge = Int(Constant.currentYear) - coreDataMinAge
         
-        let coreDataMaxAge = coreData.getUserFilterValueFromCoreData(key: "maxAge") as! Int
+        let coreDataMaxAge = coreData.getUserFilterValueFromCoreData(key: "maxAge") as? Int ?? 70
         let filterMaxAge = Int(Constant.currentYear) - coreDataMaxAge
         
-        let coreDataMaxDistance = coreData.getUserFilterValueFromCoreData(key: "maxDistance") as! Double
+        let coreDataMaxDistance = coreData.getUserFilterValueFromCoreData(key: "maxDistance") as? Double ?? 30
         let filterMaxDistance = coreDataMaxDistance * 1000
-
-        let coreDataMinDistance = coreData.getUserFilterValueFromCoreData(key: "minDistance") as! Double
+        
+        let coreDataMinDistance = coreData.getUserFilterValueFromCoreData(key: "minDistance") as? Double ?? 0
         let filterMinDistance = coreDataMinDistance * 1000
-
-        let filterAddress = coreData.getUserFilterValueFromCoreData(key: "currentAddress") as! String
-
-        print("filterValue: \(filterGender.count),\(filterMinAge),\(filterMaxAge),\(filterMaxDistance),\(filterMinDistance),\(filterAddress.count)")
-
+        
+        let filterAddress = coreData.getUserFilterValueFromCoreData(key: "currentAddress") as? String ?? ""
+        
         return distances.filter { distance in
             guard let gender = distance.gender,
                   let birthDateStr = distance.birthDate,
                   let currentAdd = distance.currentAdd else {
                 return false
             }
-
+            
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "yyyy-MM-dd"
             guard let birthDate = dateFormatter.date(from: birthDateStr),
@@ -104,59 +102,25 @@ class FilterViewController: UIViewController,FilterSettingDelegate {
                 return false
             }
             let distanceInMeters = distance.distance ?? 0.0
-
-            if filterGender.count < 2 && filterAddress.count > 2{
+            
+            if filterGender.count < 1 && filterAddress.count > 1{
                 print("no gender")
                 return (filterMaxAge...filterMinAge).contains(birthYear) && currentAdd == filterAddress && (filterMinDistance...filterMaxDistance).contains(distanceInMeters)
-            } else if filterGender.count > 2 && filterAddress.count < 2 {
+            } else if filterGender.count > 1 && filterAddress.count < 1 {
                 print("no Address")
                 print("filterValue: \(filterGender.count),\(filterMinAge),\(filterMaxAge),\(filterMaxDistance),\(filterMinDistance),\(filterAddress.count)")
                 return gender == filterGender && (filterMaxAge...filterMinAge).contains(birthYear) && (filterMinDistance...filterMaxDistance).contains(distanceInMeters)
-            } else if filterGender.count < 2 && filterAddress.count < 2 {
+            } else if filterGender.count < 1 && filterAddress.count < 1 {
                 print("no gender, no Address")
                 return (filterMaxAge...filterMinAge).contains(birthYear) && (filterMinDistance...filterMaxDistance).contains(distanceInMeters)
             }else {
                 print("full")
                 return gender == filterGender && (filterMaxAge...filterMinAge).contains(birthYear) && currentAdd == filterAddress && (filterMinDistance...filterMaxDistance).contains(distanceInMeters)
             }
-//                        return gender == "Nam" && (0...2024).contains(birthYear) && currentAdd == "" && (100...30000).contains(distanceInMeters)
+            //                        return gender == "Nam" && (0...2024).contains(birthYear) && currentAdd == "" && (100...30000).contains(distanceInMeters)
         }
     }
-    struct FilterCriteria {
-        let gender: String?
-        let birthYearRange: ClosedRange<Int>?
-        let currentAdd: String?
-        let distanceRange: ClosedRange<Double>?
-    }
 
-    func filterDistances(_ distances: [Distance], with criteria: FilterCriteria) -> [Distance] {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "yyyy-MM-dd"
-        
-        return distances.filter { distance in
-            if let gender = criteria.gender, distance.gender != gender {
-                return false
-            }
-
-            if let birthYearRange = criteria.birthYearRange,
-               let birthDateStr = distance.birthDate,
-               let birthDate = dateFormatter.date(from: birthDateStr),
-               let birthYear = Calendar.current.dateComponents([.year], from: birthDate).year,
-               !birthYearRange.contains(birthYear) {
-                return false
-            }
-
-            if let currentAdd = criteria.currentAdd, distance.currentAdd != currentAdd {
-                return false
-            }
-
-            if let distanceRange = criteria.distanceRange, !distanceRange.contains(distance.distance ?? 0) {
-                return false
-            }
-
-            return true
-        }
-    }
 
 
     func getNearUser(){
@@ -195,7 +159,6 @@ class FilterViewController: UIViewController,FilterSettingDelegate {
 
 extension FilterViewController : UICollectionViewDataSource, UICollectionViewDelegate,CellSizeCaculate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        return userDistance?.distances?.count ?? 4
         return userDistance.count
     }
 

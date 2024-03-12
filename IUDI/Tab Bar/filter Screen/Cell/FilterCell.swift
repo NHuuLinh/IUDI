@@ -35,7 +35,7 @@ class FilterCell: UICollectionViewCell,DateConvertFormat {
             case .failure(let error):
                 // Xảy ra lỗi khi tải ảnh
                 self.userImage.image = UIImage(systemName: "person")
-                print("Lỗi khi tải ảnh: \(error.localizedDescription)")
+//                print("Lỗi khi tải ảnh: \(error.localizedDescription)")
             }
         })
         let rawKilometers = (data.distance ?? 1.0) / 1000.0

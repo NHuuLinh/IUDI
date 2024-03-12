@@ -25,7 +25,6 @@ class SelectImageViewController: UIViewController {
     private var refeshControl = UIRefreshControl()
     weak var delegate: DataDelegate?
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         registerCollectionView()
@@ -34,7 +33,6 @@ class SelectImageViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         getAllImage()
-
     }
     private func setupCollectionView() {
         if let flowLayout = imageCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -52,13 +50,12 @@ class SelectImageViewController: UIViewController {
     //https://api.iudi.xyz/api/profile/viewAllImage/37
     func getAllImage(){
         showLoading(isShow: true)
-        guard let userid = UserDefaults.standard.string(forKey: "UserID") else {
+        guard let userID = keychain.get("userID") else {
             showLoading(isShow: false)
-            print("không có userName")
+            print("userID rỗng")
             return
         }
-        print("UserID: \(userid)")
-        let url = Constant.baseUrl + "profile/viewAllImage/" + userid
+        let url = Constant.baseUrl + "profile/viewAllImage/" + userID
         print("\(url)")
         AF.request(url, method: .get)
             .validate(statusCode: 200...299)

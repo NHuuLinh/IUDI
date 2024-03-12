@@ -21,10 +21,8 @@ class UserIntroduceViewController: UIViewController {
     @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var chatBtn: UIButton!
     
-    
     var data : UserDistances?
     var userPhotos = [Photo]()
-    
     let itemNumber = 4.0
     let minimumLineSpacing = 5.0
     
@@ -32,7 +30,7 @@ class UserIntroduceViewController: UIViewController {
         super.viewDidLoad()
         setupCollectionView()
         registerCollectionView()
-//        setupUserIntroduct()
+                setupUserIntroduct()
     }
     @IBAction func buttonHandle(_ sender: UIButton) {
         switch sender {
@@ -60,7 +58,7 @@ class UserIntroduceViewController: UIViewController {
     func setupUserIntroduct(){
         userIntroduct.showsLargeContentViewer = true
         userIntroduct.shouldTrim = true
-        userIntroduct.maximumNumberOfLines = 4
+        userIntroduct.maximumNumberOfLines = 2
         let readLessText = NSAttributedString(string: "...Ẩn bớt", attributes: [NSAttributedString.Key.foregroundColor: Constant.mainBorderColor])
         userIntroduct.attributedReadLessText = readLessText
         let readMoreText = NSAttributedString(string: "... Xem thêm", attributes: [NSAttributedString.Key.foregroundColor: Constant.mainBorderColor])
@@ -78,21 +76,15 @@ class UserIntroduceViewController: UIViewController {
                 self.userAvatar.image = UIImage(systemName: "person")
             }
         })
-        userNameLb.text = data.fullName
+        userNameLb.text = "\(data.userID)"
         userLocationLb.text = data.currentAdd
         let mainText = NSAttributedString(string: data.bio ?? "", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
-
-//        userIntroduct.text = data.bio
+        //        userIntroduct.text = data.bio
         DispatchQueue.main.async {
-            self.userIntroduct.text = data.bio
-
-//            self.userIntroduct.attributedText = mainText
-
-            self.setupUserIntroduct()
-
+//            self.userIntroduct.text = data.bio
+                        self.userIntroduct.attributedText = mainText
+//            self.setupUserIntroduct()
         }
-
-
     }
     
     func getAllImage(userID: String){
@@ -122,8 +114,8 @@ class UserIntroduceViewController: UIViewController {
                         do {
                             let json = try JSON(data: data)
                             let errorMessage = json["message"].stringValue
-                            print(errorMessage)
-                            self.showAlert(title: "Lỗi", message: errorMessage + "1")
+                            print("errorMessage:\(errorMessage)")
+//                            self.showAlert(title: "Lỗi", message: "Người dùng")
                         } catch {
                             print("Error parsing JSON: \(error.localizedDescription)")
                             self.showAlert(title: "Lỗi", message: "Đã xảy ra lỗi, vui lòng thử lại sau.")

@@ -15,7 +15,6 @@ import iOSDropDown
 
 class RegisterViewController: UIViewController, CheckValid {
     
-    
     @IBOutlet weak var userNameTF: UITextField!
     @IBOutlet weak var userEmailTF: UITextField!
     @IBOutlet weak var userPasswordTF: UITextField!
@@ -32,23 +31,23 @@ class RegisterViewController: UIViewController, CheckValid {
     var userLongitude : String?
     var userLatitude : String?
     var userIpAdress : String?
-    var userData : UserDataRegister?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         checkInput()
         userPasswordTF.text = keychain.get("password")
-        checkLocationAuthorizationStatus()
+//        genderTF.text = "Nam"
         dropDownHandle(texfield: genderTF, inputArray: Constant.gender)
     }
+    
     override func viewWillAppear(_ animated: Bool) {
         requestLocation()
-        
     }
     @IBAction func UserInputDidChanged(_ sender: UITextField) {
         checkInput()
     }
+    
     @IBAction func handleBtn(_ sender: UIButton) {
         switch sender {
         case agreeTermBtn :
@@ -56,6 +55,7 @@ class RegisterViewController: UIViewController, CheckValid {
             checkInput()
         case genderBtn :
             genderTF.showList()
+            //            checkInput()
         case registerBtn :
             registerHandle()
         case loginBtn:
@@ -68,11 +68,15 @@ class RegisterViewController: UIViewController, CheckValid {
         texfield.arrowColor = UIColor .red
         texfield.selectedRowColor = UIColor .red
         texfield.optionArray = inputArray
+        texfield.inputView = UIView()
+        texfield.clearsOnInsertion = false
+        texfield.clearsOnBeginEditing = false
     }
     func setupView(){
         standardBorder(textField: userNameTF)
         standardBorder(textField: userEmailTF)
         standardBorder(textField: userPasswordTF)
+        standardBorder(textField: genderTF)
     }
     
     func saveUserInfo(){
@@ -90,19 +94,31 @@ class RegisterViewController: UIViewController, CheckValid {
         agreeTermBtn.setBackgroundImage(buttonImage, for: .normal)
         print("\(agreeTermBtn.isSelected)")
         agreeTermBtn.isSelected = !agreeTermBtn.isSelected
-        print("remenber pw")
     }
-    
+    func test(inputText: String){
+        let userGender = inputText.count
+        print("userGender:\(userGender)")
+        if  userGender > 1 {
+            print("ok")
+        } else {
+            print("notok")
+        }
+    }
     func checkInput() {
-        guard let userName = userNameTF.text, let userEmail = userEmailTF.text, let userPassword = userPasswordTF.text else {
+        print("checkInput")
+        guard let userName = userNameTF.text, let userEmail = userEmailTF.text, let userPassword = userPasswordTF.text, let usderGender = genderTF.text?.count else {
             registerBtn.isEnabled = false
             registerBtn.layer.opacity = 0.5
+            print("userNil")
             return
         }
-        if checkUserNameValid(userName: userName) && emailValidator(email: userEmail) && passwordValidator(password: userPassword) && agreeTermBtn.isSelected {
+        if checkUserNameValid(userName: userName) && emailValidator(email: userEmail) && passwordValidator(password: userPassword) && agreeTermBtn.isSelected && usderGender > 1 {
             registerBtn.isEnabled = true
             registerBtn.layer.opacity = 1
-        }else {
+            print("userok")
+
+        } else {
+            print("userelse")
             registerBtn.isEnabled = false
             registerBtn.layer.opacity = 0.5
         }
@@ -115,21 +131,30 @@ class RegisterViewController: UIViewController, CheckValid {
               let userEmail = userEmailTF.text,
               let longitude = userLongitude,
               let latitude = userLatitude,
-              let ipAdress = userIpAdress else {
-            print("user nil")
+              let ipAdress = userIpAdress,
+              let userGender = genderTF.text else {
             showLoading(isShow: false)
             showAlert(title: "Lỗi", message: "Vui lòng thử lại sau")
             return
+        }
+        var userAvatarLink : String?
+        if userGender == "Nam" || userGender == "Đồng tính nam" {
+            userAvatarLink = Constant.maleAvatar
+        } else {
+            userAvatarLink = Constant.femaleAvatar
         }
         let parameters: [String: Any] = [
             "Username": username,
             "FullName": username,
             "Email": userEmail,
             "Password": userpassword,
-            "Latitude": longitude,
-            "Longitude": latitude,
-            "LastLoginIP": ipAdress
+            "Latitude": latitude,
+            "Longitude": longitude,
+            "LastLoginIP": ipAdress,
+            "Gender": userGender,
+            "avatarLink" : userAvatarLink ?? Constant.maleAvatar
         ]
+        print("param:\(parameters)")
         
         APIService.share.apiHandle(method: .post ,subUrl: "register", parameters: parameters, data: UserDataRegister.self) { [weak self] result in
             guard let self = self else { return }
@@ -137,13 +162,21 @@ class RegisterViewController: UIViewController, CheckValid {
                 self.showLoading(isShow: false)
                 switch result {
                 case .success(let data):
-                    print("data: \(data)")
+                    guard let userID = data.users?.first?.userID else {
+                    print("user data nil")
+                    return
+                }
+                    self.keychain.set(String(userID), forKey: "userID")
+                        self.saveUserInfo()
+                        UserDefaults.standard.didLogin = true
                         self.showLoading(isShow: false)
+                        AppDelegate.scene?.goToProfile()
                 case .failure(let error):
+                    self.showLoading(isShow: false)
                     switch error {
                     case .server(let message), .network(let message):
                         self.showAlert(title: "Lỗi", message: message)
-                        print("\(message)")
+                        print("message:\(message)")
                     }
                 }
             }
@@ -152,29 +185,6 @@ class RegisterViewController: UIViewController, CheckValid {
 }
 // MARK: - Các hàm liên quan vị trí
 extension RegisterViewController: CLLocationManagerDelegate {
-    func getLocationByAPI(){
-        struct Location: Codable {
-            let lat, lon: Double
-            let city: String
-        }
-        showLoading(isShow: true)
-        let url = "http://ip-api.com/json"
-        AF.request(url).validate().responseDecodable(of: Location.self) { response in
-            switch response.result {
-            case .success(let location):
-                let currentLongitude = location.lon
-                let currentLatitude = location.lat
-                self.userLongitude = String(Int(currentLongitude))
-                self.userLatitude = String(Int(currentLatitude))
-                self.showLoading(isShow: false)
-                
-            case .failure(let error):
-                print("Error: \(error.localizedDescription)")
-                self.showLoading(isShow: false)
-                self.showAlert(title: "Lỗi", message: error.localizedDescription)
-            }
-        }
-    }
     
     func fetchCurrentLocation() {
         showLoading(isShow: true)
@@ -199,8 +209,10 @@ extension RegisterViewController: CLLocationManagerDelegate {
             }
             let currentLongitude = currentLocation.coordinate.longitude
             let currentLatitude = currentLocation.coordinate.latitude
-            self?.userLongitude = String(Int(currentLongitude))
-            self?.userLatitude = String(Int(currentLatitude))
+            self?.userLongitude = String(currentLongitude)
+            self?.userLatitude = String(currentLatitude)
+            print("currentLongitude:\(currentLongitude)")
+            print("currentLuserLongitude:\(currentLatitude)")
             self?.showLoading(isShow: false)
         }
     }

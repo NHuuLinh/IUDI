@@ -10,7 +10,6 @@
 		6B5541A228065D7AE7CAE4FD /* Pods_IUDITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A85C6EA8E23A90E04CE3A56 /* Pods_IUDITests.framework */; };
 		99793040C9AE4F5AD0955E7C /* Pods_IUDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 888718E28E8066911DF3A882 /* Pods_IUDI.framework */; };
 		A420FDA62B9614BA00C33C57 /* CellSize+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A420FDA52B9614BA00C33C57 /* CellSize+Extension.swift */; };
-		A426D77A2B96D82900A5050B /* MainTabBarControllerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A426D7792B96D82900A5050B /* MainTabBarControllerViewController.swift */; };
 		A426D77E2B96D94D00A5050B /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A426D77C2B96D94D00A5050B /* FilterViewController.swift */; };
 		A426D77F2B96D94D00A5050B /* FilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A426D77D2B96D94D00A5050B /* FilterViewController.xib */; };
 		A426D7812B971F6000A5050B /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4A517352B86F5F100AD4CE3 /* Roboto-Medium.ttf */; };
@@ -25,6 +24,7 @@
 		A45348DF2B8C9919006D72E4 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45348DE2B8C9919006D72E4 /* UserProfile.swift */; };
 		A45ABCF62B9811CF0039B985 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45ABCF42B9811CF0039B985 /* FilterCell.swift */; };
 		A45ABCF72B9811CF0039B985 /* FilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A45ABCF52B9811CF0039B985 /* FilterCell.xib */; };
+		A463BDDE2BA043F400E8CBF3 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A463BDDD2BA043F400E8CBF3 /* ResetPasswordViewController.swift */; };
 		A46D0E7F2B8ECFEA00E5CD4F /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46D0E7E2B8ECFEA00E5CD4F /* ImageModel.swift */; };
 		A46D0E812B8ED2CC00E5CD4F /* APIServiceImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46D0E802B8ED2CC00E5CD4F /* APIServiceImage.swift */; };
 		A46D0E842B8F317800E5CD4F /* SelectImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46D0E832B8F317800E5CD4F /* SelectImageViewController.swift */; };
@@ -114,7 +114,6 @@
 		8BCB4CCFEEEC9F19F61889A5 /* Pods-IUDI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IUDI.debug.xcconfig"; path = "Target Support Files/Pods-IUDI/Pods-IUDI.debug.xcconfig"; sourceTree = "<group>"; };
 		95D978491C763FD1F3B95D6A /* Pods-IUDITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IUDITests.debug.xcconfig"; path = "Target Support Files/Pods-IUDITests/Pods-IUDITests.debug.xcconfig"; sourceTree = "<group>"; };
 		A420FDA52B9614BA00C33C57 /* CellSize+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CellSize+Extension.swift"; sourceTree = "<group>"; };
-		A426D7792B96D82900A5050B /* MainTabBarControllerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabBarControllerViewController.swift; sourceTree = "<group>"; };
 		A426D77C2B96D94D00A5050B /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		A426D77D2B96D94D00A5050B /* FilterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterViewController.xib; sourceTree = "<group>"; };
 		A428386F2B982A8F0073BD7F /* FilterSettingUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSettingUIViewController.swift; sourceTree = "<group>"; };
@@ -128,6 +127,7 @@
 		A45348DE2B8C9919006D72E4 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		A45ABCF42B9811CF0039B985 /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
 		A45ABCF52B9811CF0039B985 /* FilterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterCell.xib; sourceTree = "<group>"; };
+		A463BDDD2BA043F400E8CBF3 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		A46D0E7E2B8ECFEA00E5CD4F /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
 		A46D0E802B8ED2CC00E5CD4F /* APIServiceImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServiceImage.swift; sourceTree = "<group>"; };
 		A46D0E832B8F317800E5CD4F /* SelectImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageViewController.swift; sourceTree = "<group>"; };
@@ -249,7 +249,6 @@
 		A426D77B2B96D83B00A5050B /* Tab Bar */ = {
 			isa = PBXGroup;
 			children = (
-				A426D7792B96D82900A5050B /* MainTabBarControllerViewController.swift */,
 				A483D03A2B88377900DD6B15 /* Home Screen */,
 				A426D7802B96D95E00A5050B /* filter Screen */,
 			);
@@ -337,6 +336,14 @@
 			path = Constant;
 			sourceTree = "<group>";
 		};
+		A463BDDF2BA0440700E8CBF3 /* ResetPassword */ = {
+			isa = PBXGroup;
+			children = (
+				A463BDDD2BA043F400E8CBF3 /* ResetPasswordViewController.swift */,
+			);
+			path = ResetPassword;
+			sourceTree = "<group>";
+		};
 		A46D0E852B8F31E900E5CD4F /* Profile Screen */ = {
 			isa = PBXGroup;
 			children = (
@@ -408,6 +415,7 @@
 				A483D03B2B88379C00DD6B15 /* NetWork */,
 				A46D0E852B8F31E900E5CD4F /* Profile Screen */,
 				A426D77B2B96D83B00A5050B /* Tab Bar */,
+				A463BDDF2BA0440700E8CBF3 /* ResetPassword */,
 				A453BBC22B88A16300614034 /* RegisterScreen */,
 				A4A517532B86FD5100AD4CE3 /* LoginScreen */,
 				A4A517342B86F5F100AD4CE3 /* Roboto Font */,
@@ -825,6 +833,7 @@
 				A46D0E842B8F317800E5CD4F /* SelectImageViewController.swift in Sources */,
 				A4A517522B86FD3A00AD4CE3 /* LoginViewController.swift in Sources */,
 				A434D0D22B9997360087A62B /* FilterUserEntity+CoreDataProperties.swift in Sources */,
+				A463BDDE2BA043F400E8CBF3 /* ResetPasswordViewController.swift in Sources */,
 				A48B896D2B94D8EE00C7BC51 /* UserLocation.swift in Sources */,
 				AB8A682D2B8F16BA001F686F /* PrivacyViewController.swift in Sources */,
 				A46D0E7F2B8ECFEA00E5CD4F /* ImageModel.swift in Sources */,
@@ -840,7 +849,6 @@
 				A426D77E2B96D94D00A5050B /* FilterViewController.swift in Sources */,
 				AB8A68322B8F178B001F686F /* NotificationViewController.swift in Sources */,
 				A4A517502B86FB3200AD4CE3 /* UIView+Extension.swift in Sources */,
-				A426D77A2B96D82900A5050B /* MainTabBarControllerViewController.swift in Sources */,
 				A4A517042B86E52100AD4CE3 /* SceneDelegate.swift in Sources */,
 				A483D0462B885BC700DD6B15 /* CheckValid.swift in Sources */,
 			);

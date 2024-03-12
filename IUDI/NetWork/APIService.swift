@@ -23,15 +23,15 @@ class APIService {
                 case .success(let data):
                     completion(.success(data))
                     print("success")
-
+                    
                 case .failure(let error):
                     print(error.localizedDescription)
-
+                    
                     if let data = response.data {
                         do {
-
+                            
                             let json = try JSON(data: data)
-                            let errorMessage = json["status"].stringValue
+                            let errorMessage = json["message"].stringValue
                             completion(.failure(.server(message: errorMessage)))
                         } catch {
                             print("error server")
@@ -47,6 +47,7 @@ class APIService {
     func apiHandleGetRequest<T: Decodable>(subUrl: String, data: T.Type, completion: @escaping (Result<T, APIError>) -> Void) {
         
         let url = Constant.baseUrl + subUrl
+        print("url: \(url)")
         
         AF.request(url, method: .get, encoding: JSONEncoding.default)
             .validate(statusCode: 200...299)
@@ -55,15 +56,15 @@ class APIService {
                 case .success(let data):
                     completion(.success(data))
                     print("success")
-
+                    
                 case .failure(let error):
                     print(error.localizedDescription)
-
+                    
                     if let data = response.data {
                         do {
-
+                            
                             let json = try JSON(data: data)
-                            let errorMessage = json["status"].stringValue
+                            let errorMessage = json["message"].stringValue
                             completion(.failure(.server(message: errorMessage)))
                         } catch {
                             print("error server")
@@ -92,6 +93,6 @@ class APIService {
             }
         }
     }
-
+    
     
 }

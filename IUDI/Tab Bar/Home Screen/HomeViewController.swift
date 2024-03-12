@@ -3,29 +3,23 @@ import SwiftyJSON
 import CollectionViewPagingLayout
 import Alamofire
 import ReadMoreTextView
+import KeychainSwift
 
 class HomeViewController: UIViewController{
     @IBOutlet weak var userCollectionView: UICollectionView!
     var userDistance = [Distance]()
+    var stackTransformOptions = StackTransformViewOptions()
+    var keychain = KeychainSwift()
+    let coreData = FilterUserCoreData.share
+    let coreDataMaxDistance = (FilterUserCoreData.share.getUserFilterValueFromCoreData(key: "maxDistance") as? Double ?? 30) * 1000
+
     override func viewDidLoad() {
         super.viewDidLoad()
         getNearUser()
         setupCollectionView()
     }
-    
     override func viewDidAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
-        
-    }
-    private func setupCollectionView() {
-        userCollectionView.dataSource = self
-        userCollectionView.delegate = self
-        userCollectionView.register(UINib(nibName: "HomeCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "HomeCollectionViewCell")
-        let layout = CollectionViewPagingLayout()
-        layout.scrollDirection = .vertical
-        layout.numberOfVisibleItems = nil
-        userCollectionView.collectionViewLayout = layout
-        userCollectionView.isPagingEnabled = true
     }
     func setupView(){
         userCollectionView.layer.cornerRadius = 32
@@ -37,24 +31,21 @@ class HomeViewController: UIViewController{
         userCollectionView.layer.shadowRadius = 4
     }
     func filterDistances(_ distances: [Distance]) -> [Distance] {
-        let coreData = FilterUserCoreData.share
-        let filterGender = coreData.getUserFilterValueFromCoreData(key: "gender") as! String
+        let filterGender = coreData.getUserFilterValueFromCoreData(key: "gender") as? String ?? ""
         
-        let coreDataMinAge = coreData.getUserFilterValueFromCoreData(key: "minAge") as! Int
+        let coreDataMinAge = coreData.getUserFilterValueFromCoreData(key: "minAge") as? Int ?? 18
         let filterMinAge = Int(Constant.currentYear) - coreDataMinAge
         
-        let coreDataMaxAge = coreData.getUserFilterValueFromCoreData(key: "maxAge") as! Int
+        let coreDataMaxAge = coreData.getUserFilterValueFromCoreData(key: "maxAge") as? Int ?? 70
         let filterMaxAge = Int(Constant.currentYear) - coreDataMaxAge
         
-        let coreDataMaxDistance = coreData.getUserFilterValueFromCoreData(key: "maxDistance") as! Double
-        let filterMaxDistance = coreDataMaxDistance * 1000
+//        let coreDataMaxDistance = coreData.getUserFilterValueFromCoreData(key: "maxDistance") as? Double ?? 30
+//        let filterMaxDistance = coreDataMaxDistance * 1000
         
-        let coreDataMinDistance = coreData.getUserFilterValueFromCoreData(key: "minDistance") as! Double
+        let coreDataMinDistance = coreData.getUserFilterValueFromCoreData(key: "minDistance") as? Double ?? 0
         let filterMinDistance = coreDataMinDistance * 1000
         
-        let filterAddress = coreData.getUserFilterValueFromCoreData(key: "currentAddress") as! String
-        
-        print("filterValue: \(filterGender.count),\(filterMinAge),\(filterMaxAge),\(filterMaxDistance),\(filterMinDistance),\(filterAddress.count)")
+        let filterAddress = coreData.getUserFilterValueFromCoreData(key: "currentAddress") as? String ?? ""
         
         return distances.filter { distance in
             guard let gender = distance.gender,
@@ -73,28 +64,30 @@ class HomeViewController: UIViewController{
             
             if filterGender.count < 1 && filterAddress.count > 1{
                 print("no gender")
-                return (filterMaxAge...filterMinAge).contains(birthYear) && currentAdd == filterAddress && (filterMinDistance...filterMaxDistance).contains(distanceInMeters)
+                return (filterMaxAge...filterMinAge).contains(birthYear) && currentAdd == filterAddress && (filterMinDistance...coreDataMaxDistance).contains(distanceInMeters)
             } else if filterGender.count > 1 && filterAddress.count < 1 {
                 print("no Address")
-                print("filterValue: \(filterGender.count),\(filterMinAge),\(filterMaxAge),\(filterMaxDistance),\(filterMinDistance),\(filterAddress.count)")
-                return gender == filterGender && (filterMaxAge...filterMinAge).contains(birthYear) && (filterMinDistance...filterMaxDistance).contains(distanceInMeters)
+                return gender == filterGender && (filterMaxAge...filterMinAge).contains(birthYear) && (filterMinDistance...coreDataMaxDistance).contains(distanceInMeters)
             } else if filterGender.count < 1 && filterAddress.count < 1 {
                 print("no gender, no Address")
-                return (filterMaxAge...filterMinAge).contains(birthYear) && (filterMinDistance...filterMaxDistance).contains(distanceInMeters)
+                return (filterMaxAge...filterMinAge).contains(birthYear) && (filterMinDistance...coreDataMaxDistance).contains(distanceInMeters)
             }else {
                 print("full")
-                return gender == filterGender && (filterMaxAge...filterMinAge).contains(birthYear) && currentAdd == filterAddress && (filterMinDistance...filterMaxDistance).contains(distanceInMeters)
+                return gender == filterGender && (filterMaxAge...filterMinAge).contains(birthYear) && currentAdd == filterAddress && (filterMinDistance...coreDataMaxDistance).contains(distanceInMeters)
             }
-            //                        return gender == "Nam" && (0...2024).contains(birthYear) && currentAdd == "" && (100...30000).contains(distanceInMeters)
         }
     }
     
     func getNearUser(){
+        guard let userID = keychain.get("userID") else {
+            print("userID Nil")
+            return
+        }
         showLoading(isShow: true)
         let apiService = APIService.share
-        let url = "location/37/3000"
-        print("url:\(url)")
-        apiService.apiHandleGetRequest(subUrl: url,data: UserDistances.self) { result in
+        let subUrl = "location/\(userID)/\(String(Int(coreDataMaxDistance)))"
+        print("url:\(subUrl)")
+        apiService.apiHandleGetRequest(subUrl: subUrl,data: UserDistances.self) { result in
             switch result {
             case .success(let data):
                 guard let distanceData = data.distances else {
@@ -106,10 +99,8 @@ class HomeViewController: UIViewController{
                 self.userDistance = filterData
                 DispatchQueue.main.async {
                     self.userCollectionView.reloadData()
-                    self.setupCollectionView()
                 }
                 self.showLoading(isShow: false)
-                
             case .failure(let error):
                 print("error: \(error.localizedDescription)")
                 self.showLoading(isShow: false)
@@ -131,8 +122,19 @@ class HomeViewController: UIViewController{
     }
 }
 extension HomeViewController:UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+    func setupCollectionView() {
+        userCollectionView.dataSource = self
+        userCollectionView.delegate = self
+        userCollectionView.register(UINib(nibName: "HomeCollectionViewCell", bundle: nil), forCellWithReuseIdentifier: "HomeCollectionViewCell")
+        let layout = CollectionViewPagingLayout()
+        layout.scrollDirection = .vertical
+        layout.numberOfVisibleItems = nil
+        userCollectionView.collectionViewLayout = layout
+        userCollectionView.isPagingEnabled = true
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        print("userDistance.count:\(userDistance.count)")
         return userDistance.count
     }
     
@@ -156,3 +158,4 @@ extension HomeViewController:UICollectionViewDataSource, UICollectionViewDelegat
         }
     
 }
+    

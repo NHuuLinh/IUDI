@@ -16,6 +16,7 @@ class LoginViewController: UIViewController, CheckValid {
     @IBOutlet weak var rememberPasswordBtn: UIButton!
     @IBOutlet weak var loginBtn: UIButton!
     @IBOutlet weak var registerBtn: UIButton!
+    @IBOutlet weak var forgetPasswordBtn: UIButton!
     let keychain = KeychainSwift()
     var isRememberPassword = false
     let locationManager = CLLocationManager()
@@ -27,11 +28,16 @@ class LoginViewController: UIViewController, CheckValid {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        checkInput()
         checkLocationAuthorizationStatus()
     }
     override func viewWillAppear(_ animated: Bool) {
         requestLocation()
+        userPasswordTF.text = keychain.get("password")
+        userNameTF.text = keychain.get("username")
+//        print("userNameTF:\(userNameTF.text)")
+//        print("userPasswordTF:\(userPasswordTF.text)")
+        checkInput()
+
     }
     @IBAction func UserInputDidChanged(_ sender: UITextField) {
         checkInput()
@@ -44,14 +50,22 @@ class LoginViewController: UIViewController, CheckValid {
             print("loginhandle")
         case rememberPasswordBtn :
             checkBoxHandle()
+            checkInput()
         case registerBtn:
             //            loginHandle()
             goToRegisterVC()
+        case forgetPasswordBtn:
+            goToResetPasswordVC()
         default:
             break
         }
     }
-    
+    func goToResetPasswordVC(){
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        if let viewController = storyboard.instantiateViewController(identifier: "ResetPasswordViewController") as? ResetPasswordViewController {
+            self.navigationController?.pushViewController(viewController, animated: true)
+        }
+    }
     func goToRegisterVC(){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let viewController = storyboard.instantiateViewController(identifier: "RegisterViewController") as? RegisterViewController {
@@ -59,8 +73,6 @@ class LoginViewController: UIViewController, CheckValid {
         }
     }
     func setupView(){
-        //        userNameTF.text = keychain.get("username")
-        //        userPasswordTF.text = keychain.get("password")
         rememberPasswordBtn.isSelected = true
         // Đặt hình ảnh ban đầu cho nút
         let checkImage = UIImage(systemName: "checkmark.square")
@@ -106,7 +118,8 @@ class LoginViewController: UIViewController, CheckValid {
         }else {
             loginBtn.isEnabled = false
             loginBtn.layer.opacity = 0.5
-            print("fail")
+            print("userName:\(userName)")
+            print("fail \(checkUserNameValid(userName: userName)),\(passwordValidator(password: userPassword)) ")
         }
     }
     func loginHandle() {
@@ -128,26 +141,26 @@ class LoginViewController: UIViewController, CheckValid {
             "Longitude": longitude,
             "LastLoginIP": ipAdress
         ]
+        
         print("parameters: \(parameters)")
         APIService.share.apiHandle(method:.post ,subUrl: "login", parameters: parameters, data: UserData.self) { [weak self] result in
             guard let self = self else { return }
             self.showLoading(isShow: false)
             switch result {
             case .success(let data):
-                print("data: \(data)")
-                DispatchQueue.main.async {
-                    self.userData = data
-                    guard let userID = self.userData?.user?.users?.first?.userID else {
-                        print("user nil kiểm tra user response")
-                        return
-                    }
-                    UserDefaults.standard.set(userID, forKey: "UserID")
-                    print("data: \(userID)")
-                    self.saveUserInfo()
-                    UserDefaults.standard.didLogin = true
-                    self.showLoading(isShow: false)
-                    AppDelegate.scene?.goToHome()
+                guard let userID = data.user?.users?.first?.userID else {
+                    print("user data nil")
+                    return
                 }
+                self.keychain.set(String(userID), forKey: "UserID")
+                self.saveUserInfo()
+                UserDefaults.standard.didLogin = true
+                self.showLoading(isShow: false)
+                guard let userBio = data.user?.users?.first?.bio else {
+                    AppDelegate.scene?.goToProfile()
+                    return
+                }
+                AppDelegate.scene?.setupTabBar()
             case .failure(let error):
                 print(error.localizedDescription)
                 switch error {
@@ -182,6 +195,7 @@ extension LoginViewController: CLLocationManagerDelegate {
         geocoder.reverseGeocodeLocation(currentLocation) { [weak self] (placemarks, error) in
             if let error = error {
                 print("Reverse geocoding failed: \(error.localizedDescription)")
+                self?.showLoading(isShow: false)
                 return
             }
             let currentLongitude = currentLocation.coordinate.longitude
