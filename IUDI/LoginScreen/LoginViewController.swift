@@ -152,7 +152,7 @@ class LoginViewController: UIViewController, CheckValid {
                     print("user data nil")
                     return
                 }
-                self.keychain.set(String(userID), forKey: "UserID")
+                self.keychain.set(String(userID), forKey: "userID")
                 self.saveUserInfo()
                 UserDefaults.standard.didLogin = true
                 self.showLoading(isShow: false)

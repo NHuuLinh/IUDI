@@ -30,7 +30,10 @@ class UserIntroduceViewController: UIViewController {
         super.viewDidLoad()
         setupCollectionView()
         registerCollectionView()
-                setupUserIntroduct()
+        setupUserIntroduct()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        userAvatar.layer.cornerRadius = 32
     }
     @IBAction func buttonHandle(_ sender: UIButton) {
         switch sender {
@@ -76,14 +79,15 @@ class UserIntroduceViewController: UIViewController {
                 self.userAvatar.image = UIImage(systemName: "person")
             }
         })
-        userNameLb.text = "\(data.userID)"
+        userNameLb.text = data.fullName
+        //        userNameLb.text = "\(data.userID)"
         userLocationLb.text = data.currentAdd
         let mainText = NSAttributedString(string: data.bio ?? "", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
         //        userIntroduct.text = data.bio
         DispatchQueue.main.async {
-//            self.userIntroduct.text = data.bio
-                        self.userIntroduct.attributedText = mainText
-//            self.setupUserIntroduct()
+            //            self.userIntroduct.text = data.bio
+            self.userIntroduct.attributedText = mainText
+            //            self.setupUserIntroduct()
         }
     }
     
@@ -115,7 +119,7 @@ class UserIntroduceViewController: UIViewController {
                             let json = try JSON(data: data)
                             let errorMessage = json["message"].stringValue
                             print("errorMessage:\(errorMessage)")
-//                            self.showAlert(title: "Lỗi", message: "Người dùng")
+                            //                            self.showAlert(title: "Lỗi", message: "Người dùng")
                         } catch {
                             print("Error parsing JSON: \(error.localizedDescription)")
                             self.showAlert(title: "Lỗi", message: "Đã xảy ra lỗi, vui lòng thử lại sau.")
@@ -132,7 +136,7 @@ class UserIntroduceViewController: UIViewController {
 }
 extension UserIntroduceViewController : UICollectionViewDataSource, UICollectionViewDelegate,CellSizeCaculate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("userPhotos.count: \(userPhotos.count)")
+        //        print("userPhotos.count: \(userPhotos.count)")
         return userPhotos.count
     }
     

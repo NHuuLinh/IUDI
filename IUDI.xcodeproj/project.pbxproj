@@ -16,6 +16,8 @@
 		A42838712B982A8F0073BD7F /* FilterSettingUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A428386F2B982A8F0073BD7F /* FilterSettingUIViewController.swift */; };
 		A42838722B982A8F0073BD7F /* FilterSettingUIViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A42838702B982A8F0073BD7F /* FilterSettingUIViewController.xib */; };
 		A42838752B98648E0073BD7F /* Slider+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42838742B98648E0073BD7F /* Slider+Extension.swift */; };
+		A42BCBE12BA1638700B72DF6 /* PreviousChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42BCBDF2BA1638700B72DF6 /* PreviousChatViewController.swift */; };
+		A42BCBE22BA1638700B72DF6 /* PreviousChatViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A42BCBE02BA1638700B72DF6 /* PreviousChatViewController.xib */; };
 		A434D0C62B9979290087A62B /* FilterUserCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434D0C52B9979290087A62B /* FilterUserCoreData.swift */; };
 		A434D0D12B9997360087A62B /* FilterUserEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434D0CF2B9997360087A62B /* FilterUserEntity+CoreDataClass.swift */; };
 		A434D0D22B9997360087A62B /* FilterUserEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434D0D02B9997360087A62B /* FilterUserEntity+CoreDataProperties.swift */; };
@@ -119,6 +121,8 @@
 		A428386F2B982A8F0073BD7F /* FilterSettingUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSettingUIViewController.swift; sourceTree = "<group>"; };
 		A42838702B982A8F0073BD7F /* FilterSettingUIViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterSettingUIViewController.xib; sourceTree = "<group>"; };
 		A42838742B98648E0073BD7F /* Slider+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Slider+Extension.swift"; sourceTree = "<group>"; };
+		A42BCBDF2BA1638700B72DF6 /* PreviousChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreviousChatViewController.swift; sourceTree = "<group>"; };
+		A42BCBE02BA1638700B72DF6 /* PreviousChatViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PreviousChatViewController.xib; sourceTree = "<group>"; };
 		A434D0C52B9979290087A62B /* FilterUserCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterUserCoreData.swift; sourceTree = "<group>"; };
 		A434D0CF2B9997360087A62B /* FilterUserEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FilterUserEntity+CoreDataClass.swift"; path = "/Users/nguyenlinh/Documents/Work/IUDI - App hẹn hò/IUDI/IUDI/IUDI/FilterUserEntity+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		A434D0D02B9997360087A62B /* FilterUserEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FilterUserEntity+CoreDataProperties.swift"; path = "/Users/nguyenlinh/Documents/Work/IUDI - App hẹn hò/IUDI/IUDI/IUDI/FilterUserEntity+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
@@ -249,13 +253,14 @@
 		A426D77B2B96D83B00A5050B /* Tab Bar */ = {
 			isa = PBXGroup;
 			children = (
+				A42BCBDD2BA1622400B72DF6 /* Chat Screen */,
 				A483D03A2B88377900DD6B15 /* Home Screen */,
-				A426D7802B96D95E00A5050B /* filter Screen */,
+				A426D7802B96D95E00A5050B /* Filter Screen */,
 			);
 			path = "Tab Bar";
 			sourceTree = "<group>";
 		};
-		A426D7802B96D95E00A5050B /* filter Screen */ = {
+		A426D7802B96D95E00A5050B /* Filter Screen */ = {
 			isa = PBXGroup;
 			children = (
 				A426D77C2B96D94D00A5050B /* FilterViewController.swift */,
@@ -263,7 +268,7 @@
 				A42838732B982AA00073BD7F /* Filter Setting */,
 				A428386E2B982A3E0073BD7F /* Cell */,
 			);
-			path = "filter Screen";
+			path = "Filter Screen";
 			sourceTree = "<group>";
 		};
 		A428386E2B982A3E0073BD7F /* Cell */ = {
@@ -282,6 +287,23 @@
 				A42838702B982A8F0073BD7F /* FilterSettingUIViewController.xib */,
 			);
 			path = "Filter Setting";
+			sourceTree = "<group>";
+		};
+		A42BCBDD2BA1622400B72DF6 /* Chat Screen */ = {
+			isa = PBXGroup;
+			children = (
+				A42BCBDE2BA1629500B72DF6 /* Chat introduct */,
+			);
+			name = "Chat Screen";
+			sourceTree = "<group>";
+		};
+		A42BCBDE2BA1629500B72DF6 /* Chat introduct */ = {
+			isa = PBXGroup;
+			children = (
+				A42BCBDF2BA1638700B72DF6 /* PreviousChatViewController.swift */,
+				A42BCBE02BA1638700B72DF6 /* PreviousChatViewController.xib */,
+			);
+			name = "Chat introduct";
 			sourceTree = "<group>";
 		};
 		A434D0C32B9978780087A62B /* FilterUserEntity */ = {
@@ -655,6 +677,7 @@
 				A49845AA2B8DEBE400357ABE /* Main.storyboard in Resources */,
 				AB24B17E2B8DEDED007665D8 /* SettingViewController.xib in Resources */,
 				A4A5174C2B86F5F100AD4CE3 /* Roboto-Bold.ttf in Resources */,
+				A42BCBE22BA1638700B72DF6 /* PreviousChatViewController.xib in Resources */,
 				A4A5174A2B86F5F100AD4CE3 /* LICENSE.txt in Resources */,
 				AB8A681C2B8ED7B4001F686F /* GroupViewController.xib in Resources */,
 				A426D7812B971F6000A5050B /* Roboto-Medium.ttf in Resources */,
@@ -816,6 +839,7 @@
 				AB8A681F2B8ED887001F686F /* CollectionViewCell.swift in Sources */,
 				AB8A68152B8DF1A7001F686F /* AboutViewController.swift in Sources */,
 				A46D0E872B8F367600E5CD4F /* GetPhotos.swift in Sources */,
+				A42BCBE12BA1638700B72DF6 /* PreviousChatViewController.swift in Sources */,
 				A4A517552B8708B200AD4CE3 /* Constant.swift in Sources */,
 				A4B4AB9E2B8C324100822DDB /* HomeCollectionViewCell.swift in Sources */,
 				A45ABCF62B9811CF0039B985 /* FilterCell.swift in Sources */,

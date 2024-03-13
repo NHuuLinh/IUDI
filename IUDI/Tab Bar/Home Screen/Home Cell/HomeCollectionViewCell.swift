@@ -2,6 +2,7 @@
 import UIKit
 import CollectionViewPagingLayout
 
+
 class HomeCollectionViewCell: UICollectionViewCell,DateConvertFormat {
     @IBOutlet weak var cellUiView: UIView!
     @IBOutlet weak var userImage: UIImageView!
@@ -76,6 +77,10 @@ class HomeCollectionViewCell: UICollectionViewCell,DateConvertFormat {
         case loveBtn:
             print("favorite")
             homeVCDelegate?.setRelationShip(relatedUserID: relatedUserID, relationshipType: "favorite")
+            guard let image = userImage.image else {
+                return
+            }
+            homeVCDelegate?.gotoPreviousChatVC(targetImage: userImage.image ?? image)
         default:
             break
         }

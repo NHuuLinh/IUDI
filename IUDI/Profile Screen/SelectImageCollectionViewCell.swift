@@ -14,6 +14,7 @@ class SelectImageCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        userImage.layer.cornerRadius = 10
     }
     func blinData(data: Photo ,width: CGFloat){        
         imageWidth.constant = CGFloat(Int(width))
@@ -33,7 +34,7 @@ class SelectImageCollectionViewCell: UICollectionViewCell {
                 self.imageWidth.constant = CGFloat(Int(width))
                 // Ảnh đã tải thành công
                 break
-            case .failure(let error):
+            case .failure(_):
                 // Xảy ra lỗi khi tải ảnh
                 self.userImage.image = UIImage(systemName: "person")
 //                print("Lỗi khi tải ảnh: \(error.localizedDescription)")

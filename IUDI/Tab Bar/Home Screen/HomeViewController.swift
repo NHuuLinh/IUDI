@@ -8,6 +8,7 @@ import KeychainSwift
 protocol HomeVCDelegate:AnyObject {
     func setRelationShip(relatedUserID: Int?, relationshipType: String?)
     func test()
+    func gotoPreviousChatVC(targetImage: UIImage)
 }
 
 class HomeViewController: UIViewController, HomeVCDelegate{
@@ -71,16 +72,16 @@ class HomeViewController: UIViewController, HomeVCDelegate{
             let distanceInMeters = distance.distance ?? 0.0
             
             if filterGender.count < 1 && filterAddress.count > 1{
-                print("no gender")
+//                print("no gender")
                 return (filterMaxAge...filterMinAge).contains(birthYear) && currentAdd == filterAddress && (filterMinDistance...coreDataMaxDistance).contains(distanceInMeters)
             } else if filterGender.count > 1 && filterAddress.count < 1 {
-                print("no Address")
+//                print("no Address")
                 return gender == filterGender && (filterMaxAge...filterMinAge).contains(birthYear) && (filterMinDistance...coreDataMaxDistance).contains(distanceInMeters)
             } else if filterGender.count < 1 && filterAddress.count < 1 {
-                print("no gender, no Address")
+//                print("no gender, no Address")
                 return (filterMaxAge...filterMinAge).contains(birthYear) && (filterMinDistance...coreDataMaxDistance).contains(distanceInMeters)
             }else {
-                print("full")
+//                print("full")
                 return gender == filterGender && (filterMaxAge...filterMinAge).contains(birthYear) && currentAdd == filterAddress && (filterMinDistance...coreDataMaxDistance).contains(distanceInMeters)
             }
         }
@@ -168,6 +169,12 @@ class HomeViewController: UIViewController, HomeVCDelegate{
                 }
             }
         }
+    }
+    
+    func gotoPreviousChatVC(targetImage: UIImage){
+        let vc = PreviousChatViewController()
+        vc.testImage = targetImage
+        navigationController?.pushViewController(vc, animated: true)
     }
     
     @IBAction func profileBtn(_ sender: Any) {

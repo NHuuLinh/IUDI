@@ -31,6 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if UserDefaults.standard.didLogin {
             if UserDefaults.standard.didOnMain {
                 setupTabBar()
+//                goToFilter()
             } else {
                 goToProfile()
             }
@@ -76,7 +77,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func goToFilter() {
         print("Đã login rồi. Cho vào Home")
-        let mainVC = FilterViewController(nibName: "FilterViewController", bundle: nil)
+        let mainVC = PreviousChatViewController(nibName: "PreviousChatViewController", bundle: nil)
+//        let mainVC = FilterViewController(nibName: "FilterViewController", bundle: nil)
         let mainNavigation = UINavigationController(rootViewController: mainVC)
         window!.rootViewController = mainNavigation
         window!.makeKeyAndVisible()

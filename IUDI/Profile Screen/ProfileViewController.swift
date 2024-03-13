@@ -125,7 +125,7 @@ class ProfileViewController: UIViewController,DataDelegate,DateConvertFormat {
             self.showLoading(isShow: false)
             switch result {
             case .success(let data):
-                print("data: \(data)")
+                print("avatarLink: \(data.user?.users?.first?.avatarLink)")
             case .failure(let error):
                 print(error.localizedDescription)
                 switch error {
@@ -190,6 +190,7 @@ class ProfileViewController: UIViewController,DataDelegate,DateConvertFormat {
             switch result {
             case .success(_):
                 // Ảnh đã tải thành công
+                print("cập nhật ảnh thành công")
                 break
             case .failure(let error):
                 // Xảy ra lỗi khi tải ảnh
