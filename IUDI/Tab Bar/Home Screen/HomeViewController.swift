@@ -5,7 +5,12 @@ import Alamofire
 import ReadMoreTextView
 import KeychainSwift
 
-class HomeViewController: UIViewController{
+protocol HomeVCDelegate:AnyObject {
+    func setRelationShip(relatedUserID: Int?, relationshipType: String?)
+    func test()
+}
+
+class HomeViewController: UIViewController, HomeVCDelegate{
     @IBOutlet weak var userCollectionView: UICollectionView!
     var userDistance = [Distance]()
     var stackTransformOptions = StackTransformViewOptions()
@@ -20,6 +25,9 @@ class HomeViewController: UIViewController{
     }
     override func viewDidAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
+    }
+    func test(){
+        print("test")
     }
     func setupView(){
         userCollectionView.layer.cornerRadius = 32
@@ -114,6 +122,53 @@ class HomeViewController: UIViewController{
             }
         }
     }
+    func setRelationShip(relatedUserID: Int?, relationshipType: String?) {
+        showLoading(isShow: true)
+
+        struct SetRelationShip: Codable {
+            let createTime: String?
+            let relatedUserID: Int?
+            let relationshipType, userID: String?
+
+            enum CodingKeys: String, CodingKey {
+                case createTime = "CreateTime"
+                case relatedUserID = "RelatedUserID"
+                case relationshipType = "RelationshipType"
+                case userID = "UserID"
+            }
+        }
+        guard let userID = relatedUserID, let relateType = relationshipType else {
+            return
+        }
+        let parameters: [String: Any] = [
+            "RelatedUserID": userID,
+            "RelationshipType": relateType
+        ]
+        guard let userID = keychain.get("userID") else {
+            print("userID rỗng")
+            return
+        }
+        let subUrl = "profile/setRelationship/" + userID
+        
+        print("parameters: \(parameters)")
+        APIService.share.apiHandle(method:.post ,subUrl: subUrl, parameters: parameters, data: SetRelationShip.self) { [weak self] result in
+            guard let self = self else { return }
+            self.showLoading(isShow: false)
+            switch result {
+            case .success(let data):
+                print("\(data.createTime)")
+                self.showLoading(isShow: false)
+            case .failure(let error):
+                print(error.localizedDescription)
+                switch error {
+                case .server(let message):
+                    self.showAlert(title: "lỗi1", message: message)
+                case .network(let message):
+                    self.showAlert(title: "lỗi", message: message)
+                }
+            }
+        }
+    }
     
     @IBAction func profileBtn(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -142,6 +197,8 @@ extension HomeViewController:UICollectionViewDataSource, UICollectionViewDelegat
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "HomeCollectionViewCell", for: indexPath) as! HomeCollectionViewCell
         let data = userDistance[indexPath.item]
         cell.blindata(data: data)
+        cell.relatedUserID = data.userID
+        cell.homeVCDelegate = self
         return cell
     }
         func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {

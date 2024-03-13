@@ -14,7 +14,10 @@ class HomeCollectionViewCell: UICollectionViewCell,DateConvertFormat {
     @IBOutlet weak var likeBtn: UIButton!
     @IBOutlet weak var loveBtn: UIButton!
     var options = StackTransformViewOptions()
-    
+    var RelationshipType : String?
+    weak var homeVCDelegate : HomeVCDelegate?
+    var relatedUserID: Int?
+
     override func awakeFromNib() {
         super.awakeFromNib()
         setupView()
@@ -23,6 +26,7 @@ class HomeCollectionViewCell: UICollectionViewCell,DateConvertFormat {
     
     
     func blindata(data: Distance){
+        
         let imageUrl = URL(string: data.avatarLink ?? "")
         userImage.kf.setImage(with: imageUrl, placeholder: UIImage(named: "placeholder_image"), options: nil, completionHandler: { result in
             switch result {
@@ -60,19 +64,24 @@ class HomeCollectionViewCell: UICollectionViewCell,DateConvertFormat {
         userDistanceView.layer.borderColor = UIColor.white.cgColor
         userDistanceView.clipsToBounds = true
     }
+
     @IBAction func btnHandle(_ sender: UIButton) {
         switch sender {
         case removeBtn:
             print("removeBtn")
+            homeVCDelegate?.setRelationShip(relatedUserID: relatedUserID, relationshipType: "block")
         case likeBtn:
-            print("likeBtn")
+            print("other")
+            homeVCDelegate?.setRelationShip(relatedUserID: relatedUserID, relationshipType: "other")
         case loveBtn:
-            print("loveBtn")
+            print("favorite")
+            homeVCDelegate?.setRelationShip(relatedUserID: relatedUserID, relationshipType: "favorite")
         default:
             break
         }
     }
 }
+
 
 extension HomeCollectionViewCell: StackTransformView {
     
