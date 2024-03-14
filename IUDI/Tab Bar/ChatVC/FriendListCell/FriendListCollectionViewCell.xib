@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_12" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="Roboto-Medium.ttf">
+            <string>Roboto-Medium</string>
+        </array>
+        <array key="Roboto-Regular.ttf">
+            <string>Roboto-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="FriendListCollectionViewCell" customModule="IUDI" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="410" height="72"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="410" height="72"/>
+                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="C64-JU-cOI">
+                        <rect key="frame" x="0.0" y="0.0" width="410" height="72"/>
+                        <subviews>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="ChatImage" translatesAutoresizingMaskIntoConstraints="NO" id="8ee-fl-sXp">
+                                <rect key="frame" x="0.0" y="8" width="56" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="8ee-fl-sXp" secondAttribute="height" multiplier="1:1" id="qhN-Aw-bxk"/>
+                                </constraints>
+                            </imageView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="V2x-rE-aTW">
+                                <rect key="frame" x="64" y="14" width="346" height="44"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fPZ-8k-rXT">
+                                        <rect key="frame" x="0.0" y="0.0" width="296" height="44"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ariana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jxM-0I-2Pa">
+                                                <rect key="frame" x="0.0" y="0.0" width="47" height="19"/>
+                                                <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="16"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JRB-pn-tge">
+                                                <rect key="frame" x="0.0" y="28.333333333333336" width="14" height="14"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="JRB-pn-tge" secondAttribute="height" multiplier="1:1" id="AQa-0B-l5b"/>
+                                                    <constraint firstAttribute="height" constant="14" id="Ers-Gr-lxz"/>
+                                                </constraints>
+                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
+                                                <state key="normal" image="export"/>
+                                            </button>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nice to meet you, darling" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RcD-mK-paA">
+                                                <rect key="frame" x="19" y="26.333333333333336" width="154" height="17.666666666666664"/>
+                                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
+                                                <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                        </subviews>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstItem="RcD-mK-paA" firstAttribute="leading" secondItem="JRB-pn-tge" secondAttribute="trailing" constant="5" id="7Xp-b3-sx9"/>
+                                            <constraint firstItem="jxM-0I-2Pa" firstAttribute="leading" secondItem="fPZ-8k-rXT" secondAttribute="leading" id="Fcv-Jj-ouD"/>
+                                            <constraint firstItem="jxM-0I-2Pa" firstAttribute="top" secondItem="fPZ-8k-rXT" secondAttribute="top" id="PGs-PH-06X"/>
+                                            <constraint firstAttribute="bottom" secondItem="RcD-mK-paA" secondAttribute="bottom" id="aKN-1e-0s5"/>
+                                            <constraint firstItem="JRB-pn-tge" firstAttribute="centerY" secondItem="RcD-mK-paA" secondAttribute="centerY" id="ivf-HJ-Goi"/>
+                                            <constraint firstItem="JRB-pn-tge" firstAttribute="leading" secondItem="fPZ-8k-rXT" secondAttribute="leading" id="xgP-qw-nfN"/>
+                                        </constraints>
+                                    </view>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7:09 pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d2b-OM-lgT">
+                                        <rect key="frame" x="296" y="0.0" width="50" height="17"/>
+                                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
+                                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="fPZ-8k-rXT" firstAttribute="leading" secondItem="V2x-rE-aTW" secondAttribute="leading" id="7NX-Qo-saR"/>
+                                    <constraint firstAttribute="trailing" secondItem="d2b-OM-lgT" secondAttribute="trailing" id="Cdt-1f-C0m"/>
+                                    <constraint firstAttribute="bottom" secondItem="fPZ-8k-rXT" secondAttribute="bottom" id="Cgg-IK-l1B"/>
+                                    <constraint firstItem="d2b-OM-lgT" firstAttribute="leading" secondItem="fPZ-8k-rXT" secondAttribute="trailing" id="mDg-FO-vv9"/>
+                                    <constraint firstItem="d2b-OM-lgT" firstAttribute="top" secondItem="V2x-rE-aTW" secondAttribute="top" id="nNy-p0-8cp"/>
+                                    <constraint firstItem="fPZ-8k-rXT" firstAttribute="top" secondItem="V2x-rE-aTW" secondAttribute="top" id="tv7-3P-nDx"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="V2x-rE-aTW" firstAttribute="leading" secondItem="8ee-fl-sXp" secondAttribute="trailing" constant="8" id="4B8-Yr-vS6"/>
+                            <constraint firstItem="8ee-fl-sXp" firstAttribute="top" secondItem="C64-JU-cOI" secondAttribute="top" constant="8" id="E0I-pl-sny"/>
+                            <constraint firstItem="V2x-rE-aTW" firstAttribute="top" secondItem="8ee-fl-sXp" secondAttribute="top" constant="6" id="Ig9-Dg-DHL"/>
+                            <constraint firstAttribute="height" constant="72" id="JJ3-UM-BhT"/>
+                            <constraint firstAttribute="bottom" secondItem="8ee-fl-sXp" secondAttribute="bottom" constant="8" id="LmW-ob-pF9"/>
+                            <constraint firstAttribute="trailing" secondItem="V2x-rE-aTW" secondAttribute="trailing" id="u7F-W7-29V"/>
+                            <constraint firstItem="8ee-fl-sXp" firstAttribute="leading" secondItem="C64-JU-cOI" secondAttribute="leading" id="vVk-Pj-H1A"/>
+                            <constraint firstItem="V2x-rE-aTW" firstAttribute="bottom" secondItem="8ee-fl-sXp" secondAttribute="bottom" constant="-6" id="xOM-vn-rdY"/>
+                        </constraints>
+                    </view>
+                </subviews>
+            </view>
+            <viewLayoutGuide key="safeArea" id="ZTg-uK-7eu"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="C64-JU-cOI" secondAttribute="trailing" id="5nE-PU-TlN"/>
+                <constraint firstItem="C64-JU-cOI" firstAttribute="leading" secondItem="gTV-IL-0wX" secondAttribute="leading" id="oSJ-OY-3Ka"/>
+                <constraint firstItem="C64-JU-cOI" firstAttribute="top" secondItem="gTV-IL-0wX" secondAttribute="top" id="sj5-Pw-tlr"/>
+                <constraint firstAttribute="bottom" secondItem="C64-JU-cOI" secondAttribute="bottom" id="y30-o5-mQL"/>
+            </constraints>
+            <size key="customSize" width="297" height="180"/>
+            <point key="canvasLocation" x="236.64122137404578" y="34.507042253521128"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="ChatImage" width="48" height="48"/>
+        <image name="export" width="14" height="14"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
