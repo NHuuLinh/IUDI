@@ -27,7 +27,6 @@ class PreviousChatViewController: UIViewController,PreviousChatDelegate {
         self.tabBarController?.tabBar.isHidden = true
         setupView()
         targetAvatar.image = testImage
-        print("image: \(testImage)")
         getUserProfile()
     }
     
@@ -102,6 +101,8 @@ class PreviousChatViewController: UIViewController,PreviousChatDelegate {
         switch sender {
         case chatBtn :
             print("chatBtn")
+            let vc = ChatViewController()
+            navigationController?.pushViewController(vc, animated: true)
         case backBtn:
             print("backBtn")
             navigationController?.popViewController(animated: true)

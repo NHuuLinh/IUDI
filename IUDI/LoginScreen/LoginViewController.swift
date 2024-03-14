@@ -160,6 +160,7 @@ class LoginViewController: UIViewController, CheckValid {
                     AppDelegate.scene?.goToProfile()
                     return
                 }
+                UserDefaults.standard.didOnMain = true
                 AppDelegate.scene?.setupTabBar()
             case .failure(let error):
                 print(error.localizedDescription)

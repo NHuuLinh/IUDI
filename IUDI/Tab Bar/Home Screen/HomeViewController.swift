@@ -17,15 +17,18 @@ class HomeViewController: UIViewController, HomeVCDelegate{
     var stackTransformOptions = StackTransformViewOptions()
     var keychain = KeychainSwift()
     let coreData = FilterUserCoreData.share
+    
     let coreDataMaxDistance = (FilterUserCoreData.share.getUserFilterValueFromCoreData(key: "maxDistance") as? Double ?? 30) * 1000
 
     override func viewDidLoad() {
         super.viewDidLoad()
         getNearUser()
         setupCollectionView()
+//        self.tabBarController?.tabBar.isHidden = true
+
     }
     override func viewDidAppear(_ animated: Bool) {
-        self.navigationController?.isNavigationBarHidden = true
+//        self.navigationController?.isNavigationBarHidden = true
     }
     func test(){
         print("test")

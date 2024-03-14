@@ -59,12 +59,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let filterNavVC = UINavigationController(rootViewController: filterVC)
         filterNavVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "Location-UnSelect"), selectedImage: UIImage(named: "Location-Selected"))
         
+        let groupVC = GroupViewController()
+        //        filterVC.title = "Filter"
+        let groupNavVC = UINavigationController(rootViewController: groupVC)
+        groupNavVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "News-UnSelect"), selectedImage: UIImage(named: "News-Selected"))
+        
+        let chatVC = ChatViewController()
+        //        filterVC.title = "Filter"
+        let chatNavVC = UINavigationController(rootViewController: chatVC)
+        chatNavVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "Chat-UnSelect"), selectedImage: UIImage(named: "Chat-Selected"))
+        
         let settingVC = SettingViewController()
         //        filterVC.title = "Filter"
         let settingNavVC = UINavigationController(rootViewController: settingVC)
         settingNavVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "Setting-UnSelect"), selectedImage: UIImage(named: "Setting-Selected"))
         
-        tabBarVC.viewControllers = [homeNavVC, filterNavVC,settingNavVC]
+        tabBarVC.viewControllers = [homeNavVC, filterNavVC,settingNavVC,groupNavVC,chatNavVC]
         tabBarVC.modalPresentationStyle = .fullScreen
         tabBarVC.tabBar.tintColor = UIColor(named: "MainColor")
         tabBarVC.tabBar.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.1)
@@ -77,7 +87,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func goToFilter() {
         print("Đã login rồi. Cho vào Home")
-        let mainVC = PreviousChatViewController(nibName: "PreviousChatViewController", bundle: nil)
+        let mainVC = ChatViewController(nibName: "ChatViewController", bundle: nil)
 //        let mainVC = FilterViewController(nibName: "FilterViewController", bundle: nil)
         let mainNavigation = UINavigationController(rootViewController: mainVC)
         window!.rootViewController = mainNavigation
