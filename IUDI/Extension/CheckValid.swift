@@ -16,11 +16,8 @@ extension CheckValid {
     // hàm check valid userName
     func checkUserNameValid(userName: String) -> Bool {
         if isValidUserName(userName) {
-            print("user name ok")
             return true
         } else {
-            print("user name fail")
-
             return false
         }
     }

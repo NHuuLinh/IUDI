@@ -10,9 +10,15 @@ import Alamofire
 import iOSDropDown
 import KeychainSwift
 import SwiftyJSON
+import Kingfisher
+import ReadMoreTextView
 
-class ProfileViewController: UIViewController {
+protocol DataDelegate: AnyObject {
+    func loadAvatarImage(url:String?)
+}
 
+class ProfileViewController: UIViewController,DataDelegate,DateConvertFormat {
+    
     @IBOutlet weak var userAvatar: UIImageView!
     @IBOutlet weak var userNameLb: UILabel!
     @IBOutlet weak var userNameTF: UITextField!
@@ -23,6 +29,8 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var birthAddressTF: DropDown!
     @IBOutlet weak var currentAddressTF: DropDown!
     @IBOutlet weak var phoneNumber: UITextField!
+    @IBOutlet weak var userIntroduct: UITextView!
+    @IBOutlet weak var userIntroductLb: UILabel!
     
     @IBOutlet weak var saveBtn: UIButton!
     @IBOutlet weak var genderBtn: UIButton!
@@ -38,6 +46,7 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var currentAddressBoxView: UIView!
     @IBOutlet weak var phoneNumberBoxView: UIView!
     @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var userIntroductBoxView: UIView!
     
     let datePicker = UIDatePicker()
     let keychain = KeychainSwift()
@@ -46,27 +55,34 @@ class ProfileViewController: UIViewController {
     var imagePicker = UIImagePickerController()
     var hi:ImgModel = ImgModel()
     
-
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tabBarController?.tabBar.isHidden = true
+        userIntroduct.delegate = self
         setupView()
+        setupScrollView()
         createDatePicker()
         dropDownHandle(texfield: genderTF, inputArray: Constant.gender)
         dropDownHandle(texfield: birthAddressTF, inputArray: Constant.provinces)
         dropDownHandle(texfield: currentAddressTF, inputArray: Constant.provinces)
         getUserProfile()
         avatarImageTap()
-        setupScrollView()
-
+        checkUserInfo()
+    }
+    
+    func setupUserIntroduct(textView: ReadMoreTextView){
+        textView.shouldTrim = true
+        textView.maximumNumberOfLines = 2
+        let readLessText = NSAttributedString(string: "Ẩn bớt", attributes: [NSAttributedString.Key.foregroundColor: Constant.mainBorderColor])
+        textView.attributedReadLessText = readLessText
+        let readMoreText = NSAttributedString(string: "... Xem thêm", attributes: [NSAttributedString.Key.foregroundColor: Constant.mainBorderColor])
+        textView.attributedReadMoreText = readMoreText
     }
     func dropDownHandle(texfield: DropDown, inputArray: [String]){
-//        texfield.showList()
         texfield.arrowColor = UIColor .red
         texfield.selectedRowColor = UIColor .red
         texfield.optionArray = inputArray
-//        texfield.didSelect{(selectedText , index ,id) in
-//        }
-        
+        texfield.inputView = UIView()
     }
     func avatarImageTap(){
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
@@ -75,7 +91,7 @@ class ProfileViewController: UIViewController {
     }
     @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
     {
-//        let tappedImage = tapGestureRecognizer.view as! UIImageView
+        checkUserInfo()
         pickImage()
         print("pickImage")
     }
@@ -90,14 +106,6 @@ class ProfileViewController: UIViewController {
         APIServiceImage.shared.PostImageServer(param: imageData as Data){data, error in
             if let data = data{
                 self.hi = data
-                print("display_url : \(self.hi.display_url)")
-                print("description : \(self.hi.description)")
-                print("id : \(self.hi.id)")
-                print("link : \(self.hi.link)")
-                print("time : \(self.hi.time)")
-                print("title : \(self.hi.title)")
-                print("url : \(self.hi.url)")
-                print("url_viewer : \(self.hi.url_viewer)")
                 self.uploadImageToServer1(imageUrl: self.hi.display_url)
             }
         }
@@ -106,23 +114,28 @@ class ProfileViewController: UIViewController {
     func uploadImageToServer1(imageUrl: String) {
         let parameters: [String: Any] = [
             "PhotoURL": imageUrl,
-            "SetAsAvatar":false
+            "SetAsAvatar":true
         ]
-        APIService.share.apiHandle(method:.post ,subUrl: "profile/add_image/37", parameters: parameters, data: UserData.self) { result in
-                self.showLoading(isShow: false)
-                switch result {
-                case .success(let data):
-                    print("data: \(data)")
-                case .failure(let error):
-                    print(error.localizedDescription)
-                    switch error {
-                    case .server(let message):
-                        self.showAlert(title: "lỗi1", message: message)
-                    case .network(let message):
-                        self.showAlert(title: "lỗi", message: message)
-                    }
+        guard let userID = keychain.get("userID") else {
+            print("userID rỗng")
+            return
+        }
+        let subUrl = "profile/add_image/" + userID
+        APIService.share.apiHandle(method:.post ,subUrl: subUrl, parameters: parameters, data: UserData.self) { result in
+            self.showLoading(isShow: false)
+            switch result {
+            case .success(let data):
+                print("avatarLink: \(data.user?.users?.first?.avatarLink)")
+            case .failure(let error):
+                print(error.localizedDescription)
+                switch error {
+                case .server(let message):
+                    self.showAlert(title: "lỗi1", message: message)
+                case .network(let message):
+                    self.showAlert(title: "lỗi", message: message)
                 }
             }
+        }
     }
     func setupView(){
         standardViewCornerRadius(uiView: userNameBoxView)
@@ -134,50 +147,58 @@ class ProfileViewController: UIViewController {
         standardViewCornerRadius(uiView: currentAddressBoxView)
         standardBtnCornerRadius(button: saveBtn)
         standardViewCornerRadius(uiView: phoneNumberBoxView)
+        standardViewCornerRadius(uiView: userIntroductBoxView)
+        userAvatar.layer.cornerRadius = userAvatar.frame.width/2
     }
-
-
+    
     func getUserProfile(){
         showLoading(isShow: true)
         guard let userName = keychain.get("username") else {
             print("không có userName")
             return
         }
-        let url = Constant.baseUrl + "profile/" + userName
-        print("\(url)")
-        AF.request(url, method: .get)
-            .validate(statusCode: 200...299)
-            .responseDecodable(of: User.self) { response in
-                switch response.result {
-                    // Xử lý dữ liệu nhận được từ phản hồi (response)
-                case .success(let data):
-                        self.userProfile = data
-                    guard let user = self.userProfile?.users?.first else {
-                            print("dữ liệu nil")
-                            return
-                        }
-                    self.loadDataToView(user: user)
-                    self.showLoading(isShow: false)
-                case .failure(let error):
-                    print("\(error.localizedDescription)")
-                    if let data = response.data {
-                        do {
-                            let json = try JSON(data: data)
-                            let errorMessage = json["message"].stringValue
-                            print(errorMessage)
-                            self.showAlert(title: "Lỗi", message: errorMessage + "1")
-                        } catch {
-                            print("Error parsing JSON: \(error.localizedDescription)")
-                            self.showAlert(title: "Lỗi", message: "Đã xảy ra lỗi, vui lòng thử lại sau.")
-                        }
-                    } else {
-                        print("Không có dữ liệu từ server")
-                        self.showAlert(title: "Lỗi", message: "Đã xảy ra lỗi, vui lòng thử lại sau.")
-                    }
-                    self.showLoading(isShow: false)
+        let url = "profile/" + userName
+        APIService.share.apiHandleGetRequest(subUrl: url, data: User.self) { result in
+            switch result {
+            case .success(let data):
+                self.userProfile = data
+                guard let user = self.userProfile?.users?.first else {
+                    print("dữ liệu nil")
+                    return
+                }
+                self.loadDataToView(user: user)
+                self.showLoading(isShow: false)
+            case .failure(let error):
+                print("error: \(error.localizedDescription)")
+                self.showLoading(isShow: false)
+                switch error{
+                case .server(let message):
+                    self.showAlert(title: "lỗi", message: message)
+                case .network(let message):
+                    self.showAlert(title: "lỗi", message: message)
                 }
             }
+        }
     }
+    
+    func loadAvatarImage(url:String?) {
+        print("loadAvatarImage1: \(url)")
+        guard let urlString = url, let imageUrl = URL(string: urlString) else {
+            return
+        }
+        userAvatar.kf.setImage(with: imageUrl, placeholder: UIImage(systemName: "person"), options: nil, completionHandler: { result in
+            switch result {
+            case .success(_):
+                // Ảnh đã tải thành công
+                print("cập nhật ảnh thành công")
+                break
+            case .failure(let error):
+                // Xảy ra lỗi khi tải ảnh
+                self.userAvatar?.image = UIImage(systemName: "person")
+            }
+        })
+    }
+    
     func loadDataToView(user: Users){
         userNameLb.text = user.fullName
         userNameTF.text = user.fullName
@@ -185,9 +206,61 @@ class ProfileViewController: UIViewController {
         genderTF.text = user.gender
         dateOfBirthTF.text = user.birthDate
         phoneNumber.text = user.phone
+        if user.birthDate?.count ?? 0 < 1 {
+            birthAddressTF.text = "Hà Nội"
+        } else {
+            birthAddressTF.text = user.birthPlace
+        }
+        if user.currentAdd?.count ?? 0 < 1 {
+            currentAddressTF.text = "Hà Nội"
+        } else {
+            currentAddressTF.text = user.currentAdd
+        }
+        userIntroduct.text = user.bio
+        userIntroductLb.text = userIntroduct.text
         self.userID = user.userID
-        print("self.userID : \(self.userID)")
+        let url = user.avatarLink
+        loadAvatarImage(url: url)
     }
+    func changeAvatar(){
+        struct SetAvatar: Codable {
+            let photoID: String?
+            let setAsAvatar: Bool?
+            let userID: String?
+            
+            enum CodingKeys: String, CodingKey {
+                case photoID = "PhotoID"
+                case setAsAvatar = "SetAsAvatar"
+                case userID = "UserID"
+            }
+        }
+        guard let photoID = UserDefaults.standard.string(forKey: "photoID"), let userID = UserDefaults.standard.string(forKey: "UserID")  else {
+            print("user image không có ID")
+            return
+        }
+        let subUrl = "profile/setAvatar/" + "\(userID)"
+        print("subUrl: \(subUrl)")
+        
+        let parameters : [String:Any] = [
+            "PhotoID":photoID,
+            "SetAsAvatar":true
+        ]
+        print("parameters: \(parameters)")
+        APIService.share.apiHandle(method: .patch ,subUrl: subUrl, parameters: parameters, data: SetAvatar.self) { result in
+            switch result {
+            case .success(let data):
+                print("success")
+            case .failure(let error):
+                print("error: \(error.localizedDescription)")
+                switch error {
+                case .server(let message), .network(let message):
+                    self.showAlert(title: "Lỗi", message: message)
+                    print("\(message)")
+                }
+            }
+        }
+    }
+    
     func saveDataToServer() {
         guard let userName = keychain.get("username") else {
             print("không có userName")
@@ -196,10 +269,7 @@ class ProfileViewController: UIViewController {
         guard let userID = userID else {
             return
         }
-        
         let subUrl = "profile/change_profile/" + "\(userID)"
-        print("subUrl: \(subUrl)")
-        
         let parameters : [String:Any] = [
             "BirthDate": dateOfBirthTF.text ?? "",
             "BirthTime": "00:00:00",
@@ -207,21 +277,33 @@ class ProfileViewController: UIViewController {
             "FullName": userNameTF.text ?? "",
             "Gender": genderTF.text ?? "",
             "Phone": phoneNumber.text ?? "",
+            "Bio": userIntroduct.text ?? "",
+            "BirthPlace": birthAddressTF.text ?? "",
+            "CurrentAdd": currentAddressTF.text ?? "",
             "Username": userName,
             "ProvinceID": "24"
         ]
         
-        print("parameters: \(parameters)")
-
         APIService.share.apiHandle(method: .put ,subUrl: subUrl, parameters: parameters, data: User.self) { result in
             DispatchQueue.main.async {
                 self.showLoading(isShow: false)
                 switch result {
-                case .success(let data):
-//                    self.uploadImageToServer()
-                    self.uploadImageToServer()
-                    self.showAlert(title: "Thông báo", message: "Đã cập nhật dữ liệu thành công")
+                case .success(_):
+                    if UserDefaults.standard.willUploadImage {
+                        print("uploadImageToServer")
+                        self.uploadImageToServer()
+                    } else {
+                        print("changeAvatar")
+                        self.changeAvatar()
+                    }
                     self.showLoading(isShow: false)
+                    if UserDefaults.standard.didOnMain {
+                        self.navigationController?.popToRootViewController(animated: true)
+                    } else {
+                        UserDefaults.standard.didOnMain = true
+                        AppDelegate.scene?.setupTabBar()
+                    }
+                    self.navigationController?.popToRootViewController(animated: true)
                 case .failure(let error):
                     print("error: \(error.localizedDescription)")
                     switch error {
@@ -239,7 +321,9 @@ class ProfileViewController: UIViewController {
         case pickDateBtn :
             dateOfBirthTF.becomeFirstResponder()
         case saveBtn:
-            saveDataToServer()
+            showAlertAndAction(title: "Cảnh báo", message: "Bạn có muốn cập nhật thay đổi không ?",completionHandler: saveDataToServer) {
+                print("saved")
+            }
         case genderBtn:
             genderTF.showList()
         case birthAddressBtn:
@@ -249,8 +333,42 @@ class ProfileViewController: UIViewController {
             print("saved")
         case backBtn:
             navigationController?.popToRootViewController(animated: true)
+            self.tabBarController?.tabBar.isHidden = false
         default :
             break
+        }
+    }
+    @IBAction func userInfoDidChanged(_ sender: UITextField) {
+        checkUserInfo()
+    }
+    func checkUserInfo() {
+        guard let userBio = userIntroduct.text,
+              let userName = userNameTF.text,
+              let userEmail = userEmailTF.text,
+              let userBirthDate = dateOfBirthTF.text,
+              let userPhoneNumber = phoneNumber.text else {
+            return
+        }
+        // Kiểm tra nếu bất kỳ giá trị nào là rỗng, nếu có, thoát khỏi hàm
+        guard !userName.isEmpty, !userBio.isEmpty, !userEmail.isEmpty, !userBirthDate.isEmpty, !userPhoneNumber.isEmpty else {
+            saveBtn.layer.opacity = 0.5
+            saveBtn.isEnabled = false
+            return
+        }
+        // Nếu tất cả các giá trị đều không rỗng, cập nhật trạng thái của nút lưu
+        saveBtn.layer.opacity = 1
+        saveBtn.isEnabled = true
+    }
+}
+extension ProfileViewController: UITextViewDelegate {
+    func textViewDidChange(_ textView: UITextView) {
+        // Kiểm tra nếu UITextView không rỗng
+        if let text = textView.text, !text.isEmpty {
+            // Nếu có nội dung, kích hoạt nút lưu
+            checkUserInfo()
+        } else {
+            // Nếu không có nội dung, vô hiệu hóa nút lưu
+            checkUserInfo()
         }
     }
 }
@@ -280,8 +398,10 @@ extension ProfileViewController {
         let dateFormatter = DateFormatter()
         dateFormatter.dateStyle = .medium
         dateFormatter.timeStyle = .none
-        self.dateOfBirthTF.text = dateFormatter.string(from: datePicker.date)
+        let birthDate = convertDate(date: dateFormatter.string(from: datePicker.date), inputFormat: "dd MM yyyy", outputFormat: "yyyy-MM-dd")
+        self.dateOfBirthTF.text = birthDate
         self.view.endEditing(true)
+        self.checkUserInfo()
     }
     @objc func cancelBtn() {
         self.view.endEditing(true)
@@ -311,16 +431,19 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
                                                     preferredStyle: .actionSheet)
         let camera = UIAlertAction(title: "Camera",
                                    style: .default) { (_) in
+            UserDefaults.standard.willUploadImage = true
             self.openCamera()
         }
         let galleryText = NSLocalizedString("Gallery", comment: "")
         let gallery = UIAlertAction(title: galleryText,
                                     style: .default) { (_) in
+            UserDefaults.standard.willUploadImage = true
             self.openGallary()
         }
         let selectImageText = NSLocalizedString("Select Image", comment: "")
         let selectImage = UIAlertAction(title: selectImageText,
-                                    style: .default) { (_) in
+                                        style: .default) { (_) in
+            UserDefaults.standard.willUploadImage = false
             self.gotoSelectImage()
         }
         let cancelText = NSLocalizedString("Cancel", comment: "")
@@ -332,14 +455,17 @@ extension ProfileViewController: UIImagePickerControllerDelegate, UINavigationCo
         alertViewController.addAction(cancel)
         present(alertViewController, animated: true, completion: nil)
     }
-    
+    func sendDataBack(data: String) {
+        print("Data received:  \(data)")
+    }
     func gotoSelectImage(){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         if let viewController = storyboard.instantiateViewController(identifier: "SelectImageViewController") as? SelectImageViewController {
+            viewController.delegate = self
             self.navigationController?.pushViewController(viewController, animated: true)
         }
     }
-
+    
 }
 // MARK: - ScrollView khi chọn lịch
 extension ProfileViewController {
@@ -348,16 +474,16 @@ extension ProfileViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name:UIResponder.keyboardWillHideNotification, object: nil)
     }
     @objc func keyboardWillShow(notification:NSNotification) {
-
+        
         guard let userInfo = notification.userInfo else { return }
         var keyboardFrame:CGRect = (userInfo[UIResponder.keyboardFrameBeginUserInfoKey] as! NSValue).cgRectValue
         keyboardFrame = self.view.convert(keyboardFrame, from: nil)
-
+        
         var contentInset:UIEdgeInsets = self.scrollView.contentInset
         contentInset.bottom = keyboardFrame.size.height + 50
         scrollView.contentInset = contentInset
     }
-
+    
     @objc func keyboardWillHide(notification:NSNotification) {
         let contentInset:UIEdgeInsets = UIEdgeInsets.zero
         scrollView.contentInset = contentInset

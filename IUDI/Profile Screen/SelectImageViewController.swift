@@ -11,23 +11,28 @@ import iOSDropDown
 import KeychainSwift
 import SwiftyJSON
 
-class SelectImageViewController: UIViewController {
+protocol SelectImageVCDelegate: AnyObject {
+    func loadAvatarImage(url: String?)
+}
 
+class SelectImageViewController: UIViewController {
+    
     @IBOutlet weak var imageCollectionView: UICollectionView!
     let keychain = KeychainSwift()
     var userPhotos = [Photo]()
-    let itemNumber = 3.0
+    let itemNumber = 4.0
     let minimumLineSpacing = 10.0
     private var refeshControl = UIRefreshControl()
-
+    weak var delegate: DataDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        getAllImage()
         registerCollectionView()
         setupCollectionView()
         pullToRefesh()
-
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        getAllImage()
     }
     private func setupCollectionView() {
         if let flowLayout = imageCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
@@ -45,13 +50,12 @@ class SelectImageViewController: UIViewController {
     //https://api.iudi.xyz/api/profile/viewAllImage/37
     func getAllImage(){
         showLoading(isShow: true)
-        guard let userid = UserDefaults.standard.string(forKey: "UserID") else {
+        guard let userID = keychain.get("userID") else {
             showLoading(isShow: false)
-            print("không có userName")
+            print("userID rỗng")
             return
         }
-            print("UserID: \(userid)")
-        let url = Constant.baseUrl + "profile/viewAllImage/" + userid
+        let url = Constant.baseUrl + "profile/viewAllImage/" + userID
         print("\(url)")
         AF.request(url, method: .get)
             .validate(statusCode: 200...299)
@@ -64,11 +68,12 @@ class SelectImageViewController: UIViewController {
                         self.userPhotos = userdata
                         DispatchQueue.main.async {
                             self.imageCollectionView.reloadData()
+                            self.showLoading(isShow: false)
+
                         }
                     } else {
                         print("data nill")
                     }
-                    self.showLoading(isShow: false)
                 case .failure(let error):
                     self.showLoading(isShow: false)
                     print("\(error.localizedDescription)")
@@ -89,12 +94,12 @@ class SelectImageViewController: UIViewController {
                 }
             }
     }
-
+    
     @IBAction func backBtn(_ sender: Any) {
-        navigationController?.popToRootViewController(animated: true)
+        navigationController?.popViewController(animated: true)
     }
 }
-extension SelectImageViewController : UICollectionViewDataSource, UICollectionViewDelegate {
+extension SelectImageViewController : UICollectionViewDataSource, UICollectionViewDelegate,CellSizeCaculate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         print("userPhotos.count: \(userPhotos.count)")
         return userPhotos.count
@@ -103,15 +108,25 @@ extension SelectImageViewController : UICollectionViewDataSource, UICollectionVi
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SelectImageCollectionViewCell", for: indexPath) as! SelectImageCollectionViewCell
         // trả về kích thước ảnh quyết định màn hình sẽ load bao nhiêu ảnh theo chiều ngang
-        let imageSize = ((UIScreen.main.bounds.width - itemNumber * minimumLineSpacing)/itemNumber)
         let data = userPhotos[indexPath.item]
+        let indexNumber = Double(userPhotos.count)
+        let frameSize = UIScreen.main.bounds.width
+        let imageSize = caculateSize(indexNumber: indexNumber, frameSize: frameSize, defaultNumberItemOneRow: 4, minimumLineSpacing: minimumLineSpacing)
         cell.blinData(data: data, width: imageSize)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        
+        let photoURL = userPhotos[indexPath.item].photoURL
         let photoID = userPhotos[indexPath.item].photoID
-        print("user chọn ảnh có id là : \(photoID) ")
+        print("user chọn ảnh có photoURL là : \(photoURL) ")
+        print("user chọn ảnh có photoID là : \(photoID) ")
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+        delegate?.loadAvatarImage(url: photoURL)
+        UserDefaults.standard.set(photoID, forKey: "photoID")
+        navigationController?.popViewController(animated: true)
     }
     
 }

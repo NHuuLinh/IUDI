@@ -6,6 +6,8 @@ PODS:
   - KeychainSwift (20.0.0)
   - Kingfisher (7.9.1)
   - MBProgressHUD (1.2.0)
+  - ReadMoreTextView (3.0.1)
+  - SwiftRangeSlider (2.0.0)
   - SwiftyJSON (4.3.0)
 
 DEPENDENCIES:
@@ -16,6 +18,8 @@ DEPENDENCIES:
   - KeychainSwift
   - Kingfisher
   - MBProgressHUD (~> 1.2.0)
+  - ReadMoreTextView
+  - SwiftRangeSlider
   - SwiftyJSON (~> 4.0)
 
 SPEC REPOS:
@@ -27,6 +31,8 @@ SPEC REPOS:
     - KeychainSwift
     - Kingfisher
     - MBProgressHUD
+    - ReadMoreTextView
+    - SwiftRangeSlider
     - SwiftyJSON
 
 SPEC CHECKSUMS:
@@ -37,8 +43,10 @@ SPEC CHECKSUMS:
   KeychainSwift: 0ce6a4d13f7228054d1a71bb1b500448fb2ab837
   Kingfisher: 1d14e9f59cbe19389f591c929000332bf70efd32
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
+  ReadMoreTextView: 19147adf93abce6d7271e14031a00303fe28720d
+  SwiftRangeSlider: f86e3b637c961120158fa1a89277c8343845cbe4
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: f7c5d28df347e2420e333303002e91920cf27408
+PODFILE CHECKSUM: 81fb15dbc794f663e771da81d5b4a813ff981cf6
 
 COCOAPODS: 1.14.3

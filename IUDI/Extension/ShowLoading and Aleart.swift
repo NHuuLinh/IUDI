@@ -33,15 +33,13 @@ extension UIViewController {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
 
         // Thêm nút "OK" và hành động khi nhấn vào
-        let okTitle = NSLocalizedString("Restart now", comment: "")
-        let okAction = UIAlertAction(title: okTitle, style: .default) { _ in
+        let okAction = UIAlertAction(title: "OK", style: .destructive) { _ in
             completionHandler?()
         }
         alert.addAction(okAction)
 
         // Thêm nút "Cancel" và hành động khi nhấn vào
-        let cancelTitle = NSLocalizedString("Restart later", comment: "")
-        let cancelAction = UIAlertAction(title: cancelTitle, style: .cancel) { _ in
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel) { _ in
             cancelHandler?()
         }
         alert.addAction(cancelAction)

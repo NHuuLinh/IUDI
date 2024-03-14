@@ -14,9 +14,9 @@ class SelectImageCollectionViewCell: UICollectionViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        userImage.layer.cornerRadius = 10
     }
-    func blinData(data: Photo ,width: CGFloat){
-        
+    func blinData(data: Photo ,width: CGFloat){        
         imageWidth.constant = CGFloat(Int(width))
 //        if let newsImageString = data.photoURL {
 //            let newsImageUrl = URL(string: newsImageString)
@@ -28,19 +28,24 @@ class SelectImageCollectionViewCell: UICollectionViewCell {
             return
         }
         let imageUrl = URL(string: url)
-        userImage.kf.setImage(with: imageUrl, placeholder: UIImage(named: "person"), options: nil, completionHandler: { result in
+        userImage.kf.setImage(with: imageUrl, placeholder: UIImage(systemName: "person"), options: nil, completionHandler: { result in
             switch result {
             case .success(_):
                 self.imageWidth.constant = CGFloat(Int(width))
-
                 // Ảnh đã tải thành công
                 break
-            case .failure(let error):
+            case .failure(_):
                 // Xảy ra lỗi khi tải ảnh
                 self.userImage.image = UIImage(systemName: "person")
 //                print("Lỗi khi tải ảnh: \(error.localizedDescription)")
             }
         })
         
+    }
+    func transData(image: UIImage){
+        let image = userImage.image
+    }
+    @IBAction func btnHandle(_ sender: Any) {
+        print("???")
     }
 }
