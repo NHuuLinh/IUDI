@@ -21,14 +21,15 @@ class HomeViewController: UIViewController, HomeVCDelegate{
     let coreDataMaxDistance = (FilterUserCoreData.share.getUserFilterValueFromCoreData(key: "maxDistance") as? Double ?? 30) * 1000
     
     override func viewDidLoad() {
-        self.navigationController?.isNavigationBarHidden = true
         super.viewDidLoad()
         getNearUser()
         setupCollectionView()
-        //        self.tabBarController?.tabBar.isHidden = true
+        self.tabBarController?.tabBar.isHidden = false
+        self.navigationController?.isNavigationBarHidden = true
     }
     override func viewDidAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
+        self.tabBarController?.tabBar.isHidden = false
     }
     func test(){
         print("test")

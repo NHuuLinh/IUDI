@@ -29,7 +29,7 @@ class UserIntroduceViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.navigationController?.isNavigationBarHidden = true
+//        self.navigationController?.isNavigationBarHidden = true
         setupCollectionView()
         registerCollectionView()
         setupUserIntroduct()
@@ -37,7 +37,7 @@ class UserIntroduceViewController: UIViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
-                self.tabBarController?.tabBar.isHidden = true
+        self.tabBarController?.tabBar.isHidden = true
         userAvatar.layer.cornerRadius = 32
     }
     
@@ -72,10 +72,6 @@ class UserIntroduceViewController: UIViewController {
         userIntroduct.attributedReadLessText = readLessText
         let readMoreText = NSAttributedString(string: "... Xem thêm", attributes: [NSAttributedString.Key.foregroundColor: Constant.mainBorderColor])
         userIntroduct.attributedReadMoreText = readMoreText
-//        userIntroduct.onSizeChange = { _ in
-//            self.calculateScrollView(totalItemNumber: self.userPhotos.count, itemSize: 91.75, lineSpacing: self.minimumLineSpacing)
-//            print("1")
-//        }
         userIntroduct.onSizeChange = { _ in
             DispatchQueue.main.async { // Ensure UI updates on main thread
                 self.calculateScrollView(totalItemNumber: self.userPhotos.count, itemSize: 91.75, lineSpacing: self.minimumLineSpacing)
@@ -87,13 +83,13 @@ class UserIntroduceViewController: UIViewController {
         let itemNumber = Int(ceil(Double(totalItemNumber) / Double(itemNumber)))
         let collectionviewLocation = userImageCollectionView.superview?.frame.minY
         let bottomSafeAreaHeight = view.safeAreaInsets.bottom
+
         scrollViewHeight.constant = CGFloat(itemNumber) * itemSize + (CGFloat(itemNumber) * lineSpacing) + CGFloat(collectionviewLocation!) + bottomSafeAreaHeight
         print("scrollViewHeight:\(scrollViewHeight.constant)")
         print("userImageCollectionView.frame.minY:\(collectionviewLocation ?? 0)")
-
         print("itemNumber:\(itemNumber)")
     }
-
+    
     func blindata(data: Distance){
         let imageUrl = URL(string: data.avatarLink ?? "")
         userAvatar.kf.setImage(with: imageUrl, placeholder: UIImage(named: "person"), options: nil, completionHandler: { result in
@@ -106,8 +102,8 @@ class UserIntroduceViewController: UIViewController {
                 self.userAvatar.image = UIImage(systemName: "person")
             }
         })
-//        userNameLb.text = data.fullName
-                userNameLb.text = "\(data.userID)"
+        //        userNameLb.text = data.fullName
+        userNameLb.text = "\(data.userID)"
         userLocationLb.text = data.currentAdd
         let mainText = NSAttributedString(string: data.bio ?? "", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
         //        userIntroduct.text = data.bio
@@ -133,7 +129,14 @@ class UserIntroduceViewController: UIViewController {
                         self.userPhotos = userdata
                         DispatchQueue.main.async {
                             self.userImageCollectionView.reloadData()
-                            self.calculateScrollView(totalItemNumber: self.userPhotos.count, itemSize: 91.75, lineSpacing: self.minimumLineSpacing)
+                            let frameSize = self.userImageCollectionView.frame.width
+                            let imageSize = self.caculateSize(indexNumber: Double(self.userPhotos.count),
+                                                              frameSize: frameSize,
+                                                              defaultNumberItemOneRow: Double(self.itemNumber),
+                                                              minimumLineSpacing: self.minimumLineSpacing)
+                            self.calculateScrollView(totalItemNumber: self.userPhotos.count,
+                                                     itemSize: imageSize,
+                                                     lineSpacing: self.minimumLineSpacing)
                         }
                         print("userImageCollectionView:\(self.userImageCollectionView.frame.height)")
                     } else {
@@ -142,13 +145,13 @@ class UserIntroduceViewController: UIViewController {
                     self.showLoading(isShow: false)
                 case .failure(let error):
                     self.showLoading(isShow: false)
+                    self.scrollViewHeight.constant = self.view.frame.height
                     print("\(error.localizedDescription)")
                     if let data = response.data {
                         do {
                             let json = try JSON(data: data)
                             let errorMessage = json["message"].stringValue
                             print("errorMessage:\(errorMessage)")
-                            //                            self.showAlert(title: "Lỗi", message: "Người dùng")
                         } catch {
                             print("Error parsing JSON: \(error.localizedDescription)")
                             self.showAlert(title: "Lỗi", message: "Đã xảy ra lỗi, vui lòng thử lại sau.")
@@ -161,11 +164,9 @@ class UserIntroduceViewController: UIViewController {
             }
     }
     
-    
 }
 extension UserIntroduceViewController : UICollectionViewDataSource, UICollectionViewDelegate,CellSizeCaculate {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        //        print("userPhotos.count: \(userPhotos.count)")
         return userPhotos.count
     }
     
@@ -173,9 +174,12 @@ extension UserIntroduceViewController : UICollectionViewDataSource, UICollection
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SelectImageCollectionViewCell", for: indexPath) as! SelectImageCollectionViewCell
         // trả về kích thước ảnh quyết định màn hình sẽ load bao nhiêu ảnh theo chiều ngang
         let data = userPhotos[indexPath.item]
-        let indexNumber = Double(userPhotos.count)
         let frameSize = userImageCollectionView.frame.width
-        let imageSize = caculateSize(indexNumber: indexNumber, frameSize: frameSize, defaultNumberItemOneRow: 4, minimumLineSpacing: minimumLineSpacing)
+        let indexNumber = Double(userPhotos.count)
+        let imageSize = caculateSize(indexNumber: indexNumber,
+                                     frameSize: frameSize,
+                                     defaultNumberItemOneRow: 4,
+                                     minimumLineSpacing: minimumLineSpacing)
         print("imagesize:\(imageSize)")
         cell.blinData(data: data, width: imageSize)
         return cell
