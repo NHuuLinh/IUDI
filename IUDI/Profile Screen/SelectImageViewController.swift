@@ -21,7 +21,7 @@ class SelectImageViewController: UIViewController {
     let keychain = KeychainSwift()
     var userPhotos = [Photo]()
     let itemNumber = 4.0
-    let minimumLineSpacing = 10.0
+    let minimumLineSpacing = 5.0
     private var refeshControl = UIRefreshControl()
     weak var delegate: DataDelegate?
 
@@ -110,7 +110,8 @@ extension SelectImageViewController : UICollectionViewDataSource, UICollectionVi
         // trả về kích thước ảnh quyết định màn hình sẽ load bao nhiêu ảnh theo chiều ngang
         let data = userPhotos[indexPath.item]
         let indexNumber = Double(userPhotos.count)
-        let frameSize = UIScreen.main.bounds.width
+//        let frameSize = UIScreen.main.bounds.width
+        let frameSize = imageCollectionView.frame.width
         let imageSize = caculateSize(indexNumber: indexNumber, frameSize: frameSize, defaultNumberItemOneRow: 4, minimumLineSpacing: minimumLineSpacing)
         cell.blinData(data: data, width: imageSize)
         return cell

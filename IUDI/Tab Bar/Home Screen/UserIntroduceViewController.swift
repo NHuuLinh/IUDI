@@ -20,21 +20,27 @@ class UserIntroduceViewController: UIViewController {
     @IBOutlet weak var userImageCollectionView: UICollectionView!
     @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var chatBtn: UIButton!
+    @IBOutlet weak var scrollViewHeight: NSLayoutConstraint!
     
     var data : UserDistances?
     var userPhotos = [Photo]()
-    let itemNumber = 4.0
+    let itemNumber = 4
     let minimumLineSpacing = 5.0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.navigationController?.isNavigationBarHidden = true
         setupCollectionView()
         registerCollectionView()
         setupUserIntroduct()
     }
+    
     override func viewWillAppear(_ animated: Bool) {
+        self.navigationController?.isNavigationBarHidden = true
+                self.tabBarController?.tabBar.isHidden = true
         userAvatar.layer.cornerRadius = 32
     }
+    
     @IBAction func buttonHandle(_ sender: UIButton) {
         switch sender {
         case backBtn:
@@ -66,7 +72,28 @@ class UserIntroduceViewController: UIViewController {
         userIntroduct.attributedReadLessText = readLessText
         let readMoreText = NSAttributedString(string: "... Xem thêm", attributes: [NSAttributedString.Key.foregroundColor: Constant.mainBorderColor])
         userIntroduct.attributedReadMoreText = readMoreText
+//        userIntroduct.onSizeChange = { _ in
+//            self.calculateScrollView(totalItemNumber: self.userPhotos.count, itemSize: 91.75, lineSpacing: self.minimumLineSpacing)
+//            print("1")
+//        }
+        userIntroduct.onSizeChange = { _ in
+            DispatchQueue.main.async { // Ensure UI updates on main thread
+                self.calculateScrollView(totalItemNumber: self.userPhotos.count, itemSize: 91.75, lineSpacing: self.minimumLineSpacing)
+                print("1")
+            }
+        }
     }
+    func calculateScrollView(totalItemNumber: Int, itemSize: CGFloat, lineSpacing: CGFloat) {
+        let itemNumber = Int(ceil(Double(totalItemNumber) / Double(itemNumber)))
+        let collectionviewLocation = userImageCollectionView.superview?.frame.minY
+        let bottomSafeAreaHeight = view.safeAreaInsets.bottom
+        scrollViewHeight.constant = CGFloat(itemNumber) * itemSize + (CGFloat(itemNumber) * lineSpacing) + CGFloat(collectionviewLocation!) + bottomSafeAreaHeight
+        print("scrollViewHeight:\(scrollViewHeight.constant)")
+        print("userImageCollectionView.frame.minY:\(collectionviewLocation ?? 0)")
+
+        print("itemNumber:\(itemNumber)")
+    }
+
     func blindata(data: Distance){
         let imageUrl = URL(string: data.avatarLink ?? "")
         userAvatar.kf.setImage(with: imageUrl, placeholder: UIImage(named: "person"), options: nil, completionHandler: { result in
@@ -79,8 +106,8 @@ class UserIntroduceViewController: UIViewController {
                 self.userAvatar.image = UIImage(systemName: "person")
             }
         })
-        userNameLb.text = data.fullName
-        //        userNameLb.text = "\(data.userID)"
+//        userNameLb.text = data.fullName
+                userNameLb.text = "\(data.userID)"
         userLocationLb.text = data.currentAdd
         let mainText = NSAttributedString(string: data.bio ?? "", attributes: [NSAttributedString.Key.foregroundColor: UIColor.black])
         //        userIntroduct.text = data.bio
@@ -106,7 +133,9 @@ class UserIntroduceViewController: UIViewController {
                         self.userPhotos = userdata
                         DispatchQueue.main.async {
                             self.userImageCollectionView.reloadData()
+                            self.calculateScrollView(totalItemNumber: self.userPhotos.count, itemSize: 91.75, lineSpacing: self.minimumLineSpacing)
                         }
+                        print("userImageCollectionView:\(self.userImageCollectionView.frame.height)")
                     } else {
                         print("data nill")
                     }
@@ -147,6 +176,7 @@ extension UserIntroduceViewController : UICollectionViewDataSource, UICollection
         let indexNumber = Double(userPhotos.count)
         let frameSize = userImageCollectionView.frame.width
         let imageSize = caculateSize(indexNumber: indexNumber, frameSize: frameSize, defaultNumberItemOneRow: 4, minimumLineSpacing: minimumLineSpacing)
+        print("imagesize:\(imageSize)")
         cell.blinData(data: data, width: imageSize)
         return cell
     }

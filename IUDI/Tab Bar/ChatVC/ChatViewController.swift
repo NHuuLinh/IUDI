@@ -19,9 +19,11 @@ class ChatViewController: UIViewController {
         case userActive = 0
         case userFriendList
     }
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.tabBarController?.tabBar.isHidden = false
+        self.navigationController?.isNavigationBarHidden = true
         setupView()
         registerCollectionView()
     }
@@ -38,9 +40,8 @@ class ChatViewController: UIViewController {
             self.searchBar.layer.opacity = self.showSearchBar ? 1 : 0
             self.view.layoutIfNeeded()
         })
-
     }
-
+    
     @IBAction func buttonHandle(_ sender: UIButton) {
         switch sender {
         case searchBtn:
@@ -54,7 +55,7 @@ class ChatViewController: UIViewController {
     }
 }
 extension ChatViewController : UICollectionViewDataSource, UICollectionViewDelegate,CellSizeCaculate,UICollectionViewDelegateFlowLayout {
-
+    
     func registerCollectionView(){
         chatCollectionView.dataSource = self
         chatCollectionView.delegate = self
@@ -64,7 +65,7 @@ extension ChatViewController : UICollectionViewDataSource, UICollectionViewDeleg
         let FriendListCell = UINib(nibName: "FriendListCollectionViewCell", bundle: nil)
         chatCollectionView.register(FriendListCell, forCellWithReuseIdentifier: "FriendListCollectionViewCell")
     }
-
+    
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         let chatSection = ChatSection.allCases.count
         return chatSection
@@ -94,7 +95,7 @@ extension ChatViewController : UICollectionViewDataSource, UICollectionViewDeleg
         default:
             return CollectionViewCell()
         }
-
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -110,11 +111,11 @@ extension ChatViewController : UICollectionViewDataSource, UICollectionViewDeleg
             return CGSize(width: 0, height: 0)
         }
     }
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-//        return 100 // Set the spacing between sections
-//    }
-//    
-//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-//        return 100 // Set the minimum interitem spacing within sections
-//    }
+    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+    //        return 100 // Set the spacing between sections
+    //    }
+    //
+    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+    //        return 100 // Set the minimum interitem spacing within sections
+    //    }
 }

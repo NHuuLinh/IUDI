@@ -19,16 +19,16 @@ class HomeViewController: UIViewController, HomeVCDelegate{
     let coreData = FilterUserCoreData.share
     
     let coreDataMaxDistance = (FilterUserCoreData.share.getUserFilterValueFromCoreData(key: "maxDistance") as? Double ?? 30) * 1000
-
+    
     override func viewDidLoad() {
+        self.navigationController?.isNavigationBarHidden = true
         super.viewDidLoad()
         getNearUser()
         setupCollectionView()
-//        self.tabBarController?.tabBar.isHidden = true
-
+        //        self.tabBarController?.tabBar.isHidden = true
     }
     override func viewDidAppear(_ animated: Bool) {
-//        self.navigationController?.isNavigationBarHidden = true
+        self.navigationController?.isNavigationBarHidden = true
     }
     func test(){
         print("test")
@@ -51,8 +51,8 @@ class HomeViewController: UIViewController, HomeVCDelegate{
         let coreDataMaxAge = coreData.getUserFilterValueFromCoreData(key: "maxAge") as? Int ?? 70
         let filterMaxAge = Int(Constant.currentYear) - coreDataMaxAge
         
-//        let coreDataMaxDistance = coreData.getUserFilterValueFromCoreData(key: "maxDistance") as? Double ?? 30
-//        let filterMaxDistance = coreDataMaxDistance * 1000
+        //        let coreDataMaxDistance = coreData.getUserFilterValueFromCoreData(key: "maxDistance") as? Double ?? 30
+        //        let filterMaxDistance = coreDataMaxDistance * 1000
         
         let coreDataMinDistance = coreData.getUserFilterValueFromCoreData(key: "minDistance") as? Double ?? 0
         let filterMinDistance = coreDataMinDistance * 1000
@@ -75,16 +75,16 @@ class HomeViewController: UIViewController, HomeVCDelegate{
             let distanceInMeters = distance.distance ?? 0.0
             
             if filterGender.count < 1 && filterAddress.count > 1{
-//                print("no gender")
+                //                print("no gender")
                 return (filterMaxAge...filterMinAge).contains(birthYear) && currentAdd == filterAddress && (filterMinDistance...coreDataMaxDistance).contains(distanceInMeters)
             } else if filterGender.count > 1 && filterAddress.count < 1 {
-//                print("no Address")
+                //                print("no Address")
                 return gender == filterGender && (filterMaxAge...filterMinAge).contains(birthYear) && (filterMinDistance...coreDataMaxDistance).contains(distanceInMeters)
             } else if filterGender.count < 1 && filterAddress.count < 1 {
-//                print("no gender, no Address")
+                //                print("no gender, no Address")
                 return (filterMaxAge...filterMinAge).contains(birthYear) && (filterMinDistance...coreDataMaxDistance).contains(distanceInMeters)
             }else {
-//                print("full")
+                //                print("full")
                 return gender == filterGender && (filterMaxAge...filterMinAge).contains(birthYear) && currentAdd == filterAddress && (filterMinDistance...coreDataMaxDistance).contains(distanceInMeters)
             }
         }
@@ -128,12 +128,12 @@ class HomeViewController: UIViewController, HomeVCDelegate{
     }
     func setRelationShip(relatedUserID: Int?, relationshipType: String?) {
         showLoading(isShow: true)
-
+        
         struct SetRelationShip: Codable {
             let createTime: String?
             let relatedUserID: Int?
             let relationshipType, userID: String?
-
+            
             enum CodingKeys: String, CodingKey {
                 case createTime = "CreateTime"
                 case relatedUserID = "RelatedUserID"
@@ -211,18 +211,18 @@ extension HomeViewController:UICollectionViewDataSource, UICollectionViewDelegat
         cell.homeVCDelegate = self
         return cell
     }
-        func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-            let storyboard = UIStoryboard(name: "Main", bundle: nil)
-            let vc = storyboard.instantiateViewController(withIdentifier: "UserIntroduceViewController") as! UserIntroduceViewController
-            let data = userDistance[indexPath.row]
-            print("indexPath.row: \(indexPath.row)")
-            let userID : Int = data.userID ?? 0
-            let test = String(userID)
-            print("userID: \(test)")
-            vc.getAllImage(userID: String(userID))
-            vc.blindata(data: data)
-            navigationController?.pushViewController(vc, animated: true)
-        }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "UserIntroduceViewController") as! UserIntroduceViewController
+        let data = userDistance[indexPath.row]
+        print("indexPath.row: \(indexPath.row)")
+        let userID : Int = data.userID ?? 0
+        let test = String(userID)
+        print("userID: \(test)")
+        vc.getAllImage(userID: String(userID))
+        vc.blindata(data: data)
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
 }
-    
+

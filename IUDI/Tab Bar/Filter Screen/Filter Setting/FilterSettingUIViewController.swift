@@ -31,6 +31,11 @@ class FilterSettingUIViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         loadDataFromCoreData()
+        standardBtnCornerRadius(button: returnBtn)
+        returnBtn.layer.borderWidth = 1
+        returnBtn.layer.borderColor = Constant.mainBorderColor.cgColor
+        standardBtnCornerRadius(button: applyBtn)
+
     }
     override func viewWillAppear(_ animated: Bool) {
         setupSlider(slider: ageSlider, minimumValue: 18, maximumValue: 70)

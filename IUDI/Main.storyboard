@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="6a8-d4-EYl">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="9Hd-tF-Hbo">
     <device id="retina6_72" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
@@ -350,7 +350,7 @@
             </objects>
             <point key="canvasLocation" x="1565.6488549618321" y="-27.464788732394368"/>
         </scene>
-        <!--Item-->
+        <!--Home View Controller-->
         <scene sceneID="FbE-bt-dwk">
             <objects>
                 <viewController storyboardIdentifier="HomeViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="6a8-d4-EYl" customClass="HomeViewController" customModule="IUDI" customModuleProvider="target" sceneMemberID="viewController">
@@ -423,7 +423,6 @@
                             <constraint firstItem="u0f-sP-Hua" firstAttribute="top" secondItem="MkZ-J8-Ubb" secondAttribute="bottom" constant="20" id="qgh-85-pcd"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" title="Item" id="IBe-QA-4Xd"/>
                     <connections>
                         <outlet property="userCollectionView" destination="u0f-sP-Hua" id="hZx-bd-5zI"/>
                     </connections>
@@ -1522,8 +1521,8 @@
                                         </constraints>
                                     </view>
                                     <collectionView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="sAm-iN-fhQ">
-                                        <rect key="frame" x="0.0" y="107" width="430" height="825"/>
-                                        <color key="backgroundColor" red="0.0" green="0.52941176469999995" blue="0.28235294119999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <rect key="frame" x="5" y="107" width="420" height="825"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="UHz-cv-VSS">
                                             <size key="itemSize" width="372" height="353"/>
                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -1532,7 +1531,7 @@
                                         </collectionViewFlowLayout>
                                         <cells>
                                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="fbs-Pu-bBT">
-                                                <rect key="frame" x="29" y="0.0" width="372" height="353"/>
+                                                <rect key="frame" x="24" y="0.0" width="372" height="353"/>
                                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                 <collectionViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="IjY-Cf-7v5">
                                                     <rect key="frame" x="0.0" y="0.0" width="372" height="353"/>
@@ -1548,9 +1547,9 @@
                                     <constraint firstItem="ynX-lq-MxG" firstAttribute="leading" secondItem="NWD-8L-lfO" secondAttribute="leading" id="A9e-tb-j1L"/>
                                     <constraint firstAttribute="bottom" secondItem="sAm-iN-fhQ" secondAttribute="bottom" id="C8U-MI-vYJ"/>
                                     <constraint firstItem="sAm-iN-fhQ" firstAttribute="top" secondItem="ynX-lq-MxG" secondAttribute="bottom" id="GB6-0i-EqU"/>
-                                    <constraint firstItem="sAm-iN-fhQ" firstAttribute="leading" secondItem="NWD-8L-lfO" secondAttribute="leading" id="R62-GP-cDc"/>
+                                    <constraint firstItem="sAm-iN-fhQ" firstAttribute="leading" secondItem="NWD-8L-lfO" secondAttribute="leading" constant="5" id="R62-GP-cDc"/>
                                     <constraint firstAttribute="trailing" secondItem="ynX-lq-MxG" secondAttribute="trailing" id="dwV-UV-uNJ"/>
-                                    <constraint firstAttribute="trailing" secondItem="sAm-iN-fhQ" secondAttribute="trailing" id="zRb-jW-WfF"/>
+                                    <constraint firstAttribute="trailing" secondItem="sAm-iN-fhQ" secondAttribute="trailing" constant="5" id="zRb-jW-WfF"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -1581,7 +1580,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" translatesAutoresizingMaskIntoConstraints="NO" id="o0y-Te-3zS">
-                                <rect key="frame" x="0.0" y="-59" width="430" height="991"/>
+                                <rect key="frame" x="0.0" y="0.0" width="430" height="932"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NJG-YK-4Ei" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="430" height="1500"/>
@@ -1661,9 +1660,10 @@
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
-                                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pzf-wU-hTo">
+                                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="pzf-wU-hTo">
                                                         <rect key="frame" x="0.0" y="27.666666666666742" width="398" height="858.66666666666663"/>
-                                                        <color key="backgroundColor" systemColor="linkColor"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <color key="tintColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <collectionViewFlowLayout key="collectionViewLayout" automaticEstimatedItemSize="YES" minimumLineSpacing="10" minimumInteritemSpacing="10" id="sEg-77-avD">
                                                             <size key="itemSize" width="128" height="128"/>
                                                             <size key="headerReferenceSize" width="0.0" height="0.0"/>
@@ -1699,7 +1699,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" editable="NO" layoutManager="textKit2" translatesAutoresizingMaskIntoConstraints="NO" id="oQ9-4t-QgI" customClass="ReadMoreTextView" customModule="ReadMoreTextView">
-                                                <rect key="frame" x="16" y="570.66666666666674" width="398" height="33"/>
+                                                <rect key="frame" x="16" y="570.66666666666663" width="398" height="33"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <color key="textColor" systemColor="labelColor"/>
                                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
@@ -1751,13 +1751,14 @@
                         <constraints>
                             <constraint firstAttribute="trailing" secondItem="o0y-Te-3zS" secondAttribute="trailing" id="6bt-gQ-q0s"/>
                             <constraint firstAttribute="bottom" secondItem="o0y-Te-3zS" secondAttribute="bottom" id="dt9-k5-oHD"/>
-                            <constraint firstItem="o0y-Te-3zS" firstAttribute="top" secondItem="m29-KT-TOn" secondAttribute="top" constant="-59" id="s2K-FN-yLk"/>
+                            <constraint firstItem="o0y-Te-3zS" firstAttribute="top" secondItem="m29-KT-TOn" secondAttribute="top" id="s2K-FN-yLk"/>
                             <constraint firstItem="o0y-Te-3zS" firstAttribute="leading" secondItem="m29-KT-TOn" secondAttribute="leading" id="tu4-ZL-7w4"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="backBtn" destination="22K-Qf-WPF" id="AEX-yw-RIt"/>
                         <outlet property="chatBtn" destination="Vge-fk-R2T" id="p8J-Je-YjS"/>
+                        <outlet property="scrollViewHeight" destination="AUZ-VH-YNi" id="CfZ-gp-avr"/>
                         <outlet property="userAvatar" destination="dw5-k3-BQ7" id="ven-ME-FNp"/>
                         <outlet property="userImageCollectionView" destination="pzf-wU-hTo" id="IoW-xq-DCx"/>
                         <outlet property="userIntroduct" destination="oQ9-4t-QgI" id="e4r-X7-lky"/>
@@ -2024,9 +2025,6 @@
         </namedColor>
         <systemColor name="labelColor">
             <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
-        <systemColor name="linkColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
