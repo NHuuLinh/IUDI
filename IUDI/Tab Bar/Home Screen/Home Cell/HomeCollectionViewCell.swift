@@ -48,6 +48,8 @@ class HomeCollectionViewCell: UICollectionViewCell,DateConvertFormat {
         let userDistant = formatter.string(from: NSNumber(value: roundedKilometers)) ?? ""
         userDistanceLb.text = "Khoảng cách " + userDistant + " km"
         userNameLb.text = data.fullName
+        userNameLb.text = "\(data.userID)"
+
         let yearOfBirth = convertDate(date: data.birthDate ?? "", inputFormat: "yyyy-MM-dd", outputFormat: "**yyyy**")
         let userAge = Int(Constant.currentYear) - (Int(yearOfBirth) ?? 0)
         userAgeLb.text = String(userAge)

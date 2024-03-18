@@ -27,10 +27,12 @@ class ChatViewController: UIViewController {
         setupView()
         registerCollectionView()
     }
+    
     func setupView(){
         backBtn.isEnabled = false
         searchBar.layer.opacity = 0
     }
+    
     func searchBarLayout(){
         showSearchBar.toggle()
         backBtn.isEnabled = showSearchBar
@@ -54,6 +56,7 @@ class ChatViewController: UIViewController {
         }
     }
 }
+
 extension ChatViewController : UICollectionViewDataSource, UICollectionViewDelegate,CellSizeCaculate,UICollectionViewDelegateFlowLayout {
     
     func registerCollectionView(){

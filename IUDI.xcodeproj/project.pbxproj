@@ -12,7 +12,11 @@
 		A420FDA62B9614BA00C33C57 /* CellSize+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A420FDA52B9614BA00C33C57 /* CellSize+Extension.swift */; };
 		A426D77E2B96D94D00A5050B /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A426D77C2B96D94D00A5050B /* FilterViewController.swift */; };
 		A426D77F2B96D94D00A5050B /* FilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A426D77D2B96D94D00A5050B /* FilterViewController.xib */; };
-		A426D7812B971F6000A5050B /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4A517352B86F5F100AD4CE3 /* Roboto-Medium.ttf */; };
+		A4275E9B2BA814FA005C9C49 /* ConverseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4275E992BA814FA005C9C49 /* ConverseViewController.swift */; };
+		A4275E9C2BA814FA005C9C49 /* ConverseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4275E9A2BA814FA005C9C49 /* ConverseViewController.xib */; };
+		A4275E9D2BA825F9005C9C49 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4A517352B86F5F100AD4CE3 /* Roboto-Medium.ttf */; };
+		A4275E9F2BA84403005C9C49 /* SocketIOManager1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4275E9E2BA84402005C9C49 /* SocketIOManager1.swift */; };
+		A4275EA12BA8520D005C9C49 /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4275EA02BA8520D005C9C49 /* SocketIOManager.swift */; };
 		A42838712B982A8F0073BD7F /* FilterSettingUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A428386F2B982A8F0073BD7F /* FilterSettingUIViewController.swift */; };
 		A42838722B982A8F0073BD7F /* FilterSettingUIViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A42838702B982A8F0073BD7F /* FilterSettingUIViewController.xib */; };
 		A42838752B98648E0073BD7F /* Slider+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42838742B98648E0073BD7F /* Slider+Extension.swift */; };
@@ -136,6 +140,10 @@
 		A420FDA52B9614BA00C33C57 /* CellSize+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CellSize+Extension.swift"; sourceTree = "<group>"; };
 		A426D77C2B96D94D00A5050B /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		A426D77D2B96D94D00A5050B /* FilterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterViewController.xib; sourceTree = "<group>"; };
+		A4275E992BA814FA005C9C49 /* ConverseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverseViewController.swift; sourceTree = "<group>"; };
+		A4275E9A2BA814FA005C9C49 /* ConverseViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConverseViewController.xib; sourceTree = "<group>"; };
+		A4275E9E2BA84402005C9C49 /* SocketIOManager1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOManager1.swift; sourceTree = "<group>"; };
+		A4275EA02BA8520D005C9C49 /* SocketIOManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 		A428386F2B982A8F0073BD7F /* FilterSettingUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSettingUIViewController.swift; sourceTree = "<group>"; };
 		A42838702B982A8F0073BD7F /* FilterSettingUIViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterSettingUIViewController.xib; sourceTree = "<group>"; };
 		A42838742B98648E0073BD7F /* Slider+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Slider+Extension.swift"; sourceTree = "<group>"; };
@@ -307,6 +315,15 @@
 			path = "Filter Screen";
 			sourceTree = "<group>";
 		};
+		A4275E982BA81376005C9C49 /* ConverseVC */ = {
+			isa = PBXGroup;
+			children = (
+				A4275E992BA814FA005C9C49 /* ConverseViewController.swift */,
+				A4275E9A2BA814FA005C9C49 /* ConverseViewController.xib */,
+			);
+			name = ConverseVC;
+			sourceTree = "<group>";
+		};
 		A428386E2B982A3E0073BD7F /* Cell */ = {
 			isa = PBXGroup;
 			children = (
@@ -346,6 +363,7 @@
 		A42BCBE72BA1FB2900B72DF6 /* ChatVC */ = {
 			isa = PBXGroup;
 			children = (
+				A4275E982BA81376005C9C49 /* ConverseVC */,
 				A42BCBF22BA20BAC00B72DF6 /* ActiveUserList */,
 				A42BCBED2BA2024600B72DF6 /* FriendListCell */,
 				A42BCBE32BA1F4D900B72DF6 /* ChatViewController.swift */,
@@ -585,6 +603,8 @@
 				A45348DE2B8C9919006D72E4 /* UserProfile.swift */,
 				A46D0E862B8F367500E5CD4F /* GetPhotos.swift */,
 				A4712DA82B908F6F004903AA /* UserDistance.swift */,
+				A4275E9E2BA84402005C9C49 /* SocketIOManager1.swift */,
+				A4275EA02BA8520D005C9C49 /* SocketIOManager.swift */,
 			);
 			path = NetWork;
 			sourceTree = "<group>";
@@ -808,7 +828,6 @@
 				A42BCBE22BA1638700B72DF6 /* PreviousChatViewController.xib in Resources */,
 				A4A5174A2B86F5F100AD4CE3 /* LICENSE.txt in Resources */,
 				A42BCBFB2BA20D8400B72DF6 /* FriendListCell.xib in Resources */,
-				A426D7812B971F6000A5050B /* Roboto-Medium.ttf in Resources */,
 				A470F4952BA30D760094A665 /* InGroupViewController.xib in Resources */,
 				A426D77F2B96D94D00A5050B /* FilterViewController.xib in Resources */,
 				A4B4AB9B2B8C2F7A00822DDB /* Roboto-Regular.ttf in Resources */,
@@ -829,10 +848,12 @@
 				A4A517462B86F5F100AD4CE3 /* Roboto-ThinItalic.ttf in Resources */,
 				A470F4972BA30D760094A665 /* PostCollectionViewCell.xib in Resources */,
 				A470F4A12BA30D760094A665 /* AboutViewController.xib in Resources */,
+				A4275E9D2BA825F9005C9C49 /* Roboto-Medium.ttf in Resources */,
 				A4A5174E2B86F5F100AD4CE3 /* Roboto-Black.ttf in Resources */,
 				A4A517452B86F5F100AD4CE3 /* Roboto-MediumItalic.ttf in Resources */,
 				A42BCBE62BA1F4D900B72DF6 /* ChatViewController.xib in Resources */,
 				A45ABCF72B9811CF0039B985 /* FilterCell.xib in Resources */,
+				A4275E9C2BA814FA005C9C49 /* ConverseViewController.xib in Resources */,
 				A4A5170E2B86E52500AD4CE3 /* Assets.xcassets in Resources */,
 				A4A517492B86F5F100AD4CE3 /* Roboto-Italic.ttf in Resources */,
 				A470F4982BA30D760094A665 /* subViewController.xib in Resources */,
@@ -989,6 +1010,7 @@
 				A44C5CDF2B8745A000037024 /* ShowLoading and Aleart.swift in Sources */,
 				A45348DD2B8C624F006D72E4 /* ProfileViewController.swift in Sources */,
 				A4A9B9792B8D06350044861C /* RegisterResponse.swift in Sources */,
+				A4275E9F2BA84403005C9C49 /* SocketIOManager1.swift in Sources */,
 				A4E1C61A2B918954006E3211 /* UserIntroduceViewController.swift in Sources */,
 				A42838712B982A8F0073BD7F /* FilterSettingUIViewController.swift in Sources */,
 				A483D0482B88711C00DD6B15 /* UserNetWorkManager.swift in Sources */,
@@ -999,6 +1021,7 @@
 				A434D0D22B9997360087A62B /* FilterUserEntity+CoreDataProperties.swift in Sources */,
 				A463BDDE2BA043F400E8CBF3 /* ResetPasswordViewController.swift in Sources */,
 				A48B896D2B94D8EE00C7BC51 /* UserLocation.swift in Sources */,
+				A4275E9B2BA814FA005C9C49 /* ConverseViewController.swift in Sources */,
 				A42BCBF52BA20BE000B72DF6 /* ActiveUserListCollectionViewCell.swift in Sources */,
 				A470F4912BA30D760094A665 /* CollectionViewCell.swift in Sources */,
 				A46D0E7F2B8ECFEA00E5CD4F /* ImageModel.swift in Sources */,
@@ -1010,6 +1033,7 @@
 				A4A5175A2B871EA500AD4CE3 /* LoginResponse.swift in Sources */,
 				A4A5170C2B86E52100AD4CE3 /* IUDI.xcdatamodeld in Sources */,
 				A483D03F2B88393700DD6B15 /* UserDefault.swift in Sources */,
+				A4275EA12BA8520D005C9C49 /* SocketIOManager.swift in Sources */,
 				A45348DF2B8C9919006D72E4 /* UserProfile.swift in Sources */,
 				A4A517022B86E52100AD4CE3 /* AppDelegate.swift in Sources */,
 				A426D77E2B96D94D00A5050B /* FilterViewController.swift in Sources */,

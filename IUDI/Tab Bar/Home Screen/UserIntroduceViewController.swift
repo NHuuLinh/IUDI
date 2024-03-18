@@ -26,10 +26,11 @@ class UserIntroduceViewController: UIViewController {
     var userPhotos = [Photo]()
     let itemNumber = 4
     let minimumLineSpacing = 5.0
+    let apiService = APIService.share
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        self.navigationController?.isNavigationBarHidden = true
+        //        self.navigationController?.isNavigationBarHidden = true
         setupCollectionView()
         registerCollectionView()
         setupUserIntroduct()
@@ -51,6 +52,7 @@ class UserIntroduceViewController: UIViewController {
             break
         }
     }
+    
     func setupCollectionView() {
         if let flowLayout = userImageCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
             flowLayout.scrollDirection = .vertical
@@ -58,12 +60,14 @@ class UserIntroduceViewController: UIViewController {
             flowLayout.minimumInteritemSpacing = minimumLineSpacing
         }
     }
+    
     func registerCollectionView(){
         userImageCollectionView.dataSource = self
         userImageCollectionView.delegate = self
         let cell = UINib(nibName: "SelectImageCollectionViewCell", bundle: nil)
         userImageCollectionView.register(cell, forCellWithReuseIdentifier: "SelectImageCollectionViewCell")
     }
+    
     func setupUserIntroduct(){
         userIntroduct.showsLargeContentViewer = true
         userIntroduct.shouldTrim = true
@@ -72,6 +76,7 @@ class UserIntroduceViewController: UIViewController {
         userIntroduct.attributedReadLessText = readLessText
         let readMoreText = NSAttributedString(string: "... Xem thêm", attributes: [NSAttributedString.Key.foregroundColor: Constant.mainBorderColor])
         userIntroduct.attributedReadMoreText = readMoreText
+        // chỉnh scroll view
         userIntroduct.onSizeChange = { _ in
             DispatchQueue.main.async { // Ensure UI updates on main thread
                 self.calculateScrollView(totalItemNumber: self.userPhotos.count, itemSize: 91.75, lineSpacing: self.minimumLineSpacing)
@@ -79,15 +84,13 @@ class UserIntroduceViewController: UIViewController {
             }
         }
     }
+    
     func calculateScrollView(totalItemNumber: Int, itemSize: CGFloat, lineSpacing: CGFloat) {
         let itemNumber = Int(ceil(Double(totalItemNumber) / Double(itemNumber)))
         let collectionviewLocation = userImageCollectionView.superview?.frame.minY
         let bottomSafeAreaHeight = view.safeAreaInsets.bottom
-
+        
         scrollViewHeight.constant = CGFloat(itemNumber) * itemSize + (CGFloat(itemNumber) * lineSpacing) + CGFloat(collectionviewLocation!) + bottomSafeAreaHeight
-        print("scrollViewHeight:\(scrollViewHeight.constant)")
-        print("userImageCollectionView.frame.minY:\(collectionviewLocation ?? 0)")
-        print("itemNumber:\(itemNumber)")
     }
     
     func blindata(data: Distance){
@@ -115,6 +118,45 @@ class UserIntroduceViewController: UIViewController {
     }
     
     func getAllImage(userID: String){
+        showLoading(isShow: true)
+        print("UserID: \(userID)")
+        let subUrl = Constant.baseUrl + "profile/viewAllImage/" + userID
+        apiService.apiHandle(subUrl: subUrl, data: GetPhotos.self) { response in
+            switch response {
+            case .success(let data):
+                if let userdata = data.photos {
+                    print("userdata: \(userdata.count)")
+                    self.userPhotos = userdata
+                    DispatchQueue.main.async {
+                        self.userImageCollectionView.reloadData()
+                        let frameSize = self.userImageCollectionView.frame.width
+                        let imageSize = self.caculateSize(indexNumber: Double(self.userPhotos.count),
+                                                          frameSize: frameSize,
+                                                          defaultNumberItemOneRow: Double(self.itemNumber),
+                                                          minimumLineSpacing: self.minimumLineSpacing)
+                        self.calculateScrollView(totalItemNumber: self.userPhotos.count,
+                                                 itemSize: imageSize,
+                                                 lineSpacing: self.minimumLineSpacing)
+                    }
+                    print("userImageCollectionView:\(self.userImageCollectionView.frame.height)")
+                } else {
+                    print("data nill")
+                }
+                self.showLoading(isShow: false)
+            case .failure(let error):
+                print("error: \(error.localizedDescription)")
+                self.showLoading(isShow: false)
+                switch error{
+                case .server(let message):
+                    self.showAlert(title: "lỗi", message: message)
+                case .network(let message):
+                    self.showAlert(title: "lỗi", message: message)
+                }
+            }
+        }
+    }
+    
+    func getAllImage1(userID: String){
         showLoading(isShow: true)
         print("UserID: \(userID)")
         let url = Constant.baseUrl + "profile/viewAllImage/" + userID

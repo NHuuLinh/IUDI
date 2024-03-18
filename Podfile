@@ -16,6 +16,7 @@ target 'IUDI' do
   pod 'Kingfisher'
   pod 'ReadMoreTextView'
   pod 'SwiftRangeSlider'
+  pod 'Socket.IO-Client-Swift', '~> 16.1.0'
 
 
   target 'IUDITests' do

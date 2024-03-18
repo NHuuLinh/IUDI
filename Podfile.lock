@@ -7,6 +7,9 @@ PODS:
   - Kingfisher (7.9.1)
   - MBProgressHUD (1.2.0)
   - ReadMoreTextView (3.0.1)
+  - Socket.IO-Client-Swift (16.1.0):
+    - Starscream (~> 4.0.6)
+  - Starscream (4.0.8)
   - SwiftRangeSlider (2.0.0)
   - SwiftyJSON (4.3.0)
 
@@ -19,6 +22,7 @@ DEPENDENCIES:
   - Kingfisher
   - MBProgressHUD (~> 1.2.0)
   - ReadMoreTextView
+  - Socket.IO-Client-Swift (~> 16.1.0)
   - SwiftRangeSlider
   - SwiftyJSON (~> 4.0)
 
@@ -32,6 +36,8 @@ SPEC REPOS:
     - Kingfisher
     - MBProgressHUD
     - ReadMoreTextView
+    - Socket.IO-Client-Swift
+    - Starscream
     - SwiftRangeSlider
     - SwiftyJSON
 
@@ -44,9 +50,11 @@ SPEC CHECKSUMS:
   Kingfisher: 1d14e9f59cbe19389f591c929000332bf70efd32
   MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
   ReadMoreTextView: 19147adf93abce6d7271e14031a00303fe28720d
+  Socket.IO-Client-Swift: ee4b8f80a3db18dd7f32b266ddf273310609443c
+  Starscream: 19b5533ddb925208db698f0ac508a100b884a1b9
   SwiftRangeSlider: f86e3b637c961120158fa1a89277c8343845cbe4
   SwiftyJSON: 6faa0040f8b59dead0ee07436cbf76b73c08fd08
 
-PODFILE CHECKSUM: 81fb15dbc794f663e771da81d5b4a813ff981cf6
+PODFILE CHECKSUM: 6491c5019eef03737720702b8fcf91c690909260
 
 COCOAPODS: 1.12.1

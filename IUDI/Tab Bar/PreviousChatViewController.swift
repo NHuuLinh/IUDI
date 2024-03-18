@@ -101,7 +101,7 @@ class PreviousChatViewController: UIViewController,PreviousChatDelegate {
         switch sender {
         case chatBtn :
             print("chatBtn")
-            let vc = ChatViewController()
+            let vc = ConverseViewController()
             navigationController?.pushViewController(vc, animated: true)
         case backBtn:
             print("backBtn")

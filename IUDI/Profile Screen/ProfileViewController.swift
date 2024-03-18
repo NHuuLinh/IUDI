@@ -166,7 +166,9 @@ class ProfileViewController: UIViewController,DataDelegate,DateConvertFormat {
                     print("dữ liệu nil")
                     return
                 }
-                self.loadDataToView(user: user)
+                DispatchQueue.main.async {
+                    self.loadDataToView(user: user)
+                }
                 self.showLoading(isShow: false)
             case .failure(let error):
                 print("error: \(error.localizedDescription)")

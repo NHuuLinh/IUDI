@@ -30,8 +30,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // có mạng
         if UserDefaults.standard.didLogin {
             if UserDefaults.standard.didOnMain {
-                setupTabBar()
-//                goToFilter()
+//                setupTabBar()
+                goToFilter()
             } else {
                 goToProfile()
             }
@@ -87,7 +87,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     
     func goToFilter() {
         print("Đã login rồi. Cho vào Home")
-        let mainVC = ChatViewController(nibName: "ChatViewController", bundle: nil)
+        let mainVC = ConverseViewController(nibName: "ConverseViewController", bundle: nil)
 //        let mainVC = FilterViewController(nibName: "FilterViewController", bundle: nil)
         let mainNavigation = UINavigationController(rootViewController: mainVC)
         window!.rootViewController = mainNavigation
