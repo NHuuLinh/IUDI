@@ -42,6 +42,26 @@ class SocketIOManager: NSObject {
         mSocket.emit("leave", ["room": ""])
     }
     func sendTextMessage() {
+        if mSocket.status == .connected {
+            let messageData: [String: Any] = [
+                "room": "1", //ví dụ 21423
+                "data": [
+                    "id": "2",
+                    "RelatedUserID": "1",
+                    "type": "text",//text/ image/icon-image/muti-image
+                    "state":"",
+    //                "content":"adeqwq"
+                    "data": "https://i.ibb.co/2MJkg5P/Screenshot-2023-05-07-142345.png"// nếu dữ liệu là loại ảnh
+                     // Nếu dữ liệu là loại text
+                ]
+            ]
+            
+            mSocket.emit("send_message", messageData)
+        } else {
+            print("Socket is not connected")
+        }
+    }
+    func sendTextMessage2() {
         let formatter = DateFormatter()
         formatter.dateFormat = "dd/MM/yyyy HH:mm a"
         formatter.amSymbol = "AM"
@@ -73,13 +93,13 @@ class SocketIOManager: NSObject {
                 "RelatedUserID": "1",
                 "type": "text",//text/ image/icon-image/muti-image
                 "state":"",
-                "content":"adeqwq"
-                //"data": "https://i.ibb.co/2MJkg5P/Screenshot-2023-05-07-142345.png"// nếu dữ liệu là loại ảnh
+//                "content":"adeqwq"
+                "data": "https://i.ibb.co/2MJkg5P/Screenshot-2023-05-07-142345.png"// nếu dữ liệu là loại ảnh
                  // Nếu dữ liệu là loại text
             ]
         ]
         
-        mSocket.emit("check_message", messageData)
+        mSocket.emit("send_message", messageData)
     }
     
 //    func sendIconImageMessage(roonId: Int) {
