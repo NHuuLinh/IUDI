@@ -8,8 +8,9 @@
 import UIKit
 import MessageKit
 import InputBarAccessoryView
+import UniformTypeIdentifiers
 
-class MessageViewController: MessagesViewController,MessagesDataSource,MessagesLayoutDelegate,MessagesDisplayDelegate {
+class MessageViewController: MessagesViewController,MessagesDataSource,MessagesLayoutDelegate,MessagesDisplayDelegate, UIDocumentPickerDelegate {
     
     let currentUser = Sender(senderId: "self", displayName: "Linh")
     let otherUser = Sender(senderId: "other", displayName: "lâm")
@@ -85,40 +86,56 @@ extension MessageViewController: UIImagePickerControllerDelegate & UINavigationC
         
         dismiss(animated: true, completion: nil)
     }
+    func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
+        if (urls.first?.lastPathComponent) != nil {
+            for url in urls {
+                let newMessage = Message(sender: currentUser, messageId: UUID().uuidString, sentDate: Date(), kind: .custom(url.self))
+                messages.append(newMessage)
+            }
+            // Reload the collection view to display the new messages
+            messagesCollectionView.reloadData()
+            // Dismiss the document picker
+            dismiss(animated: true, completion: nil)
+        }
+    }
+
 
 }
-// MARK: - thêm icon camera vào 
+// MARK: - thêm icon vào right bar
 extension MessageViewController {
-    private func addCameraBarButton() {
-        let buttonSize = CGSize(width: 24, height: 24)
-        let spacing: CGFloat = 50 // Khoảng cách giữa các mục
-
-        let photoLibrary = InputBarButtonItem(type: .system)
-        photoLibrary.image = UIImage(systemName: "photo")
-        photoLibrary.addTarget(
+    
+    func addBarItem(size: CGSize, image: String, action: Selector) -> InputBarButtonItem{
+        let item = InputBarButtonItem(type: .system)
+        item.image = UIImage(systemName: image)
+        item.tintColor = Constant.mainBorderColor
+        item.addTarget(
             self,
-            action: #selector(photoButtonPressed),
+            action: action,
             for: .primaryActionTriggered)
-        photoLibrary.setSize(buttonSize, animated: false)
+        item.setSize(size, animated: false)
+        return item
+    }
 
-        let camera = InputBarButtonItem(type: .system)
-        camera.image = UIImage(systemName: "camera")
-        camera.addTarget(self,
-                         action: #selector(openCamera),
-                         for: .primaryActionTriggered)
-        camera.setSize(buttonSize, animated: false)
+    private func addCameraBarButton() {
+        let itemSize = CGSize(width: 24, height: 24)
+        let itemSpacing: CGFloat = 15 // Khoảng cách giữa các mục
+        let itemNumber :CGFloat = 5
+        
+        let photoLibrary = addBarItem(size: itemSize, image: "photo", action: #selector(photoButtonPressed))
+        let camera = addBarItem(size: itemSize, image: "camera", action: #selector(openCamera))
+        let paperclip = addBarItem(size: itemSize, image: "paperclip", action: #selector(sendFile))
+        let micro = addBarItem(size: itemSize, image: "mic.fill", action: #selector(sendFile))
 
         messageInputBar.sendButton.image = UIImage(named: "sendmsgicon")
-        messageInputBar.sendButton.setSize(buttonSize, animated: true)
+        messageInputBar.sendButton.setSize(itemSize, animated: true)
         messageInputBar.sendButton.title = nil
 
         messageInputBar.rightStackView.alignment = .center
-        messageInputBar.rightStackView.spacing = spacing // Đặt khoảng cách giữa các mục
-        let messageInputBarSize = (buttonSize.width * 3) + (spacing * 2) // Tính kích thước của thanh input bar
+        messageInputBar.rightStackView.spacing = itemSpacing // Đặt khoảng cách giữa các mục
+        let messageInputBarSize = (itemSize.width * itemNumber) + (itemSpacing * (itemNumber - 1)) // Tính kích thước của thanh input bar
         messageInputBar.setRightStackViewWidthConstant(to: messageInputBarSize, animated: false)
-        messageInputBar.setStackViewItems([messageInputBar.sendButton, photoLibrary, camera], forStack: .right, animated: false)
+        messageInputBar.setStackViewItems([messageInputBar.sendButton, photoLibrary, camera,paperclip,micro], forStack: .right, animated: false)
     }
-
     @objc private func photoButtonPressed() {
         let picker = UIImagePickerController()
         picker.delegate = self
@@ -126,6 +143,7 @@ extension MessageViewController {
         picker.allowsEditing = true
         present(picker, animated: true)
     }
+    
     @objc fileprivate func openCamera() {
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             imagePicker.delegate = self
@@ -149,6 +167,35 @@ extension MessageViewController {
             self.present(alertWarning, animated: true, completion: nil)
         }
     }
+
+    @objc private func sendFile() {
+//        let documentPicker = UIDocumentPickerViewController(documentTypes: ["public.item"], in: .import)
+//        documentPicker.delegate = self
+//        documentPicker.modalPresentationStyle = .formSheet
+//        present(documentPicker, animated: true, completion: nil)
+//    }
+        let contentTypes: [UTType] = [
+           .init(filenameExtension: "doc")!,
+           .init(filenameExtension: "docx")!,
+           .pdf,
+           .presentation,
+           .spreadsheet,
+           .plainText,
+           .text
+        ]
+
+         let documentPicker: UIDocumentPickerViewController
+
+         if #available(iOS 14.0, *) {
+             documentPicker = UIDocumentPickerViewController(forOpeningContentTypes: contentTypes, asCopy: true)
+         } else {
+             documentPicker = UIDocumentPickerViewController(documentTypes: contentTypes.map({$0.identifier}), in: .import)
+         }
+        documentPicker.delegate = self
+        documentPicker.modalPresentationStyle = .formSheet
+        present(documentPicker, animated: true, completion: nil)
+    }
+    
 }
 
 
