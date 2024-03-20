@@ -41,104 +41,25 @@ class SocketIOManager: NSObject {
     func leaveChatRoom() {
         mSocket.emit("leave", ["room": ""])
     }
-    func sendTextMessage() {
+    func sendTextMessage(messageData: [String: Any]) {
         if mSocket.status == .connected {
-            let messageData: [String: Any] = [
-                "room": "1", //ví dụ 21423
-                "data": [
-                    "id": "2",
-                    "RelatedUserID": "1",
-                    "type": "text",//text/ image/icon-image/muti-image
-                    "state":"",
-    //                "content":"adeqwq"
-                    "data": "https://i.ibb.co/2MJkg5P/Screenshot-2023-05-07-142345.png"// nếu dữ liệu là loại ảnh
-                     // Nếu dữ liệu là loại text
-                ]
-            ]
+//            let messageData: [String: Any] = [
+//                "room": "1", //ví dụ 21423
+//                "data": [
+//                    "id": "2",
+//                    "RelatedUserID": "1",
+//                    "type": "text",//text/ image/icon-image/muti-image
+//                    "state":"",
+//    //                "content":"adeqwq"
+//                    "data": "https://i.ibb.co/2MJkg5P/Screenshot-2023-05-07-142345.png"// nếu dữ liệu là loại ảnh
+//                     // Nếu dữ liệu là loại text
+//                ]
+//            ]
             
             mSocket.emit("send_message", messageData)
         } else {
             print("Socket is not connected")
         }
     }
-    func sendTextMessage2() {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yyyy HH:mm a"
-        formatter.amSymbol = "AM"
-        formatter.pmSymbol = "PM"
-        let message: [String: Any] = [
-            "data": [
-                "idSend": -1,
-                "avt": "https://github.com/sonnh7289/python3-download/raw/main/Screenshot%202023-05-04%20at%205.33.53%20PM.png",
-                "name": "",
-                "type": "text",
-                "content": "message",
-                "sendAt": "\(formatter.string(from: Date())) +07:00"
-            ] as [String : Any],
-            "room": 1
-        ]
-        
-        mSocket.emit("chat_group", message)
-    }
-    
-    func sendTextMessage1() {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "dd/MM/yyyy HH:mm a"
-        formatter.amSymbol = "AM"
-        formatter.pmSymbol = "PM"
-        let messageData: [String: Any] = [
-            "room": "1", //ví dụ 21423
-            "data": [
-                "id": "2",
-                "RelatedUserID": "1",
-                "type": "text",//text/ image/icon-image/muti-image
-                "state":"",
-//                "content":"adeqwq"
-                "data": "https://i.ibb.co/2MJkg5P/Screenshot-2023-05-07-142345.png"// nếu dữ liệu là loại ảnh
-                 // Nếu dữ liệu là loại text
-            ]
-        ]
-        
-        mSocket.emit("send_message", messageData)
-    }
-    
-//    func sendIconImageMessage(roonId: Int) {
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "dd/MM/yyyy HH:mm a"
-//        formatter.amSymbol = "AM"
-//        formatter.pmSymbol = "PM"
-//        let message: [String: Any] = [
-//            "data": [
-//                "idSend": slideMenuVC.user_id,
-//                "avt": "https://github.com/sonnh7289/python3-download/raw/main/Screenshot%202023-05-04%20at%205.33.53%20PM.png",
-//                "name": slideMenuVC.user_name,
-//                "type":"icon-image",
-//                "metaData":"/assets/like.png",
-//                "sendAt": "\(formatter.string(from: Date())) +07:00"
-//            ] as [String : Any],
-//            "room": roonId
-//        ]
-//
-//        mSocket.emit("chat_group", message)
-//    }
-    
-//    func sendImageMessage(roonId: Int, linkImage: String) {
-//        let formatter = DateFormatter()
-//        formatter.dateFormat = "dd/MM/yyyy HH:mm a"
-//        formatter.amSymbol = "AM"
-//        formatter.pmSymbol = "PM"
-//        let message: [String: Any] = [
-//            "data": [
-//                "idSend": slideMenuVC.user_id,
-//                "avt": "https://github.com/sonnh7289/python3-download/raw/main/Screenshot%202023-05-04%20at%205.33.53%20PM.png",
-//                "name": slideMenuVC.user_name,
-//                "type": "image",
-//                "metaData": linkImage,
-//                "sendAt": "\(formatter.string(from: Date())) +07:00"
-//            ] as [String : Any],
-//            "room": roonId
-//        ]
-//
-//        mSocket.emit("chat_group", message)
-//    }
+
 }

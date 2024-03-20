@@ -21,12 +21,16 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ConverseViewController" customModule="IUDI" customModuleProvider="target">
             <connections>
                 <outlet property="attachBtn" destination="wqo-CO-7KQ" id="iUa-qz-j5O"/>
+                <outlet property="backBtn" destination="pNv-10-q5z" id="iXH-Bh-7o0"/>
                 <outlet property="emojiBtn" destination="3ES-DZ-aWv" id="JSA-tF-NUp"/>
                 <outlet property="messageLb" destination="rxg-kT-Qcw" id="9rJ-7e-IDF"/>
                 <outlet property="messagePlaceholdText" destination="36c-dk-UXY" id="MrJ-Sa-8fW"/>
                 <outlet property="messageTextView" destination="Pvm-gn-eFu" id="Pog-SF-yEE"/>
                 <outlet property="microBtn" destination="3vL-TB-BGn" id="bRB-OK-4jQ"/>
                 <outlet property="sendBtn" destination="55f-dD-B9K" id="AwY-uZ-0DR"/>
+                <outlet property="targerAvatar" destination="4nN-Wb-JBe" id="x5G-Cj-2PG"/>
+                <outlet property="targerName" destination="lD1-Du-uz3" id="hMM-0g-Sdw"/>
+                <outlet property="targetStatus" destination="z4C-ZZ-7CT" id="sph-Ix-Iie"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -49,6 +53,9 @@
                                     </constraints>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" image="Arrow"/>
+                                    <connections>
+                                        <action selector="buttonHandle:" destination="-1" eventType="touchUpInside" id="TBZ-Dh-NR5"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kdd-AA-mX2">
                                     <rect key="frame" x="353" y="12" width="24" height="24"/>
@@ -159,7 +166,7 @@
                                     </constraints>
                                     <color key="tintColor" name="MainColor"/>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                    <state key="normal" image="send msg  icon"/>
+                                    <state key="normal" image="sendmsgicon"/>
                                     <connections>
                                         <action selector="buttonHandle:" destination="-1" eventType="touchUpInside" id="3xg-rq-zBC"/>
                                     </connections>
@@ -247,7 +254,7 @@
         <image name="face.smiling.inverse" catalog="system" width="128" height="123"/>
         <image name="mic.fill" catalog="system" width="110" height="128"/>
         <image name="paperclip" catalog="system" width="121" height="128"/>
-        <image name="send msg  icon" width="22" height="24"/>
+        <image name="sendmsgicon" width="22" height="24"/>
         <namedColor name="MainColor">
             <color red="0.078431372549019607" green="0.56862745098039214" blue="0.3411764705882353" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

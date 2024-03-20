@@ -11,10 +11,12 @@ class FriendListCollectionViewCell: UICollectionViewCell {
 
     @IBOutlet weak var friendListCV: UICollectionView!
     var frameWidth : CGFloat?
+    var gotoChatVC : (() -> Void)?
     override func awakeFromNib() {
         super.awakeFromNib()
         setupCollectionView()
         registerCollectionView()
+        
 //        print("friendListCV.frame.width\(friendListCV.frame.width)")
 //        print("frameWidth\(frameWidth)")
     }
@@ -48,6 +50,7 @@ extension FriendListCollectionViewCell : UICollectionViewDataSource, UICollectio
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         print("FriendListCell select: \(indexPath.row)")
+        gotoChatVC?()
     }
     
     

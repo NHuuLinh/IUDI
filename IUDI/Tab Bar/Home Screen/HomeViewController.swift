@@ -7,11 +7,12 @@ import KeychainSwift
 
 protocol HomeVCDelegate:AnyObject {
     func setRelationShip(relatedUserID: Int?, relationshipType: String?)
-    func test()
-    func gotoPreviousChatVC(targetImage: UIImage)
+    func gotoPreviousChatVC(targetImage: UIImage,dataUser: Distance)
 }
 
 class HomeViewController: UIViewController, HomeVCDelegate{
+    
+    
     @IBOutlet weak var userCollectionView: UICollectionView!
     var userDistance = [Distance]()
     var stackTransformOptions = StackTransformViewOptions()
@@ -32,6 +33,7 @@ class HomeViewController: UIViewController, HomeVCDelegate{
         self.tabBarController?.tabBar.isHidden = false
     }
     func test(){
+        print("---đây là test case---")
         print("test")
     }
     func setupView(){
@@ -51,9 +53,6 @@ class HomeViewController: UIViewController, HomeVCDelegate{
         
         let coreDataMaxAge = coreData.getUserFilterValueFromCoreData(key: "maxAge") as? Int ?? 70
         let filterMaxAge = Int(Constant.currentYear) - coreDataMaxAge
-        
-        //        let coreDataMaxDistance = coreData.getUserFilterValueFromCoreData(key: "maxDistance") as? Double ?? 30
-        //        let filterMaxDistance = coreDataMaxDistance * 1000
         
         let coreDataMinDistance = coreData.getUserFilterValueFromCoreData(key: "minDistance") as? Double ?? 0
         let filterMinDistance = coreDataMinDistance * 1000
@@ -112,6 +111,7 @@ class HomeViewController: UIViewController, HomeVCDelegate{
                 self.userDistance = filterData
                 DispatchQueue.main.async {
                     self.userCollectionView.reloadData()
+
                 }
                 self.showLoading(isShow: false)
             case .failure(let error):
@@ -175,9 +175,12 @@ class HomeViewController: UIViewController, HomeVCDelegate{
         }
     }
     
-    func gotoPreviousChatVC(targetImage: UIImage){
+    func gotoPreviousChatVC(targetImage: UIImage,dataUser: Distance){
         let vc = PreviousChatViewController()
         vc.testImage = targetImage
+        vc.dataUser = dataUser
+        
+        
         navigationController?.pushViewController(vc, animated: true)
     }
     

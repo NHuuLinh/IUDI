@@ -29,6 +29,8 @@ struct Distance: Codable {
     let provinceID: Int?
     let userID: Int?
     let avatarLink: String?
+    let isLoggedIn: Bool
+
 
     enum CodingKeys: String, CodingKey {
         case bio = "Bio"
@@ -44,5 +46,7 @@ struct Distance: Codable {
         case provinceID = "ProvinceID"
         case userID = "UserID"
         case avatarLink
+        case isLoggedIn = "IsLoggedIn"
+
     }
 }

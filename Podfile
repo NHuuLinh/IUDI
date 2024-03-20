@@ -17,6 +17,7 @@ target 'IUDI' do
   pod 'ReadMoreTextView'
   pod 'SwiftRangeSlider'
   pod 'Socket.IO-Client-Swift', '~> 16.1.0'
+  pod 'MessageKit'
 
 
   target 'IUDITests' do

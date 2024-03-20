@@ -30,7 +30,6 @@ class UserIntroduceViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        //        self.navigationController?.isNavigationBarHidden = true
         setupCollectionView()
         registerCollectionView()
         setupUserIntroduct()
@@ -154,56 +153,6 @@ class UserIntroduceViewController: UIViewController {
                 }
             }
         }
-    }
-    
-    func getAllImage1(userID: String){
-        showLoading(isShow: true)
-        print("UserID: \(userID)")
-        let url = Constant.baseUrl + "profile/viewAllImage/" + userID
-        AF.request(url, method: .get)
-            .validate(statusCode: 200...299)
-            .responseDecodable(of: GetPhotos.self) { response in
-                switch response.result {
-                    // Xử lý dữ liệu nhận được từ phản hồi (response)
-                case .success(let data):
-                    if let userdata = data.photos {
-                        print("userdata: \(userdata.count)")
-                        self.userPhotos = userdata
-                        DispatchQueue.main.async {
-                            self.userImageCollectionView.reloadData()
-                            let frameSize = self.userImageCollectionView.frame.width
-                            let imageSize = self.caculateSize(indexNumber: Double(self.userPhotos.count),
-                                                              frameSize: frameSize,
-                                                              defaultNumberItemOneRow: Double(self.itemNumber),
-                                                              minimumLineSpacing: self.minimumLineSpacing)
-                            self.calculateScrollView(totalItemNumber: self.userPhotos.count,
-                                                     itemSize: imageSize,
-                                                     lineSpacing: self.minimumLineSpacing)
-                        }
-                        print("userImageCollectionView:\(self.userImageCollectionView.frame.height)")
-                    } else {
-                        print("data nill")
-                    }
-                    self.showLoading(isShow: false)
-                case .failure(let error):
-                    self.showLoading(isShow: false)
-                    self.scrollViewHeight.constant = self.view.frame.height
-                    print("\(error.localizedDescription)")
-                    if let data = response.data {
-                        do {
-                            let json = try JSON(data: data)
-                            let errorMessage = json["message"].stringValue
-                            print("errorMessage:\(errorMessage)")
-                        } catch {
-                            print("Error parsing JSON: \(error.localizedDescription)")
-                            self.showAlert(title: "Lỗi", message: "Đã xảy ra lỗi, vui lòng thử lại sau.")
-                        }
-                    } else {
-                        print("Không có dữ liệu từ server")
-                        self.showAlert(title: "Lỗi", message: "Đã xảy ra lỗi, vui lòng thử lại sau.")
-                    }
-                }
-            }
     }
     
 }

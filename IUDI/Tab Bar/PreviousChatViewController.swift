@@ -20,7 +20,8 @@ class PreviousChatViewController: UIViewController,PreviousChatDelegate {
     let keychain = KeychainSwift()
     var testImage : UIImage?
     var userProfile : User?
-
+    var dataUser : Distance?
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,6 +29,7 @@ class PreviousChatViewController: UIViewController,PreviousChatDelegate {
         setupView()
         targetAvatar.image = testImage
         getUserProfile()
+        
     }
     
     func rotationImage(angle: CGFloat) -> CGFloat {
@@ -96,12 +98,15 @@ class PreviousChatViewController: UIViewController,PreviousChatDelegate {
             }
         })
     }
-
+    
     @IBAction func btnHandle(_ sender: UIButton) {
         switch sender {
         case chatBtn :
             print("chatBtn")
             let vc = ConverseViewController()
+            vc.userAvatar = userAvatar.image
+            vc.targetAvatar = targetAvatar.image
+            vc.dataUser = dataUser
             navigationController?.pushViewController(vc, animated: true)
         case backBtn:
             print("backBtn")

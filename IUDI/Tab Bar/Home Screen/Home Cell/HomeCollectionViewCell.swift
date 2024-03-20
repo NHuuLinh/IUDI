@@ -17,11 +17,14 @@ class HomeCollectionViewCell: UICollectionViewCell,DateConvertFormat {
     var options = StackTransformViewOptions()
     var RelationshipType : String?
     weak var homeVCDelegate : HomeVCDelegate?
+
     var relatedUserID: Int?
+    var distanData :Distance?
 
     override func awakeFromNib() {
         super.awakeFromNib()
         setupView()
+
         // Thay đổi giá trị của biến
     }
     
@@ -54,6 +57,7 @@ class HomeCollectionViewCell: UICollectionViewCell,DateConvertFormat {
         let userAge = Int(Constant.currentYear) - (Int(yearOfBirth) ?? 0)
         userAgeLb.text = String(userAge)
         userLocationLb.text = data.currentAdd
+        self.distanData = data
     }
     func setupView(){
         userImage.layer.cornerRadius = 32
@@ -67,7 +71,6 @@ class HomeCollectionViewCell: UICollectionViewCell,DateConvertFormat {
         userDistanceView.layer.borderColor = UIColor.white.cgColor
         userDistanceView.clipsToBounds = true
     }
-
     @IBAction func btnHandle(_ sender: UIButton) {
         switch sender {
         case removeBtn:
@@ -82,7 +85,8 @@ class HomeCollectionViewCell: UICollectionViewCell,DateConvertFormat {
             guard let image = userImage.image else {
                 return
             }
-            homeVCDelegate?.gotoPreviousChatVC(targetImage: userImage.image ?? image)
+            homeVCDelegate?.gotoPreviousChatVC(targetImage: userImage.image ?? image, dataUser: distanData!)
+            print("distanData:\(distanData)")
         default:
             break
         }

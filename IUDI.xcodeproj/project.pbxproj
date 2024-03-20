@@ -15,7 +15,6 @@
 		A4275E9B2BA814FA005C9C49 /* ConverseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4275E992BA814FA005C9C49 /* ConverseViewController.swift */; };
 		A4275E9C2BA814FA005C9C49 /* ConverseViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4275E9A2BA814FA005C9C49 /* ConverseViewController.xib */; };
 		A4275E9D2BA825F9005C9C49 /* Roboto-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A4A517352B86F5F100AD4CE3 /* Roboto-Medium.ttf */; };
-		A4275E9F2BA84403005C9C49 /* SocketIOManager1.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4275E9E2BA84402005C9C49 /* SocketIOManager1.swift */; };
 		A4275EA12BA8520D005C9C49 /* SocketIOManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4275EA02BA8520D005C9C49 /* SocketIOManager.swift */; };
 		A42838712B982A8F0073BD7F /* FilterSettingUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A428386F2B982A8F0073BD7F /* FilterSettingUIViewController.swift */; };
 		A42838722B982A8F0073BD7F /* FilterSettingUIViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A42838702B982A8F0073BD7F /* FilterSettingUIViewController.xib */; };
@@ -40,6 +39,8 @@
 		A45348DF2B8C9919006D72E4 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45348DE2B8C9919006D72E4 /* UserProfile.swift */; };
 		A45ABCF62B9811CF0039B985 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45ABCF42B9811CF0039B985 /* FilterCell.swift */; };
 		A45ABCF72B9811CF0039B985 /* FilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A45ABCF52B9811CF0039B985 /* FilterCell.xib */; };
+		A45E8B382BA93C3E004E62A9 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45E8B372BA93C3E004E62A9 /* UserInfo.swift */; };
+		A45E8B3A2BA94EBB004E62A9 /* Date_Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45E8B392BA94EBB004E62A9 /* Date_Extension.swift */; };
 		A463BDDE2BA043F400E8CBF3 /* ResetPasswordViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A463BDDD2BA043F400E8CBF3 /* ResetPasswordViewController.swift */; };
 		A46D0E7F2B8ECFEA00E5CD4F /* ImageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46D0E7E2B8ECFEA00E5CD4F /* ImageModel.swift */; };
 		A46D0E812B8ED2CC00E5CD4F /* APIServiceImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46D0E802B8ED2CC00E5CD4F /* APIServiceImage.swift */; };
@@ -47,6 +48,8 @@
 		A46D0E872B8F367600E5CD4F /* GetPhotos.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46D0E862B8F367500E5CD4F /* GetPhotos.swift */; };
 		A46D0E8A2B8F3B0500E5CD4F /* SelectImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46D0E882B8F3B0500E5CD4F /* SelectImageCollectionViewCell.swift */; };
 		A46D0E8B2B8F3B0500E5CD4F /* SelectImageCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A46D0E892B8F3B0500E5CD4F /* SelectImageCollectionViewCell.xib */; };
+		A46DC7032BAA92AB00ACDDE2 /* MessageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46DC7022BAA92AB00ACDDE2 /* MessageViewController.swift */; };
+		A46DC7052BAA955F00ACDDE2 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = A46DC7042BAA955F00ACDDE2 /* Message.swift */; };
 		A470F48E2BA30D760094A665 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A470F4702BA30D750094A665 /* SettingViewController.swift */; };
 		A470F48F2BA30D760094A665 /* PrivacyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A470F4722BA30D750094A665 /* PrivacyViewController.xib */; };
 		A470F4902BA30D760094A665 /* PrivacyViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A470F4732BA30D750094A665 /* PrivacyViewController.swift */; };
@@ -142,7 +145,6 @@
 		A426D77D2B96D94D00A5050B /* FilterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterViewController.xib; sourceTree = "<group>"; };
 		A4275E992BA814FA005C9C49 /* ConverseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConverseViewController.swift; sourceTree = "<group>"; };
 		A4275E9A2BA814FA005C9C49 /* ConverseViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConverseViewController.xib; sourceTree = "<group>"; };
-		A4275E9E2BA84402005C9C49 /* SocketIOManager1.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOManager1.swift; sourceTree = "<group>"; };
 		A4275EA02BA8520D005C9C49 /* SocketIOManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SocketIOManager.swift; sourceTree = "<group>"; };
 		A428386F2B982A8F0073BD7F /* FilterSettingUIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterSettingUIViewController.swift; sourceTree = "<group>"; };
 		A42838702B982A8F0073BD7F /* FilterSettingUIViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterSettingUIViewController.xib; sourceTree = "<group>"; };
@@ -167,6 +169,8 @@
 		A45348DE2B8C9919006D72E4 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		A45ABCF42B9811CF0039B985 /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
 		A45ABCF52B9811CF0039B985 /* FilterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterCell.xib; sourceTree = "<group>"; };
+		A45E8B372BA93C3E004E62A9 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
+		A45E8B392BA94EBB004E62A9 /* Date_Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Date_Extension.swift; sourceTree = "<group>"; };
 		A463BDDD2BA043F400E8CBF3 /* ResetPasswordViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetPasswordViewController.swift; sourceTree = "<group>"; };
 		A46D0E7E2B8ECFEA00E5CD4F /* ImageModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageModel.swift; sourceTree = "<group>"; };
 		A46D0E802B8ED2CC00E5CD4F /* APIServiceImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIServiceImage.swift; sourceTree = "<group>"; };
@@ -174,6 +178,8 @@
 		A46D0E862B8F367500E5CD4F /* GetPhotos.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GetPhotos.swift; sourceTree = "<group>"; };
 		A46D0E882B8F3B0500E5CD4F /* SelectImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		A46D0E892B8F3B0500E5CD4F /* SelectImageCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = SelectImageCollectionViewCell.xib; sourceTree = "<group>"; };
+		A46DC7022BAA92AB00ACDDE2 /* MessageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageViewController.swift; sourceTree = "<group>"; };
+		A46DC7042BAA955F00ACDDE2 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
 		A470F4702BA30D750094A665 /* SettingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
 		A470F4722BA30D750094A665 /* PrivacyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PrivacyViewController.xib; sourceTree = "<group>"; };
 		A470F4732BA30D750094A665 /* PrivacyViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PrivacyViewController.swift; sourceTree = "<group>"; };
@@ -320,6 +326,8 @@
 			children = (
 				A4275E992BA814FA005C9C49 /* ConverseViewController.swift */,
 				A4275E9A2BA814FA005C9C49 /* ConverseViewController.xib */,
+				A46DC7022BAA92AB00ACDDE2 /* MessageViewController.swift */,
+				A46DC7042BAA955F00ACDDE2 /* Message.swift */,
 			);
 			name = ConverseVC;
 			sourceTree = "<group>";
@@ -441,6 +449,7 @@
 				A4738CA92B92D2F4006BB7D7 /* DateConvert.swift */,
 				A420FDA52B9614BA00C33C57 /* CellSize+Extension.swift */,
 				A42838742B98648E0073BD7F /* Slider+Extension.swift */,
+				A45E8B392BA94EBB004E62A9 /* Date_Extension.swift */,
 			);
 			path = Extension;
 			sourceTree = "<group>";
@@ -603,8 +612,8 @@
 				A45348DE2B8C9919006D72E4 /* UserProfile.swift */,
 				A46D0E862B8F367500E5CD4F /* GetPhotos.swift */,
 				A4712DA82B908F6F004903AA /* UserDistance.swift */,
-				A4275E9E2BA84402005C9C49 /* SocketIOManager1.swift */,
 				A4275EA02BA8520D005C9C49 /* SocketIOManager.swift */,
+				A45E8B372BA93C3E004E62A9 /* UserInfo.swift */,
 			);
 			path = NetWork;
 			sourceTree = "<group>";
@@ -986,6 +995,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				A434D0C62B9979290087A62B /* FilterUserCoreData.swift in Sources */,
+				A46DC7052BAA955F00ACDDE2 /* Message.swift in Sources */,
 				A434D0D12B9997360087A62B /* FilterUserEntity+CoreDataClass.swift in Sources */,
 				A4738CAA2B92D2F4006BB7D7 /* DateConvert.swift in Sources */,
 				A4A5175D2B873D9000AD4CE3 /* RegisterViewController.swift in Sources */,
@@ -1010,7 +1020,6 @@
 				A44C5CDF2B8745A000037024 /* ShowLoading and Aleart.swift in Sources */,
 				A45348DD2B8C624F006D72E4 /* ProfileViewController.swift in Sources */,
 				A4A9B9792B8D06350044861C /* RegisterResponse.swift in Sources */,
-				A4275E9F2BA84403005C9C49 /* SocketIOManager1.swift in Sources */,
 				A4E1C61A2B918954006E3211 /* UserIntroduceViewController.swift in Sources */,
 				A42838712B982A8F0073BD7F /* FilterSettingUIViewController.swift in Sources */,
 				A483D0482B88711C00DD6B15 /* UserNetWorkManager.swift in Sources */,
@@ -1020,8 +1029,11 @@
 				A4A517522B86FD3A00AD4CE3 /* LoginViewController.swift in Sources */,
 				A434D0D22B9997360087A62B /* FilterUserEntity+CoreDataProperties.swift in Sources */,
 				A463BDDE2BA043F400E8CBF3 /* ResetPasswordViewController.swift in Sources */,
+				A46DC7032BAA92AB00ACDDE2 /* MessageViewController.swift in Sources */,
 				A48B896D2B94D8EE00C7BC51 /* UserLocation.swift in Sources */,
 				A4275E9B2BA814FA005C9C49 /* ConverseViewController.swift in Sources */,
+				A45E8B382BA93C3E004E62A9 /* UserInfo.swift in Sources */,
+				A45E8B3A2BA94EBB004E62A9 /* Date_Extension.swift in Sources */,
 				A42BCBF52BA20BE000B72DF6 /* ActiveUserListCollectionViewCell.swift in Sources */,
 				A470F4912BA30D760094A665 /* CollectionViewCell.swift in Sources */,
 				A46D0E7F2B8ECFEA00E5CD4F /* ImageModel.swift in Sources */,

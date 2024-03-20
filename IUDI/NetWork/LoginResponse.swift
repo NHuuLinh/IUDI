@@ -25,7 +25,7 @@ struct Users: Codable {
     let birthTime: String?
     let currentAdd: String?
     let email, fullName, gender: String?
-    let isLoggedIn: Bool?
+    let isLoggedIn: Bool
     let lastActivityTime, lastLoginIP, password, phone: String?
     let photoURL: [String]?
     let provinceID: Int?

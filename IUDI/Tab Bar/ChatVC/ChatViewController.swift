@@ -43,6 +43,11 @@ class ChatViewController: UIViewController {
             self.view.layoutIfNeeded()
         })
     }
+    func gotoChatVC(){
+        let vc = MessageViewController()
+        vc.title = "Chat"
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
     @IBAction func buttonHandle(_ sender: UIButton) {
         switch sender {
@@ -91,9 +96,13 @@ extension ChatViewController : UICollectionViewDataSource, UICollectionViewDeleg
         switch chatSection {
         case .userActive:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ActiveUserListCollectionViewCell", for: indexPath) as! ActiveUserListCollectionViewCell
+            
             return cell
         case .userFriendList:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendListCollectionViewCell", for: indexPath) as! FriendListCollectionViewCell
+            cell.gotoChatVC = {
+                self.gotoChatVC()
+            }
             return cell
         default:
             return CollectionViewCell()
@@ -113,6 +122,8 @@ extension ChatViewController : UICollectionViewDataSource, UICollectionViewDeleg
         default:
             return CGSize(width: 0, height: 0)
         }
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
     }
     //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
     //        return 100 // Set the spacing between sections
