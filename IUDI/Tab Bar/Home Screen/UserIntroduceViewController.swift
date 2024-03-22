@@ -22,11 +22,13 @@ class UserIntroduceViewController: UIViewController {
     @IBOutlet weak var chatBtn: UIButton!
     @IBOutlet weak var scrollViewHeight: NSLayoutConstraint!
     
-    var data : UserDistances?
+    
     var userPhotos = [Photo]()
     let itemNumber = 4
     let minimumLineSpacing = 5.0
     let apiService = APIService.share
+    var dataUser : Distance?
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,11 +48,64 @@ class UserIntroduceViewController: UIViewController {
         case backBtn:
             navigationController?.popToRootViewController(animated: true)
         case chatBtn:
+            gotoChatVC()
             print("chatBtn")
         default:
             break
         }
     }
+    func gotoChatVC(){
+        let vc = MessageViewController()
+        vc.targetAvatar = userAvatar.image
+        vc.dataUser = dataUser
+        var userAvatars: UIImageView?
+        getUserProfile { url in
+            let imageUrl = URL(string: url)
+            userAvatars?.kf.setImage(with: imageUrl, placeholder: UIImage(named: "person"), options: nil, completionHandler: { result in
+                switch result {
+                case .success(_):
+                    // Ảnh đã tải thành công
+                    break
+                case .failure(let error):
+                    // Xảy ra lỗi khi tải ảnh
+                    userAvatars?.image = UIImage(systemName: "person")
+                }
+            })
+        }
+        vc.userAvatar = userAvatar.image
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    func getUserProfile(completion: @escaping (String) -> Void) {
+        showLoading(isShow: true)
+        guard let userName = UserInfo.shared.getUserName() else {
+            print("không có userName")
+            completion("") // Call completion handler with empty string
+            return
+        }
+        
+        let url = "profile/" + userName
+        APIService.share.apiHandleGetRequest(subUrl: url, data: User.self) { result in
+            switch result {
+            case .success(let data):
+                guard let avatarUrl = data.users?.first?.avatarLink else {
+                    print("dữ liệu nil")
+                    completion("") // Call completion handler with empty string
+                    return
+                }
+                self.showLoading(isShow: false)
+                completion(avatarUrl) // Call completion handler with avatarUrl
+            case .failure(let error):
+                print("error: \(error.localizedDescription)")
+                self.showLoading(isShow: false)
+                switch error {
+                case .server(let message), .network(let message):
+                    self.showAlert(title: "lỗi", message: message)
+                }
+                completion("") // Call completion handler with empty string
+            }
+        }
+    }
+
     
     func setupCollectionView() {
         if let flowLayout = userImageCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {

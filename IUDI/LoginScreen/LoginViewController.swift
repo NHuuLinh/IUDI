@@ -17,13 +17,13 @@ class LoginViewController: UIViewController, CheckValid {
     @IBOutlet weak var loginBtn: UIButton!
     @IBOutlet weak var registerBtn: UIButton!
     @IBOutlet weak var forgetPasswordBtn: UIButton!
-    let keychain = KeychainSwift()
     var isRememberPassword = false
     let locationManager = CLLocationManager()
     var userLongitude : String?
     var userLatitude : String?
     var userIpAdress : String?
     var userData : UserData?
+    let userInfo = UserInfo.shared
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -32,12 +32,9 @@ class LoginViewController: UIViewController, CheckValid {
     }
     override func viewWillAppear(_ animated: Bool) {
         requestLocation()
-        userPasswordTF.text = keychain.get("password")
-        userNameTF.text = keychain.get("username")
-//        print("userNameTF:\(userNameTF.text)")
-//        print("userPasswordTF:\(userPasswordTF.text)")
+        userPasswordTF.text = userInfo.getUserPassword()
+        userNameTF.text = userInfo.getUserName()
         checkInput()
-
     }
     @IBAction func UserInputDidChanged(_ sender: UITextField) {
         checkInput()
@@ -87,12 +84,12 @@ class LoginViewController: UIViewController, CheckValid {
             return
         }
         if rememberPasswordBtn.isSelected {
-            keychain.set(password, forKey: "password")
+            userInfo.saveUserPassword(password: password)
         } else {
-            keychain.delete("password")
+            userInfo.deleteUserPw()
             print("password không được lưu")
         }
-        keychain.set(userName, forKey: "username")
+        userInfo.saveUserName(userName: userName)
     }
     
     func checkBoxHandle(){
@@ -152,7 +149,7 @@ class LoginViewController: UIViewController, CheckValid {
                     print("user data nil")
                     return
                 }
-                self.keychain.set(String(userID), forKey: "userID")
+                userInfo.saveUserID(userID: String(userID))
                 self.saveUserInfo()
                 UserDefaults.standard.didLogin = true
                 self.showLoading(isShow: false)

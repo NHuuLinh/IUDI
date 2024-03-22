@@ -98,16 +98,19 @@ class PreviousChatViewController: UIViewController,PreviousChatDelegate {
             }
         })
     }
+    func gotoChatVC(){
+        let vc = MessageViewController()
+        vc.userAvatar = userAvatar.image
+        vc.targetAvatar = targetAvatar.image
+        vc.dataUser = dataUser
+        navigationController?.pushViewController(vc, animated: true)
+    }
     
     @IBAction func btnHandle(_ sender: UIButton) {
         switch sender {
         case chatBtn :
             print("chatBtn")
-            let vc = ConverseViewController()
-            vc.userAvatar = userAvatar.image
-            vc.targetAvatar = targetAvatar.image
-            vc.dataUser = dataUser
-            navigationController?.pushViewController(vc, animated: true)
+            gotoChatVC()
         case backBtn:
             print("backBtn")
             navigationController?.popViewController(animated: true)

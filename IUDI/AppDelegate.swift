@@ -20,7 +20,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // lấy url của folder
         let urls = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         print("url của file là: \(urls)")
-//        SocketIOManager.sharedInstance.establishConnection()
+        SocketIOManager.sharedInstance.establishConnection()
         return true
     }
     func applicationDidEnterBackground(_ application: UIApplication) {

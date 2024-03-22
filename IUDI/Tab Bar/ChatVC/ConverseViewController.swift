@@ -12,15 +12,10 @@ class ConverseViewController: UIViewController {
     @IBOutlet weak var targerName: UILabel!
     @IBOutlet weak var targerAvatar: UIImageView!
     @IBOutlet weak var targetStatus: UILabel!
-    @IBOutlet weak var messageTextView: UITextView!
-    @IBOutlet weak var messageLb: UILabel!
-    @IBOutlet weak var messagePlaceholdText: UILabel!
     
     @IBOutlet weak var backBtn: UIButton!
-    @IBOutlet weak var sendBtn: UIButton!
-    @IBOutlet weak var emojiBtn: UIButton!
-    @IBOutlet weak var attachBtn: UIButton!
-    @IBOutlet weak var microBtn: UIButton!
+    @IBOutlet weak var callBtn: UIButton!
+    
     var userProfile : User?
     var userAvatar : UIImage?
     var targetAvatar: UIImage?
@@ -28,20 +23,18 @@ class ConverseViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        messageTextView.delegate = self
-        messageTextView.textContainer.lineBreakMode = .byWordWrapping
-//        SocketIOManager.shared.establishConnection()
         targerAvatar.image = targetAvatar
         loadDataToView()
     }
     func loadDataToView(){
         print("---loadDataToView---")
-        let currentDate = Date()
+        let currentDate  = Date()
+        let dateString = dataUser?.lastActivityTime ?? "\(currentDate)"
         print("user:\(dataUser?.userID)")
-        guard let dateString = dataUser?.lastActivityTime else {
-            print("rông rồi")
-            return
-        }
+//        guard let dateString = dataUser?.lastActivityTime else {
+//            print("rông rồi")
+//            return
+//        }
         var lastOnlineDate : String
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss z"
@@ -90,65 +83,40 @@ class ConverseViewController: UIViewController {
         })
     }
 
-    func sendMessageHandle(){
-        let userID = UserInfo.shared.getUserID()
-        print(userID)
-        
-        guard let message = messageTextView.text, let RelatedUserID = dataUser?.userID else {
-            print("---userNil---")
-            return
-        }
-        let messageData: [String: Any] = [
-            "room": RelatedUserID , //ví dụ 21423
-            "data": [
-                "id": userID,
-                "RelatedUserID": RelatedUserID ,
-                "type": "text",//text/ image/icon-image/muti-image
-                "state":"",
-                "content":message
-                //"data": "https://i.ibb.co/2MJkg5P/Screenshot-2023-05-07-142345.png"// nếu dữ liệu là loại ảnh
-                // Nếu dữ liệu là loại text
-            ]
-        ]
-        print("messageData:\(messageData)")
-        SocketIOManager.sharedInstance.sendTextMessage(messageData: messageData)
-    }
+//    func sendMessageHandle(){
+//        let userID = UserInfo.shared.getUserID()
+//        print(userID)
+//
+//        guard let message = messageTextView.text, let RelatedUserID = dataUser?.userID else {
+//            print("---userNil---")
+//            return
+//        }
+//        let messageData: [String: Any] = [
+//            "room": RelatedUserID , //ví dụ 21423
+//            "data": [
+//                "id": userID,
+//                "RelatedUserID": RelatedUserID ,
+//                "type": "text",//text/ image/icon-image/muti-image
+//                "state":"",
+//                "content":message
+//                //"data": "https://i.ibb.co/2MJkg5P/Screenshot-2023-05-07-142345.png"// nếu dữ liệu là loại ảnh
+//                // Nếu dữ liệu là loại text
+//            ]
+//        ]
+//        print("messageData:\(messageData)")
+//        SocketIOManager.sharedInstance.sendTextMessage(messageData: messageData)
+//    }
     
     
     @IBAction func buttonHandle(_ sender: UIButton) {
         switch sender {
         case backBtn :
             navigationController?.popToRootViewController(animated: true)
-        case sendBtn:
-            sendMessageHandle()
-            print("sendBtn")
-        case emojiBtn:
-            SocketIOManager.shared.establishConnection()
-            print("emojiBtn")
-        case attachBtn:
-            print("attachBtn")
-        case microBtn:
-            print("microBtn")
+        case callBtn:
+            print("callBtn")
         default:
             break
         }
     }
 }
 
-extension ConverseViewController: UITextViewDelegate {
-    func textViewDidChange(_ textView: UITextView) {
-        // Kiểm tra nếu UITextView không rỗng
-        if let text = textView.text, !text.isEmpty {
-            // Nếu có nội dung, kích hoạt nút lưu
-            messageLb.text = messageTextView.text
-            messagePlaceholdText.isHidden = true
-        } else {
-            // Nếu không có nội dung, vô hiệu hóa nút lưu
-            messageLb.text = messageTextView.text
-            messagePlaceholdText.isHidden = false
-        }
-    }
-}
-extension ConverseViewController {
-    
-}

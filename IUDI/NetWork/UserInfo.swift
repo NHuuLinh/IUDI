@@ -14,6 +14,7 @@ class UserInfo{
 
     private init(){}
     
+    // lưu user
     func saveUserName(userName: String){
         keychain.set(userName, forKey: "username")
     }
@@ -25,7 +26,11 @@ class UserInfo{
     func saveUserID(userID: String){
         keychain.set(String(userID), forKey: "userID")
     }
+    func saveUserFullName(userFullName: String){
+        keychain.set(String(userFullName), forKey: "userFullName")
+    }
     
+    //lấy thông tin  user
     func getUserName() -> String?{
         let userName = keychain.get("username")
         return userName
@@ -34,13 +39,19 @@ class UserInfo{
     func getUserPassword() -> String?{
         let password = keychain.get("password")
         return password
-
     }
     
     func getUserID() -> String?{
         let userID = keychain.get("userID")
         return userID
-
+    }
+    func getUserFullName() -> String?{
+        let userID = keychain.get("userFullName")
+        return userID
+    }
+    // xóa thông tin user
+    func deleteUserPw(){
+        keychain.delete("password")
     }
     
 }

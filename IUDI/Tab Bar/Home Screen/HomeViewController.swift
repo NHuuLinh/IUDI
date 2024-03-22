@@ -225,6 +225,7 @@ extension HomeViewController:UICollectionViewDataSource, UICollectionViewDelegat
         print("userID: \(test)")
         vc.getAllImage(userID: String(userID))
         vc.blindata(data: data)
+        vc.dataUser = data
         navigationController?.pushViewController(vc, animated: true)
     }
     

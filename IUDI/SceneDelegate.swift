@@ -30,8 +30,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // có mạng
         if UserDefaults.standard.didLogin {
             if UserDefaults.standard.didOnMain {
-//                setupTabBar()
-                goToFilter()
+                setupTabBar()
+//                goToFilter()
             } else {
                 goToProfile()
             }
