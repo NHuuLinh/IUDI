@@ -44,7 +44,12 @@ extension ActiveUserListCollectionViewCell : UICollectionViewDataSource, UIColle
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        logout()
         print("user select: \(indexPath.row)")
+    }
+    func logout(){
+        AppDelegate.scene?.goToLogin()
+        UserDefaults.standard.didLogin = false
     }
 //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
 //        return CGSize(width: bounds.width, height: 72)

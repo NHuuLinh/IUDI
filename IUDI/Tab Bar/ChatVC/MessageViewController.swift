@@ -9,6 +9,7 @@ import UIKit
 import MessageKit
 import InputBarAccessoryView
 import UniformTypeIdentifiers
+import SwiftyJSON
 
 class MessageViewController: MessagesViewController,MessagesLayoutDelegate, UIDocumentPickerDelegate, MessagesDisplayDelegate {
     let userID = UserInfo.shared.getUserID()
@@ -20,14 +21,17 @@ class MessageViewController: MessagesViewController,MessagesLayoutDelegate, UIDo
     let itemSpacing: CGFloat = 15 // Khoảng cách giữa các mục
     let itemNumber :CGFloat = 5
     
-    var userProfile : User?
     var userAvatar : UIImage?
     var targetAvatar: UIImage?
     var dataUser : Distance?
+    var hi:ImgModel = ImgModel()
+    var chatData = [SingleChat]()
+    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         subviewHandle()
+        sendUserId()
         SocketIOManager.sharedInstance.establishConnection()
         messages.append(Message(sender: currentUser, messageId: "1", sentDate: Date().addingTimeInterval(-86400), kind: .text("Hello Word1")))
         
@@ -43,13 +47,82 @@ class MessageViewController: MessagesViewController,MessagesLayoutDelegate, UIDo
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
+        messagesCollectionView.showsVerticalScrollIndicator = false
         messageInputBar.delegate = self
         addCameraBarButton()
+        getAllChatData()
     }
     override func viewWillAppear(_ animated: Bool) {
         SocketIOManager.shared.establishConnection()
-
+        SocketIOManager.shared.mSocket.on("connect") {data, ack in
+            self.sendUserId() // Gọi hàm sendUserId() khi kết nối thành công
+        }
+        navigationController?.navigationBar.isHidden = true
+        reloadNewMessage()
     }
+    func getAllChatData(){
+        guard let userID = UserInfo.shared.getUserID() else {
+            print("userID Nil")
+            return
+        }
+        showLoading(isShow: true)
+        let apiService = APIService.share
+        let subUrl = "pairmessage/\(userID)?other_userId=\(2)"
+        print("url:\(subUrl)")
+        apiService.apiHandleGetRequest(subUrl: subUrl,data: AllSingleChatData.self) { result in
+            switch result {
+            case .success(let data):
+                print("getAllChatData success")
+                print("self.chatData:\(self.chatData.count)")
+//                self.chatData = data.data
+                self.loadChatHistory(datas: data.data)
+//                DispatchQueue.main.async {
+//                    self.messagesCollectionView.reloadData()
+//                }
+                self.showLoading(isShow: false)
+            case .failure(let error):
+                print("error: \(error.localizedDescription)")
+                self.showLoading(isShow: false)
+                switch error{
+                case .server(let message):
+                    self.showAlert(title: "lỗi", message: message)
+                case .network(let message):
+                    self.showAlert(title: "lỗi", message: message)
+                }
+            }
+        }
+    }
+    func loadChatHistory(datas: [SingleChat] ){
+        guard let userID = UserInfo.shared.getUserID() else {
+            print("userID Nil")
+            return
+        }
+        for data in datas.reversed() {
+            guard let messageText = data.content,
+            let senderId = data.senderID,
+            let displayName = data.otherUsername,
+            let messageId = data.messageID,
+                  let messageDate = data.messageTime else {return}
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss zzz" // Specify the format of the string date
+            let sentDate = dateFormatter.date(from: messageDate) ?? Date()
+            let newMessage = Message(sender: Sender(senderId: "\(senderId)", displayName: displayName),
+                                     messageId: "\(messageId)",
+                                     sentDate: sentDate,
+                                     kind: .text(messageText))
+            // Xử lý tin nhắn mới
+            
+            self.messages.append(newMessage)
+        }
+        self.messagesCollectionView.reloadData()
+        self.messagesCollectionView.scrollToLastItem(animated: true)
+    }
+    
+    
+}
+// MARK: - xử lí subview
+extension MessageViewController {
+    
     func subviewHandle(){
         var safeAreaHeight : CGFloat
         if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
@@ -68,7 +141,7 @@ class MessageViewController: MessagesViewController,MessagesLayoutDelegate, UIDo
         
         let userSubview = UIView()
         view.addSubview(userSubview)
-        userSubview.frame = CGRect(x: 0, y: safeAreaHeight, width: view.frame.width, height: 50)
+        userSubview.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50 + safeAreaHeight)
         //        userSubview.backgroundColor = .green
         messagesCollectionView.contentInset.top = userSubview.frame.height
         
@@ -81,60 +154,176 @@ class MessageViewController: MessagesViewController,MessagesLayoutDelegate, UIDo
         childVC.view.frame = userSubview.bounds
         childVC.didMove(toParent: self)
     }
-    
+
 }
-extension MessageViewController: InputBarAccessoryViewDelegate {
-    func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
-        // Tạo một tin nhắn mới từ người dùng hiện tại và văn bản đã nhập
-        guard let RelatedUserID = dataUser?.userID else {
+// MARK: - testing
+extension MessageViewController {
+//    func handleNewMessage(message: Message) {
+//        // Kiểm tra xem tin nhắn mới có phải từ người dùng hiện tại hay không
+//        if message.sender.senderId != currentUser.senderId {
+//            // Nếu tin nhắn mới không phải từ người dùng hiện tại, thêm nó vào mảng tin nhắn và cập nhật giao diện
+//            messages.append(message)
+//            messagesCollectionView.reloadData()
+//            messagesCollectionView.scrollToLastItem(animated: true)
+//        } else {
+//            print("---từ người dùng hiện tại---")
+//        }
+//    }
+    @objc func sendUserId(){
+        guard let sendID = Int(userID ?? "0") else {
             print("---userNil---")
             return
         }
         if SocketIOManager.shared.mSocket.status == .connected {
+            print("Socket is connected")
+            let messageData: [String: Int] = [
+                "userId": sendID
+            ]
+            SocketIOManager.shared.mSocket.emit("userId", messageData)
+        } else {
+            print("Socket is not connected")
+        }
+    }
+    func reloadNewMessage(){
+        SocketIOManager.shared.mSocket.on("check_message") { data, ack in
+            print("co tin nhan moi")
+            print("co tin nhan moi: \(data)")
+            guard let messageData = data[0] as? [String: Any] else { return }
+            guard let displayName = self.dataUser?.fullName else {return}
+            //            let json = try JSON(data: data)
+            //            let errorMessage = json["message"].stringValue
+            //            if let messageData = data as? [String: Any] {
+            // Xử lý dữ liệu tin nhắn mới
+            //                let messageId = messageData["messageId"] as? String ?? ""
+            let senderId = messageData["senderID"] as? String ?? ""
+            //                let senderName = messageData["senderName"] as? String ?? ""
+            let messageText = messageData["content"] as? String ?? ""
+            // Tạo đối tượng tin nhắn mới từ dữ liệu nhận được
+            let newMessage = Message(sender: Sender(senderId: senderId, displayName: displayName),
+                                     messageId: senderId,
+                                     sentDate: Date(),
+                                     kind: .text(messageText))
+            // Xử lý tin nhắn mới
+            self.messages.append(newMessage)
+            self.messagesCollectionView.reloadData()
+            self.messagesCollectionView.scrollToLastItem(animated: true)
+            //            }
+        }
+    }
+}
+
+// MARK: - Xử lí khi tin nhắn text
+extension MessageViewController: InputBarAccessoryViewDelegate {
+    func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
+        // Tạo một tin nhắn mới từ người dùng hiện tại và văn bản đã nhập
+        guard let idReceive = dataUser?.userID else {
+            print("---userNil---")
+            return
+        }
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss zzz"
+        
+        // Lấy thời gian hiện tại
+        let currentTime = Date()
+        // Định dạng thời gian hiện tại thành chuỗi
+        let MessageTime = dateFormatter.string(from: currentTime)
+        if SocketIOManager.shared.mSocket.status == .connected {
             let messageData: [String: Any] = [
-                "room": RelatedUserID , //ví dụ 21423
-                "data": [
-                    "id": userID,
-                    "RelatedUserID": RelatedUserID ,
-                    "type": "text",//text/ image/icon-image/muti-image
-                    "state":"",
-                    "content":text
-                ]
+                "content": text,
+                "MessageTime": MessageTime,
+                "idReceive": idReceive,
+                "idSend": userID ?? ""
             ]
             SocketIOManager.shared.mSocket.emit("send_message", messageData)
             let newMessage = Message(sender: currentUser, messageId: UUID().uuidString, sentDate: Date(), kind: .text(text))
             print("newMessage:\(newMessage)")
-            
             // Thêm tin nhắn mới vào mảng messages và reload dữ liệu hiển thị
             messages.append(newMessage)
             messagesCollectionView.reloadData()
             // Xóa văn bản đã nhập từ thanh nhập liệu
             inputBar.inputTextView.text = ""
-            
             // Cuộn xuống cuối danh sách tin nhắn để hiển thị tin nhắn mới nhất
             messagesCollectionView.scrollToLastItem(animated: true)
-            
         } else {
             print("Socket is not connected")
-            
+            showAlert(title: "Socket is not connected", message: "Socket is not connected")
         }
     }
     
 }
+// MARK: - Xử lí khi chọn ảnh và tệp
 extension MessageViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+    
+    func resizeImage(image: UIImage, scale: CGFloat) -> UIImage {
+        let newSize = CGSize(width: image.size.width * scale, height: image.size.height * scale)
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        defer { UIGraphicsEndImageContext() }
+        image.draw(in: CGRect(origin: CGPoint.zero, size: newSize))
+        if let newImage = UIGraphicsGetImageFromCurrentImageContext() {
+            return newImage
+        }
+        return image
+    }
+    
+    func uploadImageToServer(image: UIImage, completion: @escaping (String?) -> Void) {
+        // Resize image to reduce file size (e.g., to 0.5 scale)
+        let resizedImage = resizeImage(image: image, scale: 0.5)
+        
+        // Convert resized image to JPEG format with a lower compression quality
+        if let imageData = resizedImage.jpegData(compressionQuality: 0.5) {
+            // Convert JPEG data to base64 string
+            let dataImage = imageData.base64EncodedString(options: .lineLength64Characters)
+            //            let sonaParam = ["image": dataImage]
+            
+            // Pass the JPEG data to your API service
+            APIServiceImage.shared.PostImageServer(param: imageData) { data, error in
+                print("===test=== \(String(describing: data?.display_url))")
+                guard let imageUrl = data?.display_url else {
+                    completion(nil)
+                    return
+                }
+                completion(imageUrl)
+            }
+        } else {
+            // If unable to convert image to JPEG data, return nil
+            completion(nil)
+        }
+    }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let image = info[.originalImage] as? UIImage {
-            
             let mediaItem = ImageMediaItem(image: image)
-            let newMessage = Message(sender: currentUser, messageId: UUID().uuidString, sentDate: Date(), kind: .photo(mediaItem))
+            uploadImageToServer(image: image) { imageUrl in
+                guard let RelatedUserID = self.dataUser?.userID else {
+                    print("---userNil---")
+                    return
+                }
+                if SocketIOManager.shared.mSocket.status == .connected {
+                    let messageData: [String: Any] = [
+                        "room": RelatedUserID , //ví dụ 21423
+                        "data": [
+                            "id": self.userID ?? "",
+                            "RelatedUserID": RelatedUserID ,
+                            "type": "image",
+                            "state":"",
+                            "data": imageUrl ?? ""
+                        ]
+                    ]
+                    print("==imageUrl== \(imageUrl)")
+                    print("==messageData== \(messageData)")
+                    
+                    SocketIOManager.shared.mSocket.emit("send_message", messageData)
+                    let newMessage = Message(sender: self.currentUser, messageId: UUID().uuidString, sentDate: Date(), kind: .photo(mediaItem))
+                    self.messages.append(newMessage)
+                    self.messagesCollectionView.reloadData()
+                    self.messagesCollectionView.scrollToLastItem(animated: true)
+                } else {
+                    print("Socket is not connected")
+                }
+            }
             
-            messages.append(newMessage)
-            messagesCollectionView.reloadData()
-            messagesCollectionView.scrollToLastItem(animated: true)
+            dismiss(animated: true, completion: nil)
         }
-        
-        dismiss(animated: true, completion: nil)
     }
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         if (urls.first?.lastPathComponent) != nil {
@@ -148,8 +337,6 @@ extension MessageViewController: UIImagePickerControllerDelegate & UINavigationC
             dismiss(animated: true, completion: nil)
         }
     }
-    
-    
 }
 // MARK: - thêm icon vào right bar
 extension MessageViewController {
@@ -169,8 +356,8 @@ extension MessageViewController {
     private func addCameraBarButton() {
         
         let photoLibrary = addBarItem(size: itemSize, image: "photo", action: #selector(photoButtonPressed))
-        let camera = addBarItem(size: itemSize, image: "camera", action: #selector(openCamera))
-        let paperclip = addBarItem(size: itemSize, image: "paperclip", action: #selector(sendFile))
+        let camera = addBarItem(size: itemSize, image: "camera", action: #selector(sendUserId))
+        let paperclip = addBarItem(size: itemSize, image: "paperclip", action: #selector(printSomething1))
         let micro = addBarItem(size: itemSize, image: "mic.fill", action: #selector(printSomething))
         
         messageInputBar.sendButton.image = UIImage(named: "sendmsgicon")
@@ -241,12 +428,16 @@ extension MessageViewController {
         print("do nothing")
         SocketIOManager.shared.establishConnection()
     }
-
-
+    @objc func printSomething1(){
+        print("do nothing")
+        reloadNewMessage()
+    }
+    
+    
     
 }
 
-// MARK: - MessagesDisplayDelegate
+// MARK: - Cấu hình UI của MessageViewController
 extension MessageViewController: MessagesDataSource {
     func currentSender() -> MessageKit.SenderType {
         return currentUser
@@ -309,6 +500,8 @@ extension MessageViewController: MessagesDataSource {
         //        return .bubbleTail(corner, .curved)
     }
 }
+
+// MARK: - Cấu hình UI của MessageViewController
 extension MessageViewController {
     
     func cellTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {

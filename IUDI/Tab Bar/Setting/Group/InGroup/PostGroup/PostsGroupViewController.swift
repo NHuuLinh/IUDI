@@ -234,8 +234,8 @@ class PostsGroupViewController: UIViewController, UITextViewDelegate, UIImagePic
     }
     
 }
-extension PostsGroupViewController: PostsGroupViewControllerDelegate {
-    func getGroupID() -> Int? {
-        return groupID
-    }
-}
+//extension PostsGroupViewController: PostsGroupViewControllerDelegate {
+//    func getGroupID() -> Int? {
+//        return groupID
+//    }
+//}

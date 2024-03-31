@@ -104,6 +104,8 @@ class ProfileViewController: UIViewController,DataDelegate,DateConvertFormat {
         let dataImage = imageData.base64EncodedString(options: .lineLength64Characters)
         let sonaParam = ["image":dataImage]
         APIServiceImage.shared.PostImageServer(param: imageData as Data){data, error in
+            print("===test=== \(data?.display_url)")
+
             if let data = data{
                 self.hi = data
                 self.uploadImageToServer1(imageUrl: self.hi.display_url)

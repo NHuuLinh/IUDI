@@ -61,5 +61,12 @@ class SocketIOManager: NSObject {
             print("Socket is not connected")
         }
     }
+    func handleReceviedText(){
+        mSocket.on("send_message") { data, ack in
+            // Xử lý dữ liệu tin nhắn mới nhận được từ SocketIO
+            // Ví dụ:
+            // let newMessage = ... // Tạo đối tượng tin nhắn mới từ dữ liệu nhận được
+        }
+    }
 
 }

@@ -58,6 +58,7 @@ class UserIntroduceViewController: UIViewController {
         let vc = MessageViewController()
         vc.targetAvatar = userAvatar.image
         vc.dataUser = dataUser
+        print("dataUser: \(dataUser?.userID)")
         var userAvatars: UIImageView?
         getUserProfile { url in
             let imageUrl = URL(string: url)

@@ -40,7 +40,7 @@
                                 <rect key="frame" x="64" y="14" width="246" height="44"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n72-us-o0e">
-                                        <rect key="frame" x="0.0" y="0.0" width="195.33333333333334" height="44"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="194.33333333333334" height="44"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ariana" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZFX-zo-oiG">
                                                 <rect key="frame" x="0.0" y="0.0" width="46.666666666666664" height="19"/>
@@ -75,7 +75,7 @@
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7:09 pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cdh-C4-2Eo">
-                                        <rect key="frame" x="195.33333333333331" y="0.0" width="50.666666666666657" height="17"/>
+                                        <rect key="frame" x="194.33333333333331" y="0.0" width="51.666666666666657" height="17"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                         <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <nil key="highlightedColor"/>
@@ -125,6 +125,14 @@
                 <constraint firstAttribute="trailing" secondItem="LeM-GX-8pk" secondAttribute="trailing" constant="20" id="cq6-9y-p8X"/>
             </constraints>
             <size key="customSize" width="522" height="208"/>
+            <connections>
+                <outlet property="isRead" destination="rHx-OZ-C7l" id="0wp-9s-3Cm"/>
+                <outlet property="latestMessageContent" destination="Slh-Cp-erm" id="OWn-J5-xmX"/>
+                <outlet property="latestMessageDate" destination="Cdh-C4-2Eo" id="jxI-v8-Rc9"/>
+                <outlet property="messageStatus" destination="33d-c8-ivp" id="NDo-60-WIB"/>
+                <outlet property="otherUserAvatar" destination="4Mv-ZT-pCg" id="qq9-89-dz4"/>
+                <outlet property="otherUserName" destination="ZFX-zo-oiG" id="fga-X5-BZI"/>
+            </connections>
             <point key="canvasLocation" x="409.16030534351142" y="44.366197183098592"/>
         </collectionViewCell>
     </objects>

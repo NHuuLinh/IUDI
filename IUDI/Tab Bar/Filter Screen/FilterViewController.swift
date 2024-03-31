@@ -1,6 +1,9 @@
 
 import UIKit
 
+protocol FilterSettingDelegate:AnyObject{
+    func getNearUser()
+}
 class FilterViewController: UIViewController,FilterSettingDelegate {
 
     @IBOutlet weak var filterCollectionView: UICollectionView!
@@ -13,6 +16,8 @@ class FilterViewController: UIViewController,FilterSettingDelegate {
     let itemNumber = 4.0
     let minimumLineSpacing = 10.0
     var userDistance = [Distance]()
+    let coreData = FilterUserCoreData.share
+    let coreDataMaxDistance = (FilterUserCoreData.share.getUserFilterValueFromCoreData(key: "maxDistance") as? Double ?? 30) * 1000
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,6 +27,7 @@ class FilterViewController: UIViewController,FilterSettingDelegate {
         subviewHandle()
         getNearUser()
     }
+    
     @IBAction func btnHandle(_ sender: UIButton) {
         switch sender {
         case filterBtn:
@@ -33,43 +39,7 @@ class FilterViewController: UIViewController,FilterSettingDelegate {
             break
         }
     }
-    // display menu
-    private func displayMenu() {
-        isMenuOpen.toggle()
-        hideSubViewBtn.isHidden = !isMenuOpen
-        UIView.animate(withDuration: 0.5, animations: {
-            self.hideSubViewBtn.alpha = self.isMenuOpen ? 0.5 : 0
-            self.subviewLocation.constant = self.isMenuOpen ? 0 : -550
-            self.view.layoutIfNeeded()
-        })
-        self.tabBarController?.tabBar.isHidden = self.isMenuOpen
-    }
-    func subviewHandle(){
-        let childVC = FilterSettingUIViewController()
-        addChild(childVC)
-        subView.addSubview(childVC.view)
-        childVC.view.frame = subView.bounds
-        childVC.didMove(toParent: self)
-        childVC.delegate = self
-        subviewLocation.constant = -550
-        hideSubViewBtn.isHidden = true
-    }
-    private func setupCollectionView() {
-        if let flowLayout = filterCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.scrollDirection = .vertical
-            flowLayout.minimumLineSpacing = minimumLineSpacing
-            flowLayout.minimumInteritemSpacing = minimumLineSpacing
-            flowLayout.itemSize.width = filterCollectionView.frame.size.width
-        }
-    }
     
-    func registerCollectionView(){
-        filterCollectionView.dataSource = self
-        filterCollectionView.delegate = self
-        let cell = UINib(nibName: "FilterCell", bundle: nil)
-        filterCollectionView.register(cell, forCellWithReuseIdentifier: "FilterCell")
-    }
-
     func filterDistances(_ distances: [Distance]) -> [Distance] {
         let coreData = FilterUserCoreData.share
         let filterGender = coreData.getUserFilterValueFromCoreData(key: "gender") as? String ?? ""
@@ -80,7 +50,7 @@ class FilterViewController: UIViewController,FilterSettingDelegate {
         let coreDataMaxAge = coreData.getUserFilterValueFromCoreData(key: "maxAge") as? Int ?? 70
         let filterMaxAge = Int(Constant.currentYear) - coreDataMaxAge
         
-        let coreDataMaxDistance = coreData.getUserFilterValueFromCoreData(key: "maxDistance") as? Double ?? 30
+//        let coreDataMaxDistance = coreData.getUserFilterValueFromCoreData(key: "maxDistance") as? Double ?? 30
         let filterMaxDistance = coreDataMaxDistance * 1000
         
         let coreDataMinDistance = coreData.getUserFilterValueFromCoreData(key: "minDistance") as? Double ?? 0
@@ -124,10 +94,14 @@ class FilterViewController: UIViewController,FilterSettingDelegate {
 
 
     func getNearUser(){
+        guard let userID = UserInfo.shared.getUserID() else {
+            print("userID Nil")
+            return
+        }
         let apiService = APIService.share
-        let url = "location/37/30000"
-        print("url:\(url)")
-        apiService.apiHandleGetRequest(subUrl: url,data: UserDistances.self) { result in
+        let subUrl = "location/\(userID)/\(String(Int(coreDataMaxDistance)))"
+        print("url:\(subUrl)")
+        apiService.apiHandleGetRequest(subUrl: subUrl,data: UserDistances.self) { result in
             switch result {
             case .success(let data):
                 DispatchQueue.main.async {
@@ -137,8 +111,9 @@ class FilterViewController: UIViewController,FilterSettingDelegate {
                     // Sử dụng hàm `filterDistances(_:with:)` để lọc mảng `distances`
                     let filterData = self.filterDistances(distanceData)
                     self.userDistance = filterData
-
-//                    print("userDistance: \(self.userDistance)")
+                    print("filterData: \(filterData)")
+                    print("filterData.count: \(filterData.count)")
+                    print("userDistance: \(self.userDistance.count)")
 //                    print("filterData: \(filterData)")
                     self.filterCollectionView.reloadData()
                 }
@@ -153,11 +128,53 @@ class FilterViewController: UIViewController,FilterSettingDelegate {
             }
         }
     }
-
-
 }
 
+// MARK: - Add Subview
+extension FilterViewController {
+    
+    private func displayMenu() {
+        isMenuOpen.toggle()
+        hideSubViewBtn.isHidden = !isMenuOpen
+        UIView.animate(withDuration: 0.5, animations: {
+            self.hideSubViewBtn.alpha = self.isMenuOpen ? 0.5 : 0
+            self.subviewLocation.constant = self.isMenuOpen ? 0 : -550
+            self.view.layoutIfNeeded()
+        })
+        self.tabBarController?.tabBar.isHidden = self.isMenuOpen
+    }
+    
+    func subviewHandle(){
+        let childVC = FilterSettingUIViewController()
+        addChild(childVC)
+        subView.addSubview(childVC.view)
+        childVC.view.frame = subView.bounds
+        childVC.didMove(toParent: self)
+        childVC.delegate = self
+        subviewLocation.constant = -550
+        hideSubViewBtn.isHidden = true
+    }
+    
+}
+// MARK: - CollectionView
 extension FilterViewController : UICollectionViewDataSource, UICollectionViewDelegate,CellSizeCaculate {
+    
+    func registerCollectionView(){
+        filterCollectionView.dataSource = self
+        filterCollectionView.delegate = self
+        let cell = UINib(nibName: "FilterCell", bundle: nil)
+        filterCollectionView.register(cell, forCellWithReuseIdentifier: "FilterCell")
+    }
+    
+    private func setupCollectionView() {
+        if let flowLayout = filterCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            flowLayout.scrollDirection = .vertical
+            flowLayout.minimumLineSpacing = minimumLineSpacing
+            flowLayout.minimumInteritemSpacing = minimumLineSpacing
+            flowLayout.itemSize.width = filterCollectionView.frame.size.width
+        }
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return userDistance.count
     }
@@ -171,6 +188,7 @@ extension FilterViewController : UICollectionViewDataSource, UICollectionViewDel
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "UserIntroduceViewController") as! UserIntroduceViewController
+        vc.dataUser = userDistance[indexPath.row]
         let data = userDistance[indexPath.row]
         print("indexPath.row: \(indexPath.row)")
         let userID : Int = data.userID ?? 0

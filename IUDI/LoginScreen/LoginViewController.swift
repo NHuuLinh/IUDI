@@ -7,7 +7,7 @@
 import UIKit
 import Alamofire
 import SwiftyJSON
-import KeychainSwift
+//import KeychainSwift
 import CoreLocation
 
 class LoginViewController: UIViewController, CheckValid {

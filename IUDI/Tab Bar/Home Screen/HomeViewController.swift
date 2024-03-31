@@ -3,39 +3,43 @@ import SwiftyJSON
 import CollectionViewPagingLayout
 import Alamofire
 import ReadMoreTextView
-import KeychainSwift
 
 protocol HomeVCDelegate:AnyObject {
     func setRelationShip(relatedUserID: Int?, relationshipType: String?)
     func gotoPreviousChatVC(targetImage: UIImage,dataUser: Distance)
+    func gotoNextPage()
+    func getNearUser()
+    func test()
 }
 
 class HomeViewController: UIViewController, HomeVCDelegate{
     
-    
     @IBOutlet weak var userCollectionView: UICollectionView!
     var userDistance = [Distance]()
     var stackTransformOptions = StackTransformViewOptions()
-    var keychain = KeychainSwift()
     let coreData = FilterUserCoreData.share
-    
     let coreDataMaxDistance = (FilterUserCoreData.share.getUserFilterValueFromCoreData(key: "maxDistance") as? Double ?? 30) * 1000
-    
+    weak var delegate : FilterSettingDelegate?
+
+
     override func viewDidLoad() {
         super.viewDidLoad()
         getNearUser()
         setupCollectionView()
         self.tabBarController?.tabBar.isHidden = false
         self.navigationController?.isNavigationBarHidden = true
+
     }
     override func viewDidAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
         self.tabBarController?.tabBar.isHidden = false
     }
-    func test(){
-        print("---đây là test case---")
-        print("test")
-    }
+        func test(){
+            print("---đây là test case---")
+            print("test")
+        }
+
+    
     func setupView(){
         userCollectionView.layer.cornerRadius = 32
         userCollectionView.clipsToBounds = true
@@ -45,6 +49,71 @@ class HomeViewController: UIViewController, HomeVCDelegate{
         userCollectionView.layer.shadowOffset = CGSize(width: 0, height: 2)
         userCollectionView.layer.shadowRadius = 4
     }
+    
+
+    func setRelationShip(relatedUserID: Int?, relationshipType: String?) {
+//        showLoading(isShow: true)
+        
+        struct SetRelationShip: Codable {
+            let createTime: String?
+            let relatedUserID: Int?
+            let relationshipType, userID: String?
+            
+            enum CodingKeys: String, CodingKey {
+                case createTime = "CreateTime"
+                case relatedUserID = "RelatedUserID"
+                case relationshipType = "RelationshipType"
+                case userID = "UserID"
+            }
+        }
+        guard let userID = relatedUserID, let relateType = relationshipType else {
+            return
+        }
+        let parameters: [String: Any] = [
+            "RelatedUserID": userID,
+            "RelationshipType": relateType
+        ]
+        guard let userID = UserInfo.shared.getUserID() else {
+            print("userID rỗng")
+            return
+        }
+        let subUrl = "profile/setRelationship/" + userID
+        
+        print("parameters: \(parameters)")
+        APIService.share.apiHandle(method:.post ,subUrl: subUrl, parameters: parameters, data: SetRelationShip.self) { [weak self] result in
+            guard let self = self else { return }
+//            self.showLoading(isShow: false)
+            switch result {
+            case .success(let data):
+                print("success")
+//                self.showLoading(isShow: false)
+            case .failure(let error):
+                print(error.localizedDescription)
+//                switch error {
+//                case .server(let message):
+//                    self.showAlert(title: "lỗi1", message: message)
+//                case .network(let message):
+//                    self.showAlert(title: "lỗi", message: message)
+//                }
+            }
+        }
+    }
+    
+    func gotoPreviousChatVC(targetImage: UIImage,dataUser: Distance){
+        let vc = PreviousChatViewController()
+        vc.testImage = targetImage
+        vc.dataUser = dataUser
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    @IBAction func profileBtn(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+        self.navigationController?.pushViewController(vc, animated: true)
+    }
+}
+// MARK: - getUser + Filter
+extension HomeViewController {
     func filterDistances(_ distances: [Distance]) -> [Distance] {
         let filterGender = coreData.getUserFilterValueFromCoreData(key: "gender") as? String ?? ""
         
@@ -91,7 +160,8 @@ class HomeViewController: UIViewController, HomeVCDelegate{
     }
     
     func getNearUser(){
-        guard let userID = keychain.get("userID") else {
+        print("getNearUser")
+        guard let userID = UserInfo.shared.getUserID() else {
             print("userID Nil")
             return
         }
@@ -111,8 +181,8 @@ class HomeViewController: UIViewController, HomeVCDelegate{
                 self.userDistance = filterData
                 DispatchQueue.main.async {
                     self.userCollectionView.reloadData()
-
                 }
+                self.gotoPreviousPage()
                 self.showLoading(isShow: false)
             case .failure(let error):
                 print("error: \(error.localizedDescription)")
@@ -127,70 +197,10 @@ class HomeViewController: UIViewController, HomeVCDelegate{
             }
         }
     }
-    func setRelationShip(relatedUserID: Int?, relationshipType: String?) {
-        showLoading(isShow: true)
-        
-        struct SetRelationShip: Codable {
-            let createTime: String?
-            let relatedUserID: Int?
-            let relationshipType, userID: String?
-            
-            enum CodingKeys: String, CodingKey {
-                case createTime = "CreateTime"
-                case relatedUserID = "RelatedUserID"
-                case relationshipType = "RelationshipType"
-                case userID = "UserID"
-            }
-        }
-        guard let userID = relatedUserID, let relateType = relationshipType else {
-            return
-        }
-        let parameters: [String: Any] = [
-            "RelatedUserID": userID,
-            "RelationshipType": relateType
-        ]
-        guard let userID = keychain.get("userID") else {
-            print("userID rỗng")
-            return
-        }
-        let subUrl = "profile/setRelationship/" + userID
-        
-        print("parameters: \(parameters)")
-        APIService.share.apiHandle(method:.post ,subUrl: subUrl, parameters: parameters, data: SetRelationShip.self) { [weak self] result in
-            guard let self = self else { return }
-            self.showLoading(isShow: false)
-            switch result {
-            case .success(let data):
-                print("\(data.createTime)")
-                self.showLoading(isShow: false)
-            case .failure(let error):
-                print(error.localizedDescription)
-                switch error {
-                case .server(let message):
-                    self.showAlert(title: "lỗi1", message: message)
-                case .network(let message):
-                    self.showAlert(title: "lỗi", message: message)
-                }
-            }
-        }
-    }
-    
-    func gotoPreviousChatVC(targetImage: UIImage,dataUser: Distance){
-        let vc = PreviousChatViewController()
-        vc.testImage = targetImage
-        vc.dataUser = dataUser
-        
-        
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    
-    @IBAction func profileBtn(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
-        self.navigationController?.pushViewController(vc, animated: true)
-    }
 }
-extension HomeViewController:UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
+
+// MARK: - CollectionView
+extension HomeViewController : UICollectionViewDataSource, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout {
     func setupCollectionView() {
         userCollectionView.dataSource = self
         userCollectionView.delegate = self
@@ -228,6 +238,19 @@ extension HomeViewController:UICollectionViewDataSource, UICollectionViewDelegat
         vc.dataUser = data
         navigationController?.pushViewController(vc, animated: true)
     }
+    func gotoNextPage() {
+        print("gotoNextPage")
+        if let layout = userCollectionView.collectionViewLayout as? CollectionViewPagingLayout {
+            layout.goToNextPage(animated: true)
+        }
+    }
+    func gotoPreviousPage() {
+        print("gotoPreviousPage")
+        if let layout = userCollectionView.collectionViewLayout as? CollectionViewPagingLayout {
+            layout.goToPreviousPage(animated: true)
+        }
+    }
+
     
 }
 

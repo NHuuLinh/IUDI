@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		6B5541A228065D7AE7CAE4FD /* Pods_IUDITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6A85C6EA8E23A90E04CE3A56 /* Pods_IUDITests.framework */; };
 		99793040C9AE4F5AD0955E7C /* Pods_IUDI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 888718E28E8066911DF3A882 /* Pods_IUDI.framework */; };
+		A41D36762BB9098A000C7F83 /* ChatRepsone.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41D36752BB9098A000C7F83 /* ChatRepsone.swift */; };
 		A420FDA62B9614BA00C33C57 /* CellSize+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A420FDA52B9614BA00C33C57 /* CellSize+Extension.swift */; };
 		A426D77E2B96D94D00A5050B /* FilterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A426D77C2B96D94D00A5050B /* FilterViewController.swift */; };
 		A426D77F2B96D94D00A5050B /* FilterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A426D77D2B96D94D00A5050B /* FilterViewController.xib */; };
@@ -36,7 +37,6 @@
 		A434D0D22B9997360087A62B /* FilterUserEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434D0D02B9997360087A62B /* FilterUserEntity+CoreDataProperties.swift */; };
 		A44C5CDF2B8745A000037024 /* ShowLoading and Aleart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44C5CDE2B8745A000037024 /* ShowLoading and Aleart.swift */; };
 		A45348DD2B8C624F006D72E4 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45348DC2B8C624F006D72E4 /* ProfileViewController.swift */; };
-		A45348DF2B8C9919006D72E4 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45348DE2B8C9919006D72E4 /* UserProfile.swift */; };
 		A45ABCF62B9811CF0039B985 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45ABCF42B9811CF0039B985 /* FilterCell.swift */; };
 		A45ABCF72B9811CF0039B985 /* FilterCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A45ABCF52B9811CF0039B985 /* FilterCell.xib */; };
 		A45E8B382BA93C3E004E62A9 /* UserInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45E8B372BA93C3E004E62A9 /* UserInfo.swift */; };
@@ -140,6 +140,7 @@
 		888718E28E8066911DF3A882 /* Pods_IUDI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_IUDI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		8BCB4CCFEEEC9F19F61889A5 /* Pods-IUDI.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IUDI.debug.xcconfig"; path = "Target Support Files/Pods-IUDI/Pods-IUDI.debug.xcconfig"; sourceTree = "<group>"; };
 		95D978491C763FD1F3B95D6A /* Pods-IUDITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IUDITests.debug.xcconfig"; path = "Target Support Files/Pods-IUDITests/Pods-IUDITests.debug.xcconfig"; sourceTree = "<group>"; };
+		A41D36752BB9098A000C7F83 /* ChatRepsone.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatRepsone.swift; sourceTree = "<group>"; };
 		A420FDA52B9614BA00C33C57 /* CellSize+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CellSize+Extension.swift"; sourceTree = "<group>"; };
 		A426D77C2B96D94D00A5050B /* FilterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterViewController.swift; sourceTree = "<group>"; };
 		A426D77D2B96D94D00A5050B /* FilterViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterViewController.xib; sourceTree = "<group>"; };
@@ -166,7 +167,6 @@
 		A434D0D02B9997360087A62B /* FilterUserEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FilterUserEntity+CoreDataProperties.swift"; path = "/Users/nguyenlinh/Documents/Work/IUDI - App hẹn hò/IUDI/IUDI/IUDI/FilterUserEntity+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		A44C5CDE2B8745A000037024 /* ShowLoading and Aleart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShowLoading and Aleart.swift"; sourceTree = "<group>"; };
 		A45348DC2B8C624F006D72E4 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
-		A45348DE2B8C9919006D72E4 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
 		A45ABCF42B9811CF0039B985 /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
 		A45ABCF52B9811CF0039B985 /* FilterCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FilterCell.xib; sourceTree = "<group>"; };
 		A45E8B372BA93C3E004E62A9 /* UserInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserInfo.swift; sourceTree = "<group>"; };
@@ -303,6 +303,7 @@
 		A426D77B2B96D83B00A5050B /* Tab Bar */ = {
 			isa = PBXGroup;
 			children = (
+				A470F46F2BA30D750094A665 /* Setting */,
 				A42BCBDD2BA1622400B72DF6 /* Chat Screen */,
 				A483D03A2B88377900DD6B15 /* Home Screen */,
 				A426D7802B96D95E00A5050B /* Filter Screen */,
@@ -330,6 +331,7 @@
 				A46DC7042BAA955F00ACDDE2 /* Message.swift */,
 			);
 			name = ConverseVC;
+			path = ..;
 			sourceTree = "<group>";
 		};
 		A428386E2B982A3E0073BD7F /* Cell */ = {
@@ -371,11 +373,10 @@
 		A42BCBE72BA1FB2900B72DF6 /* ChatVC */ = {
 			isa = PBXGroup;
 			children = (
-				A4275E982BA81376005C9C49 /* ConverseVC */,
-				A42BCBF22BA20BAC00B72DF6 /* ActiveUserList */,
-				A42BCBED2BA2024600B72DF6 /* FriendListCell */,
 				A42BCBE32BA1F4D900B72DF6 /* ChatViewController.swift */,
 				A42BCBE42BA1F4D900B72DF6 /* ChatViewController.xib */,
+				A42BCBF22BA20BAC00B72DF6 /* ActiveUserList */,
+				A42BCBED2BA2024600B72DF6 /* FriendListCell */,
 			);
 			path = ChatVC;
 			sourceTree = "<group>";
@@ -395,6 +396,7 @@
 				A42BCBEE2BA2026C00B72DF6 /* FriendListCollectionViewCell.swift */,
 				A42BCBEF2BA2026C00B72DF6 /* FriendListCollectionViewCell.xib */,
 				A42BCBF72BA20C6500B72DF6 /* FriendListCell */,
+				A4275E982BA81376005C9C49 /* ConverseVC */,
 			);
 			path = FriendListCell;
 			sourceTree = "<group>";
@@ -537,10 +539,10 @@
 		A470F4782BA30D750094A665 /* InGroup */ = {
 			isa = PBXGroup;
 			children = (
-				A470F4792BA30D750094A665 /* PostGroup */,
-				A470F47C2BA30D750094A665 /* InGroupViewController.xib */,
-				A470F47D2BA30D750094A665 /* Cell */,
 				A470F4832BA30D750094A665 /* InGroupViewController.swift */,
+				A470F47C2BA30D750094A665 /* InGroupViewController.xib */,
+				A470F4792BA30D750094A665 /* PostGroup */,
+				A470F47D2BA30D750094A665 /* Cell */,
 			);
 			path = InGroup;
 			sourceTree = "<group>";
@@ -609,11 +611,11 @@
 				A483D0432B88413000DD6B15 /* APIService.swift */,
 				A4A517592B871EA500AD4CE3 /* LoginResponse.swift */,
 				A4A9B9782B8D06340044861C /* RegisterResponse.swift */,
-				A45348DE2B8C9919006D72E4 /* UserProfile.swift */,
 				A46D0E862B8F367500E5CD4F /* GetPhotos.swift */,
 				A4712DA82B908F6F004903AA /* UserDistance.swift */,
 				A4275EA02BA8520D005C9C49 /* SocketIOManager.swift */,
 				A45E8B372BA93C3E004E62A9 /* UserInfo.swift */,
+				A41D36752BB9098A000C7F83 /* ChatRepsone.swift */,
 			);
 			path = NetWork;
 			sourceTree = "<group>";
@@ -643,7 +645,6 @@
 		A4A517002B86E52100AD4CE3 /* IUDI */ = {
 			isa = PBXGroup;
 			children = (
-				A470F46F2BA30D750094A665 /* Setting */,
 				A434D0C42B99788A0087A62B /* CoreData */,
 				A4A517012B86E52100AD4CE3 /* AppDelegate.swift */,
 				A4A517032B86E52100AD4CE3 /* SceneDelegate.swift */,
@@ -998,6 +999,7 @@
 				A46DC7052BAA955F00ACDDE2 /* Message.swift in Sources */,
 				A434D0D12B9997360087A62B /* FilterUserEntity+CoreDataClass.swift in Sources */,
 				A4738CAA2B92D2F4006BB7D7 /* DateConvert.swift in Sources */,
+				A41D36762BB9098A000C7F83 /* ChatRepsone.swift in Sources */,
 				A4A5175D2B873D9000AD4CE3 /* RegisterViewController.swift in Sources */,
 				A46D0E8A2B8F3B0500E5CD4F /* SelectImageCollectionViewCell.swift in Sources */,
 				A470F4962BA30D760094A665 /* PostCollectionViewCell.swift in Sources */,
@@ -1046,7 +1048,6 @@
 				A4A5170C2B86E52100AD4CE3 /* IUDI.xcdatamodeld in Sources */,
 				A483D03F2B88393700DD6B15 /* UserDefault.swift in Sources */,
 				A4275EA12BA8520D005C9C49 /* SocketIOManager.swift in Sources */,
-				A45348DF2B8C9919006D72E4 /* UserProfile.swift in Sources */,
 				A4A517022B86E52100AD4CE3 /* AppDelegate.swift in Sources */,
 				A426D77E2B96D94D00A5050B /* FilterViewController.swift in Sources */,
 				A4A517502B86FB3200AD4CE3 /* UIView+Extension.swift in Sources */,

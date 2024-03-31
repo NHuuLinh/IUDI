@@ -15,6 +15,8 @@ class APIService {
     func apiHandle<T: Decodable>(method: HTTPMethod = .post, subUrl: String, parameters: [String: Any] = [:], data: T.Type, completion: @escaping (Result<T, APIError>) -> Void) {
         
         let url = Constant.baseUrl + subUrl
+        print("url apiHandle: \(url)")
+
         
         AF.request(url, method: method, parameters: parameters, encoding: JSONEncoding.default)
             .validate(statusCode: 200...299)
@@ -29,9 +31,8 @@ class APIService {
                     
                     if let data = response.data {
                         do {
-                            
                             let json = try JSON(data: data)
-                            let errorMessage = json["message"].stringValue
+                            let errorMessage = json["Message"].stringValue
                             completion(.failure(.server(message: errorMessage)))
                         } catch {
                             print("error server")
@@ -44,10 +45,11 @@ class APIService {
                 }
             }
     }
+    
     func apiHandleGetRequest<T: Decodable>(subUrl: String, data: T.Type, completion: @escaping (Result<T, APIError>) -> Void) {
         
         let url = Constant.baseUrl + subUrl
-        print("url: \(url)")
+        print("url apiHandleGetRequest: \(url)")
         
         AF.request(url, method: .get, encoding: JSONEncoding.default)
             .validate(statusCode: 200...299)

@@ -123,6 +123,7 @@ extension URLSession {
 class APIServiceImage:NSObject {
     static let shared = APIServiceImage()
     
+    
     func getPostString(params:[String:Any]) -> String{
         var data = [String]()
         for(key, value) in params

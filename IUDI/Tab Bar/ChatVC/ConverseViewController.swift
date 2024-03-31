@@ -26,6 +26,10 @@ class ConverseViewController: UIViewController {
         targerAvatar.image = targetAvatar
         loadDataToView()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = true
+    }
+    
     func loadDataToView(){
         print("---loadDataToView---")
         let currentDate  = Date()
@@ -111,6 +115,8 @@ class ConverseViewController: UIViewController {
     @IBAction func buttonHandle(_ sender: UIButton) {
         switch sender {
         case backBtn :
+            print("backBtn")
+
             navigationController?.popToRootViewController(animated: true)
         case callBtn:
             print("callBtn")

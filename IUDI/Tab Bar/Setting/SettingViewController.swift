@@ -48,12 +48,27 @@ class SettingViewController: UIViewController {
     
     private func alignTextLeft(for button: UIButton) {
         button.contentHorizontalAlignment = .left
-        
     }
+    func goToGroupViewController() {
+        guard let tabBarController = self.tabBarController else {
+            print("lỗi tabBarController")
+            return
+        }
+        if let viewControllers = tabBarController.viewControllers {
+            for (index, viewController) in viewControllers.enumerated() {
+                if let navController = viewController as? UINavigationController,
+                   navController.viewControllers.first is GroupViewController {
+                    tabBarController.selectedIndex = index
+                    break
+                }
+            }
+        }
+    }
+
     
     @IBAction func groupTapper(_ sender: Any) {
-        let vc = GroupViewController()
-        navigationController?.pushViewController(vc, animated: true)
+        goToGroupViewController()
+
     }
     
     @IBAction func Privacy(_ sender: Any) {

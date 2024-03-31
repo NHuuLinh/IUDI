@@ -11,6 +11,7 @@ import CoreData
 
 class FilterUserCoreData {
     static let share = FilterUserCoreData()
+    private init() {}
     
     let managedContext = (UIApplication.shared.delegate as! AppDelegate).persistentContainer.viewContext
     

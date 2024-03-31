@@ -14,6 +14,7 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchBarConstraint: NSLayoutConstraint!
     var showSearchBar = false
+    var chatData = [ChatData]()
     
     enum ChatSection: Int,CaseIterable {
         case userActive = 0
@@ -26,6 +27,7 @@ class ChatViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
         setupView()
         registerCollectionView()
+        getAllChatData()
     }
     
     func setupView(){
@@ -60,6 +62,39 @@ class ChatViewController: UIViewController {
             break
         }
     }
+    func getAllChatData(){
+        guard let userID = UserInfo.shared.getUserID() else {
+            print("userID Nil")
+            return
+        }
+        showLoading(isShow: true)
+        let apiService = APIService.share
+        let subUrl = "chat/\(userID)"
+        print("url:\(subUrl)")
+        apiService.apiHandleGetRequest(subUrl: subUrl,data: AllChatData.self) { result in
+            switch result {
+            case .success(let data):
+                print("getAllChatData success")
+                self.chatData = data.data
+                print("self.chatData:\(self.chatData.count)")
+
+                DispatchQueue.main.async {
+                    self.chatCollectionView.reloadData()
+                }
+                self.showLoading(isShow: false)
+            case .failure(let error):
+                print("error: \(error.localizedDescription)")
+                self.showLoading(isShow: false)
+                switch error{
+                case .server(let message):
+                    self.showAlert(title: "lỗi", message: message)
+                case .network(let message):
+                    self.showAlert(title: "lỗi", message: message)
+                }
+            }
+        }
+    }
+
 }
 
 extension ChatViewController : UICollectionViewDataSource, UICollectionViewDelegate,CellSizeCaculate,UICollectionViewDelegateFlowLayout {
@@ -100,6 +135,7 @@ extension ChatViewController : UICollectionViewDataSource, UICollectionViewDeleg
             return cell
         case .userFriendList:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendListCollectionViewCell", for: indexPath) as! FriendListCollectionViewCell
+            cell.blindData(data: chatData)
             cell.gotoChatVC = {
                 self.gotoChatVC()
             }
@@ -107,7 +143,6 @@ extension ChatViewController : UICollectionViewDataSource, UICollectionViewDeleg
         default:
             return CollectionViewCell()
         }
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {

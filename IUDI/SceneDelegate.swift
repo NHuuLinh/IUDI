@@ -59,7 +59,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         let filterNavVC = UINavigationController(rootViewController: filterVC)
         filterNavVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "Location-UnSelect"), selectedImage: UIImage(named: "Location-Selected"))
         
-        let groupVC = InGroupViewController()
+        let groupVC = GroupViewController()
         //        filterVC.title = "Filter"
         let groupNavVC = UINavigationController(rootViewController: groupVC)
         groupNavVC.tabBarItem = UITabBarItem(title: nil, image: UIImage(named: "News-UnSelect"), selectedImage: UIImage(named: "News-Selected"))
@@ -77,8 +77,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         tabBarVC.viewControllers = [homeNavVC, filterNavVC,groupNavVC,chatNavVC,settingNavVC]
         tabBarVC.modalPresentationStyle = .fullScreen
         tabBarVC.tabBar.tintColor = UIColor(named: "MainColor")
-        tabBarVC.tabBar.backgroundColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.1)
+        tabBarVC.tabBar.backgroundColor = .lightGray
         tabBarVC.tabBar.layer.opacity = 1
+        tabBarVC.tabBar.isTranslucent = true
         tabBarVC.tabBar.itemPositioning = .fill
         window!.rootViewController = tabBarVC
         window!.makeKeyAndVisible()

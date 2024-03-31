@@ -32,8 +32,12 @@
             <rect key="frame" x="0.0" y="0.0" width="393" height="170"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="KCc-4J-Qoc">
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="59"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zde-CX-5Vr">
-                    <rect key="frame" x="0.0" y="0.0" width="393" height="170"/>
+                    <rect key="frame" x="0.0" y="59" width="393" height="111"/>
                     <subviews>
                         <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="txv-3r-hsC">
                             <rect key="frame" x="0.0" y="0.0" width="393" height="48"/>
@@ -50,7 +54,7 @@
                                         <action selector="buttonHandle:" destination="-1" eventType="touchUpInside" id="TBZ-Dh-NR5"/>
                                     </connections>
                                 </button>
-                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kdd-AA-mX2">
+                                <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kdd-AA-mX2">
                                     <rect key="frame" x="353" y="12" width="24" height="24"/>
                                     <constraints>
                                         <constraint firstAttribute="width" secondItem="kdd-AA-mX2" secondAttribute="height" multiplier="1:1" id="DdT-Ej-ssJ"/>
@@ -58,9 +62,12 @@
                                     </constraints>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" image="Phone"/>
+                                    <connections>
+                                        <action selector="buttonHandle:" destination="-1" eventType="touchUpInside" id="Ahf-a9-KZM"/>
+                                    </connections>
                                 </button>
                                 <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="GBJ-sJ-OJp">
-                                    <rect key="frame" x="42" y="6.6666666666666679" width="291" height="35"/>
+                                    <rect key="frame" x="42" y="6.6666666666666714" width="291" height="35"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="anh1" translatesAutoresizingMaskIntoConstraints="NO" id="4nN-Wb-JBe">
                                             <rect key="frame" x="0.0" y="0.0" width="35" height="35"/>
@@ -95,7 +102,7 @@
                                     </constraints>
                                 </view>
                             </subviews>
-                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="48" id="0cL-Xu-eN6"/>
                                 <constraint firstItem="pNv-10-q5z" firstAttribute="leading" secondItem="txv-3r-hsC" secondAttribute="leading" id="1jn-b6-HGh"/>
@@ -121,9 +128,13 @@
             <constraints>
                 <constraint firstAttribute="bottom" secondItem="zde-CX-5Vr" secondAttribute="bottom" id="2cy-Yg-Hrx"/>
                 <constraint firstItem="zde-CX-5Vr" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="KpW-4R-R84"/>
+                <constraint firstItem="KCc-4J-Qoc" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="MZH-zk-SEL"/>
                 <constraint firstItem="txv-3r-hsC" firstAttribute="top" secondItem="zde-CX-5Vr" secondAttribute="top" id="MgG-lf-fQN"/>
-                <constraint firstItem="zde-CX-5Vr" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="YXX-qX-DhP"/>
+                <constraint firstItem="zde-CX-5Vr" firstAttribute="top" secondItem="KCc-4J-Qoc" secondAttribute="bottom" id="XYi-2U-0m0"/>
+                <constraint firstItem="zde-CX-5Vr" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="YXX-qX-DhP"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="KCc-4J-Qoc" secondAttribute="trailing" id="Yic-uE-uzF"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="zde-CX-5Vr" secondAttribute="trailing" id="YsF-4K-MRc"/>
+                <constraint firstItem="KCc-4J-Qoc" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="nJu-qo-L3V"/>
             </constraints>
             <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="130.53435114503816" y="-252.11267605633805"/>

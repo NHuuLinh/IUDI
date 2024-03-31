@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -22,7 +22,7 @@
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="m5c-z9-qkv">
-                    <rect key="frame" x="0.0" y="59" width="393" height="100"/>
+                    <rect key="frame" x="0.0" y="0.0" width="393" height="100"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9f8-Uk-1tw">
                             <rect key="frame" x="0.0" y="0.0" width="393" height="50"/>
@@ -62,14 +62,15 @@
             <constraints>
                 <constraint firstItem="m5c-z9-qkv" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="fML-GZ-U9K"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="m5c-z9-qkv" secondAttribute="trailing" id="uvA-Z7-iSD"/>
-                <constraint firstItem="m5c-z9-qkv" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="zTV-XQ-J4R"/>
+                <constraint firstItem="m5c-z9-qkv" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="zTV-XQ-J4R"/>
             </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
             <point key="canvasLocation" x="140" y="20"/>
         </view>
     </objects>
     <resources>
-        <image name="eye.slash.fill" catalog="system" width="128" height="96"/>
-        <image name="trash.fill" catalog="system" width="117" height="128"/>
+        <image name="eye.slash.fill" catalog="system" width="128" height="85"/>
+        <image name="trash.fill" catalog="system" width="119" height="128"/>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
