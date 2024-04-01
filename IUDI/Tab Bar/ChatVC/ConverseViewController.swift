@@ -15,30 +15,67 @@ class ConverseViewController: UIViewController {
     
     @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var callBtn: UIButton!
-    
-    var userProfile : User?
-    var userAvatar : UIImage?
-    var targetAvatar: UIImage?
-    var dataUser : Distance?
+
+    var messageUserData: MessageUserData?
+    var otherUserName: String?
+    var otherAvatar: UIImage?
+    var otherStatus: String?
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        targerAvatar.image = targetAvatar
-        loadDataToView()
+        loadData()
+//        loadDataToView()
     }
     override func viewWillAppear(_ animated: Bool) {
         navigationController?.navigationBar.isHidden = true
     }
-    
+    func bindData(data: MessageUserData){
+        self.messageUserData = data
+        
+    }
+    func loadData(){
+        targerName.text = messageUserData?.otherUserFullName
+        targerAvatar.image = messageUserData?.otherUserAvatar
+        targetStatus.text = messageUserData?.otherLastActivityTime
+    }
     func loadDataToView(){
+        showLoading(isShow: true)
+        guard let userName = otherUserName else {
+            print("không có userName")
+            return
+        }
+        let url = "profile/" + userName
+        APIService.share.apiHandleGetRequest(subUrl: url, data: User.self) { result in
+            switch result {
+            case .success(let data):
+                guard let user = data.users?.first else {
+                    print("dữ liệu nil")
+                    return
+                }
+                DispatchQueue.main.async {
+                    self.loadDataToView(user: user)
+                }
+                self.showLoading(isShow: false)
+            case .failure(let error):
+                print("error: \(error.localizedDescription)")
+                self.showLoading(isShow: false)
+                switch error{
+                case .server(let message):
+                    self.showAlert(title: "lỗi", message: message)
+                case .network(let message):
+                    self.showAlert(title: "lỗi", message: message)
+                }
+            }
+        }
+    }
+    
+    func loadDataToView(user: Users){
         print("---loadDataToView---")
         let currentDate  = Date()
-        let dateString = dataUser?.lastActivityTime ?? "\(currentDate)"
-        print("user:\(dataUser?.userID)")
-//        guard let dateString = dataUser?.lastActivityTime else {
-//            print("rông rồi")
-//            return
-//        }
+        let dateString = user.lastActivityTime ?? "\(currentDate)"
+        print("user:\(user.userID)")
+
         var lastOnlineDate : String
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "E, d MMM yyyy HH:mm:ss z"
@@ -55,8 +92,8 @@ class ConverseViewController: UIViewController {
             // Xử lý trường hợp không thể chuyển đổi được chuỗi thành đối tượng Date
             print("Failed to convert string to date.")
         }
-        targerName.text = dataUser?.fullName
-        if ((dataUser?.isLoggedIn) != nil) {
+        targerName.text = user.fullName
+        if ((user.isLoggedIn) != nil) {
             targetStatus.text = "đang hoạt động"
             targetStatus.textColor = Constant.mainBorderColor
         } else {
@@ -64,9 +101,10 @@ class ConverseViewController: UIViewController {
             targetStatus.textColor = UIColor.lightGray
         }
         targetStatus.text = lastOnlineDate
+        targerAvatar.image = otherAvatar
         
-        let url = dataUser?.avatarLink
-        loadAvatarImage(url: url)
+//        let url = user.avatarLink
+//        loadAvatarImage(url: url)
     }
 
     func loadAvatarImage(url:String?) {
@@ -86,31 +124,6 @@ class ConverseViewController: UIViewController {
             }
         })
     }
-
-//    func sendMessageHandle(){
-//        let userID = UserInfo.shared.getUserID()
-//        print(userID)
-//
-//        guard let message = messageTextView.text, let RelatedUserID = dataUser?.userID else {
-//            print("---userNil---")
-//            return
-//        }
-//        let messageData: [String: Any] = [
-//            "room": RelatedUserID , //ví dụ 21423
-//            "data": [
-//                "id": userID,
-//                "RelatedUserID": RelatedUserID ,
-//                "type": "text",//text/ image/icon-image/muti-image
-//                "state":"",
-//                "content":message
-//                //"data": "https://i.ibb.co/2MJkg5P/Screenshot-2023-05-07-142345.png"// nếu dữ liệu là loại ảnh
-//                // Nếu dữ liệu là loại text
-//            ]
-//        ]
-//        print("messageData:\(messageData)")
-//        SocketIOManager.sharedInstance.sendTextMessage(messageData: messageData)
-//    }
-    
     
     @IBAction func buttonHandle(_ sender: UIButton) {
         switch sender {

@@ -19,9 +19,9 @@ class PreviousChatViewController: UIViewController,PreviousChatDelegate {
     @IBOutlet weak var backBtn: UIButton!
     let keychain = KeychainSwift()
     var testImage : UIImage?
-    var userProfile : User?
+//    var userProfile : User?
     var dataUser : Distance?
-    
+    var userName: String?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -61,10 +61,14 @@ class PreviousChatViewController: UIViewController,PreviousChatDelegate {
         APIService.share.apiHandleGetRequest(subUrl: url, data: User.self) { result in
             switch result {
             case .success(let data):
-                guard let avatarUrl = data.users?.first?.avatarLink else {
+                guard let userData = data.users?.first else {
+                    return
+                }
+                guard let avatarUrl = userData.avatarLink else {
                     print("dữ liệu nil")
                     return
                 }
+                self.userName = userData.fullName
                 DispatchQueue.main.async {
                     self.loadAvatarImage(url: avatarUrl, uiImage: self.userAvatar)
                 }
@@ -100,9 +104,13 @@ class PreviousChatViewController: UIViewController,PreviousChatDelegate {
     }
     func gotoChatVC(){
         let vc = MessageViewController()
-        vc.userAvatar = userAvatar.image
-        vc.targetAvatar = targetAvatar.image
-        vc.dataUser = dataUser
+        // Khởi tạo một instance của struct MessageUserData
+        var messageUserData = MessageUserData(
+            otherUserAvatar: targetAvatar.image!, // Ảnh đại diện của người dùng khác
+            otherUserFullName: dataUser?.fullName ?? "",
+            otherUserId: "\(dataUser?.userID ?? 0)", otherLastActivityTime: dataUser?.lastActivityTime ?? "Wed, 27 Mar 2024 11:43:58 GMT"
+        )
+        vc.messageUserData = messageUserData
         navigationController?.pushViewController(vc, animated: true)
     }
     

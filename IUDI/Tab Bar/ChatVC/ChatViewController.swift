@@ -45,10 +45,27 @@ class ChatViewController: UIViewController {
             self.view.layoutIfNeeded()
         })
     }
-    func gotoChatVC(){
+    func gotoChatVC(data: ChatData){
         let vc = MessageViewController()
         vc.title = "Chat"
-        navigationController?.pushViewController(vc, animated: true)
+        var avatarImage = UIImageView()
+        guard let urlString = data.otherAvatar, let imageUrl = URL(string: urlString) else {
+            return
+        }
+        avatarImage.kf.setImage(with: imageUrl, placeholder: UIImage(systemName: "person"), options: nil, completionHandler: { result in
+            switch result {
+            case .success(_):
+                // Ảnh đã tải thành công
+                print("Ảnh đã tải thành công")
+            case .failure(_):
+                // Xảy ra lỗi khi tải ảnh
+                avatarImage.image = UIImage(systemName: "person")
+            }
+        })
+        let messageUserData = MessageUserData(otherUserAvatar: (avatarImage.image)!, otherUserFullName: data.otherUsername ?? "", otherUserId: "\(data.otherUserID ?? 0)", otherLastActivityTime: "Wed, 27 Mar 2024 11:43:58 GMT")
+        vc.messageUserData = messageUserData
+        self.navigationController?.pushViewController(vc, animated: true)
+
     }
     
     @IBAction func buttonHandle(_ sender: UIButton) {
@@ -135,9 +152,9 @@ extension ChatViewController : UICollectionViewDataSource, UICollectionViewDeleg
             return cell
         case .userFriendList:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendListCollectionViewCell", for: indexPath) as! FriendListCollectionViewCell
-            cell.blindData(data: chatData)
-            cell.gotoChatVC = {
-                self.gotoChatVC()
+            cell.bindData(data: chatData)
+            cell.gotoChatVC = { data in
+                self.gotoChatVC(data: data)
             }
             return cell
         default:

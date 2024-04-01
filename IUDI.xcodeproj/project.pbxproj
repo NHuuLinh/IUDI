@@ -35,6 +35,7 @@
 		A434D0C62B9979290087A62B /* FilterUserCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434D0C52B9979290087A62B /* FilterUserCoreData.swift */; };
 		A434D0D12B9997360087A62B /* FilterUserEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434D0CF2B9997360087A62B /* FilterUserEntity+CoreDataClass.swift */; };
 		A434D0D22B9997360087A62B /* FilterUserEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434D0D02B9997360087A62B /* FilterUserEntity+CoreDataProperties.swift */; };
+		A443A5272BBA684A002ECBB6 /* DownloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A443A5262BBA684A002ECBB6 /* DownloadImage.swift */; };
 		A44C5CDF2B8745A000037024 /* ShowLoading and Aleart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44C5CDE2B8745A000037024 /* ShowLoading and Aleart.swift */; };
 		A45348DD2B8C624F006D72E4 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45348DC2B8C624F006D72E4 /* ProfileViewController.swift */; };
 		A45ABCF62B9811CF0039B985 /* FilterCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45ABCF42B9811CF0039B985 /* FilterCell.swift */; };
@@ -165,6 +166,7 @@
 		A434D0C52B9979290087A62B /* FilterUserCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterUserCoreData.swift; sourceTree = "<group>"; };
 		A434D0CF2B9997360087A62B /* FilterUserEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FilterUserEntity+CoreDataClass.swift"; path = "/Users/nguyenlinh/Documents/Work/IUDI - App hẹn hò/IUDI/IUDI/IUDI/FilterUserEntity+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 		A434D0D02B9997360087A62B /* FilterUserEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FilterUserEntity+CoreDataProperties.swift"; path = "/Users/nguyenlinh/Documents/Work/IUDI - App hẹn hò/IUDI/IUDI/IUDI/FilterUserEntity+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		A443A5262BBA684A002ECBB6 /* DownloadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadImage.swift; sourceTree = "<group>"; };
 		A44C5CDE2B8745A000037024 /* ShowLoading and Aleart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShowLoading and Aleart.swift"; sourceTree = "<group>"; };
 		A45348DC2B8C624F006D72E4 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		A45ABCF42B9811CF0039B985 /* FilterCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterCell.swift; sourceTree = "<group>"; };
@@ -445,6 +447,7 @@
 				A4A5174F2B86FB3200AD4CE3 /* UIView+Extension.swift */,
 				A4712DA52B906CBE004903AA /* Add+Shadow+UIView.swift */,
 				A483D0452B885BC700DD6B15 /* CheckValid.swift */,
+				A443A5262BBA684A002ECBB6 /* DownloadImage.swift */,
 				A44C5CDE2B8745A000037024 /* ShowLoading and Aleart.swift */,
 				A483D03C2B88390600DD6B15 /* Theme Extension.swift */,
 				A483D03E2B88393700DD6B15 /* UserDefault.swift */,
@@ -1024,6 +1027,7 @@
 				A4A9B9792B8D06350044861C /* RegisterResponse.swift in Sources */,
 				A4E1C61A2B918954006E3211 /* UserIntroduceViewController.swift in Sources */,
 				A42838712B982A8F0073BD7F /* FilterSettingUIViewController.swift in Sources */,
+				A443A5272BBA684A002ECBB6 /* DownloadImage.swift in Sources */,
 				A483D0482B88711C00DD6B15 /* UserNetWorkManager.swift in Sources */,
 				A470F4902BA30D760094A665 /* PrivacyViewController.swift in Sources */,
 				A4712DA62B906CBE004903AA /* Add+Shadow+UIView.swift in Sources */,

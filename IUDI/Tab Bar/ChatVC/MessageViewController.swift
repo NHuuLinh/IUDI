@@ -14,22 +14,22 @@ import SwiftyJSON
 class MessageViewController: MessagesViewController,MessagesLayoutDelegate, UIDocumentPickerDelegate, MessagesDisplayDelegate {
     let userID = UserInfo.shared.getUserID()
     let currentUser = Sender(senderId: UserInfo.shared.getUserID() ?? "", displayName: UserInfo.shared.getUserFullName() ?? "")
+    
     let otherUser = Sender(senderId: "other", displayName: "lâm")
     var messages = [MessageType]()
     var imagePicker = UIImagePickerController()
-    let itemSize = CGSize(width: 24, height: 24)
-    let itemSpacing: CGFloat = 15 // Khoảng cách giữa các mục
-    let itemNumber :CGFloat = 5
     
-    var userAvatar : UIImage?
-    var targetAvatar: UIImage?
-    var dataUser : Distance?
+    var messageUserData : MessageUserData?
+    var userAvatar: UIImageView?
+    var userFullName: String?
+
     var hi:ImgModel = ImgModel()
     var chatData = [SingleChat]()
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        getUserProfile()
         subviewHandle()
         sendUserId()
         SocketIOManager.sharedInstance.establishConnection()
@@ -60,25 +60,30 @@ class MessageViewController: MessagesViewController,MessagesLayoutDelegate, UIDo
         navigationController?.navigationBar.isHidden = true
         reloadNewMessage()
     }
+//    func bindData(userName: String, userAvatar : UIImage, otherUserAvatar: UIImage, otherUserName: String, otherUserId: String){
+//        self.userName = userName
+//        self.userAvatar = userAvatar
+//        self.otherUserAvatar = otherUserAvatar
+//        self.otherUserName = otherUserName
+//        self.otherUserId = otherUserId
+//    }
     func getAllChatData(){
         guard let userID = UserInfo.shared.getUserID() else {
             print("userID Nil")
             return
         }
+        guard let otherUserID = messageUserData?.otherUserId else {
+            print("otherUserID")
+            return
+        }
         showLoading(isShow: true)
         let apiService = APIService.share
-        let subUrl = "pairmessage/\(userID)?other_userId=\(2)"
+        let subUrl = "pairmessage/\(userID)?other_userId=\(otherUserID)"
         print("url:\(subUrl)")
         apiService.apiHandleGetRequest(subUrl: subUrl,data: AllSingleChatData.self) { result in
             switch result {
             case .success(let data):
-                print("getAllChatData success")
-                print("self.chatData:\(self.chatData.count)")
-//                self.chatData = data.data
                 self.loadChatHistory(datas: data.data)
-//                DispatchQueue.main.async {
-//                    self.messagesCollectionView.reloadData()
-//                }
                 self.showLoading(isShow: false)
             case .failure(let error):
                 print("error: \(error.localizedDescription)")
@@ -114,12 +119,15 @@ class MessageViewController: MessagesViewController,MessagesLayoutDelegate, UIDo
             
             self.messages.append(newMessage)
         }
-        self.messagesCollectionView.reloadData()
-        self.messagesCollectionView.scrollToLastItem(animated: true)
+        DispatchQueue.main.async {
+            self.messagesCollectionView.reloadData()
+            self.messagesCollectionView.scrollToLastItem(animated: true)
+        }
     }
     
     
 }
+
 // MARK: - xử lí subview
 extension MessageViewController {
     
@@ -147,15 +155,45 @@ extension MessageViewController {
         
         let childVC = ConverseViewController()
         addChild(childVC)
-        childVC.userAvatar = userAvatar
-        childVC.targetAvatar = targetAvatar
-        childVC.dataUser = dataUser
+        childVC.messageUserData = messageUserData
         userSubview.addSubview(childVC.view)
         childVC.view.frame = userSubview.bounds
         childVC.didMove(toParent: self)
     }
 
 }
+// MARK: - download UserProfile
+extension MessageViewController {
+    func getUserProfile(){
+        showLoading(isShow: true)
+        guard let userName = UserInfo.shared.getUserName() else {
+            print("không có userName")
+            return
+        }
+        let url = "profile/" + userName
+        APIService.share.apiHandleGetRequest(subUrl: url, data: User.self) { result in
+            switch result {
+            case .success(let data):
+                let userData = data.users?.first
+                let url = URL(string: "https://example.com/image.jpg")
+                self.userAvatar?.kf.setImage(with: url)
+                self.userFullName = userData?.fullName
+                self.showLoading(isShow: false)
+            case .failure(let error):
+                print("error: \(error.localizedDescription)")
+                self.showLoading(isShow: false)
+                switch error{
+                case .server(let message):
+                    self.showAlert(title: "lỗi", message: message)
+                case .network(let message):
+                    self.showAlert(title: "lỗi", message: message)
+                }
+            }
+        }
+    }
+    
+}
+
 // MARK: - testing
 extension MessageViewController {
 //    func handleNewMessage(message: Message) {
@@ -189,7 +227,7 @@ extension MessageViewController {
             print("co tin nhan moi")
             print("co tin nhan moi: \(data)")
             guard let messageData = data[0] as? [String: Any] else { return }
-            guard let displayName = self.dataUser?.fullName else {return}
+            guard let displayName = self.userFullName else {return}
             //            let json = try JSON(data: data)
             //            let errorMessage = json["message"].stringValue
             //            if let messageData = data as? [String: Any] {
@@ -216,7 +254,7 @@ extension MessageViewController {
 extension MessageViewController: InputBarAccessoryViewDelegate {
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
         // Tạo một tin nhắn mới từ người dùng hiện tại và văn bản đã nhập
-        guard let idReceive = dataUser?.userID else {
+        guard let idReceive = messageUserData?.otherUserId else {
             print("---userNil---")
             return
         }
@@ -294,16 +332,16 @@ extension MessageViewController: UIImagePickerControllerDelegate & UINavigationC
         if let image = info[.originalImage] as? UIImage {
             let mediaItem = ImageMediaItem(image: image)
             uploadImageToServer(image: image) { imageUrl in
-                guard let RelatedUserID = self.dataUser?.userID else {
+                guard let otherUserId = self.messageUserData?.otherUserId else {
                     print("---userNil---")
                     return
                 }
                 if SocketIOManager.shared.mSocket.status == .connected {
                     let messageData: [String: Any] = [
-                        "room": RelatedUserID , //ví dụ 21423
+                        "room": otherUserId , //ví dụ 21423
                         "data": [
                             "id": self.userID ?? "",
-                            "RelatedUserID": RelatedUserID ,
+                            "RelatedUserID": otherUserId ,
                             "type": "image",
                             "state":"",
                             "data": imageUrl ?? ""
@@ -354,6 +392,9 @@ extension MessageViewController {
     }
     
     private func addCameraBarButton() {
+        let itemSize = CGSize(width: 24, height: 24)
+        let itemSpacing: CGFloat = 15 // Khoảng cách giữa các mục
+        let itemNumber :CGFloat = 5
         
         let photoLibrary = addBarItem(size: itemSize, image: "photo", action: #selector(photoButtonPressed))
         let camera = addBarItem(size: itemSize, image: "camera", action: #selector(sendUserId))
@@ -471,9 +512,9 @@ extension MessageViewController: MessagesDataSource {
         let initials = "\(firstName?.first ?? "A")\(lastName?.first ?? "A")"
         
         if "self" == sender.senderId{
-            return Avatar(image:self.userAvatar, initials: initials)
+            return Avatar(image:userAvatar?.image, initials: initials)
         }else{
-            return Avatar(image:self.targetAvatar, initials: initials)
+            return Avatar(image:messageUserData?.otherUserAvatar, initials: initials)
         }
     }
     func configureMediaMessageImageView(

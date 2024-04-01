@@ -56,24 +56,13 @@ class UserIntroduceViewController: UIViewController {
     }
     func gotoChatVC(){
         let vc = MessageViewController()
-        vc.targetAvatar = userAvatar.image
-        vc.dataUser = dataUser
-        print("dataUser: \(dataUser?.userID)")
-        var userAvatars: UIImageView?
-        getUserProfile { url in
-            let imageUrl = URL(string: url)
-            userAvatars?.kf.setImage(with: imageUrl, placeholder: UIImage(named: "person"), options: nil, completionHandler: { result in
-                switch result {
-                case .success(_):
-                    // Ảnh đã tải thành công
-                    break
-                case .failure(let error):
-                    // Xảy ra lỗi khi tải ảnh
-                    userAvatars?.image = UIImage(systemName: "person")
-                }
-            })
-        }
-        vc.userAvatar = userAvatar.image
+        // Khởi tạo một instance của struct MessageUserData
+        var messageUserData = MessageUserData(
+            otherUserAvatar: userAvatar.image!, // Ảnh đại diện của người dùng khác
+            otherUserFullName: dataUser?.fullName ?? "",
+            otherUserId: "\(dataUser?.userID ?? 0)", otherLastActivityTime: dataUser?.lastActivityTime ?? "Wed, 27 Mar 2024 11:43:58 GMT"
+        )
+        vc.messageUserData = messageUserData
         navigationController?.pushViewController(vc, animated: true)
     }
     func getUserProfile(completion: @escaping (String) -> Void) {

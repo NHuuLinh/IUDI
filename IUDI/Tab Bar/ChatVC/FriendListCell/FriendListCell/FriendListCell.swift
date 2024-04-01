@@ -19,7 +19,7 @@ class FriendListCell: UICollectionViewCell {
         super.awakeFromNib()
         // Initialization code
     }
-    func blindData(data: ChatData){
+    func bindData(data: ChatData){
         guard let imageUrl = URL(string: data.avatar ?? "") else {
             return
         }
@@ -33,7 +33,7 @@ class FriendListCell: UICollectionViewCell {
                 self.otherUserAvatar.image = UIImage(systemName: "person")
             }
         })
-        otherUserName.text = "\(data.otherUsername)"
+        otherUserName.text = data.otherUsername
         latestMessageDate.text = data.messageTime
         latestMessageContent.text = data.content
     }

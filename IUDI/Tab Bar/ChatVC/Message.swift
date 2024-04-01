@@ -37,6 +37,13 @@ public struct ImageMediaItem: MediaItem {
     }
 }
 
+struct MessageUserData {
+    var otherUserAvatar: UIImage
+    var otherUserFullName: String
+    var otherUserId: String
+    var otherLastActivityTime: String
+}
+
 
 
 
