@@ -60,13 +60,6 @@ class MessageViewController: MessagesViewController,MessagesLayoutDelegate, UIDo
         navigationController?.navigationBar.isHidden = true
         reloadNewMessage()
     }
-//    func bindData(userName: String, userAvatar : UIImage, otherUserAvatar: UIImage, otherUserName: String, otherUserId: String){
-//        self.userName = userName
-//        self.userAvatar = userAvatar
-//        self.otherUserAvatar = otherUserAvatar
-//        self.otherUserName = otherUserName
-//        self.otherUserId = otherUserId
-//    }
     func getAllChatData(){
         guard let userID = UserInfo.shared.getUserID() else {
             print("userID Nil")
@@ -98,10 +91,10 @@ class MessageViewController: MessagesViewController,MessagesLayoutDelegate, UIDo
         }
     }
     func loadChatHistory(datas: [SingleChat] ){
-        guard let userID = UserInfo.shared.getUserID() else {
-            print("userID Nil")
-            return
-        }
+//        guard let userID = UserInfo.shared.getUserID() else {
+//            print("userID Nil")
+//            return
+//        }
         for data in datas.reversed() {
             guard let messageText = data.content,
             let senderId = data.senderID,
@@ -124,8 +117,6 @@ class MessageViewController: MessagesViewController,MessagesLayoutDelegate, UIDo
             self.messagesCollectionView.scrollToLastItem(animated: true)
         }
     }
-    
-    
 }
 
 // MARK: - xử lí subview

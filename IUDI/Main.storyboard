@@ -4,6 +4,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
+        <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -173,7 +174,9 @@
                                                         </constraints>
                                                         <color key="tintColor" name="FontColor"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                        <state key="normal" image="Rectangle 8"/>
+                                                        <state key="normal">
+                                                            <imageReference key="image" image="square" catalog="system" symbolScale="medium"/>
+                                                        </state>
                                                         <connections>
                                                             <action selector="handleBtn:" destination="3Pm-YO-Eaz" eventType="touchUpInside" id="fUm-hp-1Tz"/>
                                                         </connections>
@@ -636,8 +639,25 @@
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="1QC-Bz-cTk">
                                                                 <rect key="frame" x="0.0" y="34.666666666666686" width="398" height="32"/>
                                                                 <subviews>
-                                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Nam" placeholder="Nam" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="vwO-XR-N2U" customClass="JRDropDown">
+                                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="HrZ-TE-0eq">
                                                                         <rect key="frame" x="0.0" y="0.0" width="398" height="32"/>
+                                                                        <constraints>
+                                                                            <constraint firstAttribute="height" constant="32" id="WWW-bv-XOa"/>
+                                                                        </constraints>
+                                                                        <color key="textColor" name="FontColor"/>
+                                                                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
+                                                                        <textInputTraits key="textInputTraits"/>
+                                                                        <userDefinedRuntimeAttributes>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="arrowColor">
+                                                                                <color key="value" name="MainColor"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                            <userDefinedRuntimeAttribute type="color" keyPath="selectedRowColor">
+                                                                                <color key="value" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                                            </userDefinedRuntimeAttribute>
+                                                                        </userDefinedRuntimeAttributes>
+                                                                    </textField>
+                                                                    <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Nam" placeholder="Nam" textAlignment="natural" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="vwO-XR-N2U" customClass="JRDropDown">
+                                                                        <rect key="frame" x="10" y="0.0" width="388" height="32"/>
                                                                         <constraints>
                                                                             <constraint firstAttribute="height" constant="32" id="Khv-yT-2Cl"/>
                                                                         </constraints>
@@ -663,14 +683,18 @@
                                                                 </subviews>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                                 <constraints>
+                                                                    <constraint firstItem="HrZ-TE-0eq" firstAttribute="bottom" secondItem="vwO-XR-N2U" secondAttribute="bottom" id="0w9-3S-xry"/>
                                                                     <constraint firstAttribute="bottom" secondItem="vwO-XR-N2U" secondAttribute="bottom" id="BF8-hK-5cZ"/>
+                                                                    <constraint firstItem="HrZ-TE-0eq" firstAttribute="trailing" secondItem="vwO-XR-N2U" secondAttribute="trailing" id="OLt-j7-ZjN"/>
                                                                     <constraint firstAttribute="trailing" secondItem="06a-3i-uxd" secondAttribute="trailing" id="Q2v-YT-i42"/>
                                                                     <constraint firstItem="06a-3i-uxd" firstAttribute="top" secondItem="1QC-Bz-cTk" secondAttribute="top" id="RmH-y5-pmC"/>
                                                                     <constraint firstItem="06a-3i-uxd" firstAttribute="leading" secondItem="1QC-Bz-cTk" secondAttribute="leading" id="S88-e8-feE"/>
                                                                     <constraint firstItem="vwO-XR-N2U" firstAttribute="top" secondItem="1QC-Bz-cTk" secondAttribute="top" id="bTW-yn-HQX"/>
-                                                                    <constraint firstItem="vwO-XR-N2U" firstAttribute="leading" secondItem="1QC-Bz-cTk" secondAttribute="leading" id="dk4-7m-dIr"/>
+                                                                    <constraint firstItem="vwO-XR-N2U" firstAttribute="leading" secondItem="1QC-Bz-cTk" secondAttribute="leading" constant="10" id="dk4-7m-dIr"/>
+                                                                    <constraint firstItem="HrZ-TE-0eq" firstAttribute="top" secondItem="vwO-XR-N2U" secondAttribute="top" id="gcB-nS-eLN"/>
                                                                     <constraint firstAttribute="trailing" secondItem="vwO-XR-N2U" secondAttribute="trailing" id="nlQ-yd-QuM"/>
                                                                     <constraint firstAttribute="bottom" secondItem="06a-3i-uxd" secondAttribute="bottom" id="ptC-ZA-rGf"/>
+                                                                    <constraint firstItem="HrZ-TE-0eq" firstAttribute="leading" secondItem="1QC-Bz-cTk" secondAttribute="leading" id="yDx-ZW-tpV"/>
                                                                 </constraints>
                                                             </view>
                                                         </subviews>
@@ -697,7 +721,9 @@
                                                         </constraints>
                                                         <color key="tintColor" name="FontColor"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                        <state key="normal" image="Rectangle 8"/>
+                                                        <state key="normal">
+                                                            <imageReference key="image" image="square" catalog="system" symbolScale="medium"/>
+                                                        </state>
                                                         <connections>
                                                             <action selector="handleBtn:" destination="u5L-Si-Twx" eventType="touchUpInside" id="b7K-Wl-eMD"/>
                                                         </connections>
@@ -848,6 +874,7 @@
                     </view>
                     <connections>
                         <outlet property="agreeTermBtn" destination="det-73-fAm" id="iWD-b9-pyM"/>
+                        <outlet property="genderBorder" destination="HrZ-TE-0eq" id="Tui-LG-BTi"/>
                         <outlet property="genderBtn" destination="06a-3i-uxd" id="Aio-z8-EOv"/>
                         <outlet property="genderTF" destination="vwO-XR-N2U" id="TU0-8b-5m8"/>
                         <outlet property="loginBtn" destination="6e5-lE-QT9" id="uRq-Q9-RD3"/>
@@ -2010,10 +2037,10 @@
         <image name="Ellipse 275" width="518" height="518"/>
         <image name="Ellipse 276" width="254" height="254"/>
         <image name="Line 6" width="343" height="1"/>
-        <image name="Rectangle 8" width="9" height="10"/>
         <image name="account_circle" width="40" height="40"/>
         <image name="anh1" width="328" height="385"/>
         <image name="person" catalog="system" width="128" height="121"/>
+        <image name="square" catalog="system" width="128" height="114"/>
         <namedColor name="Background Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

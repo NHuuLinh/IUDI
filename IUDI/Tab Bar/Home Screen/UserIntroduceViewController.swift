@@ -190,12 +190,12 @@ class UserIntroduceViewController: UIViewController {
             case .failure(let error):
                 print("error: \(error.localizedDescription)")
                 self.showLoading(isShow: false)
-                switch error{
-                case .server(let message):
-                    self.showAlert(title: "lỗi", message: message)
-                case .network(let message):
-                    self.showAlert(title: "lỗi", message: message)
-                }
+//                switch error{
+//                case .server(let message):
+//                    self.showAlert(title: "lỗi", message: message)
+//                case .network(let message):
+//                    self.showAlert(title: "lỗi", message: message)
+//                }
             }
         }
     }

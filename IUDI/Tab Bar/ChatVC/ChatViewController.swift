@@ -62,6 +62,7 @@ class ChatViewController: UIViewController {
                 avatarImage.image = UIImage(systemName: "person")
             }
         })
+        
         let messageUserData = MessageUserData(otherUserAvatar: (avatarImage.image)!, otherUserFullName: data.otherUsername ?? "", otherUserId: "\(data.otherUserID ?? 0)", otherLastActivityTime: "Wed, 27 Mar 2024 11:43:58 GMT")
         vc.messageUserData = messageUserData
         self.navigationController?.pushViewController(vc, animated: true)
@@ -170,7 +171,8 @@ extension ChatViewController : UICollectionViewDataSource, UICollectionViewDeleg
             return CGSize(width: collectionView.frame.width, height: 72)
         case .userFriendList:
             // Return the size for items in userFriendList section
-            return CGSize(width: collectionView.frame.width, height: 88*20)
+            let height : CGFloat = CGFloat(88 * chatData.count)
+            return CGSize(width: collectionView.frame.width, height: height)
         default:
             return CGSize(width: 0, height: 0)
         }

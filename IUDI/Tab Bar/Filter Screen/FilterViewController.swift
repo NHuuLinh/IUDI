@@ -27,6 +27,9 @@ class FilterViewController: UIViewController,FilterSettingDelegate {
         subviewHandle()
         getNearUser()
     }
+    override func viewDidAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = false
+    }
     
     @IBAction func btnHandle(_ sender: UIButton) {
         switch sender {

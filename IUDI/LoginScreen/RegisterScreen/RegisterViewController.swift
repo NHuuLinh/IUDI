@@ -13,12 +13,13 @@ import CoreLocation
 import iOSDropDown
 
 
-class RegisterViewController: UIViewController, CheckValid {
+class RegisterViewController: UIViewController, CheckValid, UITextFieldDelegate {
     
     @IBOutlet weak var userNameTF: UITextField!
     @IBOutlet weak var userEmailTF: UITextField!
     @IBOutlet weak var userPasswordTF: UITextField!
     @IBOutlet weak var genderTF: DropDown!
+    @IBOutlet weak var genderBorder: UITextField!
     
     @IBOutlet weak var agreeTermBtn: UIButton!
     @IBOutlet weak var registerBtn: UIButton!
@@ -37,10 +38,20 @@ class RegisterViewController: UIViewController, CheckValid {
         setupView()
         checkInput()
         userPasswordTF.text = keychain.get("password")
-//        genderTF.text = "Nam"
         dropDownHandle(texfield: genderTF, inputArray: Constant.gender)
+        userNameTF.delegate = self
+        userEmailTF.delegate = self
+        userPasswordTF.delegate = self
     }
-    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        // Có thể thực hiện các xử lý khác sau khi textField kết thúc editing
+    }
+
     override func viewWillAppear(_ animated: Bool) {
         requestLocation()
     }
@@ -76,7 +87,9 @@ class RegisterViewController: UIViewController, CheckValid {
         standardBorder(textField: userNameTF)
         standardBorder(textField: userEmailTF)
         standardBorder(textField: userPasswordTF)
-        standardBorder(textField: genderTF)
+        standardBorder(textField: genderBorder)
+        standardBtnCornerRadius(button: registerBtn)
+
     }
     
     func saveUserInfo(){
@@ -89,7 +102,7 @@ class RegisterViewController: UIViewController, CheckValid {
     
     func checkBoxHandle(){
         let checkImage = UIImage(systemName: "checkmark.square")
-        let uncheckImage = UIImage(named: "Rectangle 8")
+        let uncheckImage = UIImage(systemName: "square")
         let buttonImage = agreeTermBtn.isSelected ? uncheckImage : checkImage
         agreeTermBtn.setBackgroundImage(buttonImage, for: .normal)
         print("\(agreeTermBtn.isSelected)")

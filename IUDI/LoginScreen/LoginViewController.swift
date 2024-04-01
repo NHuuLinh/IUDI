@@ -29,6 +29,11 @@ class LoginViewController: UIViewController, CheckValid {
         super.viewDidLoad()
         setupView()
         checkLocationAuthorizationStatus()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+    }
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     override func viewWillAppear(_ animated: Bool) {
         requestLocation()
@@ -94,7 +99,7 @@ class LoginViewController: UIViewController, CheckValid {
     
     func checkBoxHandle(){
         let checkImage = UIImage(systemName: "checkmark.square")
-        let uncheckImage = UIImage(named: "Rectangle 8")
+        let uncheckImage = UIImage(systemName: "square")
         let buttonImage = rememberPasswordBtn.isSelected ? uncheckImage : checkImage
         rememberPasswordBtn.setBackgroundImage(buttonImage, for: .normal)
         print("\(rememberPasswordBtn.isSelected)")
