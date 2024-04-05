@@ -33,6 +33,6 @@ class UserActiveCollectionViewCell: UICollectionViewCell {
                 self.otherUserAvatar.image = UIImage(systemName: "person")
             }
         })
-        otherUserName.text = data.otherUsername
+        otherUserName.text = data.otherFullname
     }
 }

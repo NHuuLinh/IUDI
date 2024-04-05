@@ -37,7 +37,7 @@ class FriendListCell: UICollectionViewCell,DateConvertFormat {
                 self.otherUserAvatar.image = UIImage(systemName: "person")
             }
         })
-        otherUserName.text = data.otherUsername
+        otherUserName.text = data.otherFullname
         let defaultDate = "Wed, 03 Apr 2024 14:20:53 GMT"
         // Chuỗi thời gian mặc định
         // Thêm múi giờ GMT+7 vào cuối chuỗi

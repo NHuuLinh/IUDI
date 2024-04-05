@@ -15,12 +15,14 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var searchBarConstraint: NSLayoutConstraint!
     var showSearchBar = false
     var chatData = [ChatData]()
+    var filterData = [ChatData]()
+    
     let userID = UserInfo.shared.getUserID()
     private var refeshControl = UIRefreshControl()
     
     var moreDate = 10
     var isLoading = false
-
+    
     
     enum ChatSection: Int,CaseIterable {
         case userActive = 0
@@ -78,11 +80,11 @@ class ChatViewController: UIViewController {
             }
         })
         
-        let messageUserData = MessageUserData(otherUserAvatar: (avatarImage.image)!, otherUserFullName: data.otherUsername ?? "", otherUserId: "\(data.otherUserID ?? 0)", otherLastActivityTime: "Wed, 27 Mar 2024 11:43:58 GMT")
+        let messageUserData = MessageUserData(otherUserAvatar: (avatarImage.image)!, otherUserFullName: data.otherFullname ?? "", otherUserId: "\(data.otherUserID ?? 0)", otherLastActivityTime: data.otherLastActivityTime ?? "Wed, 27 Mar 2024 11:43:58 GMT")
         vc.messageUserData = messageUserData
         
         self.navigationController?.pushViewController(vc, animated: true)
-
+        
     }
     
     @IBAction func buttonHandle(_ sender: UIButton) {
@@ -96,12 +98,12 @@ class ChatViewController: UIViewController {
             break
         }
     }
-    func getAllChatData1(){
+    func getAllChatData(){
         guard let userID = UserInfo.shared.getUserID() else {
             print("userID Nil")
             return
         }
-//        showLoading(isShow: true)
+        //        showLoading(isShow: true)
         let apiService = APIService.share
         let subUrl = "chat/\(userID)"
         print("url:\(subUrl)")
@@ -110,8 +112,10 @@ class ChatViewController: UIViewController {
             case .success(let data):
                 print("getAllChatData success")
                 self.chatData = data.data
+                self.filterData = data.data
+                
                 print("self.chatData:\(self.chatData.count)")
-
+                
                 DispatchQueue.main.async {
                     self.chatCollectionView.reloadData()
                 }
@@ -128,7 +132,7 @@ class ChatViewController: UIViewController {
             }
         }
     }
-    func getAllChatData(){
+    func getAllChatData1(){
         guard let userID = UserInfo.shared.getUserID() else {
             print("userID Nil")
             return
@@ -149,11 +153,11 @@ class ChatViewController: UIViewController {
                 self.chatData = Array(data.data.suffix(from: startIndex).prefix(endIndex-startIndex))
                 
                 print("self.chatData:\(self.chatData.count)")
-
+                
                 DispatchQueue.main.async {
                     self.chatCollectionView.reloadData()
                 }
-//                self.moreDate += 1
+                //                self.moreDate += 1
                 self.showLoading(isShow: false)
             case .failure(let error):
                 print("error: \(error.localizedDescription)")
@@ -167,7 +171,7 @@ class ChatViewController: UIViewController {
             }
         }
     }
-
+    
 }
 
 extension ChatViewController : UICollectionViewDataSource, UICollectionViewDelegate,CellSizeCaculate,UICollectionViewDelegateFlowLayout {
@@ -254,7 +258,7 @@ extension ChatViewController: UIScrollViewDelegate {
         
         if offsetY > contentHeight - scrollView.frame.height && !isLoading {
             moreDate += 10 // Tăng trang lên để tải trang tiếp theo
-//            getAllChatData() // Tải dữ liệu cho trang tiếp theo
+            //            getAllChatData() // Tải dữ liệu cho trang tiếp theo
         }
     }
 }
@@ -282,4 +286,27 @@ extension ChatViewController {
         }
     }
 }
+extension ChatViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            print("searchBar rỗng")
+            self.chatData = filterData
+        } else {
+            self.chatData = filterData
+            let filteredChatData = chatData.filter { chat in
+                if let otherFullname = chat.otherFullname {
+                    return otherFullname.lowercased().contains(searchText.lowercased())
+                }
+                return false
+            }
+            self.chatData = filteredChatData
+        }
+        chatCollectionView.reloadData()
+        print("chatData:\(chatData.count)")
+        print("filteredChatData:\(filterData.count)")
+        
+    }
+}
+
+
 
