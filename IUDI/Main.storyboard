@@ -49,7 +49,7 @@
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="dNA-LN-SxY">
-                                        <rect key="frame" x="16" y="323.33333333333331" width="398" height="198.99999999999994"/>
+                                        <rect key="frame" x="16" y="323.33333333333331" width="398" height="207.99999999999994"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="gNx-gP-jRM">
                                                 <rect key="frame" x="0.0" y="0.0" width="398" height="116"/>
@@ -165,30 +165,30 @@
                                                 </subviews>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="w7K-j9-oGS">
-                                                <rect key="frame" x="0.0" y="123" width="398" height="16"/>
+                                                <rect key="frame" x="0.0" y="123" width="398" height="25"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xhl-x4-v7m">
-                                                        <rect key="frame" x="0.0" y="0.0" width="16" height="16"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="Xhl-x4-v7m" secondAttribute="height" multiplier="1:1" id="okz-2a-4pz"/>
                                                         </constraints>
                                                         <color key="tintColor" name="FontColor"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal">
-                                                            <imageReference key="image" image="square" catalog="system" symbolScale="medium"/>
+                                                            <imageReference key="image" image="square" catalog="system" symbolScale="large"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="handleBtn:" destination="3Pm-YO-Eaz" eventType="touchUpInside" id="fUm-hp-1Tz"/>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ghi nhớ mật khẩu " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9um-yX-uW9">
-                                                        <rect key="frame" x="21" y="3.3333333333333703" width="65" height="9.6666666666666643"/>
+                                                        <rect key="frame" x="30" y="7.6666666666666847" width="65" height="9.6666666666666643"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="8"/>
                                                         <color key="textColor" name="FontColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FOB-fL-PFw">
-                                                        <rect key="frame" x="300" y="0.0" width="88" height="16"/>
+                                                        <rect key="frame" x="300" y="0.0" width="88" height="25"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Bold" family="Roboto" pointSize="12"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal" title="Quên mật khẩu?">
@@ -204,7 +204,7 @@
                                                     <constraint firstAttribute="bottom" secondItem="FOB-fL-PFw" secondAttribute="bottom" id="10O-Zf-ywB"/>
                                                     <constraint firstItem="FOB-fL-PFw" firstAttribute="top" secondItem="w7K-j9-oGS" secondAttribute="top" id="80N-4B-geO"/>
                                                     <constraint firstItem="9um-yX-uW9" firstAttribute="leading" secondItem="Xhl-x4-v7m" secondAttribute="trailing" constant="5" id="ARC-2J-tCM"/>
-                                                    <constraint firstAttribute="height" constant="16" id="CNy-8Q-REI"/>
+                                                    <constraint firstAttribute="height" constant="25" id="CNy-8Q-REI"/>
                                                     <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="9um-yX-uW9" secondAttribute="trailing" id="HZM-h8-dBO"/>
                                                     <constraint firstItem="9um-yX-uW9" firstAttribute="centerY" secondItem="Xhl-x4-v7m" secondAttribute="centerY" id="ais-mH-A2j"/>
                                                     <constraint firstItem="Xhl-x4-v7m" firstAttribute="top" secondItem="w7K-j9-oGS" secondAttribute="top" id="auo-gf-Dav"/>
@@ -214,7 +214,7 @@
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0Ff-M9-pz7">
-                                                <rect key="frame" x="0.0" y="169" width="398" height="30"/>
+                                                <rect key="frame" x="0.0" y="178" width="398" height="30"/>
                                                 <color key="backgroundColor" name="MainColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="qMn-cQ-g40"/>
@@ -460,7 +460,7 @@
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ihu-By-TIL">
-                                        <rect key="frame" x="16" y="308.33333333333331" width="398" height="335.99999999999994"/>
+                                        <rect key="frame" x="16" y="308.33333333333331" width="398" height="344.99999999999994"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="dKG-4G-7KN">
                                                 <rect key="frame" x="0.0" y="0.0" width="398" height="245"/>
@@ -712,24 +712,24 @@
                                                 </subviews>
                                             </stackView>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pCt-3p-8N1">
-                                                <rect key="frame" x="0.0" y="260.00000000000006" width="398" height="16"/>
+                                                <rect key="frame" x="0.0" y="260.00000000000006" width="398" height="25"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="det-73-fAm">
-                                                        <rect key="frame" x="0.0" y="0.0" width="16" height="16"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="25" height="25"/>
                                                         <constraints>
                                                             <constraint firstAttribute="width" secondItem="det-73-fAm" secondAttribute="height" multiplier="1:1" id="icd-8t-wIC"/>
                                                         </constraints>
                                                         <color key="tintColor" name="FontColor"/>
                                                         <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                                         <state key="normal">
-                                                            <imageReference key="image" image="square" catalog="system" symbolScale="medium"/>
+                                                            <imageReference key="image" image="square" catalog="system" symbolScale="large"/>
                                                         </state>
                                                         <connections>
                                                             <action selector="handleBtn:" destination="u5L-Si-Twx" eventType="touchUpInside" id="b7K-Wl-eMD"/>
                                                         </connections>
                                                     </button>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Đồng ký điều khoản và điều kiện " textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="s5S-Fe-0ov">
-                                                        <rect key="frame" x="21.000000000000007" y="3.3333333333332567" width="117.66666666666669" height="9.6666666666666643"/>
+                                                        <rect key="frame" x="30.000000000000007" y="7.6666666666666279" width="117.66666666666669" height="9.6666666666666643"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="8"/>
                                                         <color key="textColor" name="FontColor"/>
                                                         <nil key="highlightedColor"/>
@@ -742,12 +742,12 @@
                                                     <constraint firstItem="s5S-Fe-0ov" firstAttribute="centerY" secondItem="det-73-fAm" secondAttribute="centerY" id="oM5-g4-TwL"/>
                                                     <constraint firstItem="s5S-Fe-0ov" firstAttribute="leading" secondItem="det-73-fAm" secondAttribute="trailing" constant="5" id="oxQ-62-v1I"/>
                                                     <constraint firstItem="det-73-fAm" firstAttribute="top" secondItem="pCt-3p-8N1" secondAttribute="top" id="uym-VW-jrh"/>
-                                                    <constraint firstAttribute="height" constant="16" id="wJe-fV-gC7"/>
+                                                    <constraint firstAttribute="height" constant="25" id="wJe-fV-gC7"/>
                                                     <constraint firstAttribute="bottom" secondItem="det-73-fAm" secondAttribute="bottom" id="whJ-LL-3oE"/>
                                                 </constraints>
                                             </view>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TEU-iq-hAr">
-                                                <rect key="frame" x="0.0" y="306.00000000000006" width="398" height="30"/>
+                                                <rect key="frame" x="0.0" y="315.00000000000006" width="398" height="30"/>
                                                 <color key="backgroundColor" name="MainColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="30" id="l4t-Kq-pEA"/>
@@ -874,7 +874,7 @@
                     </view>
                     <connections>
                         <outlet property="agreeTermBtn" destination="det-73-fAm" id="iWD-b9-pyM"/>
-                        <outlet property="genderBorder" destination="HrZ-TE-0eq" id="Tui-LG-BTi"/>
+                        <outlet property="genderBorder" destination="HrZ-TE-0eq" id="pkN-nD-qhQ"/>
                         <outlet property="genderBtn" destination="06a-3i-uxd" id="Aio-z8-EOv"/>
                         <outlet property="genderTF" destination="vwO-XR-N2U" id="TU0-8b-5m8"/>
                         <outlet property="loginBtn" destination="6e5-lE-QT9" id="uRq-Q9-RD3"/>

@@ -12,20 +12,22 @@ import UniformTypeIdentifiers
 import SwiftyJSON
 
 class MessageViewController: MessagesViewController,MessagesLayoutDelegate, UIDocumentPickerDelegate, MessagesDisplayDelegate {
-    let userID = UserInfo.shared.getUserID()
-    let currentUser = Sender(senderId: UserInfo.shared.getUserID() ?? "", displayName: UserInfo.shared.getUserFullName() ?? "")
+    var userID = UserInfo.shared.getUserID()
+    var currentUser = Sender(senderId: UserInfo.shared.getUserID() ?? "", displayName: "")
     
-    let otherUser = Sender(senderId: "other", displayName: "lâm")
     var messages = [MessageType]()
     var imagePicker = UIImagePickerController()
+    var chatHistory = [SingleChat]()
     
     var messageUserData : MessageUserData?
-    var userAvatar: UIImageView?
+    var userAvatar = UIImageView()
     var userFullName: String?
 
     var hi:ImgModel = ImgModel()
-    var chatData = [SingleChat]()
-    
+    var isSeen : String = ""
+    var moreDate = 0
+    var isMaxData = false
+    private var refeshControl = UIRefreshControl()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,34 +35,49 @@ class MessageViewController: MessagesViewController,MessagesLayoutDelegate, UIDo
         subviewHandle()
         sendUserId()
         SocketIOManager.sharedInstance.establishConnection()
-        messages.append(Message(sender: currentUser, messageId: "1", sentDate: Date().addingTimeInterval(-86400), kind: .text("Hello Word1")))
-        
-        messages.append(Message(sender: otherUser, messageId: "2", sentDate: Date().addingTimeInterval(-86400), kind: .text("Hello Word2")))
-        
-        messages.append(Message(sender: otherUser, messageId: "3", sentDate: Date().addingTimeInterval(-86400), kind: .text("Hello Word3")))
-        
-        messages.append(Message(sender: currentUser, messageId: "4", sentDate: Date().addingTimeInterval(-86400), kind: .text("Hello Word4")))
-        
-        messages.append(Message(sender: otherUser, messageId: "5", sentDate: Date().addingTimeInterval(-86400), kind: .text("Hello Word5")))
-        messages.append(Message(sender: otherUser, messageId: "5", sentDate: Date(), kind: .text("Hello Word6")))
-        // Do any additional setup after loading the view.
+
         messagesCollectionView.messagesDataSource = self
         messagesCollectionView.messagesLayoutDelegate = self
         messagesCollectionView.messagesDisplayDelegate = self
         messagesCollectionView.showsVerticalScrollIndicator = false
+        messagesCollectionView.delegate = self
+
         messageInputBar.delegate = self
         addCameraBarButton()
         getAllChatData()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+        pullToRefesh()
+        self.messagesCollectionView.scrollToLastItem(animated: true)
     }
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
+
     override func viewWillAppear(_ animated: Bool) {
+        navigationController?.navigationBar.isHidden = true
         SocketIOManager.shared.establishConnection()
         SocketIOManager.shared.mSocket.on("connect") {data, ack in
             self.sendUserId() // Gọi hàm sendUserId() khi kết nối thành công
         }
-        navigationController?.navigationBar.isHidden = true
         reloadNewMessage()
+        listentSeenMessageEvent()
+        
     }
-    func getAllChatData(){
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        SocketIOManager.shared.mSocket.off("seen")
+        SocketIOManager.shared.mSocket.off("check_message")
+
+        if isMovingFromParent || isBeingDismissed || isMovingToParent {
+            // Kiểm tra nếu view controller sẽ bị loại bỏ khỏi cấu trúc view controller cha
+            // hoặc sẽ được hiển thị root view controller
+            
+            SocketIOManager.shared.mSocket.off("seen")
+        }
+    }
+
+    func getAllChatData1(){
         guard let userID = UserInfo.shared.getUserID() else {
             print("userID Nil")
             return
@@ -76,7 +93,9 @@ class MessageViewController: MessagesViewController,MessagesLayoutDelegate, UIDo
         apiService.apiHandleGetRequest(subUrl: subUrl,data: AllSingleChatData.self) { result in
             switch result {
             case .success(let data):
-                self.loadChatHistory(datas: data.data)
+                let lastestMessageID = data.data.first?.messageID
+                self.seenMessage(MessageID: lastestMessageID ?? 0)
+                self.loadChatHistory(data: data.data)
                 self.showLoading(isShow: false)
             case .failure(let error):
                 print("error: \(error.localizedDescription)")
@@ -90,33 +109,146 @@ class MessageViewController: MessagesViewController,MessagesLayoutDelegate, UIDo
             }
         }
     }
-    func loadChatHistory(datas: [SingleChat] ){
-//        guard let userID = UserInfo.shared.getUserID() else {
-//            print("userID Nil")
-//            return
-//        }
-        for data in datas.reversed() {
+    @objc func getAllChatData(){
+        guard let userID = UserInfo.shared.getUserID() else {
+            print("userID Nil")
+            return
+        }
+        guard let otherUserID = messageUserData?.otherUserId else {
+            print("otherUserID")
+            return
+        }
+        showLoading(isShow: true)
+        let apiService = APIService.share
+        let subUrl = "pairmessage/\(userID)?other_userId=\(otherUserID)"
+        print("url:\(subUrl)")
+        apiService.apiHandleGetRequest(subUrl: subUrl,data: AllSingleChatData.self) { [weak self] result in
+            guard let self = self else {return}
+            switch result {
+            case .success(let data):
+                print("data.data.count: \(data.data.count)")
+                let chatData = data.data
+                self.chatHistory = chatData
+                self.seenMessage(MessageID: chatData.first?.messageID ?? 0)
+                self.loadChatHistory(data: chatData)
+                self.showLoading(isShow: false)
+                DispatchQueue.main.async {
+                    self.messagesCollectionView.scrollToLastItem(animated: true)
+                }            case .failure(let error):
+                print("error: \(error.localizedDescription)")
+                self.showLoading(isShow: false)
+                switch error{
+                case .server(let message):
+                    self.showAlert(title: "lỗi", message: message)
+                case .network(let message):
+                    self.showAlert(title: "lỗi", message: message)
+                }
+            }
+        }
+    }
+    func loadChatHistory(data: [SingleChat]){
+        // xử lí data nhận được từ server, đảo thứ tự tin nhắn
+        guard !self.isMaxData else {
+//                    showLoading(isShow: false)
+            return}
+        var maxEndIndex = (10 + self.moreDate)
+        if maxEndIndex >= data.count {
+            print("hết data")
+            maxEndIndex = (data.count)
+            self.isMaxData = true
+            messagesCollectionView.bounces = false
+            print("cập nhật isMaxData :\(isMaxData)")
+
+        }
+        let endIndex = min(maxEndIndex, data.count) // Lấy tối đa 10 phần tử
+        let startIndex = min((0 + self.moreDate), data.count) // Bắt đầu từ phần tử thứ 5
+        let newData = Array(data.suffix(from: startIndex).prefix(endIndex-startIndex))
+        
+        for data in newData {
+            // khử optional
+            let displayName1 = data.otherUsername
             guard let messageText = data.content,
             let senderId = data.senderID,
-            let displayName = data.otherUsername,
             let messageId = data.messageID,
                   let messageDate = data.messageTime else {return}
+            var displayName : String = ""
             let dateFormatter = DateFormatter()
             dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss zzz" // Specify the format of the string date
             let sentDate = dateFormatter.date(from: messageDate) ?? Date()
-            let newMessage = Message(sender: Sender(senderId: "\(senderId)", displayName: displayName),
-                                     messageId: "\(messageId)",
-                                     sentDate: sentDate,
-                                     kind: .text(messageText))
-            // Xử lý tin nhắn mới
-            
-            self.messages.append(newMessage)
+            // kiểm tra xem có tin nhắn hình ảnh không
+            if "\(senderId)" == userID {
+                displayName = data.username ?? ""
+            } else {
+                displayName = data.otherUsername ?? ""
+            }
+            if let messageImage = data.image {
+                let image = self.convertBase64StringToImage(imageBase64String: messageImage)
+                let mediaItem = ImageMediaItem(image: image)
+                let newMessage = Message(sender: Sender(senderId: "\(senderId)", displayName: displayName),
+                                         messageId: "\(senderId)",
+                                         sentDate: sentDate,
+                                         kind: .photo(mediaItem))
+                self.messages.insert(newMessage, at: 0)
+
+//                self.messages.append(newMessage)
+            } else {
+                let newMessage = Message(sender: Sender(senderId: "\(senderId)", displayName: displayName),
+                                         messageId: "\(messageId)",
+                                         sentDate: sentDate,
+                                         kind: .text(messageText))
+                self.messages.insert(newMessage, at: 0)
+//                self.messages.append(newMessage)
+            }
         }
+        // reload data sau khi kết thúc vòng lặp
         DispatchQueue.main.async {
             self.messagesCollectionView.reloadData()
-            self.messagesCollectionView.scrollToLastItem(animated: true)
+            self.moreDate += 10
+//            self.messagesCollectionView.scrollToLastItem(animated: true)
         }
     }
+}
+// MARK: - xử lí seenMessage
+extension MessageViewController {
+    func seenMessage(MessageID: Int){
+//        if SocketIOManager.shared.mSocket.status == .connected {
+            let messageData: [String: Any] = [
+                "MessageID": MessageID
+            ]
+            SocketIOManager.shared.mSocket.emit("seen", messageData)
+            print("gửi seen lên server")
+//        }
+    }
+    func listentSeenMessageEvent(){
+        SocketIOManager.shared.mSocket.on("seen") { data, ack in
+            guard let messageDatas = data[0] as? [String: Any] else { return }
+            guard let messageData = messageDatas["data"] as? [String: Any] else {return}
+            let senderID = messageData["SenderID"] as? Int ?? 0
+            let otherUserID = "\(senderID)"
+            print("otherUserID: \(otherUserID) ")
+            // Trong closure của listentSeenMessageEvent
+            guard otherUserID == self.userID else {
+                print("không phải người dùng này ")
+                DispatchQueue.main.async {
+                    self.isSeen = ""
+                    let lastSection = self.messagesCollectionView.numberOfSections - 1
+                    if lastSection >= 0 {
+                        self.messagesCollectionView.reloadSections(IndexSet(integer: lastSection))
+                    }
+                }
+                return
+            }
+            print("người dùng seen tin nhắn")
+            DispatchQueue.main.async {
+                self.isSeen = "đã xem"
+                let lastSection = self.messagesCollectionView.numberOfSections - 1
+                if lastSection >= 0 {
+                    self.messagesCollectionView.reloadSections(IndexSet(integer: lastSection))
+                }
+            }
+        }
+    }
+
 }
 
 // MARK: - xử lí subview
@@ -141,7 +273,6 @@ extension MessageViewController {
         let userSubview = UIView()
         view.addSubview(userSubview)
         userSubview.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50 + safeAreaHeight)
-        //        userSubview.backgroundColor = .green
         messagesCollectionView.contentInset.top = userSubview.frame.height
         
         let childVC = ConverseViewController()
@@ -166,9 +297,9 @@ extension MessageViewController {
             switch result {
             case .success(let data):
                 let userData = data.users?.first
-                let url = URL(string: "https://example.com/image.jpg")
-                self.userAvatar?.kf.setImage(with: url)
+                self.loadAvatarImage(url: userData?.avatarLink)
                 self.userFullName = userData?.fullName
+                self.currentUser = Sender(senderId: UserInfo.shared.getUserID() ?? "", displayName: self.userFullName ?? "KGsdgha")
                 self.showLoading(isShow: false)
             case .failure(let error):
                 print("error: \(error.localizedDescription)")
@@ -182,22 +313,28 @@ extension MessageViewController {
             }
         }
     }
+    func loadAvatarImage(url:String?) {
+        print("loadAvatarImage1: \(url)")
+        guard let urlString = url, let imageUrl = URL(string: urlString) else {
+            return
+        }
+        userAvatar.kf.setImage(with: imageUrl, placeholder: UIImage(systemName: "person"), options: nil, completionHandler: { result in
+            switch result {
+            case .success(_):
+                // Ảnh đã tải thành công
+                print("cập nhật ảnh thành công")
+                break
+            case .failure(_):
+                // Xảy ra lỗi khi tải ảnh
+                self.userAvatar.image = UIImage(systemName: "person")
+            }
+        })
+    }
     
 }
 
 // MARK: - testing
 extension MessageViewController {
-//    func handleNewMessage(message: Message) {
-//        // Kiểm tra xem tin nhắn mới có phải từ người dùng hiện tại hay không
-//        if message.sender.senderId != currentUser.senderId {
-//            // Nếu tin nhắn mới không phải từ người dùng hiện tại, thêm nó vào mảng tin nhắn và cập nhật giao diện
-//            messages.append(message)
-//            messagesCollectionView.reloadData()
-//            messagesCollectionView.scrollToLastItem(animated: true)
-//        } else {
-//            print("---từ người dùng hiện tại---")
-//        }
-//    }
     @objc func sendUserId(){
         guard let sendID = Int(userID ?? "0") else {
             print("---userNil---")
@@ -214,36 +351,60 @@ extension MessageViewController {
         }
     }
     func reloadNewMessage(){
+        // lắng nghe event check_message
         SocketIOManager.shared.mSocket.on("check_message") { data, ack in
-            print("co tin nhan moi")
-            print("co tin nhan moi: \(data)")
-            guard let messageData = data[0] as? [String: Any] else { return }
-            guard let displayName = self.userFullName else {return}
-            //            let json = try JSON(data: data)
-            //            let errorMessage = json["message"].stringValue
-            //            if let messageData = data as? [String: Any] {
-            // Xử lý dữ liệu tin nhắn mới
-            //                let messageId = messageData["messageId"] as? String ?? ""
-            let senderId = messageData["senderID"] as? String ?? ""
-            //                let senderName = messageData["senderName"] as? String ?? ""
-            let messageText = messageData["content"] as? String ?? ""
-            // Tạo đối tượng tin nhắn mới từ dữ liệu nhận được
-            let newMessage = Message(sender: Sender(senderId: senderId, displayName: displayName),
-                                     messageId: senderId,
-                                     sentDate: Date(),
-                                     kind: .text(messageText))
-            // Xử lý tin nhắn mới
-            self.messages.append(newMessage)
+            print("co tin nhan moi reloadNewMessage")
+            guard let messageDatas = data[0] as? [String: Any] else { return }
+            guard let messageData = messageDatas["data"] as? [String: Any] else {return}
+
+            guard let displayName = self.messageUserData?.otherUserFullName else {
+                print("===displaynamenil===")
+                return
+            }
+            let senderId = messageData["SenderID"] as? Int ?? 0
+            let otherUserID = "\(senderId)"
+            print("otherUserID:\(otherUserID)")
+            print("self.messageUserData?.otherUserId:\(self.messageUserData?.otherUserId)")
+            let messageText = messageData["Content"] as? String ?? ""
+            let messageID = messageData["MessageID"] as? Int ?? 0
+            print("messageText:\(messageText)")
+            print("messageID:\(messageID)")
+
+
+            guard otherUserID == self.messageUserData?.otherUserId else {return}
+
+            self.seenMessage(MessageID: messageID)
+            // kiểm tra xem id người dguiwr có trùng với id người hiện tại đang nhắn tin không, nếu không return
+            // kiểm tra nếu tin nhắn có chứa image
+            if let messageImage = messageData["Image"] as? String {
+                let image = self.convertBase64StringToImage(imageBase64String: messageImage)
+                let mediaItem = ImageMediaItem(image: image)
+                let newMessage = Message(sender: Sender(senderId: otherUserID, displayName: displayName),
+                                         messageId: otherUserID,
+                                         sentDate: Date(),
+                                         kind: .photo(mediaItem))
+                self.messages.append(newMessage)
+            } else {
+                let newMessage = Message(sender: Sender(senderId: otherUserID, displayName: displayName),
+                                         messageId: otherUserID,
+                                         sentDate: Date(),
+                                         kind: .text(messageText))
+                self.messages.append(newMessage)
+
+            }
+            // reloadData sau khi load xong dữ liệu
             self.messagesCollectionView.reloadData()
             self.messagesCollectionView.scrollToLastItem(animated: true)
-            //            }
         }
     }
+
 }
 
 // MARK: - Xử lí khi tin nhắn text
 extension MessageViewController: InputBarAccessoryViewDelegate {
     func inputBar(_ inputBar: InputBarAccessoryView, didPressSendButtonWith text: String) {
+        self.isSeen = ""
+
         // Tạo một tin nhắn mới từ người dùng hiện tại và văn bản đã nhập
         guard let idReceive = messageUserData?.otherUserId else {
             print("---userNil---")
@@ -259,7 +420,6 @@ extension MessageViewController: InputBarAccessoryViewDelegate {
         if SocketIOManager.shared.mSocket.status == .connected {
             let messageData: [String: Any] = [
                 "content": text,
-                "MessageTime": MessageTime,
                 "idReceive": idReceive,
                 "idSend": userID ?? ""
             ]
@@ -282,65 +442,37 @@ extension MessageViewController: InputBarAccessoryViewDelegate {
 }
 // MARK: - Xử lí khi chọn ảnh và tệp
 extension MessageViewController: UIImagePickerControllerDelegate & UINavigationControllerDelegate {
-    
-    func resizeImage(image: UIImage, scale: CGFloat) -> UIImage {
-        let newSize = CGSize(width: image.size.width * scale, height: image.size.height * scale)
-        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
-        defer { UIGraphicsEndImageContext() }
-        image.draw(in: CGRect(origin: CGPoint.zero, size: newSize))
-        if let newImage = UIGraphicsGetImageFromCurrentImageContext() {
-            return newImage
-        }
-        return image
+        
+    // convertImageToBase64String
+    func convertImageToBase64String (img: UIImage) -> String {
+        return img.jpegData(compressionQuality: 0.1)?.base64EncodedString() ?? ""
     }
     
-    func uploadImageToServer(image: UIImage, completion: @escaping (String?) -> Void) {
-        // Resize image to reduce file size (e.g., to 0.5 scale)
-        let resizedImage = resizeImage(image: image, scale: 0.5)
-        
-        // Convert resized image to JPEG format with a lower compression quality
-        if let imageData = resizedImage.jpegData(compressionQuality: 0.5) {
-            // Convert JPEG data to base64 string
-            let dataImage = imageData.base64EncodedString(options: .lineLength64Characters)
-            //            let sonaParam = ["image": dataImage]
-            
-            // Pass the JPEG data to your API service
-            APIServiceImage.shared.PostImageServer(param: imageData) { data, error in
-                print("===test=== \(String(describing: data?.display_url))")
-                guard let imageUrl = data?.display_url else {
-                    completion(nil)
-                    return
-                }
-                completion(imageUrl)
-            }
-        } else {
-            // If unable to convert image to JPEG data, return nil
-            completion(nil)
-        }
+    // convertImageToBase64String
+    func convertBase64StringToImage (imageBase64String:String) -> UIImage {
+        let imageData = Data(base64Encoded: imageBase64String)
+        let image = UIImage(data: imageData!)
+        return image!
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+        self.isSeen = ""
+
         if let image = info[.originalImage] as? UIImage {
             let mediaItem = ImageMediaItem(image: image)
-            uploadImageToServer(image: image) { imageUrl in
+            let imageBase64 = convertImageToBase64String(img: image)
+            print("---imageBase64--- :\(imageBase64)")
                 guard let otherUserId = self.messageUserData?.otherUserId else {
                     print("---userNil---")
                     return
                 }
                 if SocketIOManager.shared.mSocket.status == .connected {
                     let messageData: [String: Any] = [
-                        "room": otherUserId , //ví dụ 21423
-                        "data": [
-                            "id": self.userID ?? "",
-                            "RelatedUserID": otherUserId ,
-                            "type": "image",
-                            "state":"",
-                            "data": imageUrl ?? ""
-                        ]
+                        "idSend": userID ?? "",
+                        "idReceive": otherUserId,
+                        "content": "",
+                        "Image": imageBase64
                     ]
-                    print("==imageUrl== \(imageUrl)")
-                    print("==messageData== \(messageData)")
-                    
                     SocketIOManager.shared.mSocket.emit("send_message", messageData)
                     let newMessage = Message(sender: self.currentUser, messageId: UUID().uuidString, sentDate: Date(), kind: .photo(mediaItem))
                     self.messages.append(newMessage)
@@ -353,7 +485,6 @@ extension MessageViewController: UIImagePickerControllerDelegate & UINavigationC
             
             dismiss(animated: true, completion: nil)
         }
-    }
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         if (urls.first?.lastPathComponent) != nil {
             for url in urls {
@@ -388,9 +519,9 @@ extension MessageViewController {
         let itemNumber :CGFloat = 5
         
         let photoLibrary = addBarItem(size: itemSize, image: "photo", action: #selector(photoButtonPressed))
-        let camera = addBarItem(size: itemSize, image: "camera", action: #selector(sendUserId))
-        let paperclip = addBarItem(size: itemSize, image: "paperclip", action: #selector(printSomething1))
-        let micro = addBarItem(size: itemSize, image: "mic.fill", action: #selector(printSomething))
+        let camera = addBarItem(size: itemSize, image: "camera", action: #selector(openCamera))
+        let paperclip = addBarItem(size: itemSize, image: "paperclip", action: #selector(sendFile))
+        let micro = addBarItem(size: itemSize, image: "mic.fill", action: #selector(getAllChatData))
         
         messageInputBar.sendButton.image = UIImage(named: "sendmsgicon")
         messageInputBar.sendButton.setSize(itemSize, animated: true)
@@ -399,6 +530,7 @@ extension MessageViewController {
         messageInputBar.rightStackView.alignment = .center
         messageInputBar.rightStackView.spacing = itemSpacing // Đặt khoảng cách giữa các mục
         let messageInputBarSize = (itemSize.width * itemNumber) + (itemSpacing * (itemNumber - 1)) // Tính kích thước của thanh input bar
+//        messageInputBar.heightAnchor.constraint(equalToConstant: 80).isActive = true
         messageInputBar.setRightStackViewWidthConstant(to: messageInputBarSize, animated: false)
         messageInputBar.setStackViewItems([messageInputBar.sendButton, photoLibrary, camera,paperclip,micro], forStack: .right, animated: false)
     }
@@ -456,17 +588,6 @@ extension MessageViewController {
         documentPicker.modalPresentationStyle = .formSheet
         present(documentPicker, animated: true, completion: nil)
     }
-    @objc func printSomething(){
-        print("do nothing")
-        SocketIOManager.shared.establishConnection()
-    }
-    @objc func printSomething1(){
-        print("do nothing")
-        reloadNewMessage()
-    }
-    
-    
-    
 }
 
 // MARK: - Cấu hình UI của MessageViewController
@@ -485,7 +606,7 @@ extension MessageViewController: MessagesDataSource {
     
     
     func backgroundColor(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> UIColor {
-        return isFromCurrentSender(message: message) ? .blue : .red
+        return isFromCurrentSender(message: message) ? .systemBlue : .lightGray
     }
     
     func shouldDisplayHeader(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> Bool {
@@ -500,10 +621,10 @@ extension MessageViewController: MessagesDataSource {
     func getAvatarFor(sender: SenderType) -> Avatar {
         let firstName = sender.displayName.components(separatedBy: " ").first?.uppercased()
         let lastName = sender.displayName.components(separatedBy: " ").last?.uppercased()
-        let initials = "\(firstName?.first ?? "A")\(lastName?.first ?? "A")"
+        let initials = "\(firstName?.first ?? " ")\(lastName?.first ?? " ")"
         
-        if "self" == sender.senderId{
-            return Avatar(image:userAvatar?.image, initials: initials)
+        if userID == sender.senderId{
+            return Avatar(image:userAvatar.image, initials: initials)
         }else{
             return Avatar(image:messageUserData?.otherUserAvatar, initials: initials)
         }
@@ -527,21 +648,23 @@ extension MessageViewController: MessagesDataSource {
     }
     
     func messageStyle(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> MessageStyle {
-        //let corner: MessageStyle.TailCorner = isFromCurrentSender(message: message) ? .bottomRight : .bottomLeft
+        //let corner: MessageStyle.TailCorner = isFromCurrentSender(message: message) ? .topRight : .bottomRight
         return .bubble
-        //        return .bubbleTail(corner, .curved)
+//                return .bubbleTail(corner, .curved)
     }
 }
 
 // MARK: - Cấu hình UI của MessageViewController
-extension MessageViewController {
+extension MessageViewController: DateConvertFormat {
     
     func cellTopLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
         // Format thời gian gửi của tin nhắn
         let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "HH:mm" // Định dạng 24 giờ
-        let sentDate = dateFormatter.string(from: message.sentDate)
-        
+        dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss zzz" // Định dạng 24 giờ
+        dateFormatter.timeZone = TimeZone(secondsFromGMT: 0) // Đặt múi giờ của định dạng là GMT
+
+        let sentDate1 = dateFormatter.string(from: message.sentDate)
+        let sentDate = convertServerTimeString(sentDate1)
         // Tạo văn bản được định dạng cho thời gian gửi
         let attributes: [NSAttributedString.Key: Any] = [
             .font: UIFont.systemFont(ofSize: 10),
@@ -549,40 +672,89 @@ extension MessageViewController {
         ]
         return NSAttributedString(string: sentDate, attributes: attributes)
     }
-    //    func cellBottomLabelAttributedText(for message: MessageKit.MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+
+        func cellBottomLabelAttributedText(for message: MessageKit.MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "HH:mm" // Định dạng 24 giờ
+            dateFormatter.timeZone = TimeZone(secondsFromGMT: 0) // Đặt múi giờ của định dạng là GMT
+
+            let sentDate = dateFormatter.string(from: message.sentDate)
+            // Tạo văn bản được định dạng cho thời gian gửi
+            let attributes: [NSAttributedString.Key: Any] = [
+                .font: UIFont.systemFont(ofSize: 10),
+                .foregroundColor: UIColor.gray // Màu xám
+            ]
+            return NSAttributedString(string: sentDate, attributes: attributes)
+        }
+        func messageTopLabelAttributedText(for message: MessageKit.MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+            let name = message.sender.displayName
+            return NSAttributedString(string: name, attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption1)])
+        }
     //
-    //        return NSAttributedString(string: "Read", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 10), NSAttributedString.Key.foregroundColor: UIColor.darkGray])
-    //    }
-    //    func messageTopLabelAttributedText(for message: MessageKit.MessageType, at indexPath: IndexPath) -> NSAttributedString? {
-    //        let name = message.sender.displayName
-    //        return NSAttributedString(string: name, attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption1)])
-    //    }
-    //
-    func messageBottomLabelAttributedText(for message: MessageKit.MessageType, at indexPath: IndexPath) -> NSAttributedString? {
-        let name = message.sender.displayName
-        return NSAttributedString(string: name,attributes: [NSAttributedString.Key.font: UIFont(name: "Roboto-Regular",
-                                                                                                size: 10) ?? UIFont.preferredFont(forTextStyle: .caption1),
-                                                            NSAttributedString.Key.foregroundColor: UIColor.gray])
-        //        return NSAttributedString(string: name, attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption2)])
-    }
-    
+//    func messageBottomLabelAttributedText(for message: MessageKit.MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+//        let name = message.sender.displayName
+//        return NSAttributedString(string: name,attributes: [NSAttributedString.Key.font: UIFont(name: "Roboto-Regular",
+//                                                                                                size: 10) ?? UIFont.preferredFont(forTextStyle: .caption1),
+//                                                            NSAttributedString.Key.foregroundColor: UIColor.gray])
+//        //        return NSAttributedString(string: name, attributes: [NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: .caption2)])
+//    }
+
     func cellTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
         return 10
     }
     
-    //    func cellBottomLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
-    //        return 10
-    //    }
+        func cellBottomLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+            return 10
+        }
     //
-    //    func messageTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
-    //        return 10
-    //    }
+        func messageTopLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
+            return 20
+        }
     //
     func messageBottomLabelHeight(for message: MessageType, at indexPath: IndexPath, in messagesCollectionView: MessagesCollectionView) -> CGFloat {
-        return 20
+        return 10
     }
     
+    
 }
+extension MessageViewController {
+    func messageBottomLabelAttributedText(for message: MessageType, at indexPath: IndexPath) -> NSAttributedString? {
+        // Kiểm tra xem tin nhắn có phải là tin nhắn cuối cùng không
+        if isLastMessage(at: indexPath) {
+            let attrs: [NSAttributedString.Key: Any] = [.font: UIFont.systemFont(ofSize: 12), .foregroundColor: UIColor.gray]
+            return NSAttributedString(string: isSeen, attributes: attrs)
+        } else {
+            return nil
+        }
+    }
+
+    func isLastMessage(at indexPath: IndexPath) -> Bool {
+        // Thực hiện logic kiểm tra xem tin nhắn có phải là tin nhắn cuối cùng không
+        return indexPath.section == messages.count - 1
+    }
+}
+extension MessageViewController {
+        func pullToRefesh(){
+            refeshControl.addTarget(self, action: #selector(reloadData), for: UIControl.Event.valueChanged)
+            messagesCollectionView.addSubview(refeshControl)
+        }
+        @objc func reloadData(send: UIRefreshControl){
+            guard !self.isMaxData else {
+                print("đã hết data để Refesh")
+                self.refeshControl.endRefreshing()
+                return}
+            print("Refesh isMaxData:\(isMaxData)")
+            DispatchQueue.main.async {
+                self.loadChatHistory(data: self.chatHistory)
+//                self.getAllChatData()
+                print("đã scroll hết")
+                self.refeshControl.endRefreshing()
+            }
+        }
+
+}
+
+
 
 
 

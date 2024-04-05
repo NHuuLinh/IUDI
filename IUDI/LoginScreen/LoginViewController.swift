@@ -10,7 +10,7 @@ import SwiftyJSON
 //import KeychainSwift
 import CoreLocation
 
-class LoginViewController: UIViewController, CheckValid {
+class LoginViewController: UIViewController, UITextFieldDelegate, CheckValid {
     @IBOutlet weak var userNameTF: UITextField!
     @IBOutlet weak var userPasswordTF: UITextField!
     @IBOutlet weak var rememberPasswordBtn: UIButton!
@@ -31,6 +31,8 @@ class LoginViewController: UIViewController, CheckValid {
         checkLocationAuthorizationStatus()
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
         view.addGestureRecognizer(tapGesture)
+        userNameTF.delegate = self
+        userPasswordTF.delegate = self
     }
     @objc func dismissKeyboard() {
         view.endEditing(true)
@@ -61,6 +63,14 @@ class LoginViewController: UIViewController, CheckValid {
         default:
             break
         }
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        // Có thể thực hiện các xử lý khác sau khi textField kết thúc editing
     }
     func goToResetPasswordVC(){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)

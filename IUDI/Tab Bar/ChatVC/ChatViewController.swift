@@ -15,6 +15,12 @@ class ChatViewController: UIViewController {
     @IBOutlet weak var searchBarConstraint: NSLayoutConstraint!
     var showSearchBar = false
     var chatData = [ChatData]()
+    let userID = UserInfo.shared.getUserID()
+    private var refeshControl = UIRefreshControl()
+    
+    var moreDate = 10
+    var isLoading = false
+
     
     enum ChatSection: Int,CaseIterable {
         case userActive = 0
@@ -27,8 +33,17 @@ class ChatViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = true
         setupView()
         registerCollectionView()
+        pullToRefesh()
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        SocketIOManager.shared.establishConnection()
+        SocketIOManager.shared.mSocket.on("connect") {data, ack in
+            self.sendUserId() // Gọi hàm sendUserId() khi kết nối thành công
+        }
+        reloadNewMessage1()
         getAllChatData()
     }
+    
     
     func setupView(){
         backBtn.isEnabled = false
@@ -65,6 +80,7 @@ class ChatViewController: UIViewController {
         
         let messageUserData = MessageUserData(otherUserAvatar: (avatarImage.image)!, otherUserFullName: data.otherUsername ?? "", otherUserId: "\(data.otherUserID ?? 0)", otherLastActivityTime: "Wed, 27 Mar 2024 11:43:58 GMT")
         vc.messageUserData = messageUserData
+        
         self.navigationController?.pushViewController(vc, animated: true)
 
     }
@@ -80,12 +96,12 @@ class ChatViewController: UIViewController {
             break
         }
     }
-    func getAllChatData(){
+    func getAllChatData1(){
         guard let userID = UserInfo.shared.getUserID() else {
             print("userID Nil")
             return
         }
-        showLoading(isShow: true)
+//        showLoading(isShow: true)
         let apiService = APIService.share
         let subUrl = "chat/\(userID)"
         print("url:\(subUrl)")
@@ -99,6 +115,45 @@ class ChatViewController: UIViewController {
                 DispatchQueue.main.async {
                     self.chatCollectionView.reloadData()
                 }
+                self.showLoading(isShow: false)
+            case .failure(let error):
+                print("error: \(error.localizedDescription)")
+                self.showLoading(isShow: false)
+                switch error{
+                case .server(let message):
+                    self.showAlert(title: "lỗi", message: message)
+                case .network(let message):
+                    self.showAlert(title: "lỗi", message: message)
+                }
+            }
+        }
+    }
+    func getAllChatData(){
+        guard let userID = UserInfo.shared.getUserID() else {
+            print("userID Nil")
+            return
+        }
+        
+        let apiService = APIService.share
+        let subUrl = "chat/\(userID)"
+        print("url:\(subUrl)")
+        
+        apiService.apiHandleGetRequest(subUrl: subUrl, data: AllChatData.self) { result in
+            switch result {
+            case .success(let data):
+                print("getAllChatData success")
+                
+                // Lấy mảng từ 5 đến 10
+                let endIndex = min(self.moreDate, data.data.count) // Lấy tối đa 10 phần tử
+                let startIndex = min(0, data.data.count) // Bắt đầu từ phần tử thứ 5
+                self.chatData = Array(data.data.suffix(from: startIndex).prefix(endIndex-startIndex))
+                
+                print("self.chatData:\(self.chatData.count)")
+
+                DispatchQueue.main.async {
+                    self.chatCollectionView.reloadData()
+                }
+//                self.moreDate += 1
                 self.showLoading(isShow: false)
             case .failure(let error):
                 print("error: \(error.localizedDescription)")
@@ -149,7 +204,10 @@ extension ChatViewController : UICollectionViewDataSource, UICollectionViewDeleg
         switch chatSection {
         case .userActive:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ActiveUserListCollectionViewCell", for: indexPath) as! ActiveUserListCollectionViewCell
-            
+            cell.bindData(data: chatData)
+            cell.gotoChatVC = { data in
+                self.gotoChatVC(data: data)
+            }
             return cell
         case .userFriendList:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "FriendListCollectionViewCell", for: indexPath) as! FriendListCollectionViewCell
@@ -177,13 +235,51 @@ extension ChatViewController : UICollectionViewDataSource, UICollectionViewDeleg
             return CGSize(width: 0, height: 0)
         }
     }
-    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-    }
-    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-    //        return 100 // Set the spacing between sections
-    //    }
-    //
-    //    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
-    //        return 100 // Set the minimum interitem spacing within sections
-    //    }
 }
+extension ChatViewController: UIScrollViewDelegate {
+    func pullToRefesh(){
+        refeshControl.addTarget(self, action: #selector(reloadData), for: UIControl.Event.valueChanged)
+        chatCollectionView.addSubview(refeshControl)
+    }
+    @objc func reloadData(send: UIRefreshControl){
+        DispatchQueue.main.async {
+            self.getAllChatData()
+            print("đã scroll hết")
+            self.refeshControl.endRefreshing()
+        }
+    }
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        
+        if offsetY > contentHeight - scrollView.frame.height && !isLoading {
+            moreDate += 10 // Tăng trang lên để tải trang tiếp theo
+//            getAllChatData() // Tải dữ liệu cho trang tiếp theo
+        }
+    }
+}
+extension ChatViewController {
+    @objc func sendUserId(){
+        guard let sendID = Int(userID ?? "0") else {
+            print("---userNil---")
+            return
+        }
+        if SocketIOManager.shared.mSocket.status == .connected {
+            print("Socket is connected")
+            let messageData: [String: Int] = [
+                "userId": sendID
+            ]
+            SocketIOManager.shared.mSocket.emit("userId", messageData)
+        } else {
+            print("Socket is not connected")
+        }
+    }
+    func reloadNewMessage1(){
+        // lắng nghe event check_message
+        SocketIOManager.shared.mSocket.on("check_message") { data, ack in
+            print("co tin nhan moi")
+            self.getAllChatData()
+        }
+    }
+}
+

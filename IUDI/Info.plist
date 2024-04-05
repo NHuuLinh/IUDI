@@ -9,6 +9,8 @@
 	</dict>
 	<key>NSFileProviderDomain</key>
 	<string></string>
+	<key>Privacy - Camera Usage DescriptionPrivacy - Camera Usage Description</key>
+	<string>$(PRODUCT_NAME) camera use</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>

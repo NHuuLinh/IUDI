@@ -1232,6 +1232,8 @@
 				DEVELOPMENT_TEAM = FGS26H53AZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IUDI/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow to use camera";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Please allow to use location data";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Please allow use location";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow to use location data";
@@ -1265,6 +1267,8 @@
 				DEVELOPMENT_TEAM = FGS26H53AZ;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IUDI/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow to use camera";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Please allow to use location data";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Please allow use location";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow to use location data";

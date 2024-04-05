@@ -12,6 +12,7 @@ class FriendListCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var friendListCV: UICollectionView!
     var frameWidth : CGFloat?
     var gotoChatVC : ((ChatData) -> Void)?
+
     var chatData = [ChatData]()
 
     override func awakeFromNib() {

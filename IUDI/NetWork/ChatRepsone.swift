@@ -15,7 +15,7 @@ struct AllChatData: Codable {
 // MARK: - Datum
 struct ChatData: Codable {
     let avatar: String?
-    let content, email: String?
+    let content, email, image: String?
     let isSeen, messageID: Int?
     let messageTime: String?
     let otherAvatar: String?
@@ -28,6 +28,7 @@ struct ChatData: Codable {
     enum CodingKeys: String, CodingKey {
         case avatar = "Avatar"
         case content = "Content"
+        case image = "Image"
         case email = "Email"
         case isSeen = "IsSeen"
         case messageID = "MessageID"
@@ -51,6 +52,7 @@ struct AllSingleChatData: Codable {
 struct SingleChat: Codable {
     let avatar: String?
     let content: String?
+    let image: String?
     let email: String?
     let isSeen, messageID: Int?
     let messageTime: String?
@@ -64,6 +66,7 @@ struct SingleChat: Codable {
     enum CodingKeys: String, CodingKey {
         case avatar = "Avatar"
         case content = "Content"
+        case image = "Image"
         case email = "Email"
         case isSeen = "IsSeen"
         case messageID = "MessageID"

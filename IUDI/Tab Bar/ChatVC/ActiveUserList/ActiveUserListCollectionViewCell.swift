@@ -10,11 +10,18 @@ import UIKit
 class ActiveUserListCollectionViewCell: UICollectionViewCell {
     
     @IBOutlet weak var activeUserListCV: UICollectionView!
+    var chatData = [ChatData]()
+    var gotoChatVC : ((ChatData) -> Void)?
+
     override func awakeFromNib() {
         super.awakeFromNib()
         setupCollectionView()
         registerCollectionView()
         print("activeUserListCV:\(activeUserListCV.frame.height)")
+    }
+    func bindData(data: [ChatData]) {
+        self.chatData = data
+        activeUserListCV.reloadData()
     }
     
 }
@@ -35,16 +42,19 @@ extension ActiveUserListCollectionViewCell : UICollectionViewDataSource, UIColle
         activeUserListCV.register(userActiveCell, forCellWithReuseIdentifier: "UserActiveCollectionViewCell")
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 12
+        print("chatData.count:\(chatData.count)")
+
+        return chatData.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "UserActiveCollectionViewCell", for: indexPath) as! UserActiveCollectionViewCell
+        cell.bindData(data: chatData[indexPath.row])
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        logout()
+        self.gotoChatVC?(chatData[indexPath.row])
         print("user select: \(indexPath.row)")
     }
     func logout(){
