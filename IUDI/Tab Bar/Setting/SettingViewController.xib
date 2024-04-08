@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="22505" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22504"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -51,11 +51,11 @@
                     <nil key="textColor"/>
                     <nil key="highlightedColor"/>
                 </label>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="35" translatesAutoresizingMaskIntoConstraints="NO" id="941-Uk-R8O">
-                    <rect key="frame" x="25" y="344" width="343" height="459"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="941-Uk-R8O">
+                    <rect key="frame" x="25" y="410" width="343" height="393"/>
                     <subviews>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KAf-RO-Wnh">
-                            <rect key="frame" x="0.0" y="0.0" width="343" height="34.333333333333336"/>
+                            <rect key="frame" x="0.0" y="0.0" width="343" height="38.333333333333336"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="person.2.fill" catalog="system" title="Nhóm">
                                 <color key="baseForegroundColor" systemColor="labelColor"/>
@@ -65,7 +65,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lf4-U5-gl3">
-                            <rect key="frame" x="0.0" y="69.333333333333314" width="343" height="34.333333333333343"/>
+                            <rect key="frame" x="0.0" y="58.333333333333314" width="343" height="38.333333333333343"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="lock.fill" catalog="system" title="Quyền riêng tư">
                                 <color key="baseForegroundColor" systemColor="labelColor"/>
@@ -75,7 +75,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vrd-rW-cra">
-                            <rect key="frame" x="0.0" y="138.66666666666669" width="343" height="34.333333333333343"/>
+                            <rect key="frame" x="0.0" y="116.66666666666661" width="343" height="38.333333333333329"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="bell.fill" catalog="system" title="Thông báo">
                                 <color key="baseForegroundColor" systemColor="labelColor"/>
@@ -85,7 +85,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dHA-5t-Ytu">
-                            <rect key="frame" x="0.0" y="208" width="343" height="34.333333333333343"/>
+                            <rect key="frame" x="0.0" y="175" width="343" height="38.333333333333343"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="doc.plaintext.fill" catalog="system" title="Điều khoản và Điều kiện">
                                 <color key="baseForegroundColor" systemColor="labelColor"/>
@@ -95,7 +95,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GSr-Zn-5kg">
-                            <rect key="frame" x="0.0" y="277.33333333333337" width="343" height="34.333333333333314"/>
+                            <rect key="frame" x="0.0" y="233.33333333333337" width="343" height="38.333333333333314"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="lock.shield.fill" catalog="system" title="Chính sách bảo mật">
                                 <color key="baseForegroundColor" systemColor="labelColor"/>
@@ -105,7 +105,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f0F-ox-yfQ">
-                            <rect key="frame" x="0.0" y="346.66666666666663" width="343" height="34.333333333333314"/>
+                            <rect key="frame" x="0.0" y="291.66666666666663" width="343" height="38.333333333333314"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="info.bubble.fill.rtl" catalog="system" title="Giới thiệu về chúng tôi">
                                 <color key="baseForegroundColor" systemColor="labelColor"/>
@@ -115,7 +115,7 @@
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3PC-ve-zWZ">
-                            <rect key="frame" x="0.0" y="416" width="343" height="43"/>
+                            <rect key="frame" x="0.0" y="350" width="343" height="43"/>
                             <color key="backgroundColor" red="0.0" green="0.52941176469999995" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="43" id="1sM-0P-nh2"/>
@@ -148,7 +148,7 @@
         </view>
     </objects>
     <resources>
-        <image name="anh1" width="1000" height="1500"/>
+        <image name="anh1" width="328" height="385"/>
         <image name="bell.fill" catalog="system" width="123" height="128"/>
         <image name="doc.plaintext.fill" catalog="system" width="115" height="128"/>
         <image name="info.bubble.fill.rtl" catalog="system" width="128" height="110"/>
