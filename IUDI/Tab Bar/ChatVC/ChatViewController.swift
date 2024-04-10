@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ChatViewController: UIViewController {
+class ChatViewController: UIViewController,ServerImageHandle {
     @IBOutlet weak var chatCollectionView: UICollectionView!
     @IBOutlet weak var searchBtn: UIButton!
     @IBOutlet weak var backBtn: UIButton!
@@ -16,6 +16,8 @@ class ChatViewController: UIViewController {
     var showSearchBar = false
     var chatData = [ChatData]()
     var filterData = [ChatData]()
+    var userOnlineId = [Int]()
+
     
     let userID = UserInfo.shared.getUserID()
     private var refeshControl = UIRefreshControl()
@@ -40,9 +42,12 @@ class ChatViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         SocketIOManager.shared.establishConnection()
         SocketIOManager.shared.mSocket.on("connect") {data, ack in
-            self.sendUserId() // Gọi hàm sendUserId() khi kết nối thành công
+            self.listentSeenMessageEvent() // Gọi hàm sendUserId() khi kết nối thành công
+//            self.sendUserId()
         }
-        reloadNewMessage1()
+        sendUserId()
+        listentSeenMessageEvent()
+        reloadNewMessage()
         getAllChatData()
     }
     
@@ -50,6 +55,7 @@ class ChatViewController: UIViewController {
     func setupView(){
         backBtn.isEnabled = false
         searchBar.layer.opacity = 0
+        searchBtn.tintColor = .black
     }
     
     func searchBarLayout(){
@@ -65,22 +71,8 @@ class ChatViewController: UIViewController {
     func gotoChatVC(data: ChatData){
         let vc = MessageViewController()
         vc.title = "Chat"
-        var avatarImage = UIImageView()
-        guard let urlString = data.otherAvatar, let imageUrl = URL(string: urlString) else {
-            return
-        }
-        avatarImage.kf.setImage(with: imageUrl, placeholder: UIImage(systemName: "person"), options: nil, completionHandler: { result in
-            switch result {
-            case .success(_):
-                // Ảnh đã tải thành công
-                print("Ảnh đã tải thành công")
-            case .failure(_):
-                // Xảy ra lỗi khi tải ảnh
-                avatarImage.image = UIImage(systemName: "person")
-            }
-        })
-        
-        let messageUserData = MessageUserData(otherUserAvatar: (avatarImage.image)!, otherUserFullName: data.otherFullname ?? "", otherUserId: "\(data.otherUserID ?? 0)", otherLastActivityTime: data.otherLastActivityTime ?? "Wed, 27 Mar 2024 11:43:58 GMT")
+        let userAvatar = convertStringToImage(imageString: data.otherAvatar ?? "")
+        let messageUserData = MessageUserData(otherUserAvatar: userAvatar, otherUserFullName: data.otherFullname ?? "", otherUserId: "\(data.otherUserID ?? 0)", otherLastActivityTime: data.otherLastActivityTime ?? "Wed, 27 Mar 2024 11:43:58 GMT")
         vc.messageUserData = messageUserData
         
         self.navigationController?.pushViewController(vc, animated: true)
@@ -90,10 +82,14 @@ class ChatViewController: UIViewController {
     @IBAction func buttonHandle(_ sender: UIButton) {
         switch sender {
         case searchBtn:
-            searchBarLayout()
+            emitOnline()
+
+//            searchBarLayout()
             print("search")
         case backBtn:
-            searchBarLayout()
+            listentSeenMessageEvent()
+
+//            searchBarLayout()
         default:
             break
         }
@@ -115,7 +111,6 @@ class ChatViewController: UIViewController {
                 self.filterData = data.data
                 
                 print("self.chatData:\(self.chatData.count)")
-                
                 DispatchQueue.main.async {
                     self.chatCollectionView.reloadData()
                 }
@@ -208,7 +203,7 @@ extension ChatViewController : UICollectionViewDataSource, UICollectionViewDeleg
         switch chatSection {
         case .userActive:
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "ActiveUserListCollectionViewCell", for: indexPath) as! ActiveUserListCollectionViewCell
-            cell.bindData(data: chatData)
+            cell.bindData(data: chatData, userOnlineId: userOnlineId)
             cell.gotoChatVC = { data in
                 self.gotoChatVC(data: data)
             }
@@ -239,6 +234,7 @@ extension ChatViewController : UICollectionViewDataSource, UICollectionViewDeleg
             return CGSize(width: 0, height: 0)
         }
     }
+    
 }
 extension ChatViewController: UIScrollViewDelegate {
     func pullToRefesh(){
@@ -248,6 +244,7 @@ extension ChatViewController: UIScrollViewDelegate {
     @objc func reloadData(send: UIRefreshControl){
         DispatchQueue.main.async {
             self.getAllChatData()
+            self.emitOnline()
             print("đã scroll hết")
             self.refeshControl.endRefreshing()
         }
@@ -278,13 +275,40 @@ extension ChatViewController {
             print("Socket is not connected")
         }
     }
-    func reloadNewMessage1(){
+    func reloadNewMessage(){
         // lắng nghe event check_message
+        print("reloadNewMessage")
+
         SocketIOManager.shared.mSocket.on("check_message") { data, ack in
             print("co tin nhan moi")
             self.getAllChatData()
         }
     }
+    func listentSeenMessageEvent(){
+        print("listentSeenMessageEvent")
+        SocketIOManager.shared.mSocket.on("online") { data, ack in
+            print("SocketIOManager.shared.mSocket.on")
+            guard let messageDatas = data[0] as? [String: Any] else { return }
+            guard let messageData = messageDatas["user"] as? [Int] else {
+                print("ép kiểu không thành công")
+                return
+            }
+            print("messageData: \(messageData) ")
+            self.userOnlineId = messageData
+            self.chatCollectionView.reloadData()
+        }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.emitOnline()
+        }
+    }
+    func emitOnline() {
+        print("emitOnline")
+        let messageData: [String: Any] = [
+            "userId": userID ?? ""
+        ]
+        SocketIOManager.shared.mSocket.emit("online", messageData)
+    }
+
 }
 extension ChatViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {

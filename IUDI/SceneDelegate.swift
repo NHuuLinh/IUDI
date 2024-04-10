@@ -31,7 +31,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         if UserDefaults.standard.didLogin {
             if UserDefaults.standard.didOnMain {
                 setupTabBar()
-//                goToFilter()
             } else {
                 goToProfile()
             }

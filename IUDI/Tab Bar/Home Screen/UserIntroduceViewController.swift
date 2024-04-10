@@ -11,7 +11,7 @@ import ReadMoreTextView
 import SwiftyJSON
 import Kingfisher
 
-class UserIntroduceViewController: UIViewController {
+class UserIntroduceViewController: UIViewController,ServerImageHandle {
     
     @IBOutlet weak var userAvatar: UIImageView!
     @IBOutlet weak var userNameLb: UILabel!
@@ -28,6 +28,9 @@ class UserIntroduceViewController: UIViewController {
     let minimumLineSpacing = 5.0
     let apiService = APIService.share
     var dataUser : Distance?
+    
+    var imagePicker = UIImagePickerController()
+
 
     
     override func viewDidLoad() {
@@ -65,58 +68,12 @@ class UserIntroduceViewController: UIViewController {
         vc.messageUserData = messageUserData
         navigationController?.pushViewController(vc, animated: true)
     }
-    func getUserProfile(completion: @escaping (String) -> Void) {
-        showLoading(isShow: true)
-        guard let userName = UserInfo.shared.getUserName() else {
-            print("không có userName")
-            completion("") // Call completion handler with empty string
-            return
-        }
-        
-        let url = "profile/" + userName
-        APIService.share.apiHandleGetRequest(subUrl: url, data: User.self) { result in
-            switch result {
-            case .success(let data):
-                guard let avatarUrl = data.users?.first?.avatarLink else {
-                    print("dữ liệu nil")
-                    completion("") // Call completion handler with empty string
-                    return
-                }
-                self.showLoading(isShow: false)
-                completion(avatarUrl) // Call completion handler with avatarUrl
-            case .failure(let error):
-                print("error: \(error.localizedDescription)")
-                self.showLoading(isShow: false)
-                switch error {
-                case .server(let message), .network(let message):
-                    self.showAlert(title: "lỗi", message: message)
-                }
-                completion("") // Call completion handler with empty string
-            }
-        }
-    }
-
-    
-    func setupCollectionView() {
-        if let flowLayout = userImageCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
-            flowLayout.scrollDirection = .vertical
-            flowLayout.minimumLineSpacing = minimumLineSpacing
-            flowLayout.minimumInteritemSpacing = minimumLineSpacing
-        }
-    }
-    
-    func registerCollectionView(){
-        userImageCollectionView.dataSource = self
-        userImageCollectionView.delegate = self
-        let cell = UINib(nibName: "SelectImageCollectionViewCell", bundle: nil)
-        userImageCollectionView.register(cell, forCellWithReuseIdentifier: "SelectImageCollectionViewCell")
-    }
     
     func setupUserIntroduct(){
         userIntroduct.showsLargeContentViewer = true
         userIntroduct.shouldTrim = true
         userIntroduct.maximumNumberOfLines = 2
-        let readLessText = NSAttributedString(string: "...Ẩn bớt", attributes: [NSAttributedString.Key.foregroundColor: Constant.mainBorderColor])
+        let readLessText = NSAttributedString(string: " Ẩn bớt", attributes: [NSAttributedString.Key.foregroundColor: Constant.mainBorderColor])
         userIntroduct.attributedReadLessText = readLessText
         let readMoreText = NSAttributedString(string: "... Xem thêm", attributes: [NSAttributedString.Key.foregroundColor: Constant.mainBorderColor])
         userIntroduct.attributedReadMoreText = readMoreText
@@ -138,17 +95,7 @@ class UserIntroduceViewController: UIViewController {
     }
     
     func blindata(data: Distance){
-        let imageUrl = URL(string: data.avatarLink ?? "")
-        userAvatar.kf.setImage(with: imageUrl, placeholder: UIImage(named: "person"), options: nil, completionHandler: { result in
-            switch result {
-            case .success(_):
-                // Ảnh đã tải thành công
-                break
-            case .failure(let error):
-                // Xảy ra lỗi khi tải ảnh
-                self.userAvatar.image = UIImage(systemName: "person")
-            }
-        })
+        userAvatar.image = convertStringToImage(imageString: data.avatarLink ?? "")
         //        userNameLb.text = data.fullName
         userNameLb.text = "\(data.userID)"
         userLocationLb.text = data.currentAdd
@@ -164,8 +111,8 @@ class UserIntroduceViewController: UIViewController {
     func getAllImage(userID: String){
         showLoading(isShow: true)
         print("UserID: \(userID)")
-        let subUrl = Constant.baseUrl + "profile/viewAllImage/" + userID
-        apiService.apiHandle(subUrl: subUrl, data: GetPhotos.self) { response in
+        let subUrl = "profile/viewAllImage/" + userID
+        apiService.apiHandleGetRequest(subUrl: subUrl, data: GetPhotos.self) { response in
             switch response {
             case .success(let data):
                 if let userdata = data.photos {
@@ -202,6 +149,22 @@ class UserIntroduceViewController: UIViewController {
     
 }
 extension UserIntroduceViewController : UICollectionViewDataSource, UICollectionViewDelegate,CellSizeCaculate {
+    
+    func setupCollectionView() {
+        if let flowLayout = userImageCollectionView.collectionViewLayout as? UICollectionViewFlowLayout {
+            flowLayout.scrollDirection = .vertical
+            flowLayout.minimumLineSpacing = minimumLineSpacing
+            flowLayout.minimumInteritemSpacing = minimumLineSpacing
+        }
+    }
+    
+    func registerCollectionView(){
+        userImageCollectionView.dataSource = self
+        userImageCollectionView.delegate = self
+        let cell = UINib(nibName: "SelectImageCollectionViewCell", bundle: nil)
+        userImageCollectionView.register(cell, forCellWithReuseIdentifier: "SelectImageCollectionViewCell")
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return userPhotos.count
     }
@@ -217,6 +180,8 @@ extension UserIntroduceViewController : UICollectionViewDataSource, UICollection
                                      defaultNumberItemOneRow: 4,
                                      minimumLineSpacing: minimumLineSpacing)
         print("imagesize:\(imageSize)")
+        print("userPhotos.count:\(userPhotos.count)")
+
         cell.blinData(data: data, width: imageSize)
         return cell
     }

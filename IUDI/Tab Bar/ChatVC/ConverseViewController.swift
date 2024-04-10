@@ -32,9 +32,11 @@ class ConverseViewController: UIViewController,DateConvertFormat {
     }
     func loadData(){
         targerName.text = messageUserData?.otherUserFullName
+        
         targerAvatar.image = messageUserData?.otherUserAvatar
         
         targetStatus.text = convertServerTimeString(messageUserData?.otherLastActivityTime)
+        
 //        if ((user.isLoggedIn) != nil) {
 //            targetStatus.text = "đang hoạt động"
 //            targetStatus.textColor = Constant.mainBorderColor

@@ -9,7 +9,6 @@ protocol HomeVCDelegate:AnyObject {
     func gotoPreviousChatVC(targetImage: UIImage,dataUser: Distance)
     func gotoNextPage()
     func getNearUser()
-    func test()
 }
 
 class HomeViewController: UIViewController, HomeVCDelegate{
@@ -19,8 +18,9 @@ class HomeViewController: UIViewController, HomeVCDelegate{
     var stackTransformOptions = StackTransformViewOptions()
     let coreData = FilterUserCoreData.share
     let coreDataMaxDistance = (FilterUserCoreData.share.getUserFilterValueFromCoreData(key: "maxDistance") as? Double ?? 30) * 1000
-    weak var delegate : FilterSettingDelegate?
+    let userID = UserInfo.shared.getUserID()
 
+    weak var delegate : FilterSettingDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,12 +33,11 @@ class HomeViewController: UIViewController, HomeVCDelegate{
     override func viewDidAppear(_ animated: Bool) {
         self.navigationController?.isNavigationBarHidden = true
         self.tabBarController?.tabBar.isHidden = false
-    }
-        func test(){
-            print("---đây là test case---")
-            print("test")
+        SocketIOManager.shared.establishConnection()
+        SocketIOManager.shared.mSocket.on("connect") {data, ack in
+            self.emitOnline() // Gọi hàm sendUserId() khi kết nối thành công
         }
-
+    }
     
     func setupView(){
         userCollectionView.layer.cornerRadius = 32
@@ -53,7 +52,6 @@ class HomeViewController: UIViewController, HomeVCDelegate{
 
     func setRelationShip(relatedUserID: Int?, relationshipType: String?) {
 //        showLoading(isShow: true)
-        
         struct SetRelationShip: Codable {
             let createTime: String?
             let relatedUserID: Int?
@@ -250,7 +248,15 @@ extension HomeViewController : UICollectionViewDataSource, UICollectionViewDeleg
             layout.goToPreviousPage(animated: true)
         }
     }
-
+}
+extension HomeViewController {
+    func emitOnline() {
+        print("emitOnline")
+        let messageData: [String: Any] = [
+            "userId": userID ?? ""
+        ]
+        SocketIOManager.shared.mSocket.emit("userId", messageData)
+    }
     
 }
 

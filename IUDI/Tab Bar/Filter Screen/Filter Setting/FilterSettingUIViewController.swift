@@ -25,7 +25,6 @@ class FilterSettingUIViewController: UIViewController {
     @IBOutlet weak var currentAddressBoxView: UIView!
     weak var delegate : FilterSettingDelegate?
     
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         loadDataFromCoreData()
@@ -73,7 +72,7 @@ class FilterSettingUIViewController: UIViewController {
         case applyBtn:
             saveDataToCoreData()
             delegate?.getNearUser()
-            homeVCReloadData()
+//            homeVCReloadData()
             print("save")
         case returnBtn:
             loadDataFromCoreData()

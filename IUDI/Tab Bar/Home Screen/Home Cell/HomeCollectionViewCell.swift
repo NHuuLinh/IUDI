@@ -3,7 +3,7 @@ import UIKit
 import CollectionViewPagingLayout
 
 
-class HomeCollectionViewCell: UICollectionViewCell,DateConvertFormat {
+class HomeCollectionViewCell: UICollectionViewCell,DateConvertFormat,ServerImageHandle {
     @IBOutlet weak var cellUiView: UIView!
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var userDistanceLb: UILabel!
@@ -33,7 +33,7 @@ class HomeCollectionViewCell: UICollectionViewCell,DateConvertFormat {
         setupView()
         // Thay đổi giá trị của biến
     }
-    func test(){
+    func setup(){
         dislikeImage.isHidden = false
         UIView.animate(withDuration: 3) {
             self.didReacted.toggle()
@@ -45,18 +45,10 @@ class HomeCollectionViewCell: UICollectionViewCell,DateConvertFormat {
     }
     
     func blindata(data: Distance){
-        let imageUrl = URL(string: data.avatarLink ?? "")
-        userImage.kf.setImage(with: imageUrl, placeholder: UIImage(named: "placeholder_image"), options: nil, completionHandler: { result in
-            switch result {
-            case .success(_):
-                // Ảnh đã tải thành công
-                break
-            case .failure(_):
-                // Xảy ra lỗi khi tải ảnh
-                self.userImage.image = UIImage(systemName: "person")
-//                print("Lỗi khi tải ảnh: \(error.localizedDescription)")
-            }
-        })
+        if let url = data.avatarLink {
+            let avatar = convertStringToImage(imageString: url)
+            userImage.image = avatar
+        }
         let rawKilometers = (data.distance ?? 1.0) / 1000.0
         let roundedKilometers = round(rawKilometers * 10) / 10
         let formatter = NumberFormatter()
@@ -65,8 +57,6 @@ class HomeCollectionViewCell: UICollectionViewCell,DateConvertFormat {
         let userDistant = formatter.string(from: NSNumber(value: roundedKilometers)) ?? ""
         userDistanceLb.text = "Khoảng cách " + userDistant + " km"
         userNameLb.text = data.fullName
-        userNameLb.text = "\(data.userID)"
-
         let yearOfBirth = convertDate(date: data.birthDate ?? "", inputFormat: "yyyy-MM-dd", outputFormat: "**yyyy**")
         let userAge = Int(Constant.currentYear) - (Int(yearOfBirth) ?? 0)
         userAgeLb.text = String(userAge)

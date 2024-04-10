@@ -176,6 +176,7 @@ class MessageViewController: MessagesViewController,MessagesLayoutDelegate, UIDo
             dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss zzz" // Specify the format of the string date
             let sentDate = dateFormatter.date(from: messageDate) ?? Date()
             // kiểm tra xem có tin nhắn hình ảnh không
+            
             if "\(senderId)" == userID {
                 displayName = data.username ?? ""
             } else {
@@ -293,11 +294,15 @@ extension MessageViewController {
             return
         }
         let url = "profile/" + userName
-        APIService.share.apiHandleGetRequest(subUrl: url, data: User.self) { result in
+        APIService.share.apiHandleGetRequest(subUrl: url, data: User.self) {  [weak self] result in
+            guard let self = self else {
+                self?.showLoading(isShow: false)
+                return
+            }
             switch result {
             case .success(let data):
                 let userData = data.users?.first
-                self.loadAvatarImage(url: userData?.avatarLink)
+                self.userAvatar.image = convertBase64StringToImage(imageBase64String: userData?.avatarLink ?? "")
                 self.userFullName = userData?.fullName
                 self.currentUser = Sender(senderId: UserInfo.shared.getUserID() ?? "", displayName: self.userFullName ?? "KGsdgha")
                 self.showLoading(isShow: false)
@@ -312,23 +317,6 @@ extension MessageViewController {
                 }
             }
         }
-    }
-    func loadAvatarImage(url:String?) {
-        print("loadAvatarImage1: \(url)")
-        guard let urlString = url, let imageUrl = URL(string: urlString) else {
-            return
-        }
-        userAvatar.kf.setImage(with: imageUrl, placeholder: UIImage(systemName: "person"), options: nil, completionHandler: { result in
-            switch result {
-            case .success(_):
-                // Ảnh đã tải thành công
-                print("cập nhật ảnh thành công")
-                break
-            case .failure(_):
-                // Xảy ra lỗi khi tải ảnh
-                self.userAvatar.image = UIImage(systemName: "person")
-            }
-        })
     }
     
 }
@@ -447,7 +435,6 @@ extension MessageViewController: UIImagePickerControllerDelegate & UINavigationC
     func convertImageToBase64String (img: UIImage) -> String {
         return img.jpegData(compressionQuality: 0.1)?.base64EncodedString() ?? ""
     }
-    
     // convertImageToBase64String
     func convertBase64StringToImage (imageBase64String:String) -> UIImage {
         let imageData = Data(base64Encoded: imageBase64String)
@@ -733,6 +720,7 @@ extension MessageViewController {
         return indexPath.section == messages.count - 1
     }
 }
+
 extension MessageViewController {
         func pullToRefesh(){
             refeshControl.addTarget(self, action: #selector(reloadData), for: UIControl.Event.valueChanged)

@@ -19,8 +19,14 @@ class ActiveUserListCollectionViewCell: UICollectionViewCell {
         registerCollectionView()
         print("activeUserListCV:\(activeUserListCV.frame.height)")
     }
-    func bindData(data: [ChatData]) {
-        self.chatData = data
+    func bindData(data: [ChatData], userOnlineId: [Int]) {
+        let userOnline = data.filter { chat in
+            if let userID = chat.otherUserID {
+                return userOnlineId.contains(userID)
+            }
+            return false
+        }
+        self.chatData = userOnline
         activeUserListCV.reloadData()
     }
     
@@ -73,3 +79,4 @@ extension ActiveUserListCollectionViewCell : UICollectionViewDataSource, UIColle
 //    }
     
 }
+

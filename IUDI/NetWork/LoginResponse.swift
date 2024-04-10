@@ -90,4 +90,18 @@ struct UserElements: Codable {
         case username = "Username"
     }
 }
+struct SetAvatar: Codable {
+    let newAvatar: String?
+    let photoID: Int?
+    let setAsAvatar: Bool?
+    let userID: String?
+
+    enum CodingKeys: String, CodingKey {
+        case newAvatar = "NewAvatar"
+        case photoID = "PhotoID"
+        case setAsAvatar = "SetAsAvatar"
+        case userID = "UserID"
+    }
+}
+
 

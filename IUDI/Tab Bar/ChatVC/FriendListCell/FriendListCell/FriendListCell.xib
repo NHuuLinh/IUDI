@@ -48,30 +48,29 @@
                                                 <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="33d-c8-ivp">
-                                                <rect key="frame" x="0.0" y="29" width="14" height="14"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" secondItem="33d-c8-ivp" secondAttribute="height" multiplier="1:1" id="Fvh-az-myk"/>
-                                                    <constraint firstAttribute="height" constant="14" id="UyX-ra-ahE"/>
-                                                </constraints>
-                                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                                <state key="normal" image="export"/>
-                                            </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nice to meet you, darling" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Slh-Cp-erm">
-                                                <rect key="frame" x="19" y="27.666666666666664" width="154" height="16.333333333333336"/>
+                                                <rect key="frame" x="19" y="30" width="154" height="14"/>
                                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sendMessage" translatesAutoresizingMaskIntoConstraints="NO" id="tZp-t9-KqH">
+                                                <rect key="frame" x="0.0" y="30" width="14" height="14"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" secondItem="tZp-t9-KqH" secondAttribute="height" multiplier="1:1" id="FXv-o9-eFb"/>
+                                                    <constraint firstAttribute="height" constant="14" id="dTH-vb-6j8"/>
+                                                </constraints>
+                                            </imageView>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
-                                            <constraint firstItem="33d-c8-ivp" firstAttribute="leading" secondItem="n72-us-o0e" secondAttribute="leading" id="KGc-m6-zmr"/>
+                                            <constraint firstAttribute="bottom" secondItem="tZp-t9-KqH" secondAttribute="bottom" id="4dN-YU-D9i"/>
+                                            <constraint firstItem="tZp-t9-KqH" firstAttribute="leading" secondItem="n72-us-o0e" secondAttribute="leading" id="Bcx-SJ-Lkz"/>
                                             <constraint firstAttribute="bottom" secondItem="Slh-Cp-erm" secondAttribute="bottom" id="Q8k-f0-yX8"/>
                                             <constraint firstItem="ZFX-zo-oiG" firstAttribute="leading" secondItem="n72-us-o0e" secondAttribute="leading" id="RFe-Kh-1Zk"/>
-                                            <constraint firstItem="Slh-Cp-erm" firstAttribute="leading" secondItem="33d-c8-ivp" secondAttribute="trailing" constant="5" id="lK6-Ro-15X"/>
-                                            <constraint firstItem="33d-c8-ivp" firstAttribute="centerY" secondItem="Slh-Cp-erm" secondAttribute="centerY" id="rpx-tr-p22"/>
+                                            <constraint firstItem="Slh-Cp-erm" firstAttribute="centerY" secondItem="tZp-t9-KqH" secondAttribute="centerY" id="kyh-Ox-6si"/>
                                             <constraint firstItem="ZFX-zo-oiG" firstAttribute="top" secondItem="n72-us-o0e" secondAttribute="top" id="sMd-ul-Oeh"/>
+                                            <constraint firstItem="Slh-Cp-erm" firstAttribute="leading" secondItem="tZp-t9-KqH" secondAttribute="trailing" constant="5" id="ygL-nY-MSb"/>
                                         </constraints>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="7:09 pm" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cdh-C4-2Eo">
@@ -88,17 +87,25 @@
                                             <constraint firstAttribute="height" constant="14" id="tNb-Du-ozj"/>
                                         </constraints>
                                     </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SGi-eQ-xZX">
+                                        <rect key="frame" x="235.33333333333331" y="32.333333333333336" width="5.6666666666666572" height="11.666666666666664"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="10"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Cdh-C4-2Eo" secondAttribute="trailing" id="0wz-Ze-sdA"/>
                                     <constraint firstItem="n72-us-o0e" firstAttribute="leading" secondItem="cvO-NZ-fCp" secondAttribute="leading" id="23z-d5-poO"/>
                                     <constraint firstAttribute="bottom" secondItem="n72-us-o0e" secondAttribute="bottom" id="9YD-Wg-RGO"/>
+                                    <constraint firstAttribute="trailing" secondItem="SGi-eQ-xZX" secondAttribute="trailing" constant="5" id="AUf-Om-sDH"/>
                                     <constraint firstItem="Cdh-C4-2Eo" firstAttribute="top" secondItem="cvO-NZ-fCp" secondAttribute="top" id="Jgt-27-Wb7"/>
                                     <constraint firstItem="n72-us-o0e" firstAttribute="top" secondItem="cvO-NZ-fCp" secondAttribute="top" id="Px7-F1-sTn"/>
                                     <constraint firstAttribute="bottom" secondItem="rHx-OZ-C7l" secondAttribute="bottom" id="RXk-IN-Zx9"/>
                                     <constraint firstItem="Cdh-C4-2Eo" firstAttribute="leading" secondItem="n72-us-o0e" secondAttribute="trailing" id="S4d-c2-cmD"/>
                                     <constraint firstAttribute="trailing" secondItem="rHx-OZ-C7l" secondAttribute="trailing" id="jTd-JR-nH5"/>
+                                    <constraint firstAttribute="bottom" secondItem="SGi-eQ-xZX" secondAttribute="bottom" id="tlk-zq-2Pq"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -129,7 +136,8 @@
                 <outlet property="isRead" destination="rHx-OZ-C7l" id="0wp-9s-3Cm"/>
                 <outlet property="latestMessageContent" destination="Slh-Cp-erm" id="OWn-J5-xmX"/>
                 <outlet property="latestMessageDate" destination="Cdh-C4-2Eo" id="jxI-v8-Rc9"/>
-                <outlet property="messageStatus" destination="33d-c8-ivp" id="NDo-60-WIB"/>
+                <outlet property="messageStatus" destination="tZp-t9-KqH" id="ptR-eJ-0LA"/>
+                <outlet property="notSeenMessageNumber" destination="SGi-eQ-xZX" id="V8c-yp-PFb"/>
                 <outlet property="otherUserAvatar" destination="4Mv-ZT-pCg" id="qq9-89-dz4"/>
                 <outlet property="otherUserName" destination="ZFX-zo-oiG" id="fga-X5-BZI"/>
             </connections>
@@ -139,7 +147,7 @@
     <resources>
         <image name="ChatImage" width="48" height="48"/>
         <image name="checkmark" catalog="system" width="128" height="114"/>
-        <image name="export" width="14" height="14"/>
+        <image name="sendMessage" width="14" height="14"/>
         <namedColor name="MainColor">
             <color red="0.078431372549019607" green="0.56862745098039214" blue="0.3411764705882353" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>

@@ -21,6 +21,7 @@ class FriendListCollectionViewCell: UICollectionViewCell {
         registerCollectionView()
         print("FriendListCollectionViewCell:\(chatData.count)")
     }
+    
     func bindData(data: [ChatData]) {
         self.chatData = data
         friendListCV.reloadData()
@@ -59,4 +60,6 @@ extension FriendListCollectionViewCell : UICollectionViewDataSource, UICollectio
         print("FriendListCell select: \(indexPath.row)")
         self.gotoChatVC?(chatData[indexPath.row])
     }
+    
 }
+

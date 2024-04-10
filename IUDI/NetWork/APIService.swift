@@ -23,7 +23,7 @@ class APIService {
                 switch response.result {
                 case .success(let data):
                     completion(.success(data))
-                    print("success")
+                    print("APIService success")
                     
                 case .failure(let error):
                     print(error.localizedDescription)
@@ -56,7 +56,7 @@ class APIService {
                 switch response.result {
                 case .success(let data):
                     completion(.success(data))
-                    print("success")
+                    print("APIService success")
                     
                 case .failure(let error):
                     print(error.localizedDescription)
