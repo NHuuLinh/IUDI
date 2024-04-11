@@ -75,7 +75,7 @@
                                 <constraint firstItem="Wqs-VJ-fwJ" firstAttribute="centerY" secondItem="fnG-wp-o2x" secondAttribute="centerY" id="bEG-tg-qWd"/>
                             </constraints>
                         </view>
-                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="RNo-hU-Eoo">
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="RNo-hU-Eoo">
                             <rect key="frame" x="16" y="145" width="361" height="707"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Jo2-Rw-tqG">

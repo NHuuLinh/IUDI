@@ -21,6 +21,9 @@ class UserIntroduceViewController: UIViewController,ServerImageHandle {
     @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var chatBtn: UIButton!
     @IBOutlet weak var scrollViewHeight: NSLayoutConstraint!
+    @IBOutlet weak var fullsizeImage: UIImageView!
+    @IBOutlet weak var exitFullSizeImage: UIButton!
+    @IBOutlet weak var fullsizeImageScrollView: UIScrollView!
     
     
     var userPhotos = [Photo]()
@@ -30,14 +33,15 @@ class UserIntroduceViewController: UIViewController,ServerImageHandle {
     var dataUser : Distance?
     
     var imagePicker = UIImagePickerController()
-
-
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionView()
         registerCollectionView()
         setupUserIntroduct()
+        fullsizeImageHandle(isHidden: true)
+        setupZoomImage()
+        avatarImageTap()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -53,9 +57,16 @@ class UserIntroduceViewController: UIViewController,ServerImageHandle {
         case chatBtn:
             gotoChatVC()
             print("chatBtn")
+        case exitFullSizeImage:
+            fullsizeImageHandle(isHidden: true)
         default:
             break
         }
+    }
+    func fullsizeImageHandle(isHidden: Bool){
+        fullsizeImage.isHidden = isHidden
+        exitFullSizeImage.isHidden = isHidden
+        backBtn.isHidden = !isHidden
     }
     func gotoChatVC(){
         let vc = MessageViewController()
@@ -70,6 +81,10 @@ class UserIntroduceViewController: UIViewController,ServerImageHandle {
     }
     
     func setupUserIntroduct(){
+        backBtn.layer.cornerRadius = 10
+        backBtn.layer.borderColor = UIColor.black.cgColor
+        backBtn.layer.borderWidth = 1
+        backBtn.clipsToBounds = true
         userIntroduct.showsLargeContentViewer = true
         userIntroduct.shouldTrim = true
         userIntroduct.maximumNumberOfLines = 2
@@ -187,9 +202,37 @@ extension UserIntroduceViewController : UICollectionViewDataSource, UICollection
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let photoID = userPhotos[indexPath.item].photoID
-        print("user chọn ảnh có id là : \(photoID) ")
+        let photoID = userPhotos[indexPath.item].photoURL
+//        print("user chọn ảnh có id là : \(photoID) ")
+        fullsizeImageHandle(isHidden: false)
+        fullsizeImage.image = convertStringToImage(imageString: photoID ?? "")
     }
-    
-    
 }
+extension UserIntroduceViewController: UIScrollViewDelegate {
+    func setupZoomImage(){
+        fullsizeImageScrollView.delegate = self
+        // Thiết lập thuộc tính zoom của scroll view
+        fullsizeImageScrollView.minimumZoomScale = 1.0
+        fullsizeImageScrollView.maximumZoomScale = 6.0
+    }
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return fullsizeImage
+    }
+    func setupFullSizeImage() {
+        // Thiết lập thuộc tính contentMode của fullsizeImage
+        fullsizeImage.contentMode = .scaleAspectFit
+    }
+    func avatarImageTap(){
+        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(imageTapped(tapGestureRecognizer:)))
+        userAvatar.isUserInteractionEnabled = true
+        userAvatar.addGestureRecognizer(tapGestureRecognizer)
+    }
+    @objc func imageTapped(tapGestureRecognizer: UITapGestureRecognizer)
+    {
+        let tappedImage = tapGestureRecognizer.view as! UIImageView
+        fullsizeImage.image = userAvatar.image
+        fullsizeImageHandle(isHidden: false)
+        // Your action
+    }
+}
+
