@@ -33,8 +33,6 @@
 		A42BCBFA2BA20D8400B72DF6 /* FriendListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A42BCBF82BA20D8400B72DF6 /* FriendListCell.swift */; };
 		A42BCBFB2BA20D8400B72DF6 /* FriendListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A42BCBF92BA20D8400B72DF6 /* FriendListCell.xib */; };
 		A434D0C62B9979290087A62B /* FilterUserCoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434D0C52B9979290087A62B /* FilterUserCoreData.swift */; };
-		A434D0D12B9997360087A62B /* FilterUserEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434D0CF2B9997360087A62B /* FilterUserEntity+CoreDataClass.swift */; };
-		A434D0D22B9997360087A62B /* FilterUserEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = A434D0D02B9997360087A62B /* FilterUserEntity+CoreDataProperties.swift */; };
 		A443A5272BBA684A002ECBB6 /* DownloadImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A443A5262BBA684A002ECBB6 /* DownloadImage.swift */; };
 		A44C5CDF2B8745A000037024 /* ShowLoading and Aleart.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44C5CDE2B8745A000037024 /* ShowLoading and Aleart.swift */; };
 		A45348DD2B8C624F006D72E4 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A45348DC2B8C624F006D72E4 /* ProfileViewController.swift */; };
@@ -113,6 +111,10 @@
 		A4B4AB9E2B8C324100822DDB /* HomeCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4B4AB9C2B8C324100822DDB /* HomeCollectionViewCell.swift */; };
 		A4B4AB9F2B8C324100822DDB /* HomeCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4B4AB9D2B8C324100822DDB /* HomeCollectionViewCell.xib */; };
 		A4E1C61A2B918954006E3211 /* UserIntroduceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4E1C6192B918954006E3211 /* UserIntroduceViewController.swift */; };
+		ABA8B5912BC3E5B400F064A2 /* BlockMessViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = ABA8B5902BC3E5B400F064A2 /* BlockMessViewController.xib */; };
+		ABA8B5922BC3E5B400F064A2 /* BlockMessViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABA8B58F2BC3E5B400F064A2 /* BlockMessViewController.swift */; };
+		ABAA33962BBA9BA000C7C995 /* FilterUserEntity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAA33952BBA9BA000C7C995 /* FilterUserEntity+CoreDataClass.swift */; };
+		ABAA33972BBA9BA000C7C995 /* FilterUserEntity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = ABAA33942BBA9B9F00C7C995 /* FilterUserEntity+CoreDataProperties.swift */; };
 		C89CCF82DA23C51534F616BC /* Pods_IUDI_IUDIUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1F73342BEDD74C4D8573FB45 /* Pods_IUDI_IUDIUITests.framework */; };
 /* End PBXBuildFile section */
 
@@ -165,8 +167,6 @@
 		A42BCBF82BA20D8400B72DF6 /* FriendListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendListCell.swift; sourceTree = "<group>"; };
 		A42BCBF92BA20D8400B72DF6 /* FriendListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = FriendListCell.xib; sourceTree = "<group>"; };
 		A434D0C52B9979290087A62B /* FilterUserCoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilterUserCoreData.swift; sourceTree = "<group>"; };
-		A434D0CF2B9997360087A62B /* FilterUserEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FilterUserEntity+CoreDataClass.swift"; path = "/Users/nguyenlinh/Documents/Work/IUDI - App hẹn hò/IUDI/IUDI/IUDI/FilterUserEntity+CoreDataClass.swift"; sourceTree = "<absolute>"; };
-		A434D0D02B9997360087A62B /* FilterUserEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FilterUserEntity+CoreDataProperties.swift"; path = "/Users/nguyenlinh/Documents/Work/IUDI - App hẹn hò/IUDI/IUDI/IUDI/FilterUserEntity+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
 		A443A5262BBA684A002ECBB6 /* DownloadImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DownloadImage.swift; sourceTree = "<group>"; };
 		A44C5CDE2B8745A000037024 /* ShowLoading and Aleart.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ShowLoading and Aleart.swift"; sourceTree = "<group>"; };
 		A45348DC2B8C624F006D72E4 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
@@ -252,6 +252,10 @@
 		A4B4AB9D2B8C324100822DDB /* HomeCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = HomeCollectionViewCell.xib; sourceTree = "<group>"; };
 		A4E1C6192B918954006E3211 /* UserIntroduceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserIntroduceViewController.swift; sourceTree = "<group>"; };
 		A5830D6B4C599F9307429DDF /* Pods-IUDITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-IUDITests.release.xcconfig"; path = "Target Support Files/Pods-IUDITests/Pods-IUDITests.release.xcconfig"; sourceTree = "<group>"; };
+		ABA8B58F2BC3E5B400F064A2 /* BlockMessViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BlockMessViewController.swift; sourceTree = "<group>"; };
+		ABA8B5902BC3E5B400F064A2 /* BlockMessViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = BlockMessViewController.xib; sourceTree = "<group>"; };
+		ABAA33942BBA9B9F00C7C995 /* FilterUserEntity+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FilterUserEntity+CoreDataProperties.swift"; path = "/Users/quoc/IUDI/IUDI/CoreData/FilterUserEntity+CoreDataProperties.swift"; sourceTree = "<absolute>"; };
+		ABAA33952BBA9BA000C7C995 /* FilterUserEntity+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "FilterUserEntity+CoreDataClass.swift"; path = "/Users/quoc/IUDI/IUDI/CoreData/FilterUserEntity+CoreDataClass.swift"; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -428,8 +432,8 @@
 		A434D0C32B9978780087A62B /* FilterUserEntity */ = {
 			isa = PBXGroup;
 			children = (
-				A434D0CF2B9997360087A62B /* FilterUserEntity+CoreDataClass.swift */,
-				A434D0D02B9997360087A62B /* FilterUserEntity+CoreDataProperties.swift */,
+				ABAA33952BBA9BA000C7C995 /* FilterUserEntity+CoreDataClass.swift */,
+				ABAA33942BBA9B9F00C7C995 /* FilterUserEntity+CoreDataProperties.swift */,
 			);
 			name = FilterUserEntity;
 			path = ..;
@@ -516,6 +520,7 @@
 		A470F4712BA30D750094A665 /* Privacy */ = {
 			isa = PBXGroup;
 			children = (
+				ABA8B58E2BC3E5A200F064A2 /* Block Mess */,
 				A470F4722BA30D750094A665 /* PrivacyViewController.xib */,
 				A470F4732BA30D750094A665 /* PrivacyViewController.swift */,
 			);
@@ -729,6 +734,15 @@
 			path = "Home Cell";
 			sourceTree = "<group>";
 		};
+		ABA8B58E2BC3E5A200F064A2 /* Block Mess */ = {
+			isa = PBXGroup;
+			children = (
+				ABA8B58F2BC3E5B400F064A2 /* BlockMessViewController.swift */,
+				ABA8B5902BC3E5B400F064A2 /* BlockMessViewController.xib */,
+			);
+			path = "Block Mess";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -872,6 +886,7 @@
 				A42BCBE62BA1F4D900B72DF6 /* ChatViewController.xib in Resources */,
 				A45ABCF72B9811CF0039B985 /* FilterCell.xib in Resources */,
 				A4275E9C2BA814FA005C9C49 /* ConverseViewController.xib in Resources */,
+				ABA8B5912BC3E5B400F064A2 /* BlockMessViewController.xib in Resources */,
 				A4A5170E2B86E52500AD4CE3 /* Assets.xcassets in Resources */,
 				A4A517492B86F5F100AD4CE3 /* Roboto-Italic.ttf in Resources */,
 				A470F4982BA30D760094A665 /* subViewController.xib in Resources */,
@@ -1005,7 +1020,6 @@
 			files = (
 				A434D0C62B9979290087A62B /* FilterUserCoreData.swift in Sources */,
 				A46DC7052BAA955F00ACDDE2 /* Message.swift in Sources */,
-				A434D0D12B9997360087A62B /* FilterUserEntity+CoreDataClass.swift in Sources */,
 				A4738CAA2B92D2F4006BB7D7 /* DateConvert.swift in Sources */,
 				A41D36762BB9098A000C7F83 /* ChatRepsone.swift in Sources */,
 				A4A5175D2B873D9000AD4CE3 /* RegisterViewController.swift in Sources */,
@@ -1037,9 +1051,11 @@
 				A483D0482B88711C00DD6B15 /* UserNetWorkManager.swift in Sources */,
 				A470F4902BA30D760094A665 /* PrivacyViewController.swift in Sources */,
 				A4712DA62B906CBE004903AA /* Add+Shadow+UIView.swift in Sources */,
+				ABAA33972BBA9BA000C7C995 /* FilterUserEntity+CoreDataProperties.swift in Sources */,
 				A46D0E842B8F317800E5CD4F /* SelectImageViewController.swift in Sources */,
+				ABA8B5922BC3E5B400F064A2 /* BlockMessViewController.swift in Sources */,
 				A4A517522B86FD3A00AD4CE3 /* LoginViewController.swift in Sources */,
-				A434D0D22B9997360087A62B /* FilterUserEntity+CoreDataProperties.swift in Sources */,
+				ABAA33962BBA9BA000C7C995 /* FilterUserEntity+CoreDataClass.swift in Sources */,
 				A463BDDE2BA043F400E8CBF3 /* ResetPasswordViewController.swift in Sources */,
 				A46DC7032BAA92AB00ACDDE2 /* MessageViewController.swift in Sources */,
 				A48B896D2B94D8EE00C7BC51 /* UserLocation.swift in Sources */,
