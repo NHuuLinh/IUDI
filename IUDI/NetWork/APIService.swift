@@ -12,19 +12,18 @@ class APIService {
     private init() {
         
     }
-    func apiHandle<T: Decodable>(method: HTTPMethod = .post, subUrl: String, parameters: [String: Any] = [:], data: T.Type, completion: @escaping (Result<T, APIError>) -> Void) {
+    func apiHandleGetRequest<T: Decodable>(subUrl: String, data: T.Type, completion: @escaping (Result<T, APIError>) -> Void) {
         
         let url = Constant.baseUrl + subUrl
-        print("url apiHandle: \(url)")
-
+        print("url apiHandleGetRequest: \(url)")
         
-        AF.request(url, method: method, parameters: parameters, encoding: JSONEncoding.default)
+        AF.request(url, method: .get, encoding: JSONEncoding.default)
             .validate(statusCode: 200...299)
             .responseDecodable(of: T.self) { response in
                 switch response.result {
                 case .success(let data):
                     completion(.success(data))
-                    print("success")
+                    print("APIService success")
                     
                 case .failure(let error):
                     print(error.localizedDescription)
@@ -32,7 +31,7 @@ class APIService {
                     if let data = response.data {
                         do {
                             let json = try JSON(data: data)
-                            let errorMessage = json["Message"].stringValue
+                            let errorMessage = json["message"].stringValue
                             completion(.failure(.server(message: errorMessage)))
                         } catch {
                             print("error server")
@@ -45,28 +44,27 @@ class APIService {
                 }
             }
     }
-    
-    func apiHandleGetRequest<T: Decodable>(subUrl: String, data: T.Type, completion: @escaping (Result<T, APIError>) -> Void) {
+    func apiHandle<T: Decodable>(method: HTTPMethod = .post, subUrl: String, parameters: [String: Any] = [:], data: T.Type, completion: @escaping (Result<T, APIError>) -> Void) {
         
         let url = Constant.baseUrl + subUrl
-        print("url apiHandleGetRequest: \(url)")
+        print("url apiHandle: \(url)")
+
         
-        AF.request(url, method: .get, encoding: JSONEncoding.default)
+        AF.request(url, method: method, parameters: parameters, encoding: JSONEncoding.default)
             .validate(statusCode: 200...299)
             .responseDecodable(of: T.self) { response in
                 switch response.result {
                 case .success(let data):
                     completion(.success(data))
-                    print("success")
+                    print("APIService success")
                     
                 case .failure(let error):
                     print(error.localizedDescription)
                     
                     if let data = response.data {
                         do {
-                            
                             let json = try JSON(data: data)
-                            let errorMessage = json["message"].stringValue
+                            let errorMessage = json["Message"].stringValue
                             completion(.failure(.server(message: errorMessage)))
                         } catch {
                             print("error server")

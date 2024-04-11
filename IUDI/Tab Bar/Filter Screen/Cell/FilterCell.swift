@@ -8,7 +8,7 @@
 import UIKit
 
 
-class FilterCell: UICollectionViewCell,DateConvertFormat {
+class FilterCell: UICollectionViewCell,DateConvertFormat, ServerImageHandle {
     @IBOutlet weak var cellUiView: UIView!
     @IBOutlet weak var userImage: UIImageView!
     @IBOutlet weak var userDistanceLb: UILabel!
@@ -26,18 +26,7 @@ class FilterCell: UICollectionViewCell,DateConvertFormat {
         cellUiView.layer.addSublayer(bottomBorder)
     }
     func blindata(data: Distance){
-        let imageUrl = URL(string: data.avatarLink ?? "")
-        userImage.kf.setImage(with: imageUrl, placeholder: UIImage(named: "placeholder_image"), options: nil, completionHandler: { result in
-            switch result {
-            case .success(_):
-                // Ảnh đã tải thành công
-                break
-            case .failure(let error):
-                // Xảy ra lỗi khi tải ảnh
-                self.userImage.image = UIImage(systemName: "person")
-//                print("Lỗi khi tải ảnh: \(error.localizedDescription)")
-            }
-        })
+        userImage.image = convertStringToImage(imageString: data.avatarLink ?? "")
         let rawKilometers = (data.distance ?? 1.0) / 1000.0
         let roundedKilometers = round(rawKilometers * 10) / 10
         let formatter = NumberFormatter()
@@ -46,6 +35,7 @@ class FilterCell: UICollectionViewCell,DateConvertFormat {
         let userDistant = formatter.string(from: NSNumber(value: roundedKilometers)) ?? ""
         userDistanceLb.text = userDistant + " km"
         userNameLb.text = data.fullName
+
         let yearOfBirth = convertDate(date: data.birthDate ?? "", inputFormat: "yyyy-MM-dd", outputFormat: "**yyyy**")
         let userAge = Int(Constant.currentYear) - (Int(yearOfBirth) ?? 0)
         userAgeLb.text = String(userAge)

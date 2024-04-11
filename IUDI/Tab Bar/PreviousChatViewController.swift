@@ -4,13 +4,11 @@
 //
 //  Created by LinhMAC on 13/03/2024.
 //
-protocol PreviousChatDelegate: AnyObject {
-    func loadAvatarImage(url:String?,uiImage: UIImageView)
-}
+
 import UIKit
 import KeychainSwift
 
-class PreviousChatViewController: UIViewController,PreviousChatDelegate {
+class PreviousChatViewController: UIViewController, ServerImageHandle {
     @IBOutlet weak var userAvatar: UIImageView!
     @IBOutlet weak var userHeartImg: UIImageView!
     @IBOutlet weak var targetAvatar: UIImageView!
@@ -58,7 +56,11 @@ class PreviousChatViewController: UIViewController,PreviousChatDelegate {
             return
         }
         let url = "profile/" + userName
-        APIService.share.apiHandleGetRequest(subUrl: url, data: User.self) { result in
+        APIService.share.apiHandleGetRequest(subUrl: url, data: User.self) {  [weak self] result in
+            guard let self = self else {
+                self?.showLoading(isShow: false)
+                return
+            }
             switch result {
             case .success(let data):
                 guard let userData = data.users?.first else {
@@ -70,7 +72,7 @@ class PreviousChatViewController: UIViewController,PreviousChatDelegate {
                 }
                 self.userName = userData.fullName
                 DispatchQueue.main.async {
-                    self.loadAvatarImage(url: avatarUrl, uiImage: self.userAvatar)
+                    self.userAvatar.image = self.convertStringToImage(imageString: avatarUrl)
                 }
                 self.showLoading(isShow: false)
             case .failure(let error):
@@ -86,22 +88,6 @@ class PreviousChatViewController: UIViewController,PreviousChatDelegate {
         }
     }
     
-    func loadAvatarImage(url:String?,uiImage: UIImageView) {
-        print("loadAvatarImage1: \(url)")
-        guard let urlString = url, let imageUrl = URL(string: urlString) else {
-            return
-        }
-        uiImage.kf.setImage(with: imageUrl, placeholder: UIImage(systemName: "person"), options: nil, completionHandler: { result in
-            switch result {
-            case .success(_):
-                // Ảnh đã tải thành công
-                break
-            case .failure(let error):
-                // Xảy ra lỗi khi tải ảnh
-                uiImage.image = UIImage(systemName: "person")
-            }
-        })
-    }
     func gotoChatVC(){
         let vc = MessageViewController()
         // Khởi tạo một instance của struct MessageUserData

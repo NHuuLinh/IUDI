@@ -27,6 +27,9 @@ class FilterViewController: UIViewController,FilterSettingDelegate {
         subviewHandle()
         getNearUser()
     }
+    override func viewDidAppear(_ animated: Bool) {
+        self.tabBarController?.tabBar.isHidden = false
+    }
     
     @IBAction func btnHandle(_ sender: UIButton) {
         switch sender {
@@ -74,17 +77,17 @@ class FilterViewController: UIViewController,FilterSettingDelegate {
             let distanceInMeters = distance.distance ?? 0.0
             
             if filterGender.count < 1 && filterAddress.count > 1{
-                print("no gender")
+//                print("no gender")
                 return (filterMaxAge...filterMinAge).contains(birthYear) && currentAdd == filterAddress && (filterMinDistance...filterMaxDistance).contains(distanceInMeters)
             } else if filterGender.count > 1 && filterAddress.count < 1 {
-                print("no Address")
-                print("filterValue: \(filterGender.count),\(filterMinAge),\(filterMaxAge),\(filterMaxDistance),\(filterMinDistance),\(filterAddress.count)")
+//                print("no Address")
+//                print("filterValue: \(filterGender.count),\(filterMinAge),\(filterMaxAge),\(filterMaxDistance),\(filterMinDistance),\(filterAddress.count)")
                 return gender == filterGender && (filterMaxAge...filterMinAge).contains(birthYear) && (filterMinDistance...filterMaxDistance).contains(distanceInMeters)
             } else if filterGender.count < 1 && filterAddress.count < 1 {
-                print("no gender, no Address")
+//                print("no gender, no Address")
                 return (filterMaxAge...filterMinAge).contains(birthYear) && (filterMinDistance...filterMaxDistance).contains(distanceInMeters)
             }else {
-                print("full")
+//                print("full")
                 return gender == filterGender && (filterMaxAge...filterMinAge).contains(birthYear) && currentAdd == filterAddress && (filterMinDistance...filterMaxDistance).contains(distanceInMeters)
             }
             //                        return gender == "Nam" && (0...2024).contains(birthYear) && currentAdd == "" && (100...30000).contains(distanceInMeters)
@@ -111,8 +114,6 @@ class FilterViewController: UIViewController,FilterSettingDelegate {
                     // Sử dụng hàm `filterDistances(_:with:)` để lọc mảng `distances`
                     let filterData = self.filterDistances(distanceData)
                     self.userDistance = filterData
-                    print("filterData: \(filterData)")
-                    print("filterData.count: \(filterData.count)")
                     print("userDistance: \(self.userDistance.count)")
 //                    print("filterData: \(filterData)")
                     self.filterCollectionView.reloadData()

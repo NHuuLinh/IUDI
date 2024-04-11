@@ -30,6 +30,36 @@ extension DateConvertFormat {
             return "date error"
         }
     }
+    func convertServerTimeString(_ serverTimeString: String?) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss zzz"
+        let defaultDate = "Wed, 03 Apr 2024 14:20:53 GMT"
+        let dateWithGMTPlus7 = (serverTimeString ?? defaultDate) + "+7"
+
+        if let date = dateFormatter.date(from: dateWithGMTPlus7) {
+            let currentTime = Date()
+            
+            // Nếu là cùng một ngày
+            if Calendar.current.isDate(date, inSameDayAs: currentTime) {
+                return date.timeIn24HourFormat()
+            }
+            
+            // Nếu là cùng một tuần
+            if Calendar.current.isDate(date, equalTo: currentTime, toGranularity: .weekOfYear) {
+                return date.getHumanReadableDayString()
+            }
+            
+            // Nếu là cùng một năm
+            if Calendar.current.isDate(date, equalTo: currentTime, toGranularity: .year) {
+                return date.toString(format: "dd MMM")
+            }
+            
+            // Nếu không phải cùng năm
+            return date.toString(format: "dd MMM, yyyy")
+        }
+        
+        return "Không thể chuyển đổi"
+    }
     func convertBirthDateToAge(birthDate: String) -> Int{
         let yearOfBirth = convertDate(date: birthDate, inputFormat: "yyyy-MM-dd", outputFormat: "**yyyy**")
         let userAge = Int(Constant.currentYear) - (Int(yearOfBirth) ?? 0)

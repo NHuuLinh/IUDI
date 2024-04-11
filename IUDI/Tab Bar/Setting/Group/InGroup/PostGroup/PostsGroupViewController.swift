@@ -163,8 +163,11 @@ class PostsGroupViewController: UIViewController, UITextViewDelegate, UIImagePic
             "PhotoURL": imageUrl,
             "SetAsAvatar":true
         ]
-        APIService.share.apiHandle(method:.post ,subUrl: "profile/add_image/37", parameters: parameters, data: UserData.self) { result in
-            self.showLoading(isShow: false)
+        APIService.share.apiHandle(method:.post ,subUrl: "profile/add_image/37", parameters: parameters, data: UserData.self) {  [weak self] result in
+            guard let self = self else {
+                self?.showLoading(isShow: false)
+                return
+            }
             switch result {
             case .success(let data):
                 print("data: \(data)")

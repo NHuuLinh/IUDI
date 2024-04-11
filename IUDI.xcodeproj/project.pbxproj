@@ -79,6 +79,7 @@
 		A483D0442B88413000DD6B15 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A483D0432B88413000DD6B15 /* APIService.swift */; };
 		A483D0462B885BC700DD6B15 /* CheckValid.swift in Sources */ = {isa = PBXBuildFile; fileRef = A483D0452B885BC700DD6B15 /* CheckValid.swift */; };
 		A483D0482B88711C00DD6B15 /* UserNetWorkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = A483D0472B88711C00DD6B15 /* UserNetWorkManager.swift */; };
+		A48A41E32BC3F56900EA01F8 /* Base64ImageHandle.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48A41E22BC3F56900EA01F8 /* Base64ImageHandle.swift */; };
 		A48B896D2B94D8EE00C7BC51 /* UserLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = A48B896C2B94D8EE00C7BC51 /* UserLocation.swift */; };
 		A49845AA2B8DEBE400357ABE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A49845A92B8DEBE400357ABE /* Main.storyboard */; };
 		A4A517022B86E52100AD4CE3 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4A517012B86E52100AD4CE3 /* AppDelegate.swift */; };
@@ -212,6 +213,8 @@
 		A483D0432B88413000DD6B15 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		A483D0452B885BC700DD6B15 /* CheckValid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CheckValid.swift; sourceTree = "<group>"; };
 		A483D0472B88711C00DD6B15 /* UserNetWorkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserNetWorkManager.swift; sourceTree = "<group>"; };
+		A48A41E12BC3C34F00EA01F8 /* IUDI.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = IUDI.entitlements; sourceTree = "<group>"; };
+		A48A41E22BC3F56900EA01F8 /* Base64ImageHandle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Base64ImageHandle.swift; sourceTree = "<group>"; };
 		A48B896C2B94D8EE00C7BC51 /* UserLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserLocation.swift; sourceTree = "<group>"; };
 		A49845A92B8DEBE400357ABE /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		A4A516FE2B86E52100AD4CE3 /* IUDI.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = IUDI.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -448,6 +451,7 @@
 		A44C5CDD2B87457D00037024 /* Extension */ = {
 			isa = PBXGroup;
 			children = (
+				A48A41E22BC3F56900EA01F8 /* Base64ImageHandle.swift */,
 				A4A5174F2B86FB3200AD4CE3 /* UIView+Extension.swift */,
 				A4712DA52B906CBE004903AA /* Add+Shadow+UIView.swift */,
 				A483D0452B885BC700DD6B15 /* CheckValid.swift */,
@@ -653,6 +657,7 @@
 		A4A517002B86E52100AD4CE3 /* IUDI */ = {
 			isa = PBXGroup;
 			children = (
+				A48A41E12BC3C34F00EA01F8 /* IUDI.entitlements */,
 				A434D0C42B99788A0087A62B /* CoreData */,
 				A4A517012B86E52100AD4CE3 /* AppDelegate.swift */,
 				A4A517032B86E52100AD4CE3 /* SceneDelegate.swift */,
@@ -1028,6 +1033,7 @@
 				A42BCBE12BA1638700B72DF6 /* PreviousChatViewController.swift in Sources */,
 				A42BCBF02BA2026C00B72DF6 /* FriendListCollectionViewCell.swift in Sources */,
 				A470F4A22BA30D760094A665 /* AboutViewController.swift in Sources */,
+				A48A41E32BC3F56900EA01F8 /* Base64ImageHandle.swift in Sources */,
 				A42BCBEB2BA1FBE400B72DF6 /* UserActiveCollectionViewCell.swift in Sources */,
 				A42BCBE52BA1F4D900B72DF6 /* ChatViewController.swift in Sources */,
 				A4A517552B8708B200AD4CE3 /* Constant.swift in Sources */,
@@ -1243,19 +1249,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = IUDI/IUDI.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KHJCDHPB2W;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IUDI/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow to use camera";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Please allow to use location data";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Please allow use location";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow to use location data";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1264,6 +1273,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Nguyen-Huu-Linh.IUDI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1276,19 +1288,22 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = IUDI/IUDI.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = KHJCDHPB2W;
+				DEVELOPMENT_TEAM = "";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = IUDI/Info.plist;
+				INFOPLIST_KEY_LSApplicationCategoryType = "";
+				INFOPLIST_KEY_NSCameraUsageDescription = "Please allow to use camera";
 				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Please allow to use location data";
 				INFOPLIST_KEY_NSLocationAlwaysUsageDescription = "Please allow use location";
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Please allow to use location data";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1297,6 +1312,9 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = "Nguyen-Huu-Linh.IUDI";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

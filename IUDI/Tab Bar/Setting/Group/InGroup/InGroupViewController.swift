@@ -117,7 +117,11 @@ extension InGroupViewController {
         let subUrl = "forum/delete_post/\(postId)"
         print("subUrl : \(subUrl)")
 
-        APIService.share.apiHandle(method: .delete ,subUrl: subUrl, data: GroupDataPosts.self) { result in
+        APIService.share.apiHandle(method: .delete ,subUrl: subUrl, data: GroupDataPosts.self) { [weak self] result in
+            guard let self = self else {
+                self?.showLoading(isShow: false)
+                return
+            }
             switch result {
             case .success(let data):
                 print("data:\(data)")

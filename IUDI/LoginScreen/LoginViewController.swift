@@ -10,7 +10,7 @@ import SwiftyJSON
 //import KeychainSwift
 import CoreLocation
 
-class LoginViewController: UIViewController, CheckValid {
+class LoginViewController: UIViewController, UITextFieldDelegate, CheckValid {
     @IBOutlet weak var userNameTF: UITextField!
     @IBOutlet weak var userPasswordTF: UITextField!
     @IBOutlet weak var rememberPasswordBtn: UIButton!
@@ -29,6 +29,13 @@ class LoginViewController: UIViewController, CheckValid {
         super.viewDidLoad()
         setupView()
         checkLocationAuthorizationStatus()
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+        userNameTF.delegate = self
+        userPasswordTF.delegate = self
+    }
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     override func viewWillAppear(_ animated: Bool) {
         requestLocation()
@@ -56,6 +63,14 @@ class LoginViewController: UIViewController, CheckValid {
         default:
             break
         }
+    }
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        // Có thể thực hiện các xử lý khác sau khi textField kết thúc editing
     }
     func goToResetPasswordVC(){
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -94,7 +109,7 @@ class LoginViewController: UIViewController, CheckValid {
     
     func checkBoxHandle(){
         let checkImage = UIImage(systemName: "checkmark.square")
-        let uncheckImage = UIImage(named: "Rectangle 8")
+        let uncheckImage = UIImage(systemName: "square")
         let buttonImage = rememberPasswordBtn.isSelected ? uncheckImage : checkImage
         rememberPasswordBtn.setBackgroundImage(buttonImage, for: .normal)
         print("\(rememberPasswordBtn.isSelected)")
@@ -138,11 +153,12 @@ class LoginViewController: UIViewController, CheckValid {
             "Longitude": longitude,
             "LastLoginIP": ipAdress
         ]
-        
         print("parameters: \(parameters)")
         APIService.share.apiHandle(method:.post ,subUrl: "login", parameters: parameters, data: UserData.self) { [weak self] result in
-            guard let self = self else { return }
-            self.showLoading(isShow: false)
+            guard let self = self else {
+                self?.showLoading(isShow: false)
+                return
+            }
             switch result {
             case .success(let data):
                 guard let userID = data.user?.users?.first?.userID else {

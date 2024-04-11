@@ -12,6 +12,7 @@ class FriendListCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var friendListCV: UICollectionView!
     var frameWidth : CGFloat?
     var gotoChatVC : ((ChatData) -> Void)?
+
     var chatData = [ChatData]()
 
     override func awakeFromNib() {
@@ -20,6 +21,7 @@ class FriendListCollectionViewCell: UICollectionViewCell {
         registerCollectionView()
         print("FriendListCollectionViewCell:\(chatData.count)")
     }
+    
     func bindData(data: [ChatData]) {
         self.chatData = data
         friendListCV.reloadData()
@@ -58,4 +60,6 @@ extension FriendListCollectionViewCell : UICollectionViewDataSource, UICollectio
         print("FriendListCell select: \(indexPath.row)")
         self.gotoChatVC?(chatData[indexPath.row])
     }
+    
 }
+

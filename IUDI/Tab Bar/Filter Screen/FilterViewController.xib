@@ -36,9 +36,9 @@
                             <rect key="frame" x="0.0" y="59" width="393" height="48"/>
                             <subviews>
                                 <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JrW-Th-l1A">
-                                    <rect key="frame" x="16" y="8" width="32" height="32"/>
+                                    <rect key="frame" x="16" y="4" width="40" height="40"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" constant="32" id="9A8-6z-gd5"/>
+                                        <constraint firstAttribute="width" constant="40" id="9A8-6z-gd5"/>
                                         <constraint firstAttribute="width" secondItem="JrW-Th-l1A" secondAttribute="height" multiplier="1:1" id="Itd-FO-als"/>
                                     </constraints>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
@@ -51,12 +51,9 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xxs-5N-ldZ">
-                                    <rect key="frame" x="345" y="8" width="32" height="32"/>
+                                    <rect key="frame" x="337" y="4" width="40" height="40"/>
                                     <constraints>
-                                        <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="32" id="85p-Cj-ZUO"/>
-                                        <constraint firstAttribute="width" secondItem="Xxs-5N-ldZ" secondAttribute="height" multiplier="1:1" id="ASm-0c-it7"/>
-                                        <constraint firstAttribute="width" constant="32" id="XT7-PW-vwM"/>
-                                        <constraint firstAttribute="width" secondItem="Xxs-5N-ldZ" secondAttribute="height" multiplier="1:1" id="yM5-tI-bb3"/>
+                                        <constraint firstAttribute="width" constant="40" id="XT7-PW-vwM"/>
                                     </constraints>
                                     <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                     <state key="normal" image="filter"/>
@@ -78,7 +75,7 @@
                                 <constraint firstItem="Wqs-VJ-fwJ" firstAttribute="centerY" secondItem="fnG-wp-o2x" secondAttribute="centerY" id="bEG-tg-qWd"/>
                             </constraints>
                         </view>
-                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="RNo-hU-Eoo">
+                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="RNo-hU-Eoo">
                             <rect key="frame" x="16" y="145" width="361" height="707"/>
                             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                             <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Jo2-Rw-tqG">

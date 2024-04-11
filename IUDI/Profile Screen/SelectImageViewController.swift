@@ -11,10 +11,6 @@ import iOSDropDown
 import KeychainSwift
 import SwiftyJSON
 
-protocol SelectImageVCDelegate: AnyObject {
-    func loadAvatarImage(url: String?)
-}
-
 class SelectImageViewController: UIViewController {
     
     @IBOutlet weak var imageCollectionView: UICollectionView!
@@ -23,7 +19,7 @@ class SelectImageViewController: UIViewController {
     let itemNumber = 4.0
     let minimumLineSpacing = 5.0
     private var refeshControl = UIRefreshControl()
-    weak var delegate: DataDelegate?
+    var loadImage : ((String, Int) -> Void)?
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,7 +65,6 @@ class SelectImageViewController: UIViewController {
                         DispatchQueue.main.async {
                             self.imageCollectionView.reloadData()
                             self.showLoading(isShow: false)
-
                         }
                     } else {
                         print("data nill")
@@ -112,22 +107,21 @@ extension SelectImageViewController : UICollectionViewDataSource, UICollectionVi
         let indexNumber = Double(userPhotos.count)
 //        let frameSize = UIScreen.main.bounds.width
         let frameSize = imageCollectionView.frame.width
-        let imageSize = caculateSize(indexNumber: indexNumber, frameSize: frameSize, defaultNumberItemOneRow: 4, minimumLineSpacing: minimumLineSpacing)
+        let imageSize = caculateSize(indexNumber: indexNumber,
+                                     frameSize: frameSize,
+                                     defaultNumberItemOneRow: 4,
+                                     minimumLineSpacing: minimumLineSpacing)
         cell.blinData(data: data, width: imageSize)
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        
-        let photoURL = userPhotos[indexPath.item].photoURL
-        let photoID = userPhotos[indexPath.item].photoID
-        print("user chọn ảnh có photoURL là : \(photoURL) ")
-        print("user chọn ảnh có photoID là : \(photoID) ")
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
-        delegate?.loadAvatarImage(url: photoURL)
-        UserDefaults.standard.set(photoID, forKey: "photoID")
-        navigationController?.popViewController(animated: true)
+        guard let photoID = userPhotos[indexPath.item].photoID, let photoUrl = userPhotos[indexPath.item].photoURL else{
+            print("ảnh không có url và ID")
+            return
+        }
+//        loadImage?(photoUrl, photoID)
+//        navigationController?.popViewController(animated: true)
     }
     
 }

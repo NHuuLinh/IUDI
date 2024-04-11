@@ -7,35 +7,43 @@
 
 import UIKit
 
-class FriendListCell: UICollectionViewCell {
+class FriendListCell: UICollectionViewCell,DateConvertFormat,ServerImageHandle {
     @IBOutlet weak var otherUserAvatar: UIImageView!
     @IBOutlet weak var otherUserName: UILabel!
     @IBOutlet weak var latestMessageDate: UILabel!
     @IBOutlet weak var latestMessageContent: UILabel!
-    @IBOutlet weak var messageStatus: UIButton!
+    @IBOutlet weak var messageStatus: UIImageView!
     @IBOutlet weak var isRead: UIImageView!
-    
+    @IBOutlet weak var notSeenMessageNumber: UILabel!
+    let userID = UserInfo.shared.getUserID()
+
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
+        otherUserAvatar.layer.cornerRadius = otherUserAvatar.frame.height / 2
     }
     func bindData(data: ChatData){
-        guard let imageUrl = URL(string: data.avatar ?? "") else {
-            return
-        }
-        otherUserAvatar.kf.setImage(with: imageUrl, placeholder: UIImage(systemName: "person"), options: nil, completionHandler: { result in
-            switch result {
-            case .success(_):
-                // Ảnh đã tải thành công
-                break
-            case .failure(let error):
-                // Xảy ra lỗi khi tải ảnh
-                self.otherUserAvatar.image = UIImage(systemName: "person")
-            }
-        })
-        otherUserName.text = data.otherUsername
-        latestMessageDate.text = data.messageTime
+        otherUserAvatar.image = convertStringToImage(imageString: data.otherAvatar ?? "")
+        otherUserName.text = data.otherFullname
+        latestMessageDate.text = convertServerTimeString(data.messageTime)
         latestMessageContent.text = data.content
-    }
+        let senderId = "\(data.senderID ?? 0)"
+        if userID == senderId {
+            messageStatus.image = UIImage(named: "sendMessage")
+//            print("người gửi chính là chính mình")
+            seenTextHandle(isSeen: 1)
+        } else {
+//            print("kiểm tra đã seen tin nhắn chưa")
+            seenTextHandle(isSeen: data.isSeen ?? 0)
+            messageStatus.image = UIImage(named: "receiveMessage")
+        }
 
+    }
+    func seenTextHandle(isSeen: Int){
+        otherUserName.textColor = (isSeen == 0) ? .black : .gray
+        latestMessageDate.textColor = (isSeen == 0) ? .black : .gray
+        latestMessageContent.textColor = (isSeen == 0) ? .black : .gray
+        isRead.isHidden = (isSeen == 0) ? true : false
+        notSeenMessageNumber.isHidden = (isSeen == 0) ? true : true
+    }
 }
