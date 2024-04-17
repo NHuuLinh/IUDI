@@ -120,8 +120,8 @@ extension SelectImageViewController : UICollectionViewDataSource, UICollectionVi
             print("ảnh không có url và ID")
             return
         }
-//        loadImage?(photoUrl, photoID)
-//        navigationController?.popViewController(animated: true)
+        loadImage?(photoUrl, photoID)
+        navigationController?.popViewController(animated: true)
     }
     
 }

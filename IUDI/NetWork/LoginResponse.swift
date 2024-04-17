@@ -103,5 +103,16 @@ struct SetAvatar: Codable {
         case userID = "UserID"
     }
 }
+// MARK: - UserDataRespone
+struct UserDataRespone: Codable {
+    let message: String?
+    let data: Users?
+    let status: Int?
+
+    enum CodingKeys: String, CodingKey {
+        case message = "Message"
+        case data, status
+    }
+}
 
 

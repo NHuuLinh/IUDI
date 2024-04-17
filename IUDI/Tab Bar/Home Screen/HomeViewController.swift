@@ -14,18 +14,24 @@ protocol HomeVCDelegate:AnyObject {
 class HomeViewController: UIViewController, HomeVCDelegate{
     
     @IBOutlet weak var userCollectionView: UICollectionView!
+    @IBOutlet weak var profileBtn: UIButton!
     var userDistance = [Distance]()
     var stackTransformOptions = StackTransformViewOptions()
     let coreData = FilterUserCoreData.share
     let coreDataMaxDistance = (FilterUserCoreData.share.getUserFilterValueFromCoreData(key: "maxDistance") as? Double ?? 30) * 1000
     let userID = UserInfo.shared.getUserID()
+    let userCoreData = UserInfoCoreData.shared
+    var userProfile : Users?
 
     weak var delegate : FilterSettingDelegate?
 
     override func viewDidLoad() {
         super.viewDidLoad()
         getNearUser()
+        getUserProfile()
         setupCollectionView()
+        profileBtn.layer.cornerRadius = profileBtn.frame.width / 2
+        profileBtn.clipsToBounds = true
         self.tabBarController?.tabBar.isHidden = false
         self.navigationController?.isNavigationBarHidden = true
 
@@ -107,6 +113,11 @@ class HomeViewController: UIViewController, HomeVCDelegate{
     @IBAction func profileBtn(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "ProfileViewController") as! ProfileViewController
+        vc.userProfile = userProfile
+        vc.transferDataToHomeVC = { [weak self](data,image) in
+            self?.userProfile = data
+            self?.profileBtn.setImage(image, for: .normal)
+        }
         self.navigationController?.pushViewController(vc, animated: true)
     }
 }
@@ -236,6 +247,7 @@ extension HomeViewController : UICollectionViewDataSource, UICollectionViewDeleg
         vc.dataUser = data
         navigationController?.pushViewController(vc, animated: true)
     }
+    
     func gotoNextPage() {
         print("gotoNextPage")
         if let layout = userCollectionView.collectionViewLayout as? CollectionViewPagingLayout {
@@ -257,6 +269,44 @@ extension HomeViewController {
         ]
         SocketIOManager.shared.mSocket.emit("userId", messageData)
     }
+}
+extension HomeViewController: ServerImageHandle {
     
+    func getUserProfile(){
+        showLoading(isShow: true)
+        guard let userName = UserInfo.shared.getUserName() else {
+            print("không có userName")
+            return
+        }
+        let url = "profile/" + userName
+        APIService.share.apiHandleGetRequest(subUrl: url, data: User.self) { [weak self] result in
+            guard let self = self else {
+                self?.showLoading(isShow: false)
+                return
+            }
+            switch result {
+            case .success(let data):
+                guard let userData = data.users?.first else {
+                    self.showLoading(isShow: false)
+                    return
+                }
+                self.userProfile = userData
+                userCoreData.saveProfileValueToCoreData(userAvatarUrl: userData.avatarLink, userFullname: userData.fullName, userEmail: userData.email
+                )
+                let image = convertStringToImage(imageString: userData.avatarLink ?? "")
+                profileBtn.setImage(image, for: .normal)
+                self.showLoading(isShow: false)
+            case .failure(let error):
+                print("error: \(error.localizedDescription)")
+                self.showLoading(isShow: false)
+                switch error{
+                case .server(let message):
+                    self.showAlert(title: "lỗi", message: message)
+                case .network(let message):
+                    self.showAlert(title: "lỗi", message: message)
+                }
+            }
+        }
+    }
 }
 

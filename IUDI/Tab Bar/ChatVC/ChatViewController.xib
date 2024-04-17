@@ -18,6 +18,7 @@
             <connections>
                 <outlet property="backBtn" destination="eUb-OH-WhI" id="Cb6-BN-KG7"/>
                 <outlet property="chatCollectionView" destination="tUd-PW-k1R" id="0mO-ZL-vRg"/>
+                <outlet property="emtyText" destination="XZJ-aN-NJK" id="yuf-b8-zW6"/>
                 <outlet property="searchBar" destination="Q6f-pi-qQU" id="wVa-J2-z8f"/>
                 <outlet property="searchBarConstraint" destination="cAs-Pf-eCy" id="pPr-m5-fAk"/>
                 <outlet property="searchBtn" destination="AHo-55-zT0" id="Pyy-wo-XAd"/>
@@ -113,13 +114,23 @@
                         <constraint firstAttribute="trailing" secondItem="tUd-PW-k1R" secondAttribute="trailing" id="fwF-2V-lXa"/>
                     </constraints>
                 </view>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Ban chưa có tin nhắn" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XZJ-aN-NJK">
+                    <rect key="frame" x="0.0" y="209" width="393" height="21"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
             </subviews>
             <viewLayoutGuide key="safeArea" id="fnl-2z-Ty3"/>
             <color key="backgroundColor" systemColor="systemBackgroundColor"/>
             <constraints>
+                <constraint firstItem="XZJ-aN-NJK" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" constant="150" id="9ad-01-nJX"/>
+                <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="XZJ-aN-NJK" secondAttribute="trailing" id="AY8-3w-V6r"/>
                 <constraint firstAttribute="bottom" secondItem="d6n-PP-aJM" secondAttribute="bottom" id="CRf-Vy-0vv"/>
                 <constraint firstItem="fnl-2z-Ty3" firstAttribute="trailing" secondItem="d6n-PP-aJM" secondAttribute="trailing" id="P01-VS-d24"/>
                 <constraint firstItem="d6n-PP-aJM" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="X9R-Qx-Hcm"/>
+                <constraint firstItem="XZJ-aN-NJK" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="agf-9j-7c1"/>
+                <constraint firstItem="XZJ-aN-NJK" firstAttribute="centerX" secondItem="d6n-PP-aJM" secondAttribute="centerX" id="oqY-zx-jve"/>
                 <constraint firstItem="BWh-MB-eLY" firstAttribute="top" secondItem="fnl-2z-Ty3" secondAttribute="top" id="pqZ-O1-ROh"/>
                 <constraint firstItem="d6n-PP-aJM" firstAttribute="leading" secondItem="fnl-2z-Ty3" secondAttribute="leading" id="tAc-IO-C0Z"/>
             </constraints>

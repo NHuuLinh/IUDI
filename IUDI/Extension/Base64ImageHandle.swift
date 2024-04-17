@@ -20,15 +20,15 @@ extension ServerImageHandle {
     // convertImageToBase64String
     func convertStringToImage (imageString:String) -> UIImage {
         if let imageData = Data(base64Encoded: imageString) {
-            print("convertStringToImage ok")
+//            print("convertStringToImage ok")
             if let image = UIImage(data: imageData) {
                 return image
             } else {
-                print("lỗi string không đúng định dạng base64")
+//                print("lỗi string không đúng định dạng base64")
                 return UIImage(systemName: "person.fill")!
             }
         } else {
-            print("lỗi imageString rỗng")
+//            print("lỗi imageString rỗng")
             return UIImage(systemName: "person.fill")!
         }
     }

@@ -8,55 +8,33 @@
 import UIKit
 import Alamofire
 
-class PostsGroupViewController: UIViewController, UITextViewDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class PostsGroupViewController: UIViewController, UITextViewDelegate {
     
     var groupID: Int?
-    
     var placeholderLabel: UILabel!
-    
     var personPost: [Post] = []
-    
-    var hi:ImgModel = ImgModel()
-    
-    var displayUrl: String?
-    
-    @IBOutlet weak var imageView: UIImageView!
+    var imagePicker = UIImagePickerController()
+    weak var postsGroupVCDelegate : PostsGroupVCDelegate?
+
+    @IBOutlet weak var postImage: UIImageView!
     @IBOutlet weak var textView: UITextView!
     @IBOutlet weak var onOffSwitch: UISwitch!
     @IBOutlet weak var viewGroup: UIView!
-    @IBOutlet weak var avatarOfThePoster: UIImageView!
-    @IBOutlet weak var nameOfThePoster: UILabel!
+    @IBOutlet weak var userAvatar: UIImageView!
+    @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var nameGroup: UILabel!
     @IBOutlet weak var textViewHeightConstraint: NSLayoutConstraint!
     
-    @IBOutlet weak var addImageButton: UIButton!
-    @IBOutlet weak var tagPersonButton: UIButton!
-    @IBOutlet weak var cameraButton: UIButton!
-    @IBOutlet weak var checkInButton: UIButton!
-    @IBOutlet weak var fellingButton: UIButton!
-    @IBOutlet weak var fileGifButton: UIButton!
+    @IBOutlet weak var addImageBtn: UIButton!
+    @IBOutlet weak var postbBtn: UIButton!
+    @IBOutlet weak var backBtn: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         textView.delegate = self
-        
-        avatarOfThePoster.layer.cornerRadius = avatarOfThePoster.frame.width / 2
+        userAvatar.layer.cornerRadius = userAvatar.frame.width / 2
         viewGroup.layer.cornerRadius = 20
-        
-        //        applBorder(to: addImageButton)
-        //        applBorder(to: tagPersonButton)
-        //        applBorder(to: cameraButton)
-        //        applBorder(to: checkInButton)
-        //        applBorder(to: fellingButton)
-        //        applBorder(to: fileGifButton)
-        //
-        //        alignTextLeft(for: addImageButton)
-        //        alignTextLeft(for: tagPersonButton)
-        //        alignTextLeft(for: cameraButton)
-        //        alignTextLeft(for: checkInButton)
-        //        alignTextLeft(for: fellingButton)
-        //        alignTextLeft(for: fileGifButton)
         
         //Tạo label placeholder
         placeholderLabel = UILabel()
@@ -71,19 +49,8 @@ class PostsGroupViewController: UIViewController, UITextViewDelegate, UIImagePic
         
         // Ẩn hiện placeholder tùy thuộc vào nội dung của UITextView
         placeholderLabel.isHidden = !textView.text.isEmpty
-        
-        // Thiết lập nút "Đăng" làm rightBarButtonItem
-        let publishButton = UIButton(type: .custom)
-        publishButton.setTitle("Đăng", for: .normal)
-        publishButton.addTarget(self, action: #selector(publishButtonTapped), for: .touchUpInside)
-        publishButton.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        publishButton.setTitleColor(.blue, for: .normal)
-        let publishBarButtonItem = UIBarButtonItem(customView: publishButton)
-        navigationItem.rightBarButtonItem = publishBarButtonItem
-        
-    }
-    @IBAction func uploadImageButtonTapper(_ sender: Any) {
-        
+        self.navigationController?.isNavigationBarHidden = true
+
     }
     
     func updateTextViewHeight(){
@@ -91,114 +58,7 @@ class PostsGroupViewController: UIViewController, UITextViewDelegate, UIImagePic
         let newSize = textView.sizeThatFits(CGSize(width: fixedWidth, height: CGFloat.greatestFiniteMagnitude))
         textViewHeightConstraint.constant = newSize.height
         view.layoutIfNeeded()
-        
     }
-    
-    func uploadData() {
-        let url = "https://api.iudi.xyz/api/forum/add_post/118" // Địa chỉ API của server
-        
-        // Lấy nội dung từ textView để gửi lên server
-        guard let content = textView.text else {
-            print("Không có nội dung để gửi.")
-            return
-        }
-        
-        // Tạo đối tượng bài đăng với nội dung từ textView
-        let param : [String: Any] = [
-            "GroupID": groupID ?? "",
-            "Title": "sddw",
-            "Content":textView.text ?? "",
-            "PostLatitude":"40",
-            "PostLongitude":"50",
-            "PhotoURL": [displayUrl] // Use displayUrl here
-        ]
-        debugPrint("url: \(displayUrl)")
-        
-        // Gửi dữ liệu lên server
-        AF.request(url, method: .post, parameters: param, encoding: JSONEncoding.default).validate(statusCode: 200...299).responseDecodable(of: PostData.self) { response in
-            switch response.result {
-            case .success(let data):
-                if let dataArray = data.post {
-                    self.personPost = dataArray
-                    self.loadData(data: self.personPost.first)
-                    debugPrint("Dữ liệu đã được gửi thành công lên server.")
-                    
-                }
-                //                 Xử lý phản hồi thành công từ server nếu cần
-            case .failure(let error):
-                debugPrint("Lỗi khi gửi dữ liệu:", error.localizedDescription)
-                // Xử lý lỗi nếu có
-            }
-        }
-    }
-    
-    // Your existing methods
-    
-    func uploadImageToServer(completion: @escaping (Bool) -> Void) {
-        guard let userImage = imageView.image,
-              let imageData = userImage.pngData() else {
-            completion(false)
-            // Xử lý trường hợp không có ảnh
-            return
-        }
-        
-        // Chuyển đổi dữ liệu ảnh thành dạng base64
-        let dataImage = imageData.base64EncodedString(options: .lineLength64Characters)
-        
-        // Gửi dữ liệu ảnh dưới dạng Data qua API
-        APIServiceImage.shared.PostImageServer(param: imageData) { data, error in
-            if let data = data {
-                self.hi = data
-                print("display_url : \(self.hi.display_url)")
-                // Save the display URL
-                self.displayUrl = self.hi.display_url
-                self.uploadData()
-            } else {
-                completion(false)
-            }
-        }
-    }
-    func uploadImageToServer1(imageUrl: String) {
-        let parameters: [String: Any] = [
-            "PhotoURL": imageUrl,
-            "SetAsAvatar":true
-        ]
-        APIService.share.apiHandle(method:.post ,subUrl: "profile/add_image/37", parameters: parameters, data: UserData.self) {  [weak self] result in
-            guard let self = self else {
-                self?.showLoading(isShow: false)
-                return
-            }
-            switch result {
-            case .success(let data):
-                print("data: \(data)")
-            case .failure(let error):
-                print(error.localizedDescription)
-                switch error {
-                case .server(let message):
-                    self.showAlert(title: "lỗi1", message: message)
-                case .network(let message):
-                    self.showAlert(title: "lỗi", message: message)
-                }
-            }
-        }
-    }
-    @objc func publishButtonTapped() {
-        uploadImageToServer { success in
-            if success {
-                DispatchQueue.main.async { [weak self] in
-                    self?.navigationController?.popViewController(animated: true)
-                }
-            } else {
-                // Xử lý trường hợp tải lên không thành công nếu cần
-                debugPrint("Upload failed. Unable to pop ViewController.")
-            }
-        }
-    }
-    func loadData(data: Post?) {
-        textView.text = data?.content
-        nameOfThePoster.text = data?.ipPosted
-    }
-    
     private func applBorder(to button: UIButton){
         let bottomBorder = CALayer()
         bottomBorder.frame = CGRect(x: 0, y: button.bounds.height + 10.0, width: button.bounds.width, height: 0.5)
@@ -208,37 +68,145 @@ class PostsGroupViewController: UIViewController, UITextViewDelegate, UIImagePic
     
     private func alignTextLeft(for button: UIButton) {
         button.contentHorizontalAlignment = .left
-        
     }
     
     func textViewDidChange(_ textView: UITextView) {
         placeholderLabel.isHidden = !textView.text.isEmpty
         //updateTextViewHeight()
     }
-    
-    @IBAction func selectImage(_ sender: Any) {
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.sourceType = .photoLibrary
-        imagePicker.allowsEditing = false
-        imagePicker.allowsEditing = true
-        present(imagePicker, animated: true, completion: nil)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        if let selectedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
-            imageView.image = selectedImage
+
+    @IBAction func btnHandle(_ sender: UIButton) {
+        switch sender {
+        case backBtn :
+            navigationController?.popViewController(animated: true)
+        case postbBtn:
+            uploadData()
+        case addImageBtn:
+            pickImage()
+        default:
+            break
         }
-        picker.dismiss(animated: true, completion: nil)
     }
-    
-    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
-        picker.dismiss(animated: true, completion: nil)
-    }
-    
 }
-//extension PostsGroupViewController: PostsGroupViewControllerDelegate {
-//    func getGroupID() -> Int? {
-//        return groupID
-//    }
-//}
+// MARK: - Load image slectecd
+extension PostsGroupViewController: ServerImageHandle {
+    func uploadData() {
+        guard let userID = UserInfo.shared.getUserID() else {return}
+        let subUrl = "forum/add_post/\(userID)" // Địa chỉ API của server
+        var param : [String: Any]
+        var imageUrl = String()
+        if let image = postImage.image {
+            imageUrl = convertImageToString(img: image)
+             param = [
+                "GroupID": groupID ?? "",
+                "Title": "sddw",
+                "Content":textView.text ?? "",
+                "PostLatitude":"40",
+                "PostLongitude":"50",
+                "PhotoURL": [imageUrl] // Use displayUrl here
+            ]
+        } else {
+            param = [
+               "GroupID": groupID ?? "",
+               "Title": "sddw",
+               "Content":textView.text ?? "",
+               "PostLatitude":"40",
+               "PostLongitude":"50"
+           ]
+        }
+//        print("param:\(param)")
+        APIService.share.apiHandle(method: .post, subUrl: subUrl, parameters: param, data: PostData.self) { result in
+            switch result {
+            case .success(let data):
+                print("uploadData sucess")
+                self.navigationController?.popViewController(animated: true)
+                self.postsGroupVCDelegate?.loadPostGroupFrombegin()
+            case .failure(let error):
+                print("error: \(error.localizedDescription)")
+                self.showLoading(isShow: false)
+                switch error{
+                case .server(let message):
+                    self.showAlert(title: "lỗi", message: message)
+                case .network(let message):
+                    self.showAlert(title: "lỗi", message: message)
+                }
+            }
+        }
+    }
+}
+
+// MARK: - Load image slectecd
+extension PostsGroupViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+        guard let pickedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage else {
+            return
+        }
+        // Update the UI with the picked image
+        
+        postImage.image = pickedImage
+        
+        picker.dismiss(animated: true, completion: nil)
+    }
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    func pickImage() {
+        let titleAlert = NSLocalizedString("Choose Image", comment: "")
+        let messageAlert = NSLocalizedString("Choose your option", comment: ""
+        )
+        let alertViewController = UIAlertController(title: titleAlert,
+                                                    message: messageAlert,
+                                                    preferredStyle: .actionSheet)
+        let camera = UIAlertAction(title: "Camera",
+                                   style: .default) { (_) in
+            self.openCamera()
+        }
+        let galleryText = NSLocalizedString("Gallery", comment: "")
+        let gallery = UIAlertAction(title: galleryText,
+                                    style: .default) { (_) in
+            self.openGallary()
+        }
+        let cancelText = NSLocalizedString("Cancel", comment: "")
+        let cancel = UIAlertAction(title: cancelText, style: .cancel) { (_) in
+        }
+        alertViewController.addAction(camera)
+        alertViewController.addAction(gallery)
+        alertViewController.addAction(cancel)
+        present(alertViewController, animated: true, completion: nil)
+    }
+}
+// MARK: - Alert Choose image
+extension PostsGroupViewController {
+    fileprivate func openCamera() {
+        if UIImagePickerController.isSourceTypeAvailable(.camera) {
+            imagePicker.delegate = self
+            imagePicker.sourceType = UIImagePickerController.SourceType.camera
+            /// Cho phép edit ảnh hay là không
+            imagePicker.allowsEditing = true
+            present(imagePicker, animated: true, completion: nil)
+        } else {
+            let errorText = NSLocalizedString("Error", comment: "")
+            let errorMessage = NSLocalizedString("Divice not have camera", comment: "")
+            
+            let alertWarning = UIAlertController(title: errorText,
+                                                 message: errorMessage,
+                                                 preferredStyle: .alert)
+            let cancelText = NSLocalizedString("Cancel", comment: "")
+            let cancel = UIAlertAction(title: cancelText,
+                                       style: .cancel) { (_) in
+                print("Cancel")
+            }
+            alertWarning.addAction(cancel)
+            self.present(alertWarning, animated: true, completion: nil)
+        }
+    }
+    fileprivate func openGallary() {
+        if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
+            imagePicker.delegate = self as UIImagePickerControllerDelegate & UINavigationControllerDelegate
+            imagePicker.sourceType = .photoLibrary
+            /// Cho phép edit ảnh hay là không
+            imagePicker.allowsEditing = true
+            present(imagePicker, animated: true)
+        }
+    }
+}

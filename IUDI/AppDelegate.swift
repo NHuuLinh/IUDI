@@ -17,8 +17,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     static let scene = UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate
     
-    
-
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         // lấy url của folder
@@ -26,7 +24,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         print("url của file là: \(urls)")
 //        SocketIOManager.sharedInstance.establishConnection()
         registerForPushNotifications()
-        
         return true
     }
 //    func applicationDidEnterBackground(_ application: UIApplication) {

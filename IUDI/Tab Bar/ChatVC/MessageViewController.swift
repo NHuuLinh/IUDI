@@ -23,7 +23,6 @@ class MessageViewController: MessagesViewController,MessagesLayoutDelegate, UIDo
     var userAvatar = UIImageView()
     var userFullName: String?
 
-    var hi:ImgModel = ImgModel()
     var isSeen : String = ""
     var moreDate = 0
     var isMaxData = false
@@ -286,37 +285,41 @@ extension MessageViewController {
 
 }
 // MARK: - download UserProfile
-extension MessageViewController {
+extension MessageViewController: ServerImageHandle {
     func getUserProfile(){
-        showLoading(isShow: true)
-        guard let userName = UserInfo.shared.getUserName() else {
-            print("không có userName")
-            return
-        }
-        let url = "profile/" + userName
-        APIService.share.apiHandleGetRequest(subUrl: url, data: User.self) {  [weak self] result in
-            guard let self = self else {
-                self?.showLoading(isShow: false)
-                return
-            }
-            switch result {
-            case .success(let data):
-                let userData = data.users?.first
-                self.userAvatar.image = convertBase64StringToImage(imageBase64String: userData?.avatarLink ?? "")
-                self.userFullName = userData?.fullName
-                self.currentUser = Sender(senderId: UserInfo.shared.getUserID() ?? "", displayName: self.userFullName ?? "KGsdgha")
-                self.showLoading(isShow: false)
-            case .failure(let error):
-                print("error: \(error.localizedDescription)")
-                self.showLoading(isShow: false)
-                switch error{
-                case .server(let message):
-                    self.showAlert(title: "lỗi", message: message)
-                case .network(let message):
-                    self.showAlert(title: "lỗi", message: message)
-                }
-            }
-        }
+        let userInfo = UserInfoCoreData.shared.fetchProfileFromCoreData()
+        self.userAvatar.image = convertStringToImage(imageString: userInfo?.userAvatarUrl ?? "")
+        self.userFullName = userInfo?.userFullName
+        self.currentUser = Sender(senderId: UserInfo.shared.getUserID() ?? "", displayName: self.userFullName ?? "KGsdgha")
+//        showLoading(isShow: true)
+//        guard let userName = UserInfo.shared.getUserName() else {
+//            print("không có userName")
+//            return
+//        }
+//        let url = "profile/" + userName
+//        APIService.share.apiHandleGetRequest(subUrl: url, data: User.self) {  [weak self] result in
+//            guard let self = self else {
+//                self?.showLoading(isShow: false)
+//                return
+//            }
+//            switch result {
+//            case .success(let data):
+//                let userData = data.users?.first
+//                self.userAvatar.image = convertBase64StringToImage(imageBase64String: userData?.avatarLink ?? "")
+//                self.userFullName = userData?.fullName
+//                self.currentUser = Sender(senderId: UserInfo.shared.getUserID() ?? "", displayName: self.userFullName ?? "KGsdgha")
+//                self.showLoading(isShow: false)
+//            case .failure(let error):
+//                print("error: \(error.localizedDescription)")
+//                self.showLoading(isShow: false)
+//                switch error{
+//                case .server(let message):
+//                    self.showAlert(title: "lỗi", message: message)
+//                case .network(let message):
+//                    self.showAlert(title: "lỗi", message: message)
+//                }
+//            }
+//        }
     }
     
 }

@@ -8,29 +8,35 @@
 import UIKit
 import Alamofire
 
-class GroupViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class GroupViewController: UIViewController{
     
     @IBOutlet weak var displayGroup: UICollectionView!
+    @IBOutlet weak var addBtn: UIButton!
+    @IBOutlet weak var searchGroupBar: UISearchBar!
+    
     var groupData: [Datum] = []
+    var groupDataFilter: [Datum] = []
+    var groupName : String?
+    private var refeshControl = UIRefreshControl()
+    var imagePicker = UIImagePickerController()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         title = "Nhóm"
-        displayGroup.delegate = self
-        displayGroup.dataSource = self
-        fetchData()
-        
-        let nib = UINib(nibName: "CollectionViewCell", bundle: .main)
-        displayGroup.register(nib, forCellWithReuseIdentifier: "CollectionViewCell")
-        
+        fetchAllGroupData()
+        registerCell()
+        pullToRefesh()
+        addSubView(bool: false)
     }
-    func fetchData() {
+    
+    func fetchAllGroupData() {
         let url = "https://api.iudi.xyz/api/forum/group/all_group"
         AF.request(url, method: .get).validate(statusCode: 200...299).responseDecodable(of: GroupData.self) { response in
             switch response.result {
             case .success(let data):
                 if let dataArray = data.data {
                     self.groupData = dataArray
+                    self.groupDataFilter = dataArray
                     self.displayGroup.reloadData()
                 }
             case .failure(let error):
@@ -39,7 +45,69 @@ class GroupViewController: UIViewController, UICollectionViewDelegate, UICollect
         }
     }
     
+    func addSubView(bool: Bool){
+        let childVC = AddGroupViewController()
+        childVC.recallData = { [weak self] in
+            self?.fetchAllGroupData()
+        }
+        childVC.hideSubview = { [weak self] in
+            childVC.willMove(toParent: nil)
+            childVC.view.removeFromSuperview()
+            childVC.removeFromParent()
+        }
+        addChild(childVC)
+        if bool {
+            view.addSubview(childVC.view)
+            childVC.view.frame = view.bounds
+            childVC.didMove(toParent: self)
+        } else {
+            childVC.willMove(toParent: nil)
+            childVC.view.removeFromSuperview()
+            childVC.removeFromParent()
+        }
+    }
     
+    @IBAction func BtnHandle(_ sender: UIButton) {
+        switch sender {
+        case addBtn:
+            addSubView(bool: true)
+            print("addBtn.isSelected:\(addBtn.isSelected)")
+        default:
+            break
+        }
+    }
+}
+
+//MARK: - FilterGroup
+extension GroupViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        if searchText.isEmpty {
+            print("searchBar rỗng")
+            self.groupData = groupDataFilter
+        }else {
+            self.groupData = groupDataFilter
+            let filterGroupData = groupData.filter { data in
+                if let groupname = data.groupName {
+                    let filterReuslt = groupname.lowercased().contains(searchText.lowercased())
+                    return filterReuslt
+                }
+                return false
+            }
+            self.groupData = filterGroupData
+        }
+        displayGroup.reloadData()
+    }
+}
+
+// MARK: - CollectionView
+extension GroupViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    
+    func registerCell(){
+        displayGroup.delegate = self
+        displayGroup.dataSource = self
+        let nib = UINib(nibName: "CollectionViewCell", bundle: .main)
+        displayGroup.register(nib, forCellWithReuseIdentifier: "CollectionViewCell")
+    }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return groupData.count
     }
@@ -47,27 +115,14 @@ class GroupViewController: UIViewController, UICollectionViewDelegate, UICollect
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "CollectionViewCell", for: indexPath) as! CollectionViewCell
         let data = groupData[indexPath.row]
-        
-        cell.groupName = data.groupName
-        
-        // Cập nhật ô với dữ liệu
-        cell.nameGroup.text = data.groupName ?? ""
-        cell.numberOfMembers.text = "\(data.userNumber ?? 0) Thành viên"
-        cell.time.text = data.createAt ?? ""
-        if let avatarLink = data.avatarLink {
-            cell.setImage(fromURL: avatarLink)
-        }
-        
-        // Thiết lập closure cho mỗi cell
-        cell.didSelectItem = {
-            // Thực hiện việc push sang màn hình đích tương ứng
-            let destinationVC = InGroupViewController()
-            destinationVC.groupID = data.groupID // Truyền ID của nhóm sang InGroupViewController
-            destinationVC.title = cell.groupName // Cập nhật title của màn hình đích
-            self.navigationController?.pushViewController(destinationVC, animated: true)
-        }
-
+        cell.bindData(data: data)
         return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let destinationVC = InGroupViewController()
+        let data = groupData[indexPath.row]
+        destinationVC.bindData(data: data)
+        self.navigationController?.pushViewController(destinationVC, animated: true)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -75,6 +130,20 @@ class GroupViewController: UIViewController, UICollectionViewDelegate, UICollect
         let height: CGFloat = 65 // Fixed height for the cells
         return CGSize(width: width, height: height)
     }
-    
 }
+// MARK: - Load post
+extension GroupViewController {
+    func pullToRefesh(){
+        refeshControl.addTarget(self, action: #selector(reloadData), for: UIControl.Event.valueChanged)
+        displayGroup.addSubview(refeshControl)
+    }
+    @objc func reloadData(send: UIRefreshControl){
+        DispatchQueue.main.async {
+            self.fetchAllGroupData()
+            print("đã reload data")
+            self.refeshControl.endRefreshing()
+        }
+    }
+}
+
 

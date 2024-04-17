@@ -13,6 +13,7 @@ class ChatViewController: UIViewController,ServerImageHandle {
     @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var searchBarConstraint: NSLayoutConstraint!
+    @IBOutlet weak var emtyText: UILabel!
     var showSearchBar = false
     var chatData = [ChatData]()
     var filterData = [ChatData]()
@@ -68,13 +69,13 @@ class ChatViewController: UIViewController,ServerImageHandle {
             self.view.layoutIfNeeded()
         })
     }
+    
     func gotoChatVC(data: ChatData){
         let vc = MessageViewController()
         vc.title = "Chat"
         let userAvatar = convertStringToImage(imageString: data.otherAvatar ?? "")
         let messageUserData = MessageUserData(otherUserAvatar: userAvatar, otherUserFullName: data.otherFullname ?? "", otherUserId: "\(data.otherUserID ?? 0)", otherLastActivityTime: data.otherLastActivityTime ?? "Wed, 27 Mar 2024 11:43:58 GMT")
         vc.messageUserData = messageUserData
-        
         self.navigationController?.pushViewController(vc, animated: true)
         
     }
@@ -82,14 +83,14 @@ class ChatViewController: UIViewController,ServerImageHandle {
     @IBAction func buttonHandle(_ sender: UIButton) {
         switch sender {
         case searchBtn:
-            emitOnline()
+//            emitOnline()
 
-//            searchBarLayout()
+            searchBarLayout()
             print("search")
         case backBtn:
-            listentSeenMessageEvent()
+//            listentSeenMessageEvent()
 
-//            searchBarLayout()
+            searchBarLayout()
         default:
             break
         }
@@ -103,12 +104,18 @@ class ChatViewController: UIViewController,ServerImageHandle {
         let apiService = APIService.share
         let subUrl = "chat/\(userID)"
         print("url:\(subUrl)")
-        apiService.apiHandleGetRequest(subUrl: subUrl,data: AllChatData.self) { result in
+        apiService.apiHandleGetRequest(subUrl: subUrl,data: AllChatData.self) { [weak self] result in
+            guard let self = self else {return}
             switch result {
             case .success(let data):
                 print("getAllChatData success")
                 self.chatData = data.data
                 self.filterData = data.data
+                if self.chatData.count == 0 {
+                    self.emtyText.isHidden = false
+                }else {
+                    self.emtyText.isHidden = true
+                }
                 
                 print("self.chatData:\(self.chatData.count)")
                 DispatchQueue.main.async {
@@ -256,6 +263,8 @@ extension ChatViewController: UIScrollViewDelegate {
         if offsetY > contentHeight - scrollView.frame.height && !isLoading {
             moreDate += 10 // Tăng trang lên để tải trang tiếp theo
             //            getAllChatData() // Tải dữ liệu cho trang tiếp theo
+            print("scrollViewDidScroll")
+            isLoading = true
         }
     }
 }
@@ -328,7 +337,6 @@ extension ChatViewController: UISearchBarDelegate {
         chatCollectionView.reloadData()
         print("chatData:\(chatData.count)")
         print("filteredChatData:\(filterData.count)")
-        
     }
 }
 

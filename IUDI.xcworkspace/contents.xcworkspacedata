@@ -2,10 +2,16 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/quoc/IUDI/IUDI/CoreData/FilterUserEntity+CoreDataClass.swift">
+      location = "group:/Users/nguyenlinh/Documents/Work/IUDI - App he&#x323;n ho&#x300;/IUDI/IUDI/IUDI/UserProfiles+CoreDataClass.swift">
    </FileRef>
    <FileRef
-      location = "group:/Users/quoc/IUDI/IUDI/CoreData/FilterUserEntity+CoreDataProperties.swift">
+      location = "group:/Users/nguyenlinh/Documents/Work/IUDI - App he&#x323;n ho&#x300;/IUDI/IUDI/IUDI/UserProfiles+CoreDataProperties.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/nguyenlinh/Documents/Work/IUDI - App he&#x323;n ho&#x300;/IUDI/IUDI/IUDI/FilterUserEntity+CoreDataClass.swift">
+   </FileRef>
+   <FileRef
+      location = "group:/Users/nguyenlinh/Documents/Work/IUDI - App he&#x323;n ho&#x300;/IUDI/IUDI/IUDI/FilterUserEntity+CoreDataProperties.swift">
    </FileRef>
    <FileRef
       location = "group:IUDI.xcodeproj">

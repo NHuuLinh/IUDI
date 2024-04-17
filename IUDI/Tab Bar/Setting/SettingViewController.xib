@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina6_12" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="22684"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="21679"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -13,12 +13,14 @@
             <connections>
                 <outlet property="IntroduceAboutUsButton" destination="f0F-ox-yfQ" id="6Ps-wk-dRH"/>
                 <outlet property="groupButton" destination="KAf-RO-Wnh" id="JVE-zz-Y0B"/>
-                <outlet property="imageView" destination="q6j-0c-aV6" id="ItG-mn-xtl"/>
                 <outlet property="logoutButton" destination="3PC-ve-zWZ" id="6ZA-th-a0h"/>
                 <outlet property="notificationButton" destination="Vrd-rW-cra" id="NHU-O9-fj3"/>
                 <outlet property="privacyButton" destination="Lf4-U5-gl3" id="94y-G5-fNu"/>
                 <outlet property="privacyPolicyButton" destination="GSr-Zn-5kg" id="8V8-N4-10k"/>
                 <outlet property="privacyTermsButton" destination="dHA-5t-Ytu" id="3Pg-XJ-06s"/>
+                <outlet property="userAvatar" destination="q6j-0c-aV6" id="xxY-Ox-HG9"/>
+                <outlet property="userEmail" destination="Oen-TH-MV9" id="ZCz-yn-hap"/>
+                <outlet property="userFullName" destination="LVb-49-aKl" id="1dC-SD-MwL"/>
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
             </connections>
         </placeholder>
@@ -52,70 +54,70 @@
                     <nil key="highlightedColor"/>
                 </label>
                 <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="941-Uk-R8O">
-                    <rect key="frame" x="25" y="410" width="343" height="393"/>
+                    <rect key="frame" x="25" y="434" width="343" height="369"/>
                     <subviews>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KAf-RO-Wnh">
-                            <rect key="frame" x="0.0" y="0.0" width="343" height="38.333333333333336"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="KAf-RO-Wnh">
+                            <rect key="frame" x="0.0" y="0.0" width="343" height="34.333333333333336"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="person.2.fill" catalog="system" title="Nhóm">
                                 <color key="baseForegroundColor" systemColor="labelColor"/>
                             </buttonConfiguration>
                             <connections>
-                                <action selector="groupTapper:" destination="-1" eventType="touchUpInside" id="pzL-Zs-6Tb"/>
+                                <action selector="btnHandle:" destination="-1" eventType="touchUpInside" id="ztp-VR-VPP"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lf4-U5-gl3">
-                            <rect key="frame" x="0.0" y="58.333333333333314" width="343" height="38.333333333333343"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Lf4-U5-gl3">
+                            <rect key="frame" x="0.0" y="54.333333333333314" width="343" height="34.333333333333343"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="lock.fill" catalog="system" title="Quyền riêng tư">
                                 <color key="baseForegroundColor" systemColor="labelColor"/>
                             </buttonConfiguration>
                             <connections>
-                                <action selector="Privacy:" destination="-1" eventType="touchUpInside" id="R9X-rM-7KQ"/>
+                                <action selector="btnHandle:" destination="-1" eventType="touchUpInside" id="C8k-yp-ppe"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vrd-rW-cra">
-                            <rect key="frame" x="0.0" y="116.66666666666661" width="343" height="38.333333333333329"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vrd-rW-cra">
+                            <rect key="frame" x="0.0" y="108.66666666666663" width="343" height="34.333333333333343"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="bell.fill" catalog="system" title="Thông báo">
                                 <color key="baseForegroundColor" systemColor="labelColor"/>
                             </buttonConfiguration>
                             <connections>
-                                <action selector="Notification:" destination="-1" eventType="touchUpInside" id="dj8-fd-q97"/>
+                                <action selector="btnHandle:" destination="-1" eventType="touchUpInside" id="sAW-mY-6eI"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dHA-5t-Ytu">
-                            <rect key="frame" x="0.0" y="175" width="343" height="38.333333333333343"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dHA-5t-Ytu">
+                            <rect key="frame" x="0.0" y="163" width="343" height="34.333333333333343"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="doc.plaintext.fill" catalog="system" title="Điều khoản và Điều kiện">
                                 <color key="baseForegroundColor" systemColor="labelColor"/>
                             </buttonConfiguration>
                             <connections>
-                                <action selector="privacyTermsTapper:" destination="-1" eventType="touchUpInside" id="U0y-Cj-qw9"/>
+                                <action selector="btnHandle:" destination="-1" eventType="touchUpInside" id="U31-EM-6pa"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GSr-Zn-5kg">
-                            <rect key="frame" x="0.0" y="233.33333333333337" width="343" height="38.333333333333314"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GSr-Zn-5kg">
+                            <rect key="frame" x="0.0" y="217.33333333333337" width="343" height="34.333333333333343"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="lock.shield.fill" catalog="system" title="Chính sách bảo mật">
                                 <color key="baseForegroundColor" systemColor="labelColor"/>
                             </buttonConfiguration>
                             <connections>
-                                <action selector="privacyPolicyTapper:" destination="-1" eventType="touchUpInside" id="cYL-Gc-68f"/>
+                                <action selector="btnHandle:" destination="-1" eventType="touchUpInside" id="4aR-xb-xnd"/>
                             </connections>
                         </button>
-                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f0F-ox-yfQ">
-                            <rect key="frame" x="0.0" y="291.66666666666663" width="343" height="38.333333333333314"/>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="f0F-ox-yfQ">
+                            <rect key="frame" x="0.0" y="271.66666666666663" width="343" height="34.333333333333314"/>
                             <state key="normal" title="Button"/>
                             <buttonConfiguration key="configuration" style="plain" image="info.bubble.fill.rtl" catalog="system" title="Giới thiệu về chúng tôi">
                                 <color key="baseForegroundColor" systemColor="labelColor"/>
                             </buttonConfiguration>
                             <connections>
-                                <action selector="introduceAboutUsTapper:" destination="-1" eventType="touchUpInside" id="Hmv-tc-d6d"/>
+                                <action selector="btnHandle:" destination="-1" eventType="touchUpInside" id="zvl-pT-QwO"/>
                             </connections>
                         </button>
                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3PC-ve-zWZ">
-                            <rect key="frame" x="0.0" y="350" width="343" height="43"/>
+                            <rect key="frame" x="0.0" y="326" width="343" height="43"/>
                             <color key="backgroundColor" red="0.0" green="0.52941176469999995" blue="0.28235294119999998" alpha="1" colorSpace="calibratedRGB"/>
                             <constraints>
                                 <constraint firstAttribute="height" constant="43" id="1sM-0P-nh2"/>
@@ -125,6 +127,9 @@
                             <buttonConfiguration key="configuration" style="plain" title="Log out">
                                 <color key="baseForegroundColor" name="Background Color"/>
                             </buttonConfiguration>
+                            <connections>
+                                <action selector="btnHandle:" destination="-1" eventType="touchUpInside" id="CKQ-z8-h5V"/>
+                            </connections>
                         </button>
                     </subviews>
                 </stackView>
@@ -154,12 +159,12 @@
         <image name="info.bubble.fill.rtl" catalog="system" width="128" height="110"/>
         <image name="lock.fill" catalog="system" width="125" height="128"/>
         <image name="lock.shield.fill" catalog="system" width="128" height="119"/>
-        <image name="person.2.fill" catalog="system" width="128" height="86"/>
+        <image name="person.2.fill" catalog="system" width="128" height="81"/>
         <namedColor name="Background Color">
             <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
         <systemColor name="labelColor">
-            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+            <color red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>

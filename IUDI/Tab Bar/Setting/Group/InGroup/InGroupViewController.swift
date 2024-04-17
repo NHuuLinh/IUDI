@@ -10,14 +10,11 @@ import Alamofire
 
 protocol PostsGroupVCDelegate: AnyObject {
     func displayMenu()
-    func loadPostGroup()
-    func passPostID(postId: Int)
+    func passPostID(postId: Int, isUser: Bool)
+    func loadPostGroupFrombegin()
 }
 
-class InGroupViewController: UIViewController, PostsGroupVCDelegate {
-
-    var groupID: Int?
-    var postData: [ListPost] = []
+class InGroupViewController: UIViewController, PostsGroupVCDelegate,ServerImageHandle {
     
     @IBOutlet weak var displayDataPosts: UICollectionView!
     @IBOutlet weak var postsButton: UIButton!
@@ -27,14 +24,33 @@ class InGroupViewController: UIViewController, PostsGroupVCDelegate {
     @IBOutlet weak var deletePost: UIButton!
     @IBOutlet weak var hidePost: UIButton!
     
+    var groupID: Int?
+    var postData = [ListPost]()
+    var groupTitle : String?
     private var isMenuOpen = false
+    private var isUserPost = false
     var deletePostID: Int?
+    
+    private var refeshControl = UIRefreshControl()
+    var pageNumber = 1
+    var isLoading = false
+    
+
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupCollectionview()
         subviewHandle()
-        loadPostGroup()
+        loadPostGroupFrombegin()
         setUpView()
+        title = groupTitle
+        pullToRefesh()
+        self.navigationController?.isNavigationBarHidden = false
+
+    }
+    func bindData(data: Datum){
+        self.groupID = data.groupID
+        self.groupTitle = data.groupName
     }
     func setUpView(){
         postsButton.layer.borderWidth = 1
@@ -42,25 +58,9 @@ class InGroupViewController: UIViewController, PostsGroupVCDelegate {
         postsButton.backgroundColor = UIColor(named: "Black")
         avatarView.layer.cornerRadius = avatarView.frame.size.width / 2
         postsButton.tintColor = UIColor.clear
-    }
-    
-    func loadPostGroup() {
-        guard let groupID = self.groupID else {
-            return // Không có ID nhóm, không thể fetch dữ liệu
-        }
-        let url = "https://api.iudi.xyz/api/forum/group/\(groupID)/1/6"
-        print("group: \(groupID)")
-        AF.request(url, method: .get).validate(statusCode: 200...299).responseDecodable(of: GroupDataPosts.self) { response in
-            switch response.result {
-            case .success(let data):
-                if let dataArray = data.listPosts {
-                    self.postData = dataArray.reversed()
-                    self.displayDataPosts.reloadData()
-                }
-            case .failure(let error):
-                print("Lỗi khi lấy dữ liệu:", error.localizedDescription)
-            }
-        }
+        title = "Nhóm"
+        let userInfo = UserInfoCoreData.shared.fetchProfileFromCoreData()
+        avatarView.image = convertStringToImage(imageString: userInfo?.userAvatarUrl ?? "")
     }
     
     @IBAction func buttonHandle(_ sender: UIButton) {
@@ -68,6 +68,7 @@ class InGroupViewController: UIViewController, PostsGroupVCDelegate {
         case postsButton :
             let vc = PostsGroupViewController()
             vc.groupID = self.groupID
+            vc.postsGroupVCDelegate = self
             navigationController?.pushViewController(vc, animated: true)
         case hideSubViewBtn:
             displayMenu()
@@ -82,6 +83,93 @@ class InGroupViewController: UIViewController, PostsGroupVCDelegate {
     }
 
 }
+// MARK: - Load post
+extension InGroupViewController {
+    func pullToRefesh(){
+        refeshControl.addTarget(self, action: #selector(reloadData), for: UIControl.Event.valueChanged)
+        displayDataPosts.addSubview(refeshControl)
+    }
+    @objc func reloadData(send: UIRefreshControl){
+        DispatchQueue.main.async {
+            self.loadPostGroupFrombegin()
+            print("đã reload data")
+            self.refeshControl.endRefreshing()
+        }
+    }
+    func loadPostGroupFrombegin() {
+        showLoading(isShow: true)
+        guard let groupID = self.groupID else {
+            showLoading(isShow: false)
+            return // Không có ID nhóm, không thể fetch dữ liệu
+        }
+        let url = "https://api.iudi.xyz/api/forum/group/\(groupID)/1/10"
+        print("groupID: \(groupID)")
+        AF.request(url, method: .get).validate(statusCode: 200...299).responseDecodable(of: GroupDataPosts.self) { response in
+            switch response.result {
+            case .success(let data):
+                guard let dataArray = data.listPosts else{
+                    self.showLoading(isShow: false)
+                    return
+                }
+                    self.postData = dataArray
+//                    self.postData = dataArray.reversed()
+                    self.displayDataPosts.reloadData()
+                    self.isLoading = false
+                    self.showLoading(isShow: false)
+            case .failure(let error):
+                self.showLoading(isShow: false)
+                print("Lỗi khi lấy dữ liệu:", error.localizedDescription)
+            }
+        }
+    }
+    func loadPostGroup() {
+        showLoading(isShow: true)
+        guard let groupID = self.groupID else {
+            showLoading(isShow: false)
+            return // Không có ID nhóm, không thể fetch dữ liệu
+        }
+        let url = "https://api.iudi.xyz/api/forum/group/\(groupID)/\(pageNumber)/10"
+        print("groupID: \(groupID)")
+        print("url: \(url)")
+
+        AF.request(url, method: .get).validate(statusCode: 200...299).responseDecodable(of: GroupDataPosts.self) { response in
+            switch response.result {
+            case .success(let data):
+                guard let dataArray = data.listPosts else{
+                    self.showLoading(isShow: false)
+                    return
+                }
+                guard dataArray.count > 0 else {                    self.showLoading(isShow: false)
+//                    self.showAlert(title: "Thông báo", message: "Đây là post cuối rồi")
+                    print("dataArray.count = 0 :\(dataArray.count)")
+
+                    return
+                }
+                    self.postData += dataArray
+//                    self.postData = dataArray.reversed()
+                    self.displayDataPosts.reloadData()
+                    self.isLoading = false
+                    self.showLoading(isShow: false)
+            case .failure(let error):
+                self.showLoading(isShow: false)
+                print("Lỗi khi lấy dữ liệu:", error.localizedDescription)
+            }
+        }
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        let offsetY = scrollView.contentOffset.y
+        let contentHeight = scrollView.contentSize.height
+        
+        if offsetY > contentHeight - scrollView.frame.height && !isLoading {
+            pageNumber += 1 // Tăng trang lên để tải trang tiếp theo
+            isLoading = true
+            loadPostGroup() // Tải dữ liệu cho trang tiếp theo
+            print("scrollViewDidScroll")
+        }
+    }
+
+}
 
 // MARK: - hàm subview
 extension InGroupViewController {
@@ -92,6 +180,13 @@ extension InGroupViewController {
     func displayMenu() {
         isMenuOpen.toggle()
         hideSubViewBtn.isHidden = !isMenuOpen
+        if isUserPost {
+            print("user đúng")
+        } else {
+            print("user sai")
+        }
+        deletePost.isHidden = !isUserPost
+        
         UIView.animate(withDuration: 0.5, animations: {
             self.hideSubViewBtn.alpha = self.isMenuOpen ? 0.5 : 0
             self.subviewLocation.constant = self.isMenuOpen ? 0 : 150
@@ -104,8 +199,9 @@ extension InGroupViewController {
 // MARK: - Xóa Post
 extension InGroupViewController {
     
-    func passPostID(postId: Int){
+    func passPostID(postId: Int, isUser: Bool){
         self.deletePostID = postId
+        self.isUserPost = isUser
         print("passPostID : \(postId)")
     }
     
@@ -148,6 +244,7 @@ extension InGroupViewController {
             print("something")
         })
     }
+    
 }
 // MARK: - CollectionView
 

@@ -7,8 +7,8 @@
 
 import UIKit
 
-class SettingViewController: UIViewController {
-
+class SettingViewController: UIViewController, ServerImageHandle {
+    
     @IBOutlet weak var privacyPolicyButton: UIButton!
     @IBOutlet weak var IntroduceAboutUsButton: UIButton!
     @IBOutlet weak var privacyTermsButton: UIButton!
@@ -16,27 +16,34 @@ class SettingViewController: UIViewController {
     @IBOutlet weak var privacyButton: UIButton!
     @IBOutlet weak var groupButton: UIButton!
     @IBOutlet weak var logoutButton: UIButton!
-    @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var userAvatar: UIImageView!
+    @IBOutlet weak var userFullName: UILabel!
+    @IBOutlet weak var userEmail: UILabel!
+    let userID = UserInfo.shared.getUserID()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+        setupView()
+        loadUserInfo()
+        // Do any additional setup after loading the view.
+    }
+    
+    func setupView(){
         logoutButton.layer.cornerRadius = 8
-        imageView.layer.cornerRadius = imageView.frame.size.width / 2
+        userAvatar.layer.cornerRadius = userAvatar.frame.size.width / 2
         applBorder(to: privacyButton)
         applBorder(to: IntroduceAboutUsButton)
         applBorder(to: groupButton)
         applBorder(to: notificationButton)
         applBorder(to: privacyTermsButton)
         applBorder(to: privacyPolicyButton)
-        
-        alignTextLeft(for: privacyButton)
-        alignTextLeft(for: IntroduceAboutUsButton)
-        alignTextLeft(for: groupButton)
-        alignTextLeft(for: notificationButton)
-        alignTextLeft(for: privacyTermsButton)
-        alignTextLeft(for: privacyPolicyButton)
-        // Do any additional setup after loading the view.
+    }
+    
+    func loadUserInfo(){
+        let userInfo = UserInfoCoreData.shared.fetchProfileFromCoreData()
+        userAvatar.image = convertStringToImage(imageString: userInfo?.userAvatarUrl ?? "")
+        userFullName.text = userInfo?.userFullName
+        userEmail.text = userInfo?.userEmail
     }
     
     private func applBorder(to button: UIButton){
@@ -46,9 +53,6 @@ class SettingViewController: UIViewController {
         button.layer.addSublayer(bottomBorder)
     }
     
-    private func alignTextLeft(for button: UIButton) {
-        button.contentHorizontalAlignment = .left
-    }
     func goToGroupViewController() {
         guard let tabBarController = self.tabBarController else {
             print("lỗi tabBarController")
@@ -64,39 +68,73 @@ class SettingViewController: UIViewController {
             }
         }
     }
+    
+    func logoutHandle(){
+        struct LogoutResponse: Codable {
+            let isLoggedIn: Bool?
+            let lastActivityTime: String?
 
-    
-    @IBAction func groupTapper(_ sender: Any) {
-        goToGroupViewController()
-
+            enum CodingKeys: String, CodingKey {
+                case isLoggedIn = "IsLoggedIn"
+                case lastActivityTime = "LastActivityTime"
+            }
+        }
+        guard let userID = userID else {return}
+        let subUrl = "logout/\(userID)"
+        APIService.share.apiHandle(method: .post, subUrl: subUrl,data: LogoutResponse.self) { [weak self] result in
+            guard let self = self else{return}
+            switch result {
+            case .success(let data):
+                print("success")
+                UserDefaults.standard.didLogin = false
+                UserDefaults.standard.didOnMain = false
+                emitOffline()
+                AppDelegate.scene?.goToLogin()
+            case .failure(let error):
+                switch error {
+                case .network(let message):
+                    showAlert(title: "Lôi", message: message)
+                case .server(let message):
+                    showAlert(title: "Lôi", message: message)
+                }
+            }
+        }
     }
     
-    @IBAction func Privacy(_ sender: Any) {
-        let vc = PrivacyViewController()
-        navigationController?.pushViewController(vc, animated: true)
+    func emitOffline() {
+        print("emitOnline")
+        let messageData: [String: Any] = [
+            "userId": userID ?? ""
+        ]
+        SocketIOManager.shared.mSocket.emit("offline", messageData)
     }
     
-    @IBAction func Notification(_ sender: Any) {
-        let vc = NotificationViewController()
-        navigationController?.pushViewController(vc, animated: true)
-    }
-    @IBAction func privacyTermsTapper(_ sender: Any) {
-        let vc = AboutViewController()
+    @IBAction func btnHandle(_ sender: UIButton) {
+        switch sender {
+        case groupButton :
+            goToGroupViewController()
+        case privacyButton:
+            let vc = PrivacyViewController()
+            navigationController?.pushViewController(vc, animated: true)
+        case notificationButton:
+            let vc = NotificationViewController()
+            navigationController?.pushViewController(vc, animated: true)
+        case privacyTermsButton:
+            let vc = AboutViewController()
             navigationController?.pushViewController(vc, animated: true)
             vc.title = "Điều khoản bảo mật"
-        
-    }
-    
-    @IBAction func privacyPolicyTapper(_ sender: Any) {
-        let vc = AboutViewController()
+        case privacyPolicyButton:
+            let vc = AboutViewController()
             navigationController?.pushViewController(vc, animated: true)
             vc.title = "Chính sách bảo mật"
-        
-    }
-    
-    @IBAction func introduceAboutUsTapper(_ sender: Any) {
-        let vc = AboutViewController()
+        case IntroduceAboutUsButton:
+            let vc = AboutViewController()
             navigationController?.pushViewController(vc, animated: true)
             vc.title = "Giới thiệu về chúng tôi"
+        case logoutButton:
+            logoutHandle()
+        default:
+            break
+        }
     }
 }

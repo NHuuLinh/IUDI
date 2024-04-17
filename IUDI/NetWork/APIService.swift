@@ -48,7 +48,7 @@ class APIService {
         
         let url = Constant.baseUrl + subUrl
         print("url apiHandle: \(url)")
-
+        
         
         AF.request(url, method: method, parameters: parameters, encoding: JSONEncoding.default)
             .validate(statusCode: 200...299)
@@ -77,6 +77,7 @@ class APIService {
                 }
             }
     }
+    
     func getLocationByAPI(completion : @escaping (String, String, String)-> Void){
         let url = "http://ip-api.com/json"
         AF.request(url).validate().responseDecodable(of: UserLocation.self) { response in
@@ -93,6 +94,5 @@ class APIService {
             }
         }
     }
-    
     
 }

@@ -67,6 +67,7 @@ class UserIntroduceViewController: UIViewController,ServerImageHandle {
         fullsizeImage.isHidden = isHidden
         exitFullSizeImage.isHidden = isHidden
         backBtn.isHidden = !isHidden
+        fullsizeImageScrollView.isHidden = isHidden
     }
     func gotoChatVC(){
         let vc = MessageViewController()

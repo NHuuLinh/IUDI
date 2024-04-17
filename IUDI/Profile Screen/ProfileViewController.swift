@@ -45,14 +45,13 @@ class ProfileViewController: UIViewController,DateConvertFormat, ServerImageHand
     @IBOutlet weak var userIntroductBoxView: UIView!
     
     let datePicker = UIDatePicker()
-    var userProfile : User?
+    var userProfile : Users?
     var userID = UserInfo.shared.getUserID()
     var photoID : Int?
     var imagePicker = UIImagePickerController()
-    var hi:ImgModel = ImgModel()
     let dispatchGroup = DispatchGroup() // Khởi tạo DispatchGroup
+    var transferDataToHomeVC : ((Users, UIImage) -> Void)?
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.tabBarController?.tabBar.isHidden = true
@@ -63,9 +62,14 @@ class ProfileViewController: UIViewController,DateConvertFormat, ServerImageHand
         dropDownHandle(texfield: genderTF, inputArray: Constant.gender)
         dropDownHandle(texfield: birthAddressTF, inputArray: Constant.provinces)
         dropDownHandle(texfield: currentAddressTF, inputArray: Constant.provinces)
-        getUserProfile()
+//        getUserProfile()
         avatarImageTap()
         checkUserInfo()
+        if UserDefaults.standard.didOnMain {
+            loadDataToView()
+        } else {
+            getUserProfile()
+        }
     }
     
     func setupUserIntroduct(textView: ReadMoreTextView){
@@ -164,13 +168,13 @@ extension ProfileViewController {
             }
             switch result {
             case .success(let data):
-                self.userProfile = data
-                guard let user = self.userProfile?.users?.first else {
+                self.userProfile = data.users?.first
+                guard let user = userProfile else {
                     print("dữ liệu nil")
                     return
                 }
                 DispatchQueue.main.async {
-                    self.loadDataToView(user: user)
+                    self.loadDataToView()
                 }
                 self.showLoading(isShow: false)
             case .failure(let error):
@@ -186,7 +190,11 @@ extension ProfileViewController {
         }
     }
     
-    func loadDataToView(user: Users){
+    func loadDataToView(){
+        guard let user = userProfile else {
+            print("dữ liệu nil")
+            return
+        }
         userNameLb.text = user.fullName
         userNameTF.text = user.fullName
         userEmailTF.text = user.email
@@ -232,10 +240,7 @@ extension ProfileViewController {
     private func callAPI() {
         print("View Didload")
         showLoading(isShow: true)
-        
-        
         saveDataToServer(with: dispatchGroup)
-        
         if UserDefaults.standard.willUploadImage {
             print("uploadImageToServer")
             updateImageToServer(with: dispatchGroup)
@@ -243,14 +248,13 @@ extension ProfileViewController {
             print("changeAvatar")
             changeAvatar(with: dispatchGroup)
         }
-        
         dispatchGroup.notify(queue: .main) {
             self.showLoading(isShow: false)
             if UserDefaults.standard.didOnMain {
                 self.navigationController?.popToRootViewController(animated: true)
             } else {
                 UserDefaults.standard.didOnMain = true
-                self.goToHomeVC()
+                AppDelegate.scene?.setupTabBar()
             }
         }
     }
@@ -340,15 +344,22 @@ extension ProfileViewController {
             "Username": userName,
             "ProvinceID": "24"
         ]
+        print("parameters: \(parameters)")
+
         
         dispatchGroup.enter() // Bắt đầu theo dõi công việc
-        APIService.share.apiHandle(method: .put, subUrl: subUrl, parameters: parameters, data: User.self) { [weak self] result in
+        APIService.share.apiHandle(method: .put, subUrl: subUrl, parameters: parameters, data: UserDataRespone.self) { [weak self] result in
             defer {
                 dispatchGroup.leave() // Kết thúc theo dõi công việc khi hoàn thành hoặc gặp lỗi
             }
             guard let self = self else { return }
             switch result {
-            case .success(_):
+            case .success(let data):
+                guard let userData = data.data else {
+                    return
+                }
+                transferDataToHomeVC?(userData, userAvatar.image!)
+                UserInfoCoreData.shared.saveProfileValueToCoreData(userAvatarUrl: userData.avatarLink, userFullname: userData.fullName, userEmail: userData.email)
                 print("saveDataToServer success")
             case .failure(let error):
                 print("error: \(error.localizedDescription)")

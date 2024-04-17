@@ -15,7 +15,7 @@ protocol PostCellDelegate: AnyObject {
     func deletePost()
 }
 
-class PostCollectionViewCell: UICollectionViewCell {
+class PostCollectionViewCell: UICollectionViewCell, ServerImageHandle {
     
     weak var postsGroupVCDelegate: PostsGroupVCDelegate?
     var didSelectItem: (() -> Void)?
@@ -29,6 +29,8 @@ class PostCollectionViewCell: UICollectionViewCell {
     @IBOutlet weak var hideSubViewBtn: UIButton!
     
     var postId: Int?
+    var userPostId: String?
+    var userID = UserInfo.shared.getUserID()
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -39,31 +41,24 @@ class PostCollectionViewCell: UICollectionViewCell {
         postsLabel.text = data.content
         nameLabel.text = data.userFullName
         timeLabel.text = data.postTime
-        
-        setAvatarImage(uiImage: avatarView, url: data.avatar ?? "")
-        setAvatarImage(uiImage: postsImage, url: data.photo ?? "")
+        avatarView.image = convertStringToImage(imageString: data.avatar ?? "")
+        postsImage.image = convertStringToImage(imageString: data.photo ?? "")
         self.postId = data.postID
+        self.userPostId = "\(data.userID ?? 0)"
     }
     
-    func setAvatarImage(uiImage: UIImageView, url: String) {
-        let imageUrl = URL(string: url)
-        uiImage.kf.setImage(with: imageUrl, placeholder: UIImage(named: "person"), options: nil, completionHandler: { result in
-            switch result {
-            case .success(_):
-                break
-            case .failure(let error):
-                // Xảy ra lỗi khi tải ảnh
-                uiImage.image = UIImage(systemName: "person")
-            }
-        })
-    }
-    
-        @IBAction func deletePosts(_ sender: Any) {
-            print("postsGroupVCDelegate?.subviewHandle()")
-            guard let postId = postId else{return}
+    @IBAction func deletePosts(_ sender: Any) {
+        print("postsGroupVCDelegate?.subviewHandle()")
+        guard let postId = postId else{return}
+        if userID == userPostId {
+            postsGroupVCDelegate?.passPostID(postId: postId, isUser: true)
             postsGroupVCDelegate?.displayMenu()
-            postsGroupVCDelegate?.passPostID(postId: postId)
             print("postId : \(postId)")
+        } else {
+            print("userID không đúng")
+            postsGroupVCDelegate?.passPostID(postId: postId, isUser: false)
+            postsGroupVCDelegate?.displayMenu()
         }
     }
-    
+}
+
