@@ -8,7 +8,7 @@
 import UIKit
 import Alamofire
 
-class CollectionViewCell: UICollectionViewCell, ServerImageHandle {
+class CollectionViewCell: UICollectionViewCell, ServerImageHandle, DateConvertFormat {
     
     var didSelectItem: (() -> Void)?
     var groupName: String?
@@ -35,7 +35,12 @@ class CollectionViewCell: UICollectionViewCell, ServerImageHandle {
         numberOfMembers.text = "\(data.userNumber ?? 0) Thành viên"
         nameGroup.text = data.groupName ?? ""
         imageGroup.image = convertStringToImage(imageString: data.avatarLink ?? "")
-        time.text = data.createAt ?? ""
+        time.text = convertServerTimeString(data.createAt)
+        time.text = convertDate24h(date: data.createAt, inputFormat: "EEE, dd MMM yyyy HH:mm:ss zzz", outputFormat: "dd MMM yyyy")
+
+//        time.text = data.createAt ?? ""
+
+        
 //        groupIDLabel.text = "\(data.groupID ?? 0)"
     }
 }

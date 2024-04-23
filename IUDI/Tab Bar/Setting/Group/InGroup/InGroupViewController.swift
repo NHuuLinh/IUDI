@@ -248,7 +248,7 @@ extension InGroupViewController {
 }
 // MARK: - CollectionView
 
-extension InGroupViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+extension InGroupViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     func setupCollectionview(){
         displayDataPosts.delegate = self
@@ -271,6 +271,37 @@ extension InGroupViewController: UICollectionViewDelegate, UICollectionViewDataS
         cell.postsGroupVCDelegate = self
         cell.blindata(data: postsData)
         return cell
+    }
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+
+            let width : CGFloat
+            let height : CGFloat
+        let contentHeight = textHeight(text: postData[indexPath.item].content ?? "")
+        if let photo = postData[indexPath.item].photo {
+            width = displayDataPosts.frame.width
+            print("photo:\(photo.count)")
+            height = 400 + contentHeight
+        }else {
+            width = displayDataPosts.frame.width
+                height = 85 + contentHeight
+            }
+            return CGSizeMake(width, height)
+    }
+    func textHeight(text: String) -> CGFloat{
+        
+        // Tính toán kích thước của label dựa trên nội dung của nó
+        let label = UILabel()
+        label.text = text // Đặt nội dung của label từ dữ liệu của cell
+        label.numberOfLines = 0 // Cho phép label hiển thị nhiều dòng
+        label.font = UIFont.systemFont(ofSize: 16) // Đặt font cho label
+        
+        // Đặt kích thước tối đa của label (ví dụ: chiều rộng của cell trừ các khoảng trống)
+        let maxWidth = displayDataPosts.frame.width - 20 // 20 là khoảng trống nếu muốn
+        label.preferredMaxLayoutWidth = maxWidth
+        
+        // Đo kích thước của label dựa trên nội dung
+        let labelSize = label.sizeThatFits(CGSize(width: maxWidth, height: .greatestFiniteMagnitude)).height
+        return labelSize
     }
 }
 

@@ -10,7 +10,7 @@ import UIKit
 
 protocol DateConvertFormat {
     func convertDate(date: String, inputFormat: String, outputFormat: String) -> String
-    func convertDate24h(date: String, inputFormat: String, outputFormat: String) -> String
+    func convertDate24h(date: String?, inputFormat: String, outputFormat: String) -> String
     func hourToMinutes(hours: String) -> (Float)
     func hourToAngle(riseHours: String ,setHours: String, currentHours: String) -> (CGFloat)
 }
@@ -66,11 +66,14 @@ extension DateConvertFormat {
         return userAge
     }
     
-    func convertDate24h(date: String, inputFormat: String, outputFormat: String) -> String {
+    func convertDate24h(date: String?, inputFormat: String, outputFormat: String) -> String {
         let dateFormatter = DateFormatter()
-        dateFormatter.locale = Locale(identifier: "en_US_POSIX") // Set locale here
+        dateFormatter.dateFormat = "EEE, dd MMM yyyy HH:mm:ss zzz"
+        let defaultDate = "Wed, 03 Apr 2024 14:20:53 GMT"
+        let dateWithGMTPlus7 = (date ?? defaultDate) + "+7"
+        
         dateFormatter.dateFormat = inputFormat
-        if let inputDate = dateFormatter.date(from: date) {
+        if let inputDate = dateFormatter.date(from: dateWithGMTPlus7) {
             dateFormatter.dateFormat = outputFormat
             let formattedDateString = dateFormatter.string(from: inputDate)
             return formattedDateString

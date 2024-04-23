@@ -27,6 +27,7 @@ class PostCollectionViewCell: UICollectionViewCell, ServerImageHandle {
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var avatarView: UIImageView!
     @IBOutlet weak var hideSubViewBtn: UIButton!
+    @IBOutlet weak var imageHeight: NSLayoutConstraint!
     
     var postId: Int?
     var userPostId: String?
@@ -42,9 +43,20 @@ class PostCollectionViewCell: UICollectionViewCell, ServerImageHandle {
         nameLabel.text = data.userFullName
         timeLabel.text = data.postTime
         avatarView.image = convertStringToImage(imageString: data.avatar ?? "")
-        postsImage.image = convertStringToImage(imageString: data.photo ?? "")
         self.postId = data.postID
         self.userPostId = "\(data.userID ?? 0)"
+        if let photo = data.photo {
+            postsImage.image = convertStringToImage(imageString: photo)
+//            imageHeight.constant = 315
+            postsImage.isHidden = false
+
+            print("có ảnh")
+
+        } else {
+            postsImage.isHidden = true
+//            imageHeight.constant = 1
+            print("không có ảnh")
+        }
     }
     
     @IBAction func deletePosts(_ sender: Any) {
